@@ -15,6 +15,32 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CDE30E5D
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.Tests", "tests\Graphoscope.Tests\Graphoscope.Tests.fsproj", "{7DD2BF62-7537-4F99-9A5C-434011D94E2B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9055F8EC-31C0-48B8-92D7-058D9C99C60D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\Dockerfile = docs\Dockerfile
+		docs\index.fsx = docs\index.fsx
+		docs\NuGet.config = docs\NuGet.config
+		docs\_template.html = docs\_template.html
+		docs\_template.ipynb = docs\_template.ipynb
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reference", "reference", "{A84274B1-1E46-4852-9DB0-2D42BAA9D90B}"
+	ProjectSection(SolutionItems) = preProject
+		docs\reference\_template.html = docs\reference\_template.html
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "img", "img", "{7D776B1D-D8B4-4C9D-B705-0447E275DED7}"
+	ProjectSection(SolutionItems) = preProject
+		docs\img\badge-binder.svg = docs\img\badge-binder.svg
+		docs\img\badge-notebook.svg = docs\img\badge-notebook.svg
+		docs\img\badge-script.svg = docs\img\badge-script.svg
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{372DEED5-A532-40DC-88EB-E0AAEA78AB5F}"
+	ProjectSection(SolutionItems) = preProject
+		docs\content\fsdocs-custom.css = docs\content\fsdocs-custom.css
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +95,9 @@ Global
 		{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B} = {BF24C0CB-D907-4CA6-9093-BBF1EF5FBDD3}
 		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED} = {39BDEBBC-3CC1-4FE7-9ADA-60DE9393B7FC}
 		{7DD2BF62-7537-4F99-9A5C-434011D94E2B} = {CDE30E5D-D1ED-48B7-BB35-DC0C47552D85}
+		{A84274B1-1E46-4852-9DB0-2D42BAA9D90B} = {9055F8EC-31C0-48B8-92D7-058D9C99C60D}
+		{7D776B1D-D8B4-4C9D-B705-0447E275DED7} = {9055F8EC-31C0-48B8-92D7-058D9C99C60D}
+		{372DEED5-A532-40DC-88EB-E0AAEA78AB5F} = {9055F8EC-31C0-48B8-92D7-058D9C99C60D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {59E6A61C-EB4F-4B26-923F-14D2CB4F6F3F}
