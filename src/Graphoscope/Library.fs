@@ -1,5 +1,4 @@
 ﻿namespace Graphoscope
 
-module Say =
-    let hello name =
-        printfn "Hello %s" name
+module GraphPlaceholder =
+    let hello name = $"Hello, {name}!"

@@ -6,7 +6,7 @@ let project = "Graphoscope"
 
 let testProjects = 
     [
-        // add relative paths (from project root) to your testprojects here
+        "tests/Graphoscope.Tests"
     ]
 
 let solutionFile  = $"{project}.sln"

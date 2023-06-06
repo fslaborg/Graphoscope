@@ -5,12 +5,17 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF24C0CB-D907-4CA6-9093-BBF1EF5FBDD3}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Graphoscope", "src\Graphoscope\Graphoscope.fsproj", "{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope", "src\Graphoscope\Graphoscope.fsproj", "{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{39BDEBBC-3CC1-4FE7-9ADA-60DE9393B7FC}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "build", "build\build.fsproj", "{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CDE30E5D-D1ED-48B7-BB35-DC0C47552D85}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.Tests", "tests\Graphoscope.Tests\Graphoscope.Tests.fsproj", "{7DD2BF62-7537-4F99-9A5C-434011D94E2B}"
 EndProject
 Global
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
@@ -32,8 +37,40 @@ Global
 		{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B}.Release|x64.Build.0 = Release|Any CPU
 		{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B}.Release|x86.Build.0 = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|x64.Build.0 = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Debug|x86.Build.0 = Debug|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|x64.ActiveCfg = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|x64.Build.0 = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|x86.ActiveCfg = Release|Any CPU
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED}.Release|x86.Build.0 = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|x64.Build.0 = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Debug|x86.Build.0 = Debug|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|x64.ActiveCfg = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|x64.Build.0 = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|x86.ActiveCfg = Release|Any CPU
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{0BB8ADBE-1139-4E30-903E-658ABE3A4B4B} = {BF24C0CB-D907-4CA6-9093-BBF1EF5FBDD3}
+		{EA6313EB-DE5D-479E-A7CA-AAB77741D4ED} = {39BDEBBC-3CC1-4FE7-9ADA-60DE9393B7FC}
+		{7DD2BF62-7537-4F99-9A5C-434011D94E2B} = {CDE30E5D-D1ED-48B7-BB35-DC0C47552D85}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {59E6A61C-EB4F-4B26-923F-14D2CB4F6F3F}
 	EndGlobalSection
 EndGlobal
