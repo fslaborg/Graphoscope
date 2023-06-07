@@ -1,5 +1,12 @@
 # Graphoscope
-A pragmatic approach to network science.
+
+## Design Principles 
+The library has four aspirational principles
+
+- Performance: Be very fast to run analysis.  
+- Completeness: Support a broad range of use cases and easy extension.
+- Ease of Use: User friendly api enabling succinct code.
+- Community: Maintain excellent documention and encourage contributions. 
 
 ## Prerequisites
 
