@@ -1,6 +1,7 @@
 module Tests
 
 open System
+open System.Collections.Generic
 open Xunit
 open Graphoscope
 
@@ -9,5 +10,11 @@ let ``My test`` () =
     Assert.True(true)
 
 [<Fact>]
-let ``A sample test using a function from the referenced Graphoscope project`` () =
-    Assert.Equal(GraphPlaceholder.hello "world", "Hello, world!")
+let ``DiGraph Creation test`` () =
+    Assert.Equal(DiGraph.create<int>(),
+        {
+            IdMap = Dictionary()
+            Nodes = ResizeArray()
+            OutEdges = ResizeArray()
+            // InEdges = ResizeArray()
+        })
