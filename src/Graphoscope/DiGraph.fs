@@ -1,12 +1,11 @@
 ﻿namespace Graphoscope
 
-open FSharpx.Collections
 open System.Collections.Generic
 
 type DiGraph<'Node when 'Node: equality> = {
     IdMap: Dictionary<'Node, int>
-    Nodes: ResizeArray<'Node>
-    OutEdges: ResizeArray<ResizeArray<(int * float)>>
+    Nodes: Vec<'Node>
+    OutEdges: Vec<Vec<(int * float)>>
     // InEdges: ResizeArray<ResizeArray<(int * float)>>
 }
 
@@ -14,8 +13,8 @@ module DiGraph =
     let create<'Node when 'Node: equality> () =
         {
             IdMap = Dictionary<'Node, int>()
-            Nodes = ResizeArray<'Node>()
-            OutEdges = ResizeArray<ResizeArray<(int * float)>>()
+            Nodes = Vec<'Node>()
+            OutEdges = Vec<Vec<(int * float)>>()
             // InEdges = ResizeArray<ResizeArray<(int * float)>>()
         }
 
@@ -24,16 +23,16 @@ module DiGraph =
 
     let addNode (node: 'Node) (g: DiGraph<'Node>) =
         // TODO: Check if node exists
-        g.IdMap.Add(node, g.Nodes.Count)
+        g.IdMap.Add(node, g.Nodes.Length)
         g.Nodes.Add node
-        g.OutEdges.Add (ResizeArray())
+        g.OutEdges.Add (new Vec<(int * float)>())
         // g.InEdges.Add (ResizeArray())
 
     let addEdge (edge: ('Node * 'Node * float)) (g: DiGraph<'Node>) = 
         // TODO: Check if orig and dest nodes exist
         // TODO: Check if edge already exists
         let orig, dest, attr = edge
-        g.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
+        g.OutEdges[g.IdMap[orig]].Add((g.IdMap[dest], attr))
         // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
 
     let getOutEdges (orig: 'Node) (g: DiGraph<'Node>) =
@@ -43,13 +42,10 @@ module DiGraph =
     //     g.InEdges[g.IdMap[dest]]
 
     let normalizeOutEdges (g: DiGraph<'Node>) =
-        g.OutEdges
-        |> ResizeArray.iter( fun outEdges ->
-            let total =
-                (0., outEdges)
-                ||> ResizeArray.fold(fun acc c -> acc + snd c)
+        for i in 0 .. g.OutEdges.Length - 1 do
+            let outEdges = g.OutEdges[i]
+            let total = outEdges |> Vec.sumBy snd
             outEdges
-            |> ResizeArray.iteri(fun i (dest,weight) -> 
+            |> Vec.iteri(fun i (dest,weight) -> 
                 outEdges[i] <- (dest, weight / total)
             )
-        )
