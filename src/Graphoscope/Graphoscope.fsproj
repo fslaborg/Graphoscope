@@ -4,6 +4,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Algorithms/ArrayAdjacencyGraph.fs" />
     <Compile Include="Models/ArrayAdjacencyGraph.fs" />
     <Compile Include="ArrayAdjacencyGraph.fs" />
     <Compile Include="DiGraph.fs" />
