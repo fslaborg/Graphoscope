@@ -1,4 +1,4 @@
-﻿namespace ArrayAdjacencyGraph
+﻿namespace Graphoscope
 
 open FSharpx.Collections
 open System.Collections.Generic
@@ -728,5 +728,3 @@ module Edges =
     ///Returns a new graph where the given edges were removed from the original graph.
     let removeMany (edges:LEdge<'Vertex,'Edge>ResizeArray) (graph: ArrayAdjacencyGraph<'Vertex,'Label,'Edge>) : ArrayAdjacencyGraph<'Vertex,'Label,'Edge> =
        (graph.Copy()).RemoveManyEdges(edges)
-
-)

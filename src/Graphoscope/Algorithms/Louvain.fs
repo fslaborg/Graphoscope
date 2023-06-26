@@ -1,6 +1,6 @@
 ﻿namespace Graphoscope.Algorithms
 
-open Graphoscope.ArrayAdjacencyGraph
+open Graphoscope
 open FSharpx.Collections
 open System
 open System.Collections.Generic
