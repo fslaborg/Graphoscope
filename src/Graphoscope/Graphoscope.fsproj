@@ -4,8 +4,11 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Algorithms/ArrayAdjacencyGraph.fs" />
-    <Compile Include="Models/ArrayAdjacencyGraph.fs" />
+    <Compile Include="Random/Gilbert.fs" />
+    <Compile Include="Random/BollobasRiordan.fs" />
+    <Compile Include="Random/BarabasiAlbert.fs" />
+    <Compile Include="Metrics/Dijkstra.fs" />
+    <Compile Include="Algorithms/Louvain.fs" />
     <Compile Include="ArrayAdjacencyGraph.fs" />
     <Compile Include="DiGraph.fs" />
   </ItemGroup>
