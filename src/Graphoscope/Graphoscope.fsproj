@@ -10,6 +10,9 @@
     <Compile Include="Algorithms/Dijkstra.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
+    <Compile Include="Undirected/Core.fs" />
+    <Compile Include="Undirected/UndirectedGraph.fs" />
+    <Compile Include="Undirected/UndirectedHelpers.fs" />
     <Compile Include="Node.fs" />
     <Compile Include="Edge.fs" />
     <Compile Include="DiGraph.fs" />
@@ -17,6 +20,7 @@
 
   <ItemGroup>
   <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
+  <PackageReference Include="FSharp.Data" Version="6.2.0" />
   </ItemGroup>
 
 </Project>
