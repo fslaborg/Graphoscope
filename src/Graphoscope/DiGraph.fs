@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope
 
-open FSharpx.Collections
+//open FSharpx.Collections
+open FSharpAux
 open System.Collections.Generic
 
 type DiGraph<'Node, 'EdgeData when 'Node: equality> = {
@@ -42,7 +43,14 @@ module DiGraph =
     // let getInEdges (dest: 'Node) (g: DiGraph<'Node>) =
     //     g.InEdges[g.IdMap[dest]]
 
-    let normalizeOutEdges (g: DiGraph<'Node,'EdgeData>) =
+    ///Lookup a labeled edge in the graph. Raising KeyNotFoundException if no binding exists in the graph.
+    let find (v1:'Node) (v2:'Node) (g : DiGraph<'Node, 'EdgeData>) : 'Node * 'Node * 'EdgeData =
+            let k2 = g.IdMap[v2]
+            g.OutEdges[g.IdMap[v1]]
+            |> ResizeArray.find (fun (k,l) -> k=k2)
+            |> fun (_,l) -> v1, v2, l
+
+    let normalizeOutEdges (g: DiGraph<'Node,float>) =
         g.OutEdges
         |> ResizeArray.iter( fun outEdges ->
             let total =
