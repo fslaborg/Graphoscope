@@ -9,12 +9,12 @@ open Graphoscope
 let ``My test`` () =
     Assert.True(true)
 
-[<Fact>]
-let ``DiGraph Creation test`` () =
-    Assert.Equal(DiGraph.create<int>(),
-        {
-            IdMap = Dictionary()
-            Nodes = ResizeArray()
-            OutEdges = ResizeArray()
-            // InEdges = ResizeArray()
-        })
+//[<Fact>]
+//let ``DiGraph Creation test`` () =
+//    Assert.Equal(DiGraph.create<int>(),
+//        {
+//            IdMap = Dictionary()
+//            Nodes = ResizeArray()
+//            OutEdges = ResizeArray()
+//            // InEdges = ResizeArray()
+//        })

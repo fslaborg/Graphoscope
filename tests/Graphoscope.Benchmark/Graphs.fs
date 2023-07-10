@@ -9,27 +9,6 @@ open Graphoscope
 
 let rnd = new System.Random()
 
-[<CustomComparison; CustomEquality>]
-type DiNode =
-    { NodeId : int; Data : int }
-    interface IEquatable<DiNode> with
-        member this.Equals other = other.NodeId.Equals this.NodeId
-
-    override this.Equals other =
-        match other with
-        | :? DiNode as p -> (this :> IEquatable<_>).Equals p
-        | _ -> false
-    
-    override this.GetHashCode () = this.NodeId.GetHashCode()
-
-    interface IComparable with
-        member this.CompareTo other =
-            match other with
-            | :? DiNode as n -> (this :> IComparable<_>).CompareTo n
-            | _ -> -1
-
-    interface IComparable<DiNode> with
-        member this.CompareTo other = other.NodeId.CompareTo this.NodeId
 
 
 [<MemoryDiagnoser>]
@@ -87,14 +66,14 @@ type Graphs () =
 
     [<Benchmark>]
     member this.DiNodeGraph () =
-        let g = DiGraph.create<DiNode>()
+        let g = DiGraph.create<DiNode<int>,float>()
          // Add nodes
         for i=0 to this.NumberNodes-1 do
-            DiGraph.addNode ({NodeId=i;Data=i}) g
+            DiGraph.addNode ({Id=i;Data=i}) g
         // Add edges
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge ({NodeId=node1;Data=node1}, {NodeId=node2;Data=node2}, data) g 
+            DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) g 
         //[|
         //for i=0 to this.NumberEdges-1 do
         //    let (node1,node2,_) = edgesArr.[i]
