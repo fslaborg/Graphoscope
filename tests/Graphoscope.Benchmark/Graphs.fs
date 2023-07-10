@@ -15,13 +15,14 @@ let rnd = new System.Random()
 type Graphs () =
     let mutable edgesArr : (int*int*float) [] = [||]
     let mutable adjGraph     = AdjGraph.create<int,int,float>()
+    let mutable adjComp      = AdjCompGraph.create<int,int,float>()
     let mutable diGraph      = DiGraph.create<int,float>()
     let mutable diNodeGraph  = DiGraph.create<DiNode<int>,float>()
 
-    [<Params (100, 5000, 10000)>] 
+    [<Params (100)>] 
     member val public NumberNodes = 0 with get, set
 
-    [<Params (500, 15000, 50000)>] 
+    [<Params (500)>] 
     member val public NumberEdges = 0 with get, set
 
     [<GlobalSetup>]
@@ -42,6 +43,12 @@ type Graphs () =
             AdjGraph.AddEdgeWithNodes node1 node1 node2 node2 data gAdj |> ignore
         adjGraph <- gAdj
         //prepare DiGraph
+        let gComp= AdjCompGraph.create<int,int,float>()
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            AdjCompGraph.addEdgeWithNodes node1 node1 node2 node2 data gComp |> ignore    
+        adjComp <- gComp
+        //prepare DiGraph
         let gDi = DiGraph.create<int,float>()
         for i=0 to this.NumberNodes-1 do
             DiGraph.addNode i gDi
@@ -60,6 +67,17 @@ type Graphs () =
 
     [<Benchmark>]
     member this.AdjGraph () = 
+        let g = AdjCompGraph.create<int,int,float>()
+        // Add nodes
+        for i=0 to this.NumberNodes-1 do
+            AdjCompGraph.addNode i i g |> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            AdjCompGraph.addEdge node1 node2 data g |> ignore
+    
+    [<Benchmark>]
+    member this.AdjComp () = 
         let g = AdjGraph.create<int,int,float>()
         // Add nodes
         for i=0 to this.NumberNodes-1 do
@@ -68,8 +86,6 @@ type Graphs () =
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
             AdjGraph.AddEdge node1 node2 data g |> ignore
-    
-
 
     [<Benchmark>]
     member this.DiGraph () =
@@ -93,13 +109,7 @@ type Graphs () =
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
             DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) g 
-        [|
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,_) = edgesArr.[i]
-            let _,_,d = DiGraph.find {Id=node1;Data=node1} {Id=node2;Data=node2} g
-            yield d
-        |] 
-        //|> printfn "%A" 
+
 
     // ##############################################
     // Access 
@@ -110,6 +120,15 @@ type Graphs () =
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,_) = edgesArr.[i]
             let _,_,d = AdjGraph.GetEdgeByKeys node1 node2 adjGraph            
+            yield d
+        |] 
+
+    [<Benchmark>]
+    member this.Access_Comp () =     
+        [|
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,_) = edgesArr.[i]
+            let _,_,d = AdjCompGraph.getEdgeByKeys node1 node2 adjComp            
             yield d
         |] 
 
