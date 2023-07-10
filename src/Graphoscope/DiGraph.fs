@@ -3,10 +3,10 @@
 open FSharpx.Collections
 open System.Collections.Generic
 
-type DiGraph<'Node, 'NodeData when 'Node: equality> = {
+type DiGraph<'Node, 'EdgeData when 'Node: equality> = {
     IdMap: Dictionary<'Node, int>
     Nodes: ResizeArray<'Node>
-    OutEdges: ResizeArray<ResizeArray<(int * 'NodeData)>>
+    OutEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>>
     // InEdges: ResizeArray<ResizeArray<(int * float)>>
 }
 
