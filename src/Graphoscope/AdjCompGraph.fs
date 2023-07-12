@@ -3,8 +3,10 @@
 open FSharpAux
 open System.Collections.Generic
 
-type AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison> internal(adjComponents:Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>) = 
-        let adjComponents = adjComponents
+
+type AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
+    internal(adjComponents:Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>) = 
+
         new () = AdjCompGraph(Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>())                          
 
         /// Adds node to graph [if node exists it is updated]
@@ -95,3 +97,17 @@ type AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison> int
            // Creates an empty AdjacencyGraph
         static member getEdgeByKeys (source : 'NodeKey) (target : 'NodeKey) (g : AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             g.GetEdgeByKeys source target
+
+
+module AdjCompGraph =
+    
+    type Node () =
+        
+        //static member map (mapping: 'NodeKey -> 'Node -> 'UNode) (g : AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        //    g
+
+        /// Adds node to graph [if node exists it is updated]
+        static member add (key:'NodeKey) (data:'NodeData) (g : AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+            g.AddNode key data
+
+
