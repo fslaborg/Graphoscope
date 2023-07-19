@@ -9,15 +9,15 @@ open System.IO
 [<Fact>]
 let ``Can create empty graph and add nodes and edges`` () =
     let emptyGraph = DiGraph.create<int, float>()
-    DiGraph.addNode 1 emptyGraph
-    DiGraph.addNode 2 emptyGraph
-    DiGraph.addNode 3 emptyGraph
+    DiGraph.Nodes.add 1 emptyGraph
+    DiGraph.Nodes.add 2 emptyGraph
+    DiGraph.Nodes.add 3 emptyGraph
     let edge = (1,3, 1.0)
-    DiGraph.addEdge edge emptyGraph
+    DiGraph.Edges.add edge emptyGraph
    
-    Assert.Equal(1.0, (DiGraph.getVolume emptyGraph))
-    Assert.Equal(3.0, (DiGraph.getSize emptyGraph))
-    Assert.Equal(0.6666666666666666, (DiGraph.getMeanDegree emptyGraph))
+    Assert.Equal(1.0, (DiGraph.Measures.getVolume emptyGraph))
+    Assert.Equal(3.0, (DiGraph.Measures.getSize emptyGraph))
+    Assert.Equal(0.6666666666666666, (DiGraph.Measures.getMeanDegree emptyGraph))
 
 [<Fact>]
 let ``Monkey graph import has correct measures`` () =
@@ -26,7 +26,7 @@ let ``Monkey graph import has correct measures`` () =
     printfn "%s" file
     let monkeyGraph = createFromEdgeList file " " 2 false
     
-    Assert.Equal(111.0, (DiGraph.getVolume monkeyGraph))
-    Assert.Equal(16, (DiGraph.getSize monkeyGraph)) 
-    Assert.Equal(13.8750,(DiGraph.getMeanDegree monkeyGraph)) 
+    Assert.Equal(111.0, (DiGraph.Measures.getVolume monkeyGraph))
+    Assert.Equal(16, (DiGraph.Measures.getSize monkeyGraph)) 
+    Assert.Equal(13.8750,(DiGraph.Measures.getMeanDegree monkeyGraph)) 
         

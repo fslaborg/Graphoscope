@@ -53,18 +53,18 @@ type Graphs () =
         //prepare DiGraph
         let gDi = DiGraph.create<int,float>()
         for i=0 to this.NumberNodes-1 do
-            DiGraph.addNode i gDi
+            DiGraph.Nodes.add i gDi
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge (node1, node2, data) gDi
+            DiGraph.Edges.add (node1, node2, data) gDi
         diGraph <- gDi
         //prepare DiNodeGraph
         let gDiNo = DiGraph.create<DiNode<int>,float>()
         for i=0 to this.NumberNodes-1 do
-            DiGraph.addNode ({Id=i;Data=i}) gDiNo
+            DiGraph.Nodes.add ({Id=i;Data=i}) gDiNo
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
+            DiGraph.Edges.add ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
         diNodeGraph <- gDiNo
         //prepare FGraph
         let gF = FGraph.create<int,int,float>()
@@ -74,7 +74,7 @@ type Graphs () =
             let (node1,node2,data) = edgesArr.[i]
             FGraph.Edges.add node1 node2 data gF |> ignore
         fGraph <- gF
-
+(*
 
     [<Benchmark>]
     member this.AdjGraph () = 
@@ -182,7 +182,7 @@ type Graphs () =
             let _,_,d = FGraph.Edges.find node1 node2 fGraph
             yield d
         |] |> ignore
-
+*)
     // ##############################################
     // Conversion
 

@@ -17,10 +17,10 @@ module Importer =
         let graph = create<'Node, float>()
         
         nodes
-            |> Array.iter (fun x -> addNode x graph)
+            |> Array.iter (fun x -> Nodes.add x graph)
         
         edges 
-            |> Array.iter (fun e  -> addEdge e graph)  
+            |> Array.iter (fun e  -> Edges.add e graph)  
 
         graph
 

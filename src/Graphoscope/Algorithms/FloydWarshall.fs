@@ -2,6 +2,7 @@ namespace Graphoscope.Algorithm
 
 
 open Graphoscope
+open DiGraph
 
 type FloydWarshall() =
     static member fromAdjacencyMatrix (adj: float [][]) =
@@ -26,7 +27,7 @@ type FloydWarshall() =
         adj
 
     static member Compute (g: DiGraph<'Node, float>) =
-        let adj = g |> DiGraph.toAdjacencyMatrix
+        let adj = g |> Converters.toAdjacencyMatrix
         FloydWarshall.fromAdjacencyMatrix adj
 
     static member Compute (g : FGraph<'NodeKey,'NodeData,float>) =

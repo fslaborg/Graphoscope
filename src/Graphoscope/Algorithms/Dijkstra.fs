@@ -2,10 +2,13 @@
 
 open Graphoscope
 open FSharpAux
+open DiGraph
+
+
 type Dijkstra() =
     static member getAdjacencyArrayFor (g: DiGraph<'Node, float>) (nodeIx: int) =
         let dist =
-            Array.init g.Nodes.Count (fun x -> if x = nodeIx then 0. else infinity)
+            Array.init (Measures.getSize g) (fun x -> if x = nodeIx then 0. else infinity)
         g.OutEdges[nodeIx]
         |> ResizeArray.iter(fun (target, w) -> dist[target] <- w)
         dist
@@ -36,7 +39,7 @@ type Dijkstra() =
     
     /// Computes all shortest paths in a graph
     static member ComputeAllPairs (g: DiGraph<'Node, float>): float [][] =
-        let allDists = DiGraph.toAdjacencyMatrix g
+        let allDists = Converters.toAdjacencyMatrix g
         allDists
         |> Array.iteri(fun ri r ->
             r
