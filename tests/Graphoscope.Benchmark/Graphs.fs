@@ -6,6 +6,7 @@ open BenchmarkDotNet
 open BenchmarkDotNet.Attributes
 
 open Graphoscope
+open Graphoscope.Algorithm
 
 let rnd = new System.Random()
 
@@ -182,6 +183,16 @@ type Graphs () =
             yield d
         |] |> ignore
 
+    // ##############################################
+    // Conversion
+
+    [<Benchmark>]
+    member this.FlWa_FGraph () =  
+        FloydWarshall.Compute fGraph
+
+    [<Benchmark>]
+    member this.FlWa_DiGraph () =  
+        FloydWarshall.Compute diGraph
 
 
 

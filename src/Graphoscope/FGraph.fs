@@ -93,9 +93,9 @@ module FGraph =
             Array.init nodeKeys.Length (fun ri ->
                 Array.init nodeKeys.Length (fun ci ->
                     if g.ContainsKey nodeKeys[ri] then
-                        let (dict, _, _) = g[nodeKeys[ri]]
-                        if dict.ContainsKey nodeKeys[ci] then
-                            dict[nodeKeys[ci]]
+                        let (_, _, outEdges) = g[nodeKeys[ri]]
+                        if outEdges.ContainsKey nodeKeys[ci] then
+                            outEdges[nodeKeys[ci]]
                         else 0.
                     else
                         0.
