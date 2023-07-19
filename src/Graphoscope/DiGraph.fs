@@ -61,3 +61,14 @@ module DiGraph =
                 outEdges[i] <- (dest, weight / total)
             )
         )
+
+    let toAdjacencyMatrix (g: DiGraph<'Node, float>) =
+        let matrix = Array.init g.Nodes.Count (fun _ -> Array.init g.Nodes.Count (fun _ -> 0.))
+        g.OutEdges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iter(fun c ->
+                matrix[ri][fst c] <- snd c
+            )
+        )
+        matrix

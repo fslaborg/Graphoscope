@@ -85,4 +85,19 @@ module FGraph =
             Dictionary.addOrUpdateInPlace nk2 ed s1 |> ignore
             let (p2, nd2, s2) = Dictionary.item nk2 g
             Dictionary.addOrUpdateInPlace nk1 ed p2 |> ignore
-            g 
+            g
+
+    module Converters =
+        let toAdjacencyMatrix (g : FGraph<'NodeKey,'NodeData,float>): float [] [] =
+            let nodeKeys = g.Keys |> Seq.toArray
+            Array.init nodeKeys.Length (fun ri ->
+                Array.init nodeKeys.Length (fun ci ->
+                    if g.ContainsKey nodeKeys[ri] then
+                        let (dict, _, _) = g[nodeKeys[ri]]
+                        if dict.ContainsKey nodeKeys[ci] then
+                            dict[nodeKeys[ci]]
+                        else 0.
+                    else
+                        0.
+                )
+            )
