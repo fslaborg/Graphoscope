@@ -8,8 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="UndirectedTests.fs" />
-    <Compile Include="Tests.fs" />
+    <Compile Include="DiGraphTests.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

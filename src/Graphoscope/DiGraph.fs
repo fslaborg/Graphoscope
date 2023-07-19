@@ -72,10 +72,10 @@ module DiGraph =
             )
         )
         matrix
-
+    ///get the mean degree of the graph. This is an undirected measure so inbound links add to a nodes degree.
     let getMeanDegree (g : DiGraph<'Node, 'EdgeData>)  = 
         g.OutEdges
-        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
+        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
         |> ResizeArray.toArray
         |> Array.average
     
@@ -84,7 +84,7 @@ module DiGraph =
         |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
         |> ResizeArray.toArray
         |> Array.sum
-        |> fun v -> (v|> float) / 2.0
+        |> fun v -> (v|> float) 
 
     let getSize (g : DiGraph<'Node, 'EdgeData>) = 
         g.Nodes  |> ResizeArray.length

@@ -29,9 +29,6 @@
     <Compile Include="Algorithms/Dijkstra.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
-    <Compile Include="Undirected/Core.fs" />
-    <Compile Include="Undirected/UndirectedGraph.fs" />
-    <Compile Include="Undirected/UndirectedHelpers.fs" />
     <Compile Include="GraphImport/Importer.fs" />
   </ItemGroup>
 
