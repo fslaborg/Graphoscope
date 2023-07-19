@@ -54,7 +54,8 @@ module DiGraph =
                 g.OutEdges[g.IdMap[v1]]
                 |> ResizeArray.find (fun (k,l) -> k=k2)
                 |> fun (_,l) -> v1, v2, l
-
+        
+        /// Normailies weights of outboard links from each node.
         let normalizeOutEdges (g: DiGraph<'Node,float>) =
             g.OutEdges
             |> ResizeArray.iter( fun outEdges ->
@@ -67,6 +68,7 @@ module DiGraph =
                 )
             )
     module Converters =
+        /// Converts graph data structure into an Adjacency Matrix
         let toAdjacencyMatrix (g: DiGraph<'Node, float>) =
             let matrix = Array.init g.Nodes.Count (fun _ -> Array.init g.Nodes.Count (fun _ -> 0.))
             g.OutEdges
@@ -87,6 +89,7 @@ module DiGraph =
             |> ResizeArray.toArray
             |> Array.average
         
+        /// gets the total number of edges of the graph
         let getVolume(g : DiGraph<'Node, 'EdgeData>)  = 
             g.OutEdges 
             |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
@@ -94,9 +97,11 @@ module DiGraph =
             |> Array.sum
             |> fun v -> (v|> float) 
 
+        /// gets the total number of nodes of the graph
         let getSize (g : DiGraph<'Node, 'EdgeData>) = 
             g.Nodes  |> ResizeArray.length
 
+        /// returns the degree distribution of the graph
         let getDegreeDistribution (g : DiGraph<'Node, 'EdgeData>) = 
             g.OutEdges 
             |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)

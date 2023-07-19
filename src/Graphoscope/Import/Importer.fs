@@ -33,6 +33,7 @@ module Import =
         edges
         |> createGraph
 
+    /// creates a graph from a edge list file. 
     let createFromEdgeList (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool) =
         let rows  = CsvFile.Load(fullpath, delimiter, skipRows = headerRows, hasHeaders = false).Rows
 
