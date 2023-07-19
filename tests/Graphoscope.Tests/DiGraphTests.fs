@@ -9,7 +9,7 @@ open System.IO
 [<Fact>]
 let ``Can create empty graph and add nodes and edges`` () =
     let emptyGraph = DiGraph.create<int, float>()
-    DiGraph.Nodes.add 1 emptyGraph
+    DiGraph.Nodes.add 1 emptyGraph  
     DiGraph.Nodes.add 2 emptyGraph
     DiGraph.Nodes.add 3 emptyGraph
     let edge = (1,3, 1.0)

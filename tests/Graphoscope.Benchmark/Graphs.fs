@@ -4,6 +4,7 @@ module Graphs
 open System
 open BenchmarkDotNet
 open BenchmarkDotNet.Attributes
+open Graphoscope.Tests
 
 
 open Graphoscope
