@@ -32,6 +32,7 @@
     <Compile Include="Undirected/Core.fs" />
     <Compile Include="Undirected/UndirectedGraph.fs" />
     <Compile Include="Undirected/UndirectedHelpers.fs" />
+    <Compile Include="GraphImport/Importer.fs" />
   </ItemGroup>
 
   <ItemGroup>

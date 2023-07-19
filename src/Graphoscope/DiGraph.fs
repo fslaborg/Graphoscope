@@ -29,7 +29,7 @@ module DiGraph =
         g.Nodes.Add node
         g.OutEdges.Add (ResizeArray())
         // g.InEdges.Add (ResizeArray())
-
+    
     let addEdge (edge: ('Node * 'Node * 'EdgeData)) (g: DiGraph<'Node,'EdgeData>) = 
         // TODO: Check if orig and dest nodes exist
         // TODO: Check if edge already exists
@@ -72,3 +72,24 @@ module DiGraph =
             )
         )
         matrix
+
+    let getMeanDegree (g : DiGraph<'Node, 'EdgeData>)  = 
+        g.OutEdges
+        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
+        |> ResizeArray.toArray
+        |> Array.average
+    
+    let getVolume(g : DiGraph<'Node, 'EdgeData>)  = 
+        g.OutEdges 
+        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
+        |> ResizeArray.toArray
+        |> Array.sum
+        |> fun v -> (v|> float) / 2.0
+
+    let getSize (g : DiGraph<'Node, 'EdgeData>) = 
+        g.Nodes  |> ResizeArray.length
+
+    let getDegreeDistribution (g : DiGraph<'Node, 'EdgeData>) = 
+        g.OutEdges 
+        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
+        |> ResizeArray.toArray
