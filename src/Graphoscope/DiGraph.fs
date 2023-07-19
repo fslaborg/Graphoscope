@@ -12,6 +12,7 @@ type DiGraph<'Node, 'EdgeData when 'Node: equality> = {
 }
 
 module DiGraph =
+    /// Creates an empty graph
     let create<'Node,'EdgeData when 'Node: equality> () =
         {
             IdMap = Dictionary<'Node, int>()
@@ -20,12 +21,9 @@ module DiGraph =
             // InEdges = ResizeArray<ResizeArray<(int * float)>>()
         }
 
-    let copy (g: DiGraph<'Node,'EdgeData>): DiGraph<'Node,'EdgeData> = 
-        failwith "Not implemented" // Will be useful for immutable operations
-    
     [<RequireQualifiedAccess>]
     module Nodes =
-
+        /// adds a new node to the graph
         let add (node: 'Node) (g: DiGraph<'Node,'NodeData>) =
             // TODO: Check if node exists
             g.IdMap.Add(node, g.Nodes.Count)
@@ -35,6 +33,7 @@ module DiGraph =
     
     [<RequireQualifiedAccess>]
     module Edges =
+        /// adds a new edge to the graph
         let add (edge: ('Node * 'Node * 'EdgeData)) (g: DiGraph<'Node,'EdgeData>) = 
             // TODO: Check if orig and dest nodes exist
             // TODO: Check if edge already exists
@@ -42,6 +41,7 @@ module DiGraph =
             g.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
             // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
 
+        /// returns all outbound edges 
         let getOutEdges (orig: 'Node) (g: DiGraph<'Node,'EdgeData>) =
             g.OutEdges[g.IdMap[orig]]
 

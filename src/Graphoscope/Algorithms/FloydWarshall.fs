@@ -30,6 +30,3 @@ type FloydWarshall() =
         let adj = g |> Converters.toAdjacencyMatrix
         FloydWarshall.fromAdjacencyMatrix adj
 
-    static member Compute (g : FGraph<'NodeKey,'NodeData,float>) =
-        let adj = g |> FGraph.Converters.toAdjacencyMatrix
-        FloydWarshall.fromAdjacencyMatrix adj

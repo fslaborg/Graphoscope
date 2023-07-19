@@ -1,6 +1,6 @@
-namespace Graphoscope.GraphImport
+namespace Graphoscope
 
-module Importer =
+module Import =
 
     open FSharp.Data
     open Graphoscope.DiGraph

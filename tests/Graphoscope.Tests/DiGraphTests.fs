@@ -3,7 +3,7 @@ module DiGraphTests
 open System
 open Xunit
 open Graphoscope
-open Graphoscope.GraphImport.Importer
+open Graphoscope.Import
 open System.IO
 
 [<Fact>]
