@@ -166,11 +166,18 @@ type Graphs () =
         FloydWarshall.Compute diGraph
 *)
 
-
+    [<Benchmark>]
+    member this.toAdjMat () =  
+        DiGraph.Converters.toAdjacencyMatrix diGraph
 
     [<Benchmark>]
-    member this.AdjMat_DiGraph () =  
-        DiGraph.Converters.toAdjacencyMatrix diGraph
+    member this.FloydWarshall () =  
+        FloydWarshall.Compute diGraph
+
+    [<Benchmark>]
+    member this.DijkstraAP () =  
+        Dijkstra.ComputeAllPairs diGraph
+
                    
 //// * Summary *
 
