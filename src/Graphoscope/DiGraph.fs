@@ -41,8 +41,32 @@ module DiGraph =
             graph.OutEdges.Add (ResizeArray())
             // g.InEdges.Add (ResizeArray())
 
-        let addMany (g: DiGraph<'Node,'EdgeData>) (nodes: 'Node []) =
-            nodes |> Array.iter (add g)
+        let addMany (graph: DiGraph<'Node,'EdgeData>) (nodes: 'Node []) =
+            nodes |> Array.iter (add graph)
+
+        /// <summary> 
+        /// Removes a node from the graph
+        /// </summary>
+        /// <param name="node">The node to be removed.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        let remove (graph: DiGraph<'Node,'EdgeData>) (node: 'Node) = 
+            let nodeIx = graph.IdMap[node]
+
+            graph.OutEdges
+            |> ResizeArray.iteri(fun i r ->
+                r
+                |> ResizeArray.mapi(fun i (target, _) -> if target = nodeIx then Some i else None)
+                |> ResizeArray.choose id
+                |> ResizeArray.rev
+                |> ResizeArray.iter(fun x -> graph.OutEdges[i].RemoveAt x)
+            )
+
+            graph.IdMap.Remove node |> ignore
+            graph.Nodes.RemoveAt nodeIx
+            graph.OutEdges.RemoveAt nodeIx
+            
+            
     
     [<RequireQualifiedAccess>]
     module Edges =
@@ -52,7 +76,7 @@ module DiGraph =
         /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
         /// <param name="graph">The graph the edge will be added to.</param> 
         /// <returns>Unit</returns>
-        let add (graph: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) = 
+        let add (graph: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) =
             // TODO: Check if orig and dest nodes exist
             // TODO: Check if edge already exists
             let orig, dest, attr = edge
@@ -63,10 +87,12 @@ module DiGraph =
         /// Returns the outbound edges for given node
         /// </summary>
         /// <param name="origin">The node from which the edges start</param> 
-        /// /// <param name="graph">The graph the node is present in</param> 
-        /// /// <returns>A mutable (Resize) array </returns>
-        let getOutEdges (graph: DiGraph<'Node,'EdgeData>) (origin: 'Node)=
-            graph.OutEdges[graph.IdMap[origin]] // should we convert return types to immutable  objects?
+        /// <param name="graph">The graph the node is present in</param> 
+        /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
+        let getOutEdges (graph: DiGraph<'Node,'EdgeData>) (origin: 'Node): ('Node * 'EdgeData) []=
+            graph.OutEdges[graph.IdMap[origin]]
+            |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
+            |> Array.ofSeq
 
         
         /// <summary> 
@@ -112,14 +138,29 @@ module DiGraph =
                 )
             )
 
+        /// <summary> 
+        /// Removes an edge to the graph.
+        /// </summary>
+        /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        let remove (graph: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node)) = 
+            let orig, dest = edge
+            let ix = graph.OutEdges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
+            match ix with
+            | Some n -> graph.OutEdges[graph.IdMap[orig]].RemoveAt n
+            | None -> printfn $"Edge to be removed doesn't exist: {edge}"
+            
+            // g.InEdges[g.IdMap[dest]]...
+
         /// Returns all possible edges in a digraph, including self-loops.
-        let internal getAllPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
-            g.Nodes
-            |> Seq.allPairs g.Nodes
+        let internal getAllPossibleEdges (graph: DiGraph<'Node,'EdgeData>) =
+            graph.Nodes
+            |> Seq.allPairs graph.Nodes
 
         /// Returns all possible edges in a digraph, excluding self-loops.
-        let internal getNonLoopingPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
-            getAllPossibleEdges g
+        let internal getNonLoopingPossibleEdges (graph: DiGraph<'Node,'EdgeData>) =
+            getAllPossibleEdges graph
             |> Seq.filter(fun (n1, n2) -> n1 <> n2)
 
     module Constructors =  
@@ -161,9 +202,9 @@ module DiGraph =
         /// </summary>
         /// <param name="graph">The graph to be converted</param> 
         /// <returns>An adjacency matrix</returns>
-        let toAdjacencyMatrix (g: DiGraph<'Node, float>) =
-            let matrix = Array.init g.Nodes.Count (fun _ -> Array.init g.Nodes.Count (fun _ -> 0.))
-            g.OutEdges
+        let toAdjacencyMatrix (graph: DiGraph<'Node, float>) =
+            let matrix = Array.init graph.Nodes.Count (fun _ -> Array.init graph.Nodes.Count (fun _ -> 0.))
+            graph.OutEdges
             |> ResizeArray.iteri(fun ri r ->
                 r
                 |> ResizeArray.iter(fun c ->
@@ -205,8 +246,6 @@ module DiGraph =
         /// <returns>A float of the total nodes</returns>
         let getSize (graph : DiGraph<'Node, 'EdgeData>) = 
             graph.Nodes  |> ResizeArray.length
-
-     
         
         /// <summary> 
         /// Returns the degree distribution of the graph
@@ -230,7 +269,7 @@ module DiGraph =
             let g  = Constructors.createFromNodes nodes
             
             Edges.getNonLoopingPossibleEdges g
-            |> Seq.map(fun (n1, n2) -> (n1,n2,1.))
+            |> Seq.map(fun (n1, n2) -> (n1, n2, 1.))
             |> Array.ofSeq
             |> (Edges.addMany g)
             g
@@ -251,8 +290,3 @@ module DiGraph =
                     Edges.add g (o, d, 1.0)
             )
             g
-
-
-
-
-    

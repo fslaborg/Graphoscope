@@ -6,19 +6,26 @@ open DiGraph
 
 
 type Dijkstra() =
-    static member getAdjacencyArrayFor (g: DiGraph<'Node, float>) (nodeIx: int) =
+    static member internal getAdjacencyArrayFor (graph: DiGraph<'Node, float>) (nodeIx: int) =
         let dist =
-            Array.init (Measures.getSize g) (fun x -> if x = nodeIx then 0. else infinity)
-        g.OutEdges[nodeIx]
+            Array.init (Measures.getSize graph) (fun x -> if x = nodeIx then 0. else infinity)
+        graph.OutEdges[nodeIx]
         |> ResizeArray.iter(fun (target, w) -> dist[target] <- w)
         dist
 
-    static member Compute (g: DiGraph<'Node, float>) (source: 'Node): float [] =
+    /// <summary> 
+    /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+    /// </summary>
+    /// <param name="graph"> The graph for which to compute the shortest path.</param>
+    /// <param name="source"> Calculate the shortest paths from this node.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+    /// <returns>Tuples of target node and distance.</returns>
+    static member Compute (graph: DiGraph<'Node, float>) (source: 'Node): ('Node * float) [] =
         let que= ResizeArray()
-        let sourceIx = g.IdMap[source]
-        let dist = Dijkstra.getAdjacencyArrayFor g sourceIx
+        let sourceIx = graph.IdMap[source]
+        let dist = Dijkstra.getAdjacencyArrayFor graph sourceIx
 
-        for n in 0 .. g.Nodes.Count - 1 do
+        for n in 0 .. graph.Nodes.Count - 1 do
             que.Add(n)
 
         while que.Count > 0 do
@@ -29,17 +36,26 @@ type Dijkstra() =
             let minDistNodeIx =  que.IndexOf minDistNode
             que.RemoveAt minDistNodeIx
 
-            let minDistAdjacency = Dijkstra.getAdjacencyArrayFor g minDistNode
+            let minDistAdjacency = Dijkstra.getAdjacencyArrayFor graph minDistNode
 
             for n in que do
                 let newCost = dist[minDistNode] + minDistAdjacency[n]
                 if newCost < dist[n] then
                     dist[n] <- newCost
         dist
+        |> Array.mapi(fun i x -> graph.Nodes[i], x)
     
-    /// Computes all shortest paths in a graph
-    static member ComputeAllPairs (g: DiGraph<'Node, float>): float [][] =
-        let allDists = Converters.toAdjacencyMatrix g
+    /// <summary> 
+    /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
+    /// </summary>
+    /// <param name="graph">The graph for which to compute the shortest paths.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+    /// <returns>
+    /// The ordered array of nodes and 2D Array of distances where each
+    /// row and column index corresponds to a node's index in the nodes array.
+    /// </returns>
+    static member ComputeAllPairs (graph: DiGraph<'Node, float>): 'Node [] * float [][] =
+        let allDists = Converters.toAdjacencyMatrix graph
         allDists
         |> Array.iteri(fun ri r ->
             r
@@ -55,7 +71,7 @@ type Dijkstra() =
             let que= ResizeArray()
             let dist = allDists[sourceIx] |> Array.copy
 
-            for n in 0 .. g.Nodes.Count - 1 do
+            for n in 0 .. graph.Nodes.Count - 1 do
                 que.Add(n)
 
             while que.Count > 0 do
@@ -72,5 +88,6 @@ type Dijkstra() =
                         dist[n] <- newCost
             dist
 
-        [|0 .. g.Nodes.Count - 1|]
+        graph.Nodes |> Array.ofSeq,
+        [|0 .. graph.Nodes.Count - 1|]
         |> Array.Parallel.map dijkstra 
