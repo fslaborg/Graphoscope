@@ -24,25 +24,31 @@ module DiGraph =
     [<RequireQualifiedAccess>]
     module Nodes =
         /// adds a new node to the graph
-        let add (node: 'Node) (g: DiGraph<'Node,'NodeData>) =
+        let add (g: DiGraph<'Node,'EdgeData>) (node: 'Node) =
             // TODO: Check if node exists
             g.IdMap.Add(node, g.Nodes.Count)
             g.Nodes.Add node
             g.OutEdges.Add (ResizeArray())
             // g.InEdges.Add (ResizeArray())
+
+        let addMany (g: DiGraph<'Node,'EdgeData>) (nodes: 'Node []) =
+            nodes |> Array.iter (add g)
     
     [<RequireQualifiedAccess>]
     module Edges =
         /// adds a new edge to the graph
-        let add (edge: ('Node * 'Node * 'EdgeData)) (g: DiGraph<'Node,'EdgeData>) = 
+        let add (g: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) = 
             // TODO: Check if orig and dest nodes exist
             // TODO: Check if edge already exists
             let orig, dest, attr = edge
             g.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
             // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
 
+        let addMany (g: DiGraph<'Node,'EdgeData>) (edges: ('Node * 'Node * 'EdgeData) []) =
+            edges |> Array.iter (add g)
+
         /// returns all outbound edges 
-        let getOutEdges (orig: 'Node) (g: DiGraph<'Node,'EdgeData>) =
+        let getOutEdges (g: DiGraph<'Node,'EdgeData>) (orig: 'Node) =
             g.OutEdges[g.IdMap[orig]]
 
     // let getInEdges (dest: 'Node) (g: DiGraph<'Node>) =
@@ -55,7 +61,7 @@ module DiGraph =
                 |> ResizeArray.find (fun (k,l) -> k=k2)
                 |> fun (_,l) -> v1, v2, l
         
-        /// Normailies weights of outboard links from each node.
+        /// Normailizes weights of outboard links from each node.
         let normalizeOutEdges (g: DiGraph<'Node,float>) =
             g.OutEdges
             |> ResizeArray.iter( fun outEdges ->
@@ -67,6 +73,37 @@ module DiGraph =
                     outEdges[i] <- (dest, weight / total)
                 )
             )
+
+        /// Returns all possible edges in a digraph, including self-loops.
+        let internal getAllPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
+            g.Nodes
+            |> Seq.allPairs g.Nodes
+
+        /// Returns all possible edges in a digraph, excluding self-loops.
+        let internal getNonLoopingPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
+            getAllPossibleEdges g
+            |> Seq.filter(fun (n1, n2) -> n1 <> n2)
+
+    module Constructors =
+        let createFromNodes (nodes: 'Node []) =
+            let g = create<'Node,'EdgeData>()
+            nodes |> Array.iter (Nodes.add g)
+            g
+
+        let createFromEdges (edges: ('Node * 'Node * float)[]) =
+            let g = 
+                edges
+                |> Array.map(fun (n1, n2, _) -> n1, n2)
+                |> Array.unzip
+                |> fun (a1, a2) -> Array.append a1 a2
+                |> Array.distinct
+                |> Array.sort
+                |> createFromNodes
+
+            edges |> Array.iter (Edges.add g)
+            g
+
+                
     module Converters =
         /// Converts graph data structure into an Adjacency Matrix
         let toAdjacencyMatrix (g: DiGraph<'Node, float>) =
@@ -106,3 +143,30 @@ module DiGraph =
             g.OutEdges 
             |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
             |> ResizeArray.toArray
+
+    module Generators =
+        /// Generates a complete digraph of size `n`.
+        /// EdgeData is set to `1.0`.
+        let complete (n: int) =
+            let nodes = [|0 .. n - 1|]
+            let g  = Constructors.createFromNodes nodes
+            
+            Edges.getNonLoopingPossibleEdges g
+            |> Seq.map(fun (n1, n2) -> (n1,n2,1.))
+            |> Array.ofSeq
+            |> (Edges.addMany g)
+            g
+
+        let randomGnp (rng: System.Random) (n: int) (p: float) =
+            let g = Constructors.createFromNodes [|0 .. n - 1|]
+            Edges.getNonLoopingPossibleEdges g
+            |> Seq.iter( fun (o, d) ->
+                if rng.NextDouble() <= p then
+                    Edges.add g (o, d, 1.0)
+            )
+            g
+
+
+
+
+    

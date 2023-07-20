@@ -13,16 +13,7 @@ module Import =
         |> Array.sort
 
     let private createGraph (edges: array<'Node * 'Node * float>) = 
-        let nodes: array<'Node> = nodesFromEdges edges
-        let graph = create<'Node, float>()
-        
-        nodes
-            |> Array.iter (fun x -> Nodes.add x graph)
-        
-        edges 
-            |> Array.iter (fun e  -> Edges.add e graph)  
-
-        graph
+        Constructors.createFromEdges edges
 
     let private createFromUnWeightedEdgeList (edges: array<'Node * 'Node>) = 
         edges
