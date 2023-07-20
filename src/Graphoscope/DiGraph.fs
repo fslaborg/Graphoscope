@@ -34,12 +34,15 @@ module DiGraph =
         /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
         /// /// <param name="graph">The graph the node will be added to.</param> 
         /// /// <returns>Unit</returns>
-        let add (node: 'Node) (graph: DiGraph<'Node,'NodeData>) =
+        let add (graph: DiGraph<'Node,'EdgeData>) (node: 'Node) =
             // TODO: Check if node exists
             graph.IdMap.Add(node, graph.Nodes.Count)
             graph.Nodes.Add node
             graph.OutEdges.Add (ResizeArray())
             // g.InEdges.Add (ResizeArray())
+
+        let addMany (g: DiGraph<'Node,'EdgeData>) (nodes: 'Node []) =
+            nodes |> Array.iter (add g)
     
     [<RequireQualifiedAccess>]
     module Edges =
@@ -49,11 +52,11 @@ module DiGraph =
         /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the detination node, and any edge label such as the weight.</param> 
         /// <param name="graph">The graph the edge will be added to.</param> 
         /// <returns>Unit</returns>
-        let add (edge: ('Node * 'Node * 'EdgeData)) (graph: DiGraph<'Node,'EdgeData>) = 
+        let add (graph: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) = 
             // TODO: Check if orig and dest nodes exist
             // TODO: Check if edge already exists
             let orig, dest, attr = edge
-            graph.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
+            graph.OutEdges[graph.IdMap[orig]].Add(graph.IdMap[dest], attr)
             // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
 
         /// <summary> 
@@ -62,8 +65,11 @@ module DiGraph =
         /// <param name="origin">The node from which the edges start</param> 
         /// /// <param name="graph">The graph the node is present in</param> 
         /// /// <returns>A mutable (Resize) array </returns>
-        let getOutEdges (origin: 'Node) (graph: DiGraph<'Node,'EdgeData>) =
+        let getOutEdges (graph: DiGraph<'Node,'EdgeData>) (origin: 'Node)=
             graph.OutEdges[graph.IdMap[origin]] // should we convert return types to imutable objects?
+
+        let addMany (g: DiGraph<'Node,'EdgeData>) (edges: ('Node * 'Node * 'EdgeData) []) =
+            edges |> Array.iter (add g)
 
     // let getInEdges (dest: 'Node) (g: DiGraph<'Node>) =
     //     g.InEdges[g.IdMap[dest]]
@@ -75,7 +81,7 @@ module DiGraph =
                 |> ResizeArray.find (fun (k,l) -> k=k2)
                 |> fun (_,l) -> v1, v2, l
         
-        /// Normailies weights of outboard links from each node.
+        /// Normailizes weights of outboard links from each node.
         let normalizeOutEdges (g: DiGraph<'Node,float>) =
             g.OutEdges
             |> ResizeArray.iter( fun outEdges ->
@@ -87,6 +93,37 @@ module DiGraph =
                     outEdges[i] <- (dest, weight / total)
                 )
             )
+
+        /// Returns all possible edges in a digraph, including self-loops.
+        let internal getAllPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
+            g.Nodes
+            |> Seq.allPairs g.Nodes
+
+        /// Returns all possible edges in a digraph, excluding self-loops.
+        let internal getNonLoopingPossibleEdges (g: DiGraph<'Node,'EdgeData>) =
+            getAllPossibleEdges g
+            |> Seq.filter(fun (n1, n2) -> n1 <> n2)
+
+    module Constructors =
+        let createFromNodes (nodes: 'Node []) =
+            let g = create<'Node,'EdgeData>()
+            nodes |> Array.iter (Nodes.add g)
+            g
+
+        let createFromEdges (edges: ('Node * 'Node * float)[]) =
+            let g = 
+                edges
+                |> Array.map(fun (n1, n2, _) -> n1, n2)
+                |> Array.unzip
+                |> fun (a1, a2) -> Array.append a1 a2
+                |> Array.distinct
+                |> Array.sort
+                |> createFromNodes
+
+            edges |> Array.iter (Edges.add g)
+            g
+
+                
     module Converters =
         /// Converts graph data structure into an Adjacency Matrix
         let toAdjacencyMatrix (g: DiGraph<'Node, float>) =
@@ -126,3 +163,30 @@ module DiGraph =
             g.OutEdges 
             |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
             |> ResizeArray.toArray
+
+    module Generators =
+        /// Generates a complete digraph of size `n`.
+        /// EdgeData is set to `1.0`.
+        let complete (n: int) =
+            let nodes = [|0 .. n - 1|]
+            let g  = Constructors.createFromNodes nodes
+            
+            Edges.getNonLoopingPossibleEdges g
+            |> Seq.map(fun (n1, n2) -> (n1,n2,1.))
+            |> Array.ofSeq
+            |> (Edges.addMany g)
+            g
+
+        let randomGnp (rng: System.Random) (n: int) (p: float) =
+            let g = Constructors.createFromNodes [|0 .. n - 1|]
+            Edges.getNonLoopingPossibleEdges g
+            |> Seq.iter( fun (o, d) ->
+                if rng.NextDouble() <= p then
+                    Edges.add g (o, d, 1.0)
+            )
+            g
+
+
+
+
+    

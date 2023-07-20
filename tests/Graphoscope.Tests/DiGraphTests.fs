@@ -9,11 +9,11 @@ open System.IO
 [<Fact>]
 let ``Can create empty graph and add nodes and edges`` () =
     let emptyGraph = DiGraph.create<int, float>()
-    DiGraph.Nodes.add 1 emptyGraph  
-    DiGraph.Nodes.add 2 emptyGraph
-    DiGraph.Nodes.add 3 emptyGraph
+    DiGraph.Nodes.add emptyGraph 1
+    DiGraph.Nodes.add emptyGraph 2
+    DiGraph.Nodes.add emptyGraph 3
     let edge = (1,3, 1.0)
-    DiGraph.Edges.add edge emptyGraph
+    DiGraph.Edges.add emptyGraph edge
    
     Assert.Equal(1.0, (DiGraph.Measures.getVolume emptyGraph))
     Assert.Equal(3.0, (DiGraph.Measures.getSize emptyGraph))

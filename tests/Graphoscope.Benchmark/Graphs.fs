@@ -39,10 +39,10 @@ type Graphs () =
         //prepare DiGraph
         let gDi = DiGraph.create<int,float>()
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Nodes.add i gDi
+            DiGraph.Nodes.add gDi i
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edges.add (node1, node2, data) gDi
+            DiGraph.Edges.add gDi (node1, node2, data)
         diGraph <- gDi
     
         
