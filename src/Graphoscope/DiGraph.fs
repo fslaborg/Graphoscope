@@ -12,7 +12,12 @@ type DiGraph<'Node, 'EdgeData when 'Node: equality> = {
 }
 
 module DiGraph =
-    /// Creates an empty graph
+    /// <summary> 
+    /// Create a new empty directed graph with nodes and edges of the specificed types. 
+    /// The type specified for the nodes must support equality operations. 
+    /// Edge data can be used to specify weights of edges or other edge labels. 
+    /// </summary>
+    /// <returns>A graph of the specfied type</returns>
     let create<'Node,'EdgeData when 'Node: equality> () =
         {
             IdMap = Dictionary<'Node, int>()
@@ -23,27 +28,42 @@ module DiGraph =
 
     [<RequireQualifiedAccess>]
     module Nodes =
-        /// adds a new node to the graph
-        let add (node: 'Node) (g: DiGraph<'Node,'NodeData>) =
+        /// <summary> 
+        /// Adds a new node to the graph
+        /// </summary>
+        /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
+        /// /// <param name="graph">The graph the node will be added to.</param> 
+        /// /// <returns>Unit</returns>
+        let add (node: 'Node) (graph: DiGraph<'Node,'NodeData>) =
             // TODO: Check if node exists
-            g.IdMap.Add(node, g.Nodes.Count)
-            g.Nodes.Add node
-            g.OutEdges.Add (ResizeArray())
+            graph.IdMap.Add(node, graph.Nodes.Count)
+            graph.Nodes.Add node
+            graph.OutEdges.Add (ResizeArray())
             // g.InEdges.Add (ResizeArray())
     
     [<RequireQualifiedAccess>]
     module Edges =
-        /// adds a new edge to the graph
-        let add (edge: ('Node * 'Node * 'EdgeData)) (g: DiGraph<'Node,'EdgeData>) = 
+        /// <summary> 
+        /// Adds a new edge to the graph
+        /// </summary>
+        /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the detination node, and any edge label such as the weight.</param> 
+        /// <param name="graph">The graph the edge will be added to.</param> 
+        /// <returns>Unit</returns>
+        let add (edge: ('Node * 'Node * 'EdgeData)) (graph: DiGraph<'Node,'EdgeData>) = 
             // TODO: Check if orig and dest nodes exist
             // TODO: Check if edge already exists
             let orig, dest, attr = edge
-            g.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
+            graph.OutEdges[g.IdMap[orig]].Add(g.IdMap[dest], attr)
             // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
 
-        /// returns all outbound edges 
-        let getOutEdges (orig: 'Node) (g: DiGraph<'Node,'EdgeData>) =
-            g.OutEdges[g.IdMap[orig]]
+        /// <summary> 
+        /// Returns the outbound edges for given node
+        /// </summary>
+        /// <param name="origin">The node from which the edges start</param> 
+        /// /// <param name="graph">The graph the node is present in</param> 
+        /// /// <returns>A mutable (Resize) array </returns>
+        let getOutEdges (origin: 'Node) (graph: DiGraph<'Node,'EdgeData>) =
+            graph.OutEdges[graph.IdMap[origin]] // should we convert return types to imutable objects?
 
     // let getInEdges (dest: 'Node) (g: DiGraph<'Node>) =
     //     g.InEdges[g.IdMap[dest]]
