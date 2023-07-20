@@ -54,17 +54,26 @@ module DiGraph =
             let nodeIx = graph.IdMap[node]
 
             graph.OutEdges
-            |> ResizeArray.iteri(fun i r ->
+            |> ResizeArray.iteri(fun ri r ->
                 r
-                |> ResizeArray.mapi(fun i (target, _) -> if target = nodeIx then Some i else None)
+                |> ResizeArray.mapi(fun ci (target, _) -> if target = nodeIx then Some ci else None)
                 |> ResizeArray.choose id
                 |> ResizeArray.rev
-                |> ResizeArray.iter(fun x -> graph.OutEdges[i].RemoveAt x)
+                |> ResizeArray.iter(fun x -> graph.OutEdges[ri].RemoveAt x)
             )
 
             graph.IdMap.Remove node |> ignore
             graph.Nodes.RemoveAt nodeIx
             graph.OutEdges.RemoveAt nodeIx
+
+            graph.OutEdges
+            |> ResizeArray.iteri(fun ri r ->
+                r
+                |> ResizeArray.iteri(fun ci (target, w) ->
+                    if target > nodeIx then
+                        graph.OutEdges[ri][ci] <- target - 1, w
+                )
+            )
             
             
     
