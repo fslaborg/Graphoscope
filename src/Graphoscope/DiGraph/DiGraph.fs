@@ -18,6 +18,15 @@ type DiGraph<'Node, 'EdgeData when 'Node: equality and 'Node: comparison>() =
 module Operations =
 
     /// <summary> 
+    /// Returns all nodes in te graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An array of nodes</returns>
+    let getNodes (graph: DiGraph<'Node,'EdgeData>) =
+        graph.Nodes
+        |> Array.ofSeq
+
+    /// <summary> 
     /// Adds a new node to the graph
     /// </summary>
     /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
@@ -39,7 +48,7 @@ module Operations =
     /// <param name="node">The node to be removed.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    let removeNodes (graph: DiGraph<'Node,'EdgeData>) (node: 'Node) = 
+    let removeNode (graph: DiGraph<'Node,'EdgeData>) (node: 'Node) = 
         let nodeIx = graph.IdMap[node]
 
         graph.OutEdges
@@ -51,7 +60,12 @@ module Operations =
             |> ResizeArray.iter(fun x -> graph.OutEdges[ri].RemoveAt x)
         )
 
+        // Update IdMap
         graph.IdMap.Remove node |> ignore
+        for KeyValue(k,v) in graph.IdMap do
+            if v > nodeIx then
+                graph.IdMap[k] <- v - 1
+
         graph.Nodes.RemoveAt nodeIx
         graph.OutEdges.RemoveAt nodeIx
 
@@ -89,13 +103,18 @@ module Operations =
         |> Array.ofSeq
 
     /// <summary> 
-    /// Returns tall nodes in te graph
+    /// Returns the all outbound edges in the graph
     /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An array of nodes</returns>
-    let getNodes (graph: DiGraph<'Node,'EdgeData>) =
-        graph.Nodes
-        |> Array.ofSeq
+    /// <param name="graph">The graph the edges are present in</param> 
+    /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
+    let getAllOutEdges (graph: DiGraph<'Node,'EdgeData>): ('Node * 'Node * 'EdgeData) [] =
+        getNodes graph
+        |> Array.map(fun n ->
+            n
+            |> (getOutEdges graph)
+            |> Array.map(fun (t, w) -> n, t, w)
+        )
+        |> Array.concat
 
     
     /// <summary> 

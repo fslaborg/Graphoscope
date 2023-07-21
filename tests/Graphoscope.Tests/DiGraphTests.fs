@@ -30,3 +30,14 @@ let ``Monkey graph import has correct measures`` () =
     Assert.Equal(16, (DiGraph.Measures.getSize monkeyGraph)) 
     Assert.Equal(13.8750,(DiGraph.Measures.getMeanDegree monkeyGraph)) 
         
+[<Fact>]
+let ``Node removal updates correctly`` () =
+    let g =
+        [|(0, 1, 1.0); (0, 2, 1.0); (1, 3, 1.0); (3, 1, 1.0); (3, 2, 1.0); (4, 0, 1.0)|]
+        |> Builders.createFromEdges
+
+    removeNode g 2
+
+    Assert.Equal(true, [|(0,1.)|] = (getOutEdges g 4))
+    Assert.Equal(true, [|(0, 1, 1.0); (1, 3, 1.0); (3, 1, 1.0); (4, 0, 1.0)|] = (getAllOutEdges g))
+
