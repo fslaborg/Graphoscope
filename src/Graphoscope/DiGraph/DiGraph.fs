@@ -1,4 +1,5 @@
-﻿namespace Graphoscope.DiGraph
+﻿
+namespace Graphoscope.DiGraph
 
 //open FSharpx.Collections
 open FSharpAux
@@ -17,14 +18,6 @@ type DiGraph<'Node, 'EdgeData when 'Node: equality and 'Node: comparison>() =
 
 [<AutoOpen>]
 module Operations =
-    /// <summary> 
-    /// Create a new empty directed graph with nodes and edges of the specified type.
-    /// The type specified for the nodes must support equality operations. 
-    /// Edge data can be used to specify weights of edges or other edge labels. 
-    /// </summary>
-    /// <returns>A graph of the specified type</returns>
-    let create<'Node,'EdgeData when 'Node: equality and 'Node: comparison> () : DiGraph<'Node, 'EdgeData>=
-        DiGraph()
 
     /// <summary> 
     /// Adds a new node to the graph
@@ -166,7 +159,16 @@ module Operations =
         getAllPossibleEdges graph
         |> Seq.filter(fun (n1, n2) -> n1 <> n2)
 
-module Constructors =  
+module Builders =  
+    /// <summary> 
+    /// Create a new empty directed graph with nodes and edges of the specified type.
+    /// The type specified for the nodes must support equality operations. 
+    /// Edge data can be used to specify weights of edges or other edge labels. 
+    /// </summary>
+    /// <returns>A graph of the specified type</returns>
+    let create<'Node,'EdgeData when 'Node: equality and 'Node: comparison> () : DiGraph<'Node, 'EdgeData>=
+        DiGraph()
+
     /// <summary> 
     /// Builds a graph from a list of nodes. 
     /// The edges will then need to be added
@@ -268,7 +270,7 @@ module Generators =
     /// <param name="n">The number of nodes in the created graph</param> 
     /// <returns>A directed graph with integer type nodes and float typed edges with value 1.0</returns>
     let complete (n: int): DiGraph<int, float> =
-        let g  = Constructors.createFromNodes [|0 .. n - 1|]
+        let g  = Builders.createFromNodes [|0 .. n - 1|]
         
         getNonLoopingPossibleEdges g
         |> Seq.map(fun (n1, n2) -> (n1, n2, 1.))
@@ -285,7 +287,7 @@ module Generators =
     /// <param name="p">TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.</param> 
     /// <returns>A random directed graph with integer type nodes and float typed edges with value 1.0</returns>
     let randomGnp (rng: System.Random) (n: int) (p: float) = 
-        let g = Constructors.createFromNodes [|0 .. n - 1|]
+        let g = Builders.createFromNodes [|0 .. n - 1|]
         getNonLoopingPossibleEdges g
         |> Seq.iter( fun (o, d) ->
             if rng.NextDouble() <= p then

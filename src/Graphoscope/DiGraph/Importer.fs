@@ -13,7 +13,7 @@ module Import =
         |> Array.sort
 
     let private createGraph (edges: array<'Node * 'Node * float>) = 
-        Constructors.createFromEdges edges
+        Builders.createFromEdges edges
 
     let private createFromUnWeightedEdgeList (edges: array<'Node * 'Node>) : DiGraph<'Node, float> = 
         edges

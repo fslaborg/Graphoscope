@@ -13,7 +13,7 @@ let rnd = new System.Random()
 [<MemoryDiagnoser>]
 type Graphs () =
     let mutable edgesArr : (int*int*float) [] = [||]
-    let mutable diGraph      = create<int,float>()
+    let mutable diGraph      = Builders.create<int,float>()
 
 
     [<Params (100, 1000)>] 
@@ -35,7 +35,7 @@ type Graphs () =
         edgesArr <- edges
    
         //prepare DiGraph
-        let gDi = create<int,float>()
+        let gDi = Builders.create<int,float>()
         for i=0 to this.NumberNodes-1 do
             addNode gDi i
         for i=0 to this.NumberEdges-1 do

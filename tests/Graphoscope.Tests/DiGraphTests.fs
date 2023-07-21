@@ -8,7 +8,7 @@ open System.IO
 
 [<Fact>]
 let ``Can create empty graph and add nodes and edges`` () =
-    let emptyGraph = create<int, float>()
+    let emptyGraph = Builders.create<int, float>()
     addNode emptyGraph 1
     addNode emptyGraph 2
     addNode emptyGraph 3
