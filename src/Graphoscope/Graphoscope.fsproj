@@ -16,11 +16,9 @@
     <FsDocsReleaseNotesLink>https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
   </PropertyGroup>
   <ItemGroup>
-
-    <Compile Include="DiGraph.fs" />
-    <Compile Include="Algorithms/Dijkstra.fs" />
-    <Compile Include="Algorithms/FloydWarshall.fs" />
-    <Compile Include="Import/Importer.fs" />
+    <Compile Include="DiGraph/DiGraph.fs" />
+    <Compile Include="DiGraph/Algorithms.fs" />
+    <Compile Include="DiGraph/Importer.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />

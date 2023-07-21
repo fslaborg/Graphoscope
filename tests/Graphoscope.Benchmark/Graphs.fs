@@ -5,17 +5,15 @@ open System
 open BenchmarkDotNet
 open BenchmarkDotNet.Attributes
 
-
-
 open Graphoscope
-open Graphoscope.Algorithm
+open Graphoscope.DiGraph
 
 let rnd = new System.Random()
 
 [<MemoryDiagnoser>]
 type Graphs () =
     let mutable edgesArr : (int*int*float) [] = [||]
-    let mutable diGraph      = DiGraph.create<int,float>()
+    let mutable diGraph      = create<int,float>()
 
 
     [<Params (100, 1000)>] 
@@ -37,12 +35,12 @@ type Graphs () =
         edgesArr <- edges
    
         //prepare DiGraph
-        let gDi = DiGraph.create<int,float>()
+        let gDi = create<int,float>()
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Nodes.add gDi i
+            addNode gDi i
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edges.add gDi (node1, node2, data)
+            addEdge gDi (node1, node2, data)
         diGraph <- gDi
     
         
@@ -173,11 +171,11 @@ type Graphs () =
 
     [<Benchmark>]
     member this.FloydWarshall () =  
-        FloydWarshall.Compute diGraph
+        Algorithms.FloydWarshall.Compute diGraph
 
     [<Benchmark>]
     member this.DijkstraAP () =  
-        Dijkstra.ComputeAllPairs diGraph
+        Algorithms.Dijkstra.ComputeAllPairs diGraph
 
                    
 //// * Summary *

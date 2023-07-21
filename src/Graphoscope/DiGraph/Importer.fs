@@ -1,4 +1,4 @@
-namespace Graphoscope
+namespace Graphoscope.DiGraph
 
 module Import =
 
@@ -15,12 +15,12 @@ module Import =
     let private createGraph (edges: array<'Node * 'Node * float>) = 
         Constructors.createFromEdges edges
 
-    let private createFromUnWeightedEdgeList (edges: array<'Node * 'Node>) = 
+    let private createFromUnWeightedEdgeList (edges: array<'Node * 'Node>) : DiGraph<'Node, float> = 
         edges
         |> Array.map(fun (f,t) -> (f,t,1.0) )
         |> createGraph
 
-    let private createFromWeightedEdgeList (edges: array<'Node * 'Node * float>) = 
+    let private createFromWeightedEdgeList (edges: array<'Node * 'Node * float>) : DiGraph<'Node, float> = 
         edges
         |> createGraph
 
