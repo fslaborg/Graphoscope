@@ -19,6 +19,7 @@
     <Compile Include="DiGraph/DiGraph.fs" />
     <Compile Include="DiGraph/Algorithms.fs" />
     <Compile Include="DiGraph/Importer.fs" />
+    <Compile Include="DiGraph/Measures.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />

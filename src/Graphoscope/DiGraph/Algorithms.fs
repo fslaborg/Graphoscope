@@ -8,7 +8,7 @@ module Algorithms =
     type Dijkstra() =
         static member internal getAdjacencyArrayFor (graph: DiGraph<'Node, float>) (nodeIx: int) =
             let dist =
-                Array.init (Measures.getSize graph) (fun x -> if x = nodeIx then 0. else infinity)
+                Array.init (graph.Nodes.Count) (fun x -> if x = nodeIx then 0. else infinity)
             graph.OutEdges[nodeIx]
             |> ResizeArray.iter(fun (target, w) -> dist[target] <- w)
             dist

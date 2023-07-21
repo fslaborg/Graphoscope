@@ -1,11 +1,9 @@
 ﻿
 namespace Graphoscope.DiGraph
 
-//open FSharpx.Collections
 open FSharpAux
 open System.Collections.Generic
 
-(*** hide ***)
 type DiGraph<'Node, 'EdgeData when 'Node: equality and 'Node: comparison>() = 
     let idMap = Dictionary<'Node,int>()
     let nodes = ResizeArray<'Node>() 
@@ -90,6 +88,15 @@ module Operations =
         |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
         |> Array.ofSeq
 
+    /// <summary> 
+    /// Returns tall nodes in te graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An array of nodes</returns>
+    let getNodes (graph: DiGraph<'Node,'EdgeData>) =
+        graph.Nodes
+        |> Array.ofSeq
+
     
     /// <summary> 
     /// Adds many edges to a graph at once
@@ -159,6 +166,9 @@ module Operations =
         getAllPossibleEdges graph
         |> Seq.filter(fun (n1, n2) -> n1 <> n2)
 
+
+
+
 module Builders =  
     /// <summary> 
     /// Create a new empty directed graph with nodes and edges of the specified type.
@@ -217,50 +227,6 @@ module Converters =
             )
         )
         matrix
-
-[<RequireQualifiedAccess>]
-module Measures = 
-    /// <summary> 
-    /// Get the mean degree of the graph. 
-    /// This is an undirected measure so inbound links add to a nodes degree.
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float of the mean degree</returns>
-    let getMeanDegree (graph : DiGraph<'Node, 'EdgeData>)  = 
-        graph.OutEdges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
-        |> ResizeArray.toArray
-        |> Array.average
-    
-    /// <summary> 
-    /// Gets the total number of edges of the graph
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float of the total edges</returns>
-    let getVolume(graph : DiGraph<'Node, 'EdgeData>)  = 
-        graph.OutEdges 
-        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
-        |> ResizeArray.toArray
-        |> Array.sum
-        |> fun v -> (v|> float) 
-
-    /// <summary> 
-    /// Gets the total number of nodes of the graph
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float of the total nodes</returns>
-    let getSize (graph : DiGraph<'Node, 'EdgeData>) = 
-        graph.Nodes  |> ResizeArray.length
-    
-    /// <summary> 
-    /// Returns the degree distribution of the graph
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float array of degree values</returns>
-    let getDegreeDistribution (graph : DiGraph<'Node, 'EdgeData>) = 
-        graph.OutEdges 
-        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
-        |> ResizeArray.toArray
 
 module Generators =
     /// <summary> 
