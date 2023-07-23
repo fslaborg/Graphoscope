@@ -31,7 +31,7 @@ module Algorithms =
             while que.Count > 0 do
                 let minDistNode = 
                     que
-                    |> Seq.minBy( fun n -> dist[n])
+                    |> ResizeArray.minBy( fun n -> dist[n])
 
                 let minDistNodeIx =  que.IndexOf minDistNode
                 que.RemoveAt minDistNodeIx
