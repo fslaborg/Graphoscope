@@ -39,7 +39,7 @@ let ``Node removal updates correctly`` () =
     removeNode g 2
 
     Assert.Equal(4, Measures.getSize g)
-    Assert.Equal(true, [|(0, 1.)|] = (getEdges g 4))
-    Assert.Equal(true, [|(1, 1.)|] = (getEdges g 3))
-    Assert.Equal(true, [|(0, 1, 1.0); (0, 4, 1.0); (1, 1, 1.0); (1, 3, 1.0) |] = (getAllEdges g))
+    Assert.Equal<(int * float)[]>([|(0, 1.)|], getEdges g 4)
+    Assert.Equal<(int * float)[]>([|(1, 1.)|], getEdges g 3)
+    Assert.Equal<(int * int * float)[]>([|(0, 1, 1.0); (0, 4, 1.0); (1, 1, 1.0); (1, 3, 1.0)|],  getAllEdges g)
 
