@@ -85,3 +85,29 @@ let ``All Pairs Floyd Warshall for Graph works correctly`` () =
         |]
 
     Assert.Equal<float[][]>(expected, Algorithms.FloydWarshall.Compute g |> snd)
+
+[<Fact>]
+let ``Ring lattice graph generated correctly`` () =
+    let g = Generators.ring 3 2
+
+    let expected =
+        [|
+            (0, 1, 1.)
+            (0, 2, 1.)
+            (1, 2, 1.)
+        |]
+        
+    Assert.Equal(3, Measures.getSize g)
+    Assert.Equal(2., Measures.getMeanDegree g)
+    Assert.Equal<(int * float) Set>([|(1, 1.); (2, 1.)|]|> Set, getEdges g 0|> Set)
+    Assert.Equal<(int * float) Set>([|(0, 1.); (1, 1.)|]|> Set, getEdges g 2|> Set)
+    Assert.Equal<(int * int * float)[]>(expected,  getAllEdges g)
+
+[<Fact>]
+let ``Watts Strogatz graph generated correctly`` () =
+    let g = Generators.wattsStrogatz (Random()) 8 4 0.5
+
+    Assert.Equal(8, Measures.getSize g)
+    Assert.Equal(16., Measures.getVolume g)
+    Assert.Equal(4., Measures.getMeanDegree g)
+

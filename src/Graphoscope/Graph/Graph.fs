@@ -197,7 +197,7 @@ module Operations =
 
 module Builders =  
     /// <summary> 
-    /// Create a new empty directed graph with nodes and edges of the specified type.
+    /// Create a new empty undirected graph with nodes and edges of the specified type.
     /// The type specified for the nodes must support equality operations. 
     /// Edge data can be used to specify weights of edges or other edge labels. 
     /// </summary>
@@ -261,7 +261,7 @@ module Generators =
     /// EdgeData is set to `1.0`. This in effect looks like an unweighted graph.
     /// </summary>
     /// <param name="n">The number of nodes in the created graph</param> 
-    /// <returns>A directed graph with integer type nodes and float typed edges with value 1.0</returns>
+    /// <returns>An undirected graph with integer type nodes and float typed edges with value 1.0</returns>
     let complete (n: int): Graph<int, float> =
         let g  = Builders.createFromNodes [|0 .. n - 1|]
         
@@ -277,8 +277,8 @@ module Generators =
     /// </summary>
     /// <param name="n">The number of nodes in the created graph</param> 
     /// <param name="rng">A random number generator</param> 
-    /// <param name="p">TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.</param> 
-    /// <returns>A random directed graph with integer type nodes and float typed edges with value 1.0</returns>
+    /// <param name="p">The probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.</param> 
+    /// <returns>A random undirected graph with integer type nodes and float typed edges with value 1.0</returns>
     let randomGnp (rng: System.Random) (n: int) (p: float) = 
         let g = Builders.createFromNodes [|0 .. n - 1|]
         getNonLoopingPossibleEdges g
@@ -287,3 +287,50 @@ module Generators =
                 addEdge g (o, d, 1.0)
         )
         g
+
+    /// <summary> 
+    /// Generates a Ring Lattice graph of size `n`.
+    /// </summary>
+    /// <param name="n">The number of nodes in the created graph</param> 
+    /// <param name="k">Each node will have an edge with `k` immediate neighbors.</param> 
+    /// <returns>A random undirected graph with integer type nodes and float typed edges with value 1.0</returns>
+    let ring (n: int) (k: int) =
+        // TODO: Error when n - k < 1.
+        let g = Builders.createFromNodes [|0 .. n - 1|]
+        for node in g.Nodes do
+            for neighbor in 1 .. (k / 2) do
+                addEdge g (node, (node + neighbor) % n, 1.)
+        g
+
+    /// <summary> 
+    /// Generates a Watts-Strogatz graph of size `n` where the degree of each node is `k`.
+    /// </summary>
+    /// <param name="rng">A random number generator</param> 
+    /// <param name="n">The number of nodes in the created graph</param> 
+    /// <param name="k">Each node will have an edge with `k` immediate neighbors.</param> 
+    /// <param name="p">Probability of rewiring.</param> 
+    /// <returns>An undirected graph with integer type nodes and float typed edges with value 1.0</returns>
+    let wattsStrogatz (rng: System.Random) (n: int) (k: int) (p: float) =
+        let g = ring n k
+        if n - k  = 1 then
+            g // Is this the default behavior?
+        else    
+            let findRewiringNode (origIx: int) =
+                Seq.initInfinite(fun _ -> rng.Next(g.Nodes.Count))
+                |> Seq.distinct
+                |> Seq.filter(fun destIx ->
+                    origIx <> destIx
+                    && g.Edges[origIx].Exists(fun (d,_) -> d = destIx) |> not
+                )
+                |> Seq.head
+
+            for neighborOffset in 1 .. (k / 2) do
+                for node in g.Nodes do
+                    if rng.NextDouble() <= p then // Rewire
+                        let newDestination = 
+                            node
+                            |> findRewiringNode
+                        addEdge g (node, newDestination, 1.)
+                        removeEdge g (g.IdMap[node], (node + neighborOffset) % n)
+
+            g
