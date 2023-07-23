@@ -43,6 +43,7 @@ module Measures =
         |> ResizeArray.toArray
         |> Array.sum
         |> fun v -> (v|> float) 
+        |> int
 
     /// <summary> 
     /// Gets the total number of nodes of the graph

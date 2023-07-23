@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Converters (Graphoscope)</title>
+    <title>Generators (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
@@ -73,13 +73,13 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    Converters Module
+    Generators Module
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">
-        Graphoscope.DiGraph
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph.html">
+        Graphoscope.Graph
       </a>
     </dt>
     <dt>
@@ -112,40 +112,40 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+              <code onmouseout="hideTip(event, '28', 28)" onmouseover="showTip(event, '28', 28)">
                 <p>
-                  <a id="toAdjacencyMatrix">
-                    <a href="#toAdjacencyMatrix">
-                      <code><span>toAdjacencyMatrix&#32;<span>graph</span></span></code>
+                  <a id="complete">
+                    <a href="#complete">
+                      <code><span>complete&#32;<span>n</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="4">
+              <div class="fsdocs-tip" id="28">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>toAdjacencyMatrix&#32;<span>graph</span></span></code>
+                  <code><span>complete&#32;<span>n</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        graph
+                        n
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                      <code>int</code>
                        - 
-                      The graph to be converted
+                      The number of nodes in the created graph
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><span>float[]</span>[]</span></code>
+                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
                   </span>
-                  An adjacency matrix
+                  A directed graph with integer type nodes and float typed edges with value 1.0
                   <br/>
                 </div>
               </div>
@@ -155,23 +155,22 @@
             <details>
               <summary>
                 <div class="fsdocs-summary">
-                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.Converters.toAdjacencyMatrix``1```')">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Graph.Generators.complete`')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
                   </div>
-                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Converters.toAdjacencyMatrix``1\'/>')">
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Graph.Generators.complete\'/>')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/DiGraph.fs#L261-261" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph/Graph.fs#L261-261" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
                   </a>
                   <p class="fsdocs-summary">
                      
- Converts the DiGraph to an Adjacency Matrix
- This is preliminary step in many graph algorithms such as Floyd-Warshall. 
- The operation assumes edge data types of float in the graph.
+ Generates a complete Graph of size `n`.
+ EdgeData is set to `1.0`. This in effect looks like an unweighted graph.
  
                   </p>
                 </div>
@@ -179,14 +178,14 @@
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
-                    graph
+                    n
                   </span>
                   :
-                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                  <code>int</code>
                 </dt>
                 <dd class="fsdocs-param-docs">
                   <p>
-                    The graph to be converted
+                    The number of nodes in the created graph
                   </p>
                 </dd>
               </dl>
@@ -195,11 +194,151 @@
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><span><span>float[]</span>[]</span></code>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
                 </dt>
                 <dd class="fsdocs-return-docs">
                   <p>
-                    An adjacency matrix
+                    A directed graph with integer type nodes and float typed edges with value 1.0
+                  </p>
+                </dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '29', 29)" onmouseover="showTip(event, '29', 29)">
+                <p>
+                  <a id="randomGnp">
+                    <a href="#randomGnp">
+                      <code><span>randomGnp&#32;<span>rng&#32;n&#32;p</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="29">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>randomGnp&#32;<span>rng&#32;n&#32;p</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        rng
+                      </b>
+                      :
+                      <code><a href="https://learn.microsoft.com/dotnet/api/system.random">Random</a></code>
+                       - 
+                      A random number generator
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        n
+                      </b>
+                      :
+                      <code>int</code>
+                       - 
+                      The number of nodes in the created graph
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        p
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
+                  </span>
+                  A random directed graph with integer type nodes and float typed edges with value 1.0
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Graph.Generators.randomGnp`')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Graph.Generators.randomGnp\'/>')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph/Graph.fs#L278-278" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                     
+ Generates a random Graph of size `n`.
+ It will create a graph of specified size and edge density. 
+ 
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    rng
+                  </span>
+                  :
+                  <code><a href="https://learn.microsoft.com/dotnet/api/system.random">Random</a></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    A random number generator
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    n
+                  </span>
+                  :
+                  <code>int</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The number of nodes in the created graph
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    p
+                  </span>
+                  :
+                  <code>float</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    A random directed graph with integer type nodes and float typed edges with value 1.0
                   </p>
                 </dd>
               </dl>

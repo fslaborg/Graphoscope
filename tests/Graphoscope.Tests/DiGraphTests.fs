@@ -4,6 +4,7 @@ open System
 open Xunit
 open Graphoscope
 open Graphoscope.DiGraph
+open Graphoscope.Utility
 open System.IO
 
 [<Fact>]
@@ -24,7 +25,7 @@ let ``Monkey graph import has correct measures`` () =
     //measures taken from http://konect.cc/networks/moreno_rhesus/
     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
     printfn "%s" file
-    let monkeyGraph = Import.createFromEdgeList file " " 2 false
+    let monkeyGraph = Import.importDirectedGraph file " " 2 false
     
     Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
     Assert.Equal(16, (Measures.getSize monkeyGraph)) 

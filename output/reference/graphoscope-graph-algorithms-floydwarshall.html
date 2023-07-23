@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Converters (Graphoscope)</title>
+    <title>FloydWarshall (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
@@ -73,17 +73,27 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    Converters Module
+    FloydWarshall Type
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">
-        Graphoscope.DiGraph
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph.html">
+        Graphoscope.Graph
       </a>
     </dt>
     <dt>
       Assembly: Graphoscope.dll
+    </dt>
+    <dt>
+      Parent Module: 
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-algorithms.html">
+        Algorithms
+      </a>
+    </dt>
+    <dt>
+      Base Type: 
+      <code>obj</code>
     </dt>
   </dl>
   <div class="fsdocs-xmldoc">
@@ -93,15 +103,21 @@
       </p>
     </div>
   </div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
   <div>
     <h3>
-      Functions and values
+      Constructors
     </h3>
     <table class="table outer-list fsdocs-member-list">
       <thead>
         <tr>
           <td class="fsdocs-member-list-header">
-            Function or value
+            Constructor
           </td>
           <td class="fsdocs-member-list-header">
             Description
@@ -112,19 +128,78 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '4', 4)" onmouseover="showTip(event, '4', 4)">
+              <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
                 <p>
-                  <a id="toAdjacencyMatrix">
-                    <a href="#toAdjacencyMatrix">
-                      <code><span>toAdjacencyMatrix&#32;<span>graph</span></span></code>
+                  <a id="``.ctor``">
+                    <a href="#``.ctor``">
+                      <code><span>FloydWarshall<span>()</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="4">
+              <div class="fsdocs-tip" id="57">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>toAdjacencyMatrix&#32;<span>graph</span></span></code>
+                  <code><span>FloydWarshall<span>()</span></span></code>
+                  <br/>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-algorithms-floydwarshall.html">FloydWarshall</a></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-algorithms-floydwarshall.html">FloydWarshall</a></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+  <div>
+    <h3>
+      Static members
+    </h3>
+    <table class="table outer-list fsdocs-member-list">
+      <thead>
+        <tr>
+          <td class="fsdocs-member-list-header">
+            Static member
+          </td>
+          <td class="fsdocs-member-list-header">
+            Description
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+                <p>
+                  <a id="Compute">
+                    <a href="#Compute">
+                      <code><span>FloydWarshall.Compute<span><span>(<span>graph</span>)</span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="58">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>FloydWarshall.Compute<span><span>(<span>graph</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -134,18 +209,21 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
                        - 
-                      The graph to be converted
+                      The graph for which to compute the shortest path.
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><span>float[]</span>[]</span></code>
+                    <code><span><span>'Node[]</span>&#32;*&#32;<span><span>float[]</span>[]</span></span></code>
                   </span>
-                  An adjacency matrix
+                  
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ 
                   <br/>
                 </div>
               </div>
@@ -155,38 +233,39 @@
             <details>
               <summary>
                 <div class="fsdocs-summary">
-                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.Converters.toAdjacencyMatrix``1```')">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Graph.Algorithms.FloydWarshall.Compute``1```')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
                   </div>
-                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Converters.toAdjacencyMatrix``1\'/>')">
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Graph.Algorithms.FloydWarshall.Compute``1\'/>')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/DiGraph.fs#L261-261" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph/Algorithms.fs#L129-129" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
                   </a>
                   <p class="fsdocs-summary">
                      
- Converts the DiGraph to an Adjacency Matrix
- This is preliminary step in many graph algorithms such as Floyd-Warshall. 
- The operation assumes edge data types of float in the graph.
+ Computes all-pairs shortest paths for <span class="fsdocs-param-name">graph</span> using Floyd-Warshall algorithm.
  
                   </p>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                If there isn't a path between two edges, the distance is set to `infinity`.
+              </p>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
                     graph
                   </span>
                   :
-                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-graph-2.html">Graph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
                 </dt>
                 <dd class="fsdocs-param-docs">
                   <p>
-                    The graph to be converted
+                    The graph for which to compute the shortest path.
                   </p>
                 </dd>
               </dl>
@@ -195,11 +274,14 @@
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><span><span>float[]</span>[]</span></code>
+                  <code><span><span>'Node[]</span>&#32;*&#32;<span><span>float[]</span>[]</span></span></code>
                 </dt>
                 <dd class="fsdocs-return-docs">
                   <p>
-                    An adjacency matrix
+                    
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ 
                   </p>
                 </dd>
               </dl>
@@ -209,14 +291,6 @@
       </tbody>
     </table>
   </div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
-  <div></div>
 </div>
                 </div>
             </div>

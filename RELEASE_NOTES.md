@@ -1,3 +1,7 @@
+### 0.1.0 (Released 2023-7-23)
+* Additions:
+    * Initial release
+
 ### 0.0.1+a06b9c2 (Released 2023-7-18)
 * Additions:
     * [[#a06b9c2](https://github.com/fslaborg/Graphoscope/commit/a06b9c296df63e7beba95c7dbcd7ff89fa0622ce)] Add benchmark into readme.md

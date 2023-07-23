@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Import (Graphoscope)</title>
+    <title>Generators (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
@@ -35,7 +35,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.0.1+a06b9c2-0.1.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.1.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -73,13 +73,13 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    Import Module
+    Generators Module
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope.html">
-        Graphoscope
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">
+        Graphoscope.DiGraph
       </a>
     </dt>
     <dt>
@@ -112,61 +112,40 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '12', 12)" onmouseover="showTip(event, '12', 12)">
+              <code onmouseout="hideTip(event, '5', 5)" onmouseover="showTip(event, '5', 5)">
                 <p>
-                  <a id="createFromEdgeList">
-                    <a href="#createFromEdgeList">
-                      <code><span>createFromEdgeList&#32;<span>fullpath&#32;delimiter&#32;headerRows&#32;weightsIncluded</span></span></code>
+                  <a id="complete">
+                    <a href="#complete">
+                      <code><span>complete&#32;<span>n</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="12">
+              <div class="fsdocs-tip" id="5">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>createFromEdgeList&#32;<span>fullpath&#32;delimiter&#32;headerRows&#32;weightsIncluded</span></span></code>
+                  <code><span>complete&#32;<span>n</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        fullpath
-                      </b>
-                      :
-                      <code>string</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        delimiter
-                      </b>
-                      :
-                      <code>string</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        headerRows
+                        n
                       </b>
                       :
                       <code>int</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        weightsIncluded
-                      </b>
-                      :
-                      <code>bool</code>
+                       - 
+                      The number of nodes in the created graph
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>string,&#32;float</span>&gt;</span></code>
+                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
                   </span>
+                  A directed graph with integer type nodes and float typed edges with value 1.0
                   <br/>
                 </div>
               </div>
@@ -176,67 +155,192 @@
             <details>
               <summary>
                 <div class="fsdocs-summary">
-                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Import.createFromEdgeList`')">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.DiGraph.Generators.complete`')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
                   </div>
-                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Import.createFromEdgeList\'/>')">
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Generators.complete\'/>')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Import/Importer.fs#L37-37" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/DiGraph.fs#L279-279" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
                   </a>
                   <p class="fsdocs-summary">
-                    
- creates a graph from a edge list file. 
-
+                     
+ Generates a complete digraph of size `n`.
+ EdgeData is set to `1.0`. This in effect looks like an unweighted graph.
+ 
                   </p>
                 </div>
               </summary>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
-                    fullpath
-                  </span>
-                  :
-                  <code>string</code>
-                </dt>
-                <dd class="fsdocs-param-docs"></dd>
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    delimiter
-                  </span>
-                  :
-                  <code>string</code>
-                </dt>
-                <dd class="fsdocs-param-docs"></dd>
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    headerRows
+                    n
                   </span>
                   :
                   <code>int</code>
                 </dt>
-                <dd class="fsdocs-param-docs"></dd>
-                <dt class="fsdocs-param">
-                  <span class="fsdocs-param-name">
-                    weightsIncluded
-                  </span>
-                  :
-                  <code>bool</code>
-                </dt>
-                <dd class="fsdocs-param-docs"></dd>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The number of nodes in the created graph
+                  </p>
+                </dd>
               </dl>
               <dl class="fsdocs-returns">
                 <dt>
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>string,&#32;float</span>&gt;</span></code>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
                 </dt>
-                <dd class="fsdocs-return-docs"></dd>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    A directed graph with integer type nodes and float typed edges with value 1.0
+                  </p>
+                </dd>
+              </dl>
+            </details>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '6', 6)" onmouseover="showTip(event, '6', 6)">
+                <p>
+                  <a id="randomGnp">
+                    <a href="#randomGnp">
+                      <code><span>randomGnp&#32;<span>rng&#32;n&#32;p</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="6">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>randomGnp&#32;<span>rng&#32;n&#32;p</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        rng
+                      </b>
+                      :
+                      <code><a href="https://learn.microsoft.com/dotnet/api/system.random">Random</a></code>
+                       - 
+                      A random number generator
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        n
+                      </b>
+                      :
+                      <code>int</code>
+                       - 
+                      The number of nodes in the created graph
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        p
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
+                  </span>
+                  A random directed graph with integer type nodes and float typed edges with value 1.0
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.DiGraph.Generators.randomGnp`')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Generators.randomGnp\'/>')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/DiGraph.fs#L296-296" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                     
+ Generates a random digraph of size `n`.
+ It will create a graph of specified size and edge density. 
+ 
+                  </p>
+                </div>
+              </summary>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    rng
+                  </span>
+                  :
+                  <code><a href="https://learn.microsoft.com/dotnet/api/system.random">Random</a></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    A random number generator
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    n
+                  </span>
+                  :
+                  <code>int</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The number of nodes in the created graph
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    p
+                  </span>
+                  :
+                  <code>float</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>int,&#32;float</span>&gt;</span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    A random directed graph with integer type nodes and float typed edges with value 1.0
+                  </p>
+                </dd>
               </dl>
             </details>
           </td>
