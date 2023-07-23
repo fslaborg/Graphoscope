@@ -17,6 +17,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graph/Graph.fs" />
+    <Compile Include="Graph/Algorithms.fs" />
+    <Compile Include="Graph/Measures.fs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DiGraph/DiGraph.fs" />

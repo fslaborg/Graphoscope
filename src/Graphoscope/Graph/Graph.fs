@@ -87,6 +87,8 @@ module Operations =
         // TODO: Check if edge already exists
         let orig, dest, attr = edge
         graph.Edges[graph.IdMap[orig]].Add(graph.IdMap[dest], attr)
+        if orig <> dest then
+            graph.Edges[graph.IdMap[dest]].Add(graph.IdMap[orig], attr)
 
     /// <summary> 
     /// Returns the edges for given node
@@ -106,10 +108,14 @@ module Operations =
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
     let getAllEdges (graph: Graph<'Node,'EdgeData>): ('Node * 'Node * 'EdgeData) [] =
         getNodes graph
-        |> Array.map(fun n ->
+        |> Array.mapi(fun i n ->
             n
             |> (getEdges graph)
-            |> Array.map(fun (t, w) -> n, t, w)
+            |> Array.choose(fun (t, w) ->
+                if graph.IdMap[t] >= i then
+                    Some (n, t, w)
+                else None
+            )
         )
         |> Array.concat
 
@@ -131,10 +137,10 @@ module Operations =
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
     let findEdge (origin:'Node) (destination:'Node) (graph : Graph<'Node, 'EdgeData>) : 'Node * 'Node * 'EdgeData =
-            let k2 = graph.IdMap[origin]
-            graph.Edges[graph.IdMap[origin]]
-            |> ResizeArray.find (fun (k,l) -> k=k2)
-            |> fun (_,l) -> origin, destination, l
+        let k2 = graph.IdMap[origin]
+        graph.Edges[graph.IdMap[origin]]
+        |> ResizeArray.find (fun (k,l) -> k=k2)
+        |> fun (_,l) -> origin, destination, l
     
     /// <summary> 
     /// Normalises the weights of edges for each node in a graph.
@@ -162,10 +168,15 @@ module Operations =
     /// <returns>Unit</returns>
     let removeEdge (graph: Graph<'Node,'EdgeData>) (edge: ('Node * 'Node)) = 
         let orig, dest = edge
-        let ix = graph.Edges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
-        match ix with
-        | Some n -> graph.Edges[graph.IdMap[orig]].RemoveAt n
-        | None -> printfn $"Edge to be removed doesn't exist: {edge}"
+        let ixIn = graph.Edges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
+        let ixOut = graph.Edges[graph.IdMap[dest]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[orig])
+        match ixIn, ixOut with
+        | Some outE, Some inE -> 
+            graph.Edges[graph.IdMap[orig]].RemoveAt outE
+            graph.Edges[graph.IdMap[dest]].RemoveAt inE
+        | Some _ , None
+        | None, Some _ -> failwith "Something in undirected graph edges went horribly wrong."
+        | None, None -> printfn $"Edge to be removed doesn't exist: {edge}"
 
     /// Returns all possible edges in a Graph, including self-loops.
     let internal getAllPossibleEdges (graph: Graph<'Node,'EdgeData>): ('Node * 'Node) seq =
