@@ -6,24 +6,20 @@ open BenchmarkDotNet
 open BenchmarkDotNet.Attributes
 
 open Graphoscope
+open Graphoscope.DiGraph
 
 let rnd = new System.Random()
-
-
 
 [<MemoryDiagnoser>]
 type Graphs () =
     let mutable edgesArr : (int*int*float) [] = [||]
-    let mutable adjGraph     = AdjGraph.create<int,int,float>()
-    let mutable adjComp      = AdjCompGraph.create<int,int,float>()
-    let mutable diGraph      = DiGraph.create<int,float>()
-    let mutable diNodeGraph  = DiGraph.create<DiNode<int>,float>()
-    let mutable fGraph       = FGraph.create<int,int,float>()
+    let mutable diGraph      = Builders.create<int,float>()
 
-    [<Params (100, 10000)>] 
+
+    [<Params (100, 1000)>] 
     member val public NumberNodes = 0 with get, set
 
-    [<Params (500, 50000)>] 
+    [<Params (500, 5000)>] 
     member val public NumberEdges = 0 with get, set
 
     [<GlobalSetup>]
@@ -37,43 +33,18 @@ type Graphs () =
                 yield (node1,node2,float i)
             |]
         edgesArr <- edges
-        //prepare AdjGraph
-        let gAdj= AdjGraph.create<int,int,float>()
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            AdjGraph.addEdgeWithNodes node1 node1 node2 node2 data gAdj |> ignore
-        adjGraph <- gAdj
+   
         //prepare DiGraph
-        let gComp= AdjCompGraph.create<int,int,float>()
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            AdjCompGraph.addEdgeWithNodes node1 node1 node2 node2 data gComp |> ignore    
-        adjComp <- gComp
-        //prepare DiGraph
-        let gDi = DiGraph.create<int,float>()
+        let gDi = Builders.create<int,float>()
         for i=0 to this.NumberNodes-1 do
-            DiGraph.addNode i gDi
+            addNode gDi i
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge (node1, node2, data) gDi
+            addEdge gDi (node1, node2, data)
         diGraph <- gDi
-        //prepare DiNodeGraph
-        let gDiNo = DiGraph.create<DiNode<int>,float>()
-        for i=0 to this.NumberNodes-1 do
-            DiGraph.addNode ({Id=i;Data=i}) gDiNo
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
-        diNodeGraph <- gDiNo
-        //prepare FGraph
-        let gF = FGraph.create<int,int,float>()
-        for i=0 to this.NumberNodes-1 do
-            FGraph.Nodes.add i i gF |> ignore
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            FGraph.Edges.add node1 node2 data gF |> ignore
-        fGraph <- gF
-
+    
+        
+(*
 
     [<Benchmark>]
     member this.AdjGraph () = 
@@ -182,8 +153,29 @@ type Graphs () =
             yield d
         |] |> ignore
 
+    // ##############################################
+    // Conversion
 
+    [<Benchmark>]
+    member this.FlWa_FGraph () =  
+        FloydWarshall.Compute fGraph
 
+    [<Benchmark>]
+    member this.FlWa_DiGraph () =  
+        FloydWarshall.Compute diGraph
+*)
+
+    [<Benchmark>]
+    member this.toAdjMat () =  
+        DiGraph.Converters.toAdjacencyMatrix diGraph
+
+    [<Benchmark>]
+    member this.FloydWarshall () =  
+        Algorithms.FloydWarshall.Compute diGraph
+
+    [<Benchmark>]
+    member this.DijkstraAP () =  
+        Algorithms.Dijkstra.ComputeAllPairs diGraph
 
                    
 //// * Summary *

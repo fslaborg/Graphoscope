@@ -54,7 +54,7 @@ let publishNugetPrerelease = BuildTask.create "PublishNugetPrerelease" [clean; b
         let apikey =  Environment.environVar "NUGET_KEY_CSB"
         for artifact in targets do
             let result = DotNet.exec id "nuget" (sprintf "push -s %s -k %s %s --skip-duplicate" source apikey artifact)
-            if not result.OK then failwith "failed to push packages"
+            if not result.OK then failwith (sprintf "failed to push packages - %A"  result)
     else failwith "aborted"
 }
 

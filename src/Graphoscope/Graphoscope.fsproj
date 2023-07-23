@@ -1,10 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup>
     <Authors>FsLab open source contributors</Authors>
     <Description>A pragmatic approach to network science.</Description>
@@ -17,27 +15,22 @@
     <FsDocsLicenseLink>https://github.com/fslaborg/Graphoscope/blob/main/LICENSE</FsDocsLicenseLink>
     <FsDocsReleaseNotesLink>https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
   </PropertyGroup>
-
   <ItemGroup>
-    <Compile Include="Node.fs" />
-    <Compile Include="Edge.fs" />
-    <Compile Include="AdjGraph.fs" />
-    <Compile Include="AdjCompGraph.fs" />
-    <Compile Include="DiGraph.fs" />
-    <Compile Include="FGraph.fs" />
-    <Compile Include="Collections/Queue.fs" />
-    <Compile Include="Algorithms/Dijkstra.fs" />
-    <Compile Include="Measures/BetweennessCentrality.fs" />
-    <Compile Include="RandomModels/Gilbert.fs" />
-    <Compile Include="Undirected/Core.fs" />
-    <Compile Include="Undirected/UndirectedGraph.fs" />
-    <Compile Include="Undirected/UndirectedHelpers.fs" />
+    <Compile Include="Graph/Graph.fs" />
+    <Compile Include="Graph/Algorithms.fs" />
+    <Compile Include="Graph/Measures.fs" />
   </ItemGroup>
-
   <ItemGroup>
-  <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
-  <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
-  <PackageReference Include="FSharp.Data" Version="6.2.0" />
+    <Compile Include="DiGraph/DiGraph.fs" />
+    <Compile Include="DiGraph/Algorithms.fs" />
+    <Compile Include="DiGraph/Measures.fs" />
   </ItemGroup>
-
+  <ItemGroup>
+    <Compile Include="Utility/Import.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
+    <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
+    <PackageReference Include="FSharp.Data" Version="6.2.0" />
+  </ItemGroup>
 </Project>

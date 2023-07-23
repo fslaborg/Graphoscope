@@ -1,0 +1,9 @@
+{
+    "cSpell.language": "en-GB,en",
+    "cSpell.enableFiletypes": [
+        "!graphql",
+        "dockercompose",
+        "fsharp",
+        "xml"
+    ]
+}

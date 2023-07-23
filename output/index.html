@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Graphoscope
+</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="FsLab open source contributors">
+
+    <!--Opengraph properties (https://ogp.me/)-->
+    <meta property="og:title" content="Graphoscope
+" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plotly.NET" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.18.1.min.js"></script>
+    <script> MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } }; </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="https://github.com/fslaborg/Graphoscope/">
+                        <figure class="image is-128x128 container">
+                            <img src="https://github.com/fslaborg/Graphoscope/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.1.0</h5>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="searchbox" id="fsdocs-searchbox">
+                            <label for="search-by">
+                                <i class="fas fa-search"></i>
+                            </label>
+                            <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                            <span data-search-clear="">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License (MIT)</a></li>
+                        <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md">Release Notes</a></li>
+                        <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/">Source Repository</a></li>
+                        
+                        <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    <h1><a name="Graphoscope" class="anchor" href="#Graphoscope">Graphoscope</a></h1>
+<p>The Graphoscope project aims to provide a rigorous and performant tool for Network Science.
+It is aimed at anyone who works with Graphs/Networks and does not require a strong knowledge of F# to get started.</p>
+<h1><a name="Getting-Started" class="anchor" href="#Getting-Started">Getting Started</a></h1>
+<h2><a name="Prerequisites" class="anchor" href="#Prerequisites">Prerequisites</a></h2>
+<p>To set up a dev environment, we recommend <a href="https://code.visualstudio.com/">VSCode</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp">Ionide</a> plugin<br />
+You will also need <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">DotNet 6</a> installed.</p>
+<p>The library is designed primarily for use in an fsharp scripting environment using .fsx files.
+But it also works well in <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode">notebooks</a>.
+This <a href="https://www.youtube.com/watch?v=1ROKvmcOloo&amp;list=PLdo4fOcmZ0oUFghYOp89baYFBTGxUkC7Z&amp;index=3">video</a> has a good walk through of setting your environment.</p>
+<h2><a name="Importing-a-graph" class="anchor" href="#Importing-a-graph">Importing a graph</a></h2>
+<p>The library is organised by Graph type. Currently it supports Directed and Undirected graphs, and other types, such as multiplex, will be supported in future.</p>
+<p>For illustration, we will import a directed graph from The <a href="http://konect.cc/">KONECT Project</a> website. This is an excellent resource with many graphs in an edge list based format which is simple
+to import and analyse using Graphoscope. We will start by importing a <a href="http://konect.cc/networks/moreno_rhesus/">graph</a> describing the grooming interactions between rhesus monkeys.</p>
+<p>Create a monkeys.fsx and run the following code to import and print some basic measures. Further documention of DiGraph functionality is <a href="reference/graphoscope-digraph.html">here</a></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: Graphoscope, 0.1.0&quot;</span>
+
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">Utility</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="m">Import</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 4)" onmouseover="showTip(event, 'fs1', 4)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="id">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="m">Measures</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="id">file</span> <span class="o">=</span> <span class="s">&quot;C:/Projects/Doodles/out.moreno_rhesus_rhesus.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">monkeyGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs8', 9)" onmouseover="showTip(event, 'fs8', 9)" class="fn">importDirectedGraph</span> <span onmouseout="hideTip(event, 'fs6', 10)" onmouseover="showTip(event, 'fs6', 10)" class="id">file</span> <span class="s">&quot; &quot;</span> <span class="n">2</span> <span class="k">false</span>
+
+<span onmouseout="hideTip(event, 'fs9', 11)" onmouseover="showTip(event, 'fs9', 11)" class="fn">printf</span> <span class="s">&quot;Successfully imported the graph! It has </span><span class="pf">%i</span><span class="s"> nodes and </span><span class="pf">%i</span><span class="s"> edges. The average degree is </span><span class="pf">%f</span><span class="s"> &quot;</span> 
+  <span class="pn">(</span><span onmouseout="hideTip(event, 'fs10', 12)" onmouseover="showTip(event, 'fs10', 12)" class="fn">getSize</span> <span onmouseout="hideTip(event, 'fs7', 13)" onmouseover="showTip(event, 'fs7', 13)" class="id">monkeyGraph</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs11', 14)" onmouseover="showTip(event, 'fs11', 14)" class="fn">getVolume</span> <span onmouseout="hideTip(event, 'fs7', 15)" onmouseover="showTip(event, 'fs7', 15)" class="id">monkeyGraph</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs12', 16)" onmouseover="showTip(event, 'fs12', 16)" class="fn">getMeanDegree</span> <span onmouseout="hideTip(event, 'fs7', 17)" onmouseover="showTip(event, 'fs7', 17)" class="id">monkeyGraph</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<p>We can also import undirected graphs using the <a href="reference/graphoscope-graph.html">Graph</a> namespace. These examples use the <a href="http://konect.cc/networks/ucidata-zachary/">Karate club</a> graph.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 18)" onmouseover="showTip(event, 'fs1', 18)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 19)" onmouseover="showTip(event, 'fs13', 19)" class="id">Graph</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 20)" onmouseover="showTip(event, 'fs1', 20)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 21)" onmouseover="showTip(event, 'fs13', 21)" class="id">Graph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 22)" onmouseover="showTip(event, 'fs14', 22)" class="m">Measures</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="id">karateFile</span><span class="o">=</span> <span class="s">&quot;C:/Projects/Doodles/out.ucidata-zachary.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="id">karateGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="fn">importUnDirectedGraph</span> <span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="id">karateFile</span> <span class="s">&quot; &quot;</span> <span class="n">2</span> <span class="k">false</span>
+<span onmouseout="hideTip(event, 'fs18', 27)" onmouseover="showTip(event, 'fs18', 27)" class="fn">getNodes</span> <span onmouseout="hideTip(event, 'fs16', 28)" onmouseover="showTip(event, 'fs16', 28)" class="id">karateGraph</span>
+
+<span onmouseout="hideTip(event, 'fs9', 29)" onmouseover="showTip(event, 'fs9', 29)" class="fn">printf</span> <span class="s">&quot;Successfully imported the undirected karate graph! It has </span><span class="pf">%i</span><span class="s"> nodes and </span><span class="pf">%i</span><span class="s"> edges. The average degree is </span><span class="pf">%f</span><span class="s"> &quot;</span> 
+  <span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 30)" onmouseover="showTip(event, 'fs19', 30)" class="fn">getSize</span> <span onmouseout="hideTip(event, 'fs16', 31)" onmouseover="showTip(event, 'fs16', 31)" class="id">karateGraph</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs20', 32)" onmouseover="showTip(event, 'fs20', 32)" class="fn">getVolume</span> <span onmouseout="hideTip(event, 'fs16', 33)" onmouseover="showTip(event, 'fs16', 33)" class="id">karateGraph</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs21', 34)" onmouseover="showTip(event, 'fs21', 34)" class="fn">getMeanDegree</span> <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="id">karateGraph</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<h2><a name="Creating-a-Graph" class="anchor" href="#Creating-a-Graph">Creating a Graph</a></h2>
+<p>We can also build a graph from scratch. Either by passing an array of edges:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pn">[|</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span class="n">1</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span class="n">2</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">1</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">3</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">3</span><span class="pn">,</span> <span class="n">2</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">4</span><span class="pn">,</span> <span class="n">0</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">|]</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs22', 36)" onmouseover="showTip(event, 'fs22', 36)" class="m">Builders</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs23', 37)" onmouseover="showTip(event, 'fs23', 37)" class="id">createFromEdges</span>
+</code></pre>
+<p>or by creating an empty graph and adding the nodes and edges one by one.
+The int and float after the "create" define the type of the nodes and edges.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs24', 38)" onmouseover="showTip(event, 'fs24', 38)" class="id">emptyGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs22', 39)" onmouseover="showTip(event, 'fs22', 39)" class="m">Builders</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 40)" onmouseover="showTip(event, 'fs25', 40)" class="id">create</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs26', 41)" onmouseover="showTip(event, 'fs26', 41)" class="vt">int</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs27', 42)" onmouseover="showTip(event, 'fs27', 42)" class="vt">float</span><span class="pn">&gt;</span><span class="pn">(</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs28', 43)" onmouseover="showTip(event, 'fs28', 43)" class="fn">addNode</span> <span onmouseout="hideTip(event, 'fs24', 44)" onmouseover="showTip(event, 'fs24', 44)" class="id">emptyGraph</span> <span class="n">1</span>
+<span onmouseout="hideTip(event, 'fs28', 45)" onmouseover="showTip(event, 'fs28', 45)" class="fn">addNode</span> <span onmouseout="hideTip(event, 'fs24', 46)" onmouseover="showTip(event, 'fs24', 46)" class="id">emptyGraph</span> <span class="n">2</span>
+<span onmouseout="hideTip(event, 'fs28', 47)" onmouseover="showTip(event, 'fs28', 47)" class="fn">addNode</span> <span onmouseout="hideTip(event, 'fs24', 48)" onmouseover="showTip(event, 'fs24', 48)" class="id">emptyGraph</span> <span class="n">3</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs29', 49)" onmouseover="showTip(event, 'fs29', 49)" class="id">edge</span> <span class="o">=</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span>
+<span onmouseout="hideTip(event, 'fs30', 50)" onmouseover="showTip(event, 'fs30', 50)" class="fn">addEdge</span> <span onmouseout="hideTip(event, 'fs24', 51)" onmouseover="showTip(event, 'fs24', 51)" class="id">emptyGraph</span> <span onmouseout="hideTip(event, 'fs29', 52)" onmouseover="showTip(event, 'fs29', 52)" class="id">edge</span>
+
+<span onmouseout="hideTip(event, 'fs9', 53)" onmouseover="showTip(event, 'fs9', 53)" class="fn">printf</span> <span class="s">&quot;Manually created a graph with </span><span class="pf">%i</span><span class="s"> nodes&quot;</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs19', 54)" onmouseover="showTip(event, 'fs19', 54)" class="fn">getSize</span> <span onmouseout="hideTip(event, 'fs24', 55)" onmouseover="showTip(event, 'fs24', 55)" class="id">emptyGraph</span><span class="pn">)</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<h2><a name="Algorithms" class="anchor" href="#Algorithms">Algorithms</a></h2>
+<p>A key aim of Graposcope is to provide highly performant graph analysis.
+Currently it contains implementations of Dijkstra, including a parallelised version, and Floyd-Warshall.</p>
+<p>We can get the shortest path between two nodes as follows</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs31', 56)" onmouseover="showTip(event, 'fs31', 56)" class="fn">getShortestPath</span> <span class="n">26</span> <span class="n">16</span> <span onmouseout="hideTip(event, 'fs16', 57)" onmouseover="showTip(event, 'fs16', 57)" class="id">karateGraph</span>
+</code></pre>
+<p>Alternatively you can return all the shortest paths for every pair of nodes using parrallel Dijkstra as follows</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 58)" onmouseover="showTip(event, 'fs1', 58)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs13', 59)" onmouseover="showTip(event, 'fs13', 59)" class="id">Graph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs32', 60)" onmouseover="showTip(event, 'fs32', 60)" class="m">Algorithms</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs33', 61)" onmouseover="showTip(event, 'fs33', 61)" class="id">paths</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs34', 62)" onmouseover="showTip(event, 'fs34', 62)" class="rt">Dijkstra</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs35', 63)" onmouseover="showTip(event, 'fs35', 63)" class="id">ComputeAllPairs</span> <span onmouseout="hideTip(event, 'fs16', 64)" onmouseover="showTip(event, 'fs16', 64)" class="id">karateGraph</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<p>Or with Floyd-Warshall</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span onmouseout="hideTip(event, 'fs36', 65)" onmouseover="showTip(event, 'fs36', 65)" class="rt">FloydWarshall</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs37', 66)" onmouseover="showTip(event, 'fs37', 66)" class="id">Compute</span> <span onmouseout="hideTip(event, 'fs16', 67)" onmouseover="showTip(event, 'fs16', 67)" class="id">karateGraph</span>
+</code></pre>
+<p>Implementations of both algorithms are also available in the Digraph namespace.</p>
+<p>These algorthms both operate on an Adjacency Matrix and a function for converting graphs to this data structure is provided in the Converters modules.
+It can be executed as follows.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 68)" onmouseover="showTip(event, 'fs1', 68)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 69)" onmouseover="showTip(event, 'fs4', 69)" class="id">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs38', 70)" onmouseover="showTip(event, 'fs38', 70)" class="m">Converters</span>
+<span onmouseout="hideTip(event, 'fs39', 71)" onmouseover="showTip(event, 'fs39', 71)" class="fn">toAdjacencyMatrix</span> <span onmouseout="hideTip(event, 'fs7', 72)" onmouseover="showTip(event, 'fs7', 72)" class="id">monkeyGraph</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code></code></pre></td></tr></table>
+<h2><a name="Charting" class="anchor" href="#Charting">Charting</a></h2>
+<p>Consider using <a href="https://plotly.net/">Plotly.NET</a> for charting. Built on top of plotly.js, it is a mature library offering a wide range of customisable charts.
+Here is a basic example showing degree distribution within the Karate club.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 4.1.0&quot;</span>
+<span class="k">open</span> <span class="id">Plotly</span><span class="pn">.</span><span class="id">NET</span>
+
+<span onmouseout="hideTip(event, 'fs40', 73)" onmouseover="showTip(event, 'fs40', 73)" class="fn">getDegreeDistribution</span> <span onmouseout="hideTip(event, 'fs16', 74)" onmouseover="showTip(event, 'fs16', 74)" class="id">karateGraph</span>
+<span class="o">|&gt;</span> <span class="id">Chart</span><span class="pn">.</span><span class="id">Histogram</span>
+<span class="o">|&gt;</span> <span class="id">GenericChart</span><span class="pn">.</span><span class="id">toChartHTML</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
+<h1><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h1>
+<p>The project is hosted on <a href="https://github.com/fslaborg/Graphoscope">GitHub</a> where you can <a href="https://github.com/fslaborg/Graphoscope/issues">report issues</a>, fork
+the project and submit pull requests. If you're adding a new public API, please also
+consider adding <a href="https://github.com/fslaborg/Graphoscope/tree/main/docs">samples</a> that can be turned into a documentation. You might
+also want to read the <a href="https://github.com/fslaborg/Graphoscope/blob/main/README.md">library design notes</a> to understand how it works.</p>
+<p>The library is available under the OSI-approved MIT license, which allows modification and
+redistribution for both commercial and non-commercial purposes. For more information see the
+<a href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License file</a> in the GitHub repository.</p>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs2">namespace Graphoscope.Utility</div>
+<div class="fsdocs-tip" id="fs3">module Import
+
+from Graphoscope.Utility</div>
+<div class="fsdocs-tip" id="fs4">namespace Graphoscope.DiGraph</div>
+<div class="fsdocs-tip" id="fs5">module Measures
+
+from Graphoscope.DiGraph</div>
+<div class="fsdocs-tip" id="fs6">val file: string</div>
+<div class="fsdocs-tip" id="fs7">val monkeyGraph: Graphoscope.DiGraph.DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs8">val importDirectedGraph: fullpath: string -&gt; delimiter: string -&gt; headerRows: int -&gt; weightsIncluded: bool -&gt; Graphoscope.DiGraph.DiGraph&lt;int,float&gt;<br /><em>&lt;summary&gt; 
+ Imports and builds a Directed graph from an edge list file
+ &lt;/summary&gt;<br />&lt;param name=&quot;fullpath&quot;&gt;The path and file name to the file to be imported&lt;/param&gt;<br />&lt;param name=&quot;delimiter&quot;&gt;The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t &lt;/param&gt;<br />&lt;param name=&quot;headerRows&quot;&gt;The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.&lt;/param&gt;<br />&lt;param name=&quot;weightsIncluded&quot;&gt;Specifies if  there is a third column with the edge weights. These will be treated as floats.&lt;/param&gt;<br />&lt;returns&gt;A Directed graph containing the nodes and edges specified in the file&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs9">val printf: format: Printf.TextWriterFormat&lt;&#39;T&gt; -&gt; &#39;T</div>
+<div class="fsdocs-tip" id="fs10">val getSize: graph: Graphoscope.DiGraph.DiGraph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; int (requires comparison)<br /><em>&lt;summary&gt; 
+ Gets the total number of nodes of the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the total nodes&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs11">val getVolume: graph: Graphoscope.DiGraph.DiGraph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; int (requires comparison)<br /><em>&lt;summary&gt; 
+ Gets the total number of edges of the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the total edges&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs12">val getMeanDegree: graph: Graphoscope.DiGraph.DiGraph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; float (requires comparison)<br /><em>&lt;summary&gt; 
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the mean degree&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs13">namespace Graphoscope.Graph</div>
+<div class="fsdocs-tip" id="fs14">module Measures
+
+from Graphoscope.Graph</div>
+<div class="fsdocs-tip" id="fs15">val karateFile: string</div>
+<div class="fsdocs-tip" id="fs16">val karateGraph: Graph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs17">val importUnDirectedGraph: fullpath: string -&gt; delimiter: string -&gt; headerRows: int -&gt; weightsIncluded: bool -&gt; Graph&lt;int,float&gt;<br /><em>&lt;summary&gt; 
+ Imports and builds a Undirected graph from an edge list file
+ &lt;/summary&gt;<br />&lt;param name=&quot;fullpath&quot;&gt;The path and file name to the file to be imported&lt;/param&gt;<br />&lt;param name=&quot;delimiter&quot;&gt;The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t &lt;/param&gt;<br />&lt;param name=&quot;headerRows&quot;&gt;The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.&lt;/param&gt;<br />&lt;param name=&quot;weightsIncluded&quot;&gt;Specifies if  there is a third column with the edge weights. These will be treated as floats.&lt;/param&gt;<br />&lt;returns&gt;A Undirected graph containing the nodes and edges specified in the file&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs18">val getNodes: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; &#39;Node array (requires comparison)<br /><em>&lt;summary&gt; 
+ Returns all nodes in te graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;An array of nodes&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs19">val getSize: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; int (requires comparison)<br /><em>&lt;summary&gt; 
+ Gets the total number of nodes of the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the total nodes&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs20">val getVolume: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; int (requires comparison)<br /><em>&lt;summary&gt; 
+ Gets the total number of edges of the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the total edges&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs21">val getMeanDegree: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; float (requires comparison)<br /><em>&lt;summary&gt; 
+ Get the mean degree of the graph. 
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the mean degree&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs22">module Builders
+
+from Graphoscope.Graph</div>
+<div class="fsdocs-tip" id="fs23">val createFromEdges: edges: (&#39;Node * &#39;Node * &#39;EdgeData) array -&gt; Graph&lt;&#39;Node,&#39;EdgeData&gt; (requires comparison)<br /><em>&lt;summary&gt; 
+ Builds a graph from a list of edges. 
+ &lt;/summary&gt;<br />&lt;param name=&quot;edges&quot;&gt;An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight&lt;/param&gt;<br />&lt;returns&gt;A graph containing the nodes&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs24">val emptyGraph: Graph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs25">val create: unit -&gt; Graph&lt;&#39;Node,&#39;EdgeData&gt; (requires comparison)<br /><em>&lt;summary&gt; 
+ Create a new empty directed graph with nodes and edges of the specified type.
+ The type specified for the nodes must support equality operations. 
+ Edge data can be used to specify weights of edges or other edge labels. 
+ &lt;/summary&gt;<br />&lt;returns&gt;A graph of the specified type&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs26">Multiple items<br />val int: value: &#39;T -&gt; int (requires member op_Explicit)<br /><br />--------------------<br />type int = int32<br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int</div>
+<div class="fsdocs-tip" id="fs27">Multiple items<br />val float: value: &#39;T -&gt; float (requires member op_Explicit)<br /><br />--------------------<br />type float = System.Double<br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float</div>
+<div class="fsdocs-tip" id="fs28">val addNode: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; node: &#39;Node -&gt; unit (requires comparison)<br /><em>&lt;summary&gt; 
+ Adds a new node to the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;node&quot;&gt;The node to be created. The type must match the node type of the graph.&lt;/param&gt;<br />&#160;
+ /// <br />&lt;param name=&quot;graph&quot;&gt;The graph the node will be added to.&lt;/param&gt;<br />&#160;
+ /// <br />&lt;returns&gt;Unit&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs29">val edge: int * int * float</div>
+<div class="fsdocs-tip" id="fs30">val addEdge: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; &#39;Node * &#39;Node * &#39;EdgeData -&gt; unit (requires comparison)<br /><em>&lt;summary&gt; 
+ Adds a new edge to the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;edge&quot;&gt;The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.&lt;/param&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph the edge will be added to.&lt;/param&gt;<br />&lt;returns&gt;Unit&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs31">val getShortestPath: origin: &#39;Node -&gt; destination: &#39;Node -&gt; graph: Graph&lt;&#39;Node,float&gt; -&gt; float option (requires comparison)<br /><em>&lt;summary&gt; 
+ Returns the distance in numebr of directed edges between two nodes.
+ &lt;/summary&gt;<br />&lt;param name=&quot;origin&quot;&gt;The starting node of the path&lt;/param&gt;<br />&lt;param name=&quot;destination&quot;&gt;The finishing node of the path&lt;/param&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float of the distance&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs32">module Algorithms
+
+from Graphoscope.Graph</div>
+<div class="fsdocs-tip" id="fs33">val paths: int array * float array array</div>
+<div class="fsdocs-tip" id="fs34">Multiple items<br />type Dijkstra =
+  new: unit -&gt; Dijkstra
+  static member Compute: graph: Graph&lt;&#39;Node,float&gt; -&gt; source: &#39;Node -&gt; (&#39;Node * float) array (requires comparison)
+  static member ComputeAllPairs: graph: Graph&lt;&#39;Node,float&gt; -&gt; &#39;Node array * float array array (requires comparison)<br /><br />--------------------<br />new: unit -&gt; Dijkstra</div>
+<div class="fsdocs-tip" id="fs35">static member Dijkstra.ComputeAllPairs: graph: Graph&lt;&#39;Node,float&gt; -&gt; &#39;Node array * float array array (requires comparison)</div>
+<div class="fsdocs-tip" id="fs36">Multiple items<br />type FloydWarshall =
+  new: unit -&gt; FloydWarshall
+  static member Compute: graph: Graph&lt;&#39;Node,float&gt; -&gt; &#39;Node array * float array array (requires comparison)<br /><br />--------------------<br />new: unit -&gt; FloydWarshall</div>
+<div class="fsdocs-tip" id="fs37">static member FloydWarshall.Compute: graph: Graph&lt;&#39;Node,float&gt; -&gt; &#39;Node array * float array array (requires comparison)</div>
+<div class="fsdocs-tip" id="fs38">module Converters
+
+from Graphoscope.DiGraph</div>
+<div class="fsdocs-tip" id="fs39">val toAdjacencyMatrix: graph: Graphoscope.DiGraph.DiGraph&lt;&#39;Node,float&gt; -&gt; float array array (requires comparison)<br /><em>&lt;summary&gt; 
+ Converts the DiGraph to an Adjacency Matrix
+ This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+ The operation assumes edge data types of float in the graph.
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be converted&lt;/param&gt;<br />&lt;returns&gt;An adjacency matrix&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs40">val getDegreeDistribution: graph: Graph&lt;&#39;Node,&#39;EdgeData&gt; -&gt; float array (requires comparison)<br /><em>&lt;summary&gt; 
+ Returns the degree distribution of the graph
+ &lt;/summary&gt;<br />&lt;param name=&quot;graph&quot;&gt;The graph to be analysed&lt;/param&gt;<br />&lt;returns&gt;A float array of degree values&lt;/returns&gt;</em></div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://github.com/fslaborg/Graphoscope/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>
