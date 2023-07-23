@@ -27,7 +27,8 @@ module Measures =
         |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
         |> ResizeArray.toArray
         |> Array.sum
-        |> fun v -> (float v / 2.) 
+        |> fun v -> (v / 2. |> float) 
+        |> int
 
     /// <summary> 
     /// Gets the total number of nodes of the graph

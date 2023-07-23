@@ -2,8 +2,9 @@ module GraphTests
 
 open System
 open Xunit
-open Graphoscope
 open Graphoscope.Graph
+open Graphoscope.Utility
+
 open System.IO
 
 [<Fact>]
@@ -19,16 +20,16 @@ let ``Can create empty graph and add nodes and edges`` () =
     Assert.Equal(3.0, (Measures.getSize emptyGraph))
     Assert.Equal(0.6666666666666666, (Measures.getMeanDegree emptyGraph))
 
-// [<Fact>]
-// let ``Monkey graph import has correct measures`` () =
-//     //measures taken from http://konect.cc/networks/moreno_rhesus/
-//     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
-//     printfn "%s" file
-//     let monkeyGraph = Import.createFromEdgeList file " " 2 false
-    
-//     Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
-//     Assert.Equal(16, (Measures.getSize monkeyGraph)) 
-//     Assert.Equal(13.8750,(Measures.getMeanDegree monkeyGraph)) 
+[<Fact>]
+let ``Karate graph import has correct measures`` () =
+    //measures taken from http://konect.cc/networks/ucidata-zachary/
+    let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/zachary.txt")
+    printfn "%s" file
+    let karateGraph = Import.importUnDirectedGraph file " " 2 false
+
+    Assert.Equal(78.0, (Measures.getVolume karateGraph))
+    Assert.Equal(34, (Measures.getSize karateGraph)) 
+    Assert.Equal(4.58824,(Measures.getMeanDegree karateGraph), 5) 
         
 [<Fact>]
 let ``Node removal updates correctly`` () =

@@ -35,7 +35,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.0.1+a06b9c2-0.1.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.1.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -78,12 +78,18 @@
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-algorithm.html">
-        Graphoscope.Algorithm
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">
+        Graphoscope.DiGraph
       </a>
     </dt>
     <dt>
       Assembly: Graphoscope.dll
+    </dt>
+    <dt>
+      Parent Module: 
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-algorithms.html">
+        Algorithms
+      </a>
     </dt>
     <dt>
       Base Type: 
@@ -122,7 +128,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '16', 16)" onmouseover="showTip(event, '16', 16)">
+              <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
@@ -131,7 +137,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="16">
+              <div class="fsdocs-tip" id="48">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Dijkstra<span>()</span></span></code>
@@ -139,7 +145,7 @@
                   <br/>
                   <span>
                     Returns: 
-                    <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-algorithm-dijkstra.html">Dijkstra</a></code>
+                    <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-algorithms-dijkstra.html">Dijkstra</a></code>
                   </span>
                   <br/>
                 </div>
@@ -152,7 +158,7 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-algorithm-dijkstra.html">Dijkstra</a></code>
+                <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-algorithms-dijkstra.html">Dijkstra</a></code>
               </dt>
               <dd class="fsdocs-return-docs"></dd>
             </dl>
@@ -181,29 +187,31 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '17', 17)" onmouseover="showTip(event, '17', 17)">
+              <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
                 <p>
                   <a id="Compute">
                     <a href="#Compute">
-                      <code><span>Dijkstra.Compute<span><span>(<span>g</span>)</span>&#32;<span>(<span>source</span>)</span></span></span></code>
+                      <code><span>Dijkstra.Compute<span><span>(<span>graph</span>)</span>&#32;<span>(<span>source</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="17">
+              <div class="fsdocs-tip" id="49">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>Dijkstra.Compute<span><span>(<span>g</span>)</span>&#32;<span>(<span>source</span>)</span></span></span></code>
+                  <code><span>Dijkstra.Compute<span><span>(<span>graph</span>)</span>&#32;<span>(<span>source</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        g
+                        graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                       - 
+                       The graph for which to compute the shortest path.
                     </span>
                     <br/>
                     <span>
@@ -212,83 +220,17 @@
                       </b>
                       :
                       <code>'Node</code>
+                       - 
+                       Calculate the shortest paths from this node.
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>float[]</span></code>
+                    <code><span><span>(<span>'Node&#32;*&#32;float</span>)</span>[]</span></code>
                   </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  g
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  source
-                </span>
-                :
-                <code>'Node</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>float[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs"></dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '18', 18)" onmouseover="showTip(event, '18', 18)">
-                <p>
-                  <a id="ComputeAllPairs">
-                    <a href="#ComputeAllPairs">
-                      <code><span>Dijkstra.ComputeAllPairs<span><span>(<span>g</span>)</span></span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="18">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>Dijkstra.ComputeAllPairs<span><span>(<span>g</span>)</span></span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        g
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><span>float[]</span>[]</span></code>
-                  </span>
+                  Tuples of target node and distance.
                   <br/>
                 </div>
               </div>
@@ -298,43 +240,66 @@
             <details>
               <summary>
                 <div class="fsdocs-summary">
-                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithm.Dijkstra.ComputeAllPairs``1```')">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.Algorithms.Dijkstra.Compute``1```')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
                   </div>
-                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithm.Dijkstra.ComputeAllPairs``1\'/>')">
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Algorithms.Dijkstra.Compute``1\'/>')">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
                   </div>
-                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/Dijkstra.fs#L41-41" class="fsdocs-source-link" title="Source on GitHub">
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/Algorithms.fs#L23-23" class="fsdocs-source-link" title="Source on GitHub">
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                     <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
                   </a>
                   <p class="fsdocs-summary">
-                    
- Computes all shortest paths in a graph
-
+                     
+ Computes shortest paths from <span class="fsdocs-param-name">source</span> for <span class="fsdocs-param-name">graph</span> using Dijkstra's algorithm in parallel.
+ 
                   </p>
                 </div>
               </summary>
+              <p class="fsdocs-remarks">
+                If there isn't a path between two edges, the distance is set to `infinity`.
+              </p>
               <dl class="fsdocs-params">
                 <dt class="fsdocs-param">
                   <span class="fsdocs-param-name">
-                    g
+                    graph
                   </span>
                   :
-                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
                 </dt>
-                <dd class="fsdocs-param-docs"></dd>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                     The graph for which to compute the shortest path.
+                  </p>
+                </dd>
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    source
+                  </span>
+                  :
+                  <code>'Node</code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                     Calculate the shortest paths from this node.
+                  </p>
+                </dd>
               </dl>
               <dl class="fsdocs-returns">
                 <dt>
                   <span class="fsdocs-return-name">
                     Returns: 
                   </span>
-                  <code><span><span>float[]</span>[]</span></code>
+                  <code><span><span>(<span>'Node&#32;*&#32;float</span>)</span>[]</span></code>
                 </dt>
-                <dd class="fsdocs-return-docs"></dd>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    Tuples of target node and distance.
+                  </p>
+                </dd>
               </dl>
             </details>
           </td>
@@ -342,78 +307,105 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '19', 19)" onmouseover="showTip(event, '19', 19)">
+              <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
                 <p>
-                  <a id="getAdjacencyArrayFor">
-                    <a href="#getAdjacencyArrayFor">
-                      <code><span>Dijkstra.getAdjacencyArrayFor&#32;<span>g&#32;nodeIx</span></span></code>
+                  <a id="ComputeAllPairs">
+                    <a href="#ComputeAllPairs">
+                      <code><span>Dijkstra.ComputeAllPairs<span><span>(<span>graph</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="19">
+              <div class="fsdocs-tip" id="50">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>Dijkstra.getAdjacencyArrayFor&#32;<span>g&#32;nodeIx</span></span></code>
+                  <code><span>Dijkstra.ComputeAllPairs<span><span>(<span>graph</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        g
+                        graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        nodeIx
-                      </b>
-                      :
-                      <code>int</code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                       - 
+                      The graph for which to compute the shortest paths.
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>float[]</span></code>
+                    <code><span><span>'Node[]</span>&#32;*&#32;<span><span>float[]</span>[]</span></span></code>
                   </span>
+                  
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ 
                   <br/>
                 </div>
               </div>
             </div>
           </td>
           <td class="fsdocs-member-xmldoc">
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  g
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nodeIx
-                </span>
-                :
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>float[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs"></dd>
-            </dl>
+            <details>
+              <summary>
+                <div class="fsdocs-summary">
+                  <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.Algorithms.Dijkstra.ComputeAllPairs``1```')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+                  </div>
+                  <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.Algorithms.Dijkstra.ComputeAllPairs``1\'/>')">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+                  </div>
+                  <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph/Algorithms.fs#L57-57" class="fsdocs-source-link" title="Source on GitHub">
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                    <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+                  </a>
+                  <p class="fsdocs-summary">
+                     
+ Computes all-pairs shortest paths for <span class="fsdocs-param-name">graph</span> using Dijkstra algorithm in parallel.
+ 
+                  </p>
+                </div>
+              </summary>
+              <p class="fsdocs-remarks">
+                If there isn't a path between two edges, the distance is set to `infinity`.
+              </p>
+              <dl class="fsdocs-params">
+                <dt class="fsdocs-param">
+                  <span class="fsdocs-param-name">
+                    graph
+                  </span>
+                  :
+                  <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-digraph-2.html">DiGraph</a>&lt;<span>'Node,&#32;float</span>&gt;</span></code>
+                </dt>
+                <dd class="fsdocs-param-docs">
+                  <p>
+                    The graph for which to compute the shortest paths.
+                  </p>
+                </dd>
+              </dl>
+              <dl class="fsdocs-returns">
+                <dt>
+                  <span class="fsdocs-return-name">
+                    Returns: 
+                  </span>
+                  <code><span><span>'Node[]</span>&#32;*&#32;<span><span>float[]</span>[]</span></span></code>
+                </dt>
+                <dd class="fsdocs-return-docs">
+                  <p>
+                    
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ 
+                  </p>
+                </dd>
+              </dl>
+            </details>
           </td>
         </tr>
       </tbody>
