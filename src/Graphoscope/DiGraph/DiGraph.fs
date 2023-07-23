@@ -98,10 +98,14 @@ module Operations =
     /// <returns>Unit</returns>
     let addEdge (graph: DiGraph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) =
         // TODO: Check if orig and dest nodes exist
-        // TODO: Check if edge already exists
         let orig, dest, attr = edge
-        graph.OutEdges[graph.IdMap[orig]].Add(graph.IdMap[dest], attr)
-        graph.InEdges[graph.IdMap[dest]].Add(graph.IdMap[orig], attr)
+        let origIx = graph.IdMap[orig]
+        let destIx = graph.IdMap[dest]
+        match graph.OutEdges[origIx] |> ResizeArray.tryFind(fun (t,_) -> t = destIx) with
+        | Some _ -> failwith $"Edge already exists: ({orig}, {dest})"
+        | None ->
+            graph.OutEdges[origIx].Add(destIx, attr)
+            graph.InEdges[destIx].Add(origIx, attr)
 
     /// <summary> 
     /// Returns the outbound edges for given node

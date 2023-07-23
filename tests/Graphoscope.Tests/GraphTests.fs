@@ -44,3 +44,10 @@ let ``Node removal updates correctly`` () =
     Assert.Equal<(int * float)[]>([|(1, 1.)|], getEdges g 3)
     Assert.Equal<(int * int * float)[]>([|(0, 1, 1.0); (0, 4, 1.0); (1, 1, 1.0); (1, 3, 1.0)|],  getAllEdges g)
 
+[<Fact>]
+let ``Existing edge cannot be added`` () =
+    let g =
+        [|(0, 1, 1.0); (0, 2, 1.0); (1, 1, 1.0); (1, 3, 1.0); (3, 2, 1.0); (4, 0, 1.0)|]
+        |> Builders.createFromEdges
+
+    Assert.ThrowsAny<Exception>(fun _ -> addEdge g (0, 1, 0.5))
