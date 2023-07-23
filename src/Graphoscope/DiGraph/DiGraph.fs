@@ -8,11 +8,13 @@ type DiGraph<'Node, 'EdgeData when 'Node: equality and 'Node: comparison>() =
     let idMap = Dictionary<'Node,int>()
     let nodes = ResizeArray<'Node>() 
     let outEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
+    let inEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
     // InEdges: ResizeArray<ResizeArray<(int * float)>>
 
     member internal _.IdMap: Dictionary<'Node, int> = idMap
     member internal _.Nodes: ResizeArray<'Node> = nodes
     member internal _.OutEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = outEdges
+    member internal _.InEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = inEdges
 
 [<AutoOpen>]
 module Operations =
@@ -37,7 +39,7 @@ module Operations =
         graph.IdMap.Add(node, graph.Nodes.Count * 1)
         graph.Nodes.Add node
         graph.OutEdges.Add (ResizeArray())
-        // g.InEdges.Add (ResizeArray())
+        graph.InEdges.Add (ResizeArray())
 
     let addManyNodes (graph: DiGraph<'Node,'EdgeData>) (nodes: 'Node []) =
         nodes |> Array.iter (addNode graph)
@@ -68,6 +70,16 @@ module Operations =
 
         graph.Nodes.RemoveAt nodeIx
         graph.OutEdges.RemoveAt nodeIx
+        graph.InEdges.RemoveAt nodeIx
+        
+        graph.InEdges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iteri(fun ci (origin, w) ->
+                if origin > nodeIx then
+                    graph.InEdges[ri][ci] <- origin - 1, w
+            )
+        )
 
         graph.OutEdges
         |> ResizeArray.iteri(fun ri r ->
@@ -89,7 +101,7 @@ module Operations =
         // TODO: Check if edge already exists
         let orig, dest, attr = edge
         graph.OutEdges[graph.IdMap[orig]].Add(graph.IdMap[dest], attr)
-        // g.InEdges[g.IdMap[dest]].Add(g.IdMap[orig], attr)
+        graph.InEdges[graph.IdMap[dest]].Add(graph.IdMap[orig], attr)
 
     /// <summary> 
     /// Returns the outbound edges for given node
@@ -107,7 +119,7 @@ module Operations =
     /// </summary>
     /// <param name="graph">The graph the edges are present in</param> 
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
-    let getAllOutEdges (graph: DiGraph<'Node,'EdgeData>): ('Node * 'Node * 'EdgeData) [] =
+    let getAllEdges (graph: DiGraph<'Node,'EdgeData>): ('Node * 'Node * 'EdgeData) [] =
         getNodes graph
         |> Array.map(fun n ->
             n
@@ -116,7 +128,17 @@ module Operations =
         )
         |> Array.concat
 
-    
+    /// <summary> 
+    /// Returns the outbound edges for given node
+    /// </summary>
+    /// <param name="origin">The node from which the edges start</param> 
+    /// <param name="graph">The graph the node is present in</param> 
+    /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
+    let getInEdges (graph: DiGraph<'Node,'EdgeData>) (destination: 'Node): ('Node * 'EdgeData) []=
+        graph.InEdges[graph.IdMap[destination]]
+        |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
+        |> Array.ofSeq
+
     /// <summary> 
     /// Adds many edges to a graph at once
     /// </summary>

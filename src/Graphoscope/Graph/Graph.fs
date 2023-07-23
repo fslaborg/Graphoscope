@@ -123,9 +123,6 @@ module Operations =
     let addManyEdges (graph: Graph<'Node,'EdgeData>) (edges: ('Node * 'Node * 'EdgeData) []) =
         edges |> Array.iter (addEdge graph)
 
-    // let getInEdges (dest: 'Node) (g: Graph<'Node>) =
-    //     g.InEdges[g.IdMap[dest]]
-
     /// <summary> 
     /// Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
     /// </summary>
