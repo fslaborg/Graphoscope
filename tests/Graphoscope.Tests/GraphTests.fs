@@ -50,3 +50,38 @@ let ``Existing edge cannot be added`` () =
         |> Builders.createFromEdges
 
     Assert.ThrowsAny<Exception>(fun _ -> addEdge g (0, 1, 0.5))
+
+
+[<Fact>]
+let ``All Pairs Dijkstra for Graph works correctly`` () =
+    let g =
+        [|(0, 1, 1.0); (0, 2, 1.0); (1, 1, 1.0); (1, 3, 1.0); (3, 2, 1.0); (4, 0, 1.0)|]
+        |> Builders.createFromEdges
+
+    let expected =
+        [|
+            [|0.; 1.; 1.; 2.; 1.|]
+            [|1.; 0.; 2.; 1.; 2.|]
+            [|1.; 2.; 0.; 1.; 2.|]
+            [|2.; 1.; 1.; 0.; 3.|]
+            [|1.; 2.; 2.; 3.; 0.|]
+        |]
+
+    Assert.Equal<float[][]>(expected, Algorithms.Dijkstra.ComputeAllPairs g |> snd)
+
+[<Fact>]
+let ``All Pairs Floyd Warshall for Graph works correctly`` () =
+    let g =
+        [|(0, 1, 1.0); (0, 2, 1.0); (1, 1, 1.0); (1, 3, 1.0); (3, 2, 1.0); (4, 0, 1.0)|]
+        |> Builders.createFromEdges
+
+    let expected =
+        [|
+            [|0.; 1.; 1.; 2.; 1.|]
+            [|1.; 0.; 2.; 1.; 2.|]
+            [|1.; 2.; 0.; 1.; 2.|]
+            [|2.; 1.; 1.; 0.; 3.|]
+            [|1.; 2.; 2.; 3.; 0.|]
+        |]
+
+    Assert.Equal<float[][]>(expected, Algorithms.FloydWarshall.Compute g |> snd)

@@ -74,7 +74,7 @@ let ``All Pairs Dijkstra for DiGraph works correctly`` () =
             [|1.0; 2.0; 2.0; 1.0; 1.0; 1.0; 2.0; 2.0; 2.0; 0.0|]
         |]
 
-    Assert.Equal<float[]>(expected, actual)
+    Assert.Equal<float[][]>(expected, actual)
 
 
 [<Fact>]
@@ -108,7 +108,7 @@ let ``All Pairs Floyd Warshall for DiGraph works correctly`` () =
             [|1.0; 2.0; 2.0; 1.0; 1.0; 1.0; 2.0; 2.0; 2.0; 0.0|]
         |]
 
-    Assert.Equal<float[]>(expected, actual)
+    Assert.Equal<float[][]>(expected, actual)
 
 [<Fact>]
 let ``Existing edge cannot be added`` () =
