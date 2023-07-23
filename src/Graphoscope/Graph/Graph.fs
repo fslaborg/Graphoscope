@@ -84,11 +84,15 @@ module Operations =
     /// <returns>Unit</returns>
     let addEdge (graph: Graph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) =
         // TODO: Check if orig and dest nodes exist
-        // TODO: Check if edge already exists
         let orig, dest, attr = edge
-        graph.Edges[graph.IdMap[orig]].Add(graph.IdMap[dest], attr)
-        if orig <> dest then
-            graph.Edges[graph.IdMap[dest]].Add(graph.IdMap[orig], attr)
+        let origIx = graph.IdMap[orig]
+        let destIx = graph.IdMap[dest]
+        match graph.Edges[origIx] |> ResizeArray.tryFind(fun (t,_) -> t = destIx) with
+        | Some _ -> failwith $"Edge already exists: ({orig}, {dest})"
+        | None ->
+            graph.Edges[origIx].Add(destIx, attr)
+            if orig <> dest then
+                graph.Edges[destIx].Add(origIx, attr)
 
     /// <summary> 
     /// Returns the edges for given node
