@@ -4,6 +4,20 @@ open FSharpAux
 open System.Collections.Generic
 
 
+//type AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
+//    Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>
+
+
+//type AdjCompGraph() =
+    
+//    /// Adds node to graph [if node exists it is updated]
+//    static member AddNode (key:'NodeKey) (data:'NodeData) (g: AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData>) 
+//        : AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData> =
+//            Dictionary.addOrUpdateInPlace key (data,Dictionary<'NodeKey,_>()) g |> ignore
+//            g
+
+
+
 type AdjCompGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
     internal(adjComponents:Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>) = 
 
