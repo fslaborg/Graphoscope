@@ -1,6 +1,9 @@
 (*** hide ***)
 
 (*** condition: prepare ***)
+#r "nuget: FSharpAux.Core, 2.0.0"
+#r "nuget: FSharpx.Collections, 3.1.0"
+#r "nuget: FSharp.Data, 6.2.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
@@ -34,12 +37,10 @@ to import and analyse using Graphoscope. We will start by importing a [graph](ht
 Create a monkeys.fsx and run the following code to import and print some basic measures. Further documention of DiGraph functionality is [here](reference/graphoscope-digraph.html)
 *)
 
-#r "nuget: Graphoscope, 0.1.0"
-
 open Graphoscope.Utility.Import
 open Graphoscope.DiGraph.Measures
 
-let file = "C:/Projects/Doodles/out.moreno_rhesus_rhesus.txt"
+let file = __SOURCE_DIRECTORY__ + "/data/out.moreno_rhesus_rhesus.txt"
 let monkeyGraph = importDirectedGraph file " " 2 false
 
 printf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " 
@@ -53,7 +54,7 @@ We can also import undirected graphs using the [Graph](reference/graphoscope-gra
 open Graphoscope.Graph
 open Graphoscope.Graph.Measures
 
-let karateFile= "C:/Projects/Doodles/out.ucidata-zachary.txt"
+let karateFile= __SOURCE_DIRECTORY__ + "/data/zachary.txt"
 let karateGraph = importUnDirectedGraph karateFile " " 2 false
 getNodes karateGraph
 
@@ -105,8 +106,8 @@ These algorthms both operate on an Adjacency Matrix and a function for convertin
 It can be executed as follows. 
 *)
 open Graphoscope.DiGraph.Converters
-toAdjacencyMatrix monkeyGraph
-(*** include-output ***)
+let monkeyAdjacencyMatrix = toAdjacencyMatrix monkeyGraph
+(***include-value:monkeyAdjacencyMatrix***)
 
 (**
 ## Charting
