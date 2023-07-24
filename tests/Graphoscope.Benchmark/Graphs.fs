@@ -119,41 +119,41 @@ type Graphs () =
     // ##############################################
     // Access 
 
-    [<Benchmark>]
-    member this.Access_Adj () =     
-        [|
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,_) = edgesArr.[i]
-            let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
-            yield d
-        |] 
+    //[<Benchmark>]
+    //member this.Access_Adj () =     
+    //    [|
+    //    for i=0 to this.NumberEdges-1 do
+    //        let (node1,node2,_) = edgesArr.[i]
+    //        let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
+    //        yield d
+    //    |] 
 
-    [<Benchmark>]
-    member this.Access_Di () =  
-        [|
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,_) = edgesArr.[i]
-            let _,_,d = DiGraph.Edge.find node1 node2 diGraph
-            yield d
-        |] 
+    //[<Benchmark>]
+    //member this.Access_Di () =  
+    //    [|
+    //    for i=0 to this.NumberEdges-1 do
+    //        let (node1,node2,_) = edgesArr.[i]
+    //        let _,_,d = DiGraph.Edge.find node1 node2 diGraph
+    //        yield d
+    //    |] 
 
-    [<Benchmark>]
-    member this.Access_DiNode () =  
-         [|
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,_) = edgesArr.[i]
-            let _,_,d = DiGraph.Edge.find {Id=node1;Data=node1} {Id=node2;Data=node2} diNodeGraph
-            yield d
-        |] 
+    //[<Benchmark>]
+    //member this.Access_DiNode () =  
+    //     [|
+    //    for i=0 to this.NumberEdges-1 do
+    //        let (node1,node2,_) = edgesArr.[i]
+    //        let _,_,d = DiGraph.Edge.find {Id=node1;Data=node1} {Id=node2;Data=node2} diNodeGraph
+    //        yield d
+    //    |] 
 
-    [<Benchmark>]
-    member this.Access_FGraph () =  
-        [|
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,_) = edgesArr.[i]
-            let _,_,d = FGraph.Edge.find node1 node2 fGraph
-            yield d
-        |] |> ignore
+    //[<Benchmark>]
+    //member this.Access_FGraph () =  
+    //    [|
+    //    for i=0 to this.NumberEdges-1 do
+    //        let (node1,node2,_) = edgesArr.[i]
+    //        let _,_,d = FGraph.Edge.find node1 node2 fGraph
+    //        yield d
+    //    |] |> ignore
 
 
 

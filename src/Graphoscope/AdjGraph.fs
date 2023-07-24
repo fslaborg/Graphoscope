@@ -90,7 +90,7 @@ type AdjGraph() =
     /// <summary> 
     /// Converts Adjacency graph to its Adjacency matrix representation
     /// </summary>
-    static member toAdjGraph (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)
+    static member toAdjMatrix (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)
         : AdjMatrix<'NodeKey, 'NodeData, 'EdgeData> =
         let nodeData     = Array.zeroCreate graph.Count
         let nodekeyIndex = Dictionary<'NodeKey, int>(graph.Count)

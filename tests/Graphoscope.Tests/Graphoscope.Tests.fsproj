@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="AdjGraph.fs" />
     <Compile Include="UndirectedTests.fs" />
     <Compile Include="Tests.fs" />
     <Compile Include="Program.fs" />

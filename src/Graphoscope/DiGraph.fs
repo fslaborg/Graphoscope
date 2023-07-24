@@ -134,7 +134,9 @@ module DiGraph =
             let origIx = graph.IdMap[orig]
             let destIx = graph.IdMap[dest]
             match graph.OutEdges[origIx] |> ResizeArray.tryFind(fun (t,_) -> t = destIx) with
-            | Some _ -> failwith $"Edge already exists: ({orig}, {dest})"
+            | Some _ -> 
+                ()
+                //failwith $"Edge already exists: ({orig}, {dest})"
             | None ->
                 graph.OutEdges[origIx].Add(destIx, attr)
                 graph.InEdges[destIx].Add(origIx, attr)
