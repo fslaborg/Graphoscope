@@ -8,7 +8,7 @@
     <Description>A pragmatic approach to network science.</Description>
     <Summary>A pragmatic approach to network science.</Summary>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/fslaborg/Graphoscope</PackageProjectUrl>
+    <PackageProjectUrl>https://fslab.org/Graphoscope</PackageProjectUrl>
     <PackageTags>network graph fsharp csharp dotnet</PackageTags>
     <RepositoryUrl>https://github.com/fslaborg/Graphoscope</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
