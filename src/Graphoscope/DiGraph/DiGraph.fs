@@ -6,13 +6,13 @@ open System.Collections.Generic
 
 type DiGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
-    let nodes = ResizeArray<'NodeKey>() 
+    let nodeKeys = ResizeArray<'NodeKey>() 
     let outEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
     let inEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
     // InEdges: ResizeArray<ResizeArray<(int * float)>>
 
     member internal _.IdMap: Dictionary<'NodeKey, int> = idMap
-    member internal _.Nodes: ResizeArray<'NodeKey> = nodes
+    member internal _.NodeKeys: ResizeArray<'NodeKey> = nodeKeys
     member internal _.OutEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = outEdges
     member internal _.InEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = inEdges
 
@@ -25,7 +25,7 @@ module Operations =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of nodes</returns>
     let getNodes (graph: DiGraph<'NodeKey,'EdgeData>) =
-        graph.Nodes
+        graph.NodeKeys
         |> Array.ofSeq
 
     /// <summary> 
@@ -36,8 +36,8 @@ module Operations =
     /// /// <returns>Unit</returns>
     let addNode (graph: DiGraph<'NodeKey,'EdgeData>) (node: 'NodeKey) =
         // TODO: Check if node exists
-        graph.IdMap.Add(node, graph.Nodes.Count * 1)
-        graph.Nodes.Add node
+        graph.IdMap.Add(node, graph.NodeKeys.Count * 1)
+        graph.NodeKeys.Add node
         graph.OutEdges.Add (ResizeArray())
         graph.InEdges.Add (ResizeArray())
 
@@ -68,7 +68,7 @@ module Operations =
             if v > nodeIx then
                 graph.IdMap[k] <- v - 1
 
-        graph.Nodes.RemoveAt nodeIx
+        graph.NodeKeys.RemoveAt nodeIx
         graph.OutEdges.RemoveAt nodeIx
         graph.InEdges.RemoveAt nodeIx
         
@@ -115,7 +115,7 @@ module Operations =
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
     let getOutEdges (graph: DiGraph<'NodeKey,'EdgeData>) (origin: 'NodeKey): ('NodeKey * 'EdgeData) []=
         graph.OutEdges[graph.IdMap[origin]]
-        |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
+        |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
 
     /// <summary> 
@@ -140,7 +140,7 @@ module Operations =
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
     let getInEdges (graph: DiGraph<'NodeKey,'EdgeData>) (destination: 'NodeKey): ('NodeKey * 'EdgeData) []=
         graph.InEdges[graph.IdMap[destination]]
-        |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
+        |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
 
     /// <summary> 
@@ -203,8 +203,8 @@ module Operations =
 
     /// Returns all possible edges in a digraph, including self-loops.
     let internal getAllPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
-        graph.Nodes
-        |> Seq.allPairs graph.Nodes
+        graph.NodeKeys
+        |> Seq.allPairs graph.NodeKeys
 
     /// Returns all possible edges in a digraph, excluding self-loops.
     let internal getNonLoopingPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
@@ -263,7 +263,7 @@ module Converters =
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
     let toAdjacencyMatrix (graph: DiGraph<'NodeKey, float>) =
-        let matrix = Array.init graph.Nodes.Count (fun _ -> Array.init graph.Nodes.Count (fun _ -> 0.))
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
         graph.OutEdges
         |> ResizeArray.iteri(fun ri r ->
             r

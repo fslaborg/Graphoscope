@@ -8,7 +8,7 @@ module Algorithms =
     type Dijkstra() =
         static member internal getAdjacencyArrayFor (graph: DiGraph<'NodeKey, float>) (nodeIx: int) =
             let dist =
-                Array.init (graph.Nodes.Count) (fun x -> if x = nodeIx then 0. else infinity)
+                Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
             graph.OutEdges[nodeIx]
             |> ResizeArray.iter(fun (target, w) -> dist[target] <- w)
             dist
@@ -25,7 +25,7 @@ module Algorithms =
             let sourceIx = graph.IdMap[source]
             let dist = Dijkstra.getAdjacencyArrayFor graph sourceIx
 
-            for n in 0 .. graph.Nodes.Count - 1 do
+            for n in 0 .. graph.NodeKeys.Count - 1 do
                 que.Add(n)
 
             while que.Count > 0 do
@@ -43,7 +43,7 @@ module Algorithms =
                     if newCost < dist[n] then
                         dist[n] <- newCost
             dist
-            |> Array.mapi(fun i x -> graph.Nodes[i], x)
+            |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
         
         /// <summary> 
         /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
@@ -71,7 +71,7 @@ module Algorithms =
                 let que= ResizeArray()
                 let dist = allDists[sourceIx] |> Array.copy
 
-                for n in 0 .. graph.Nodes.Count - 1 do
+                for n in 0 .. graph.NodeKeys.Count - 1 do
                     que.Add(n)
 
                 while que.Count > 0 do
@@ -88,8 +88,8 @@ module Algorithms =
                             dist[n] <- newCost
                 dist
 
-            graph.Nodes |> Array.ofSeq,
-            [|0 .. graph.Nodes.Count - 1|]
+            graph.NodeKeys |> Array.ofSeq,
+            [|0 .. graph.NodeKeys.Count - 1|]
             |> Array.Parallel.map dijkstra 
 
 
@@ -127,5 +127,5 @@ module Algorithms =
         /// </returns>
         static member Compute (graph: DiGraph<'NodeKey, float>): 'NodeKey [] * float [][] =
             let adj = graph |> Converters.toAdjacencyMatrix
-            graph.Nodes |> Array.ofSeq, FloydWarshall.fromAdjacencyMatrix adj
+            graph.NodeKeys |> Array.ofSeq, FloydWarshall.fromAdjacencyMatrix adj
 

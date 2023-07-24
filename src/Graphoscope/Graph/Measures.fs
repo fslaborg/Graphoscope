@@ -36,7 +36,7 @@ module Measures =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
     let getSize (graph : Graph<'NodeKey, 'EdgeData>) = 
-        graph.Nodes |> ResizeArray.length
+        graph.NodeKeys |> ResizeArray.length
 
     /// <summary> 
     /// Get the mean degree of the graph. 

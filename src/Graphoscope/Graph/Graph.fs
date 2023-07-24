@@ -6,11 +6,11 @@ open System.Collections.Generic
 
 type Graph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
-    let nodes = ResizeArray<'NodeKey>() 
+    let nodeKeys = ResizeArray<'NodeKey>() 
     let edges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
 
     member internal _.IdMap: Dictionary<'NodeKey, int> = idMap
-    member internal _.Nodes: ResizeArray<'NodeKey> = nodes
+    member internal _.NodeKeys: ResizeArray<'NodeKey> = nodeKeys
     member internal _.Edges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = edges
 
 [<AutoOpen>]
@@ -22,7 +22,7 @@ module Operations =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of nodes</returns>
     let getNodes (graph: Graph<'NodeKey,'EdgeData>) =
-        graph.Nodes
+        graph.NodeKeys
         |> Array.ofSeq
 
     /// <summary> 
@@ -33,8 +33,8 @@ module Operations =
     /// /// <returns>Unit</returns>
     let addNode (graph: Graph<'NodeKey,'EdgeData>) (node: 'NodeKey) =
         // TODO: Check if node exists
-        graph.IdMap.Add(node, graph.Nodes.Count * 1)
-        graph.Nodes.Add node
+        graph.IdMap.Add(node, graph.NodeKeys.Count * 1)
+        graph.NodeKeys.Add node
         graph.Edges.Add (ResizeArray())
 
     let addManyNodes (graph: Graph<'NodeKey,'EdgeData>) (nodes: 'NodeKey []) =
@@ -64,7 +64,7 @@ module Operations =
             if v > nodeIx then
                 graph.IdMap[k] <- v - 1
 
-        graph.Nodes.RemoveAt nodeIx
+        graph.NodeKeys.RemoveAt nodeIx
         graph.Edges.RemoveAt nodeIx
 
         graph.Edges
@@ -102,7 +102,7 @@ module Operations =
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
     let getEdges (graph: Graph<'NodeKey,'EdgeData>) (origin: 'NodeKey): ('NodeKey * 'EdgeData) []=
         graph.Edges[graph.IdMap[origin]]
-        |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
+        |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
 
     /// <summary> 
@@ -185,9 +185,9 @@ module Operations =
     /// Returns all possible edges in a Graph, including self-loops.
     let internal getAllPossibleEdges (graph: Graph<'NodeKey,'EdgeData>): ('NodeKey * 'NodeKey) seq =
         seq {
-            for i in 0 .. graph.Nodes.Count - 1 do 
-                for j in i .. 0 .. graph.Nodes.Count - 1 ->
-                    graph.Nodes[i], graph.Nodes[j]
+            for i in 0 .. graph.NodeKeys.Count - 1 do 
+                for j in i .. 0 .. graph.NodeKeys.Count - 1 ->
+                    graph.NodeKeys[i], graph.NodeKeys[j]
         }
 
     /// Returns all possible edges in a Graph, excluding self-loops.
@@ -244,7 +244,7 @@ module Converters =
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
     let toAdjacencyMatrix (graph: Graph<'NodeKey, float>) =
-        let matrix = Array.init graph.Nodes.Count (fun _ -> Array.init graph.Nodes.Count (fun _ -> 0.))
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
         graph.Edges
         |> ResizeArray.iteri(fun ri r ->
             r

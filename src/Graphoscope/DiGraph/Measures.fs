@@ -51,7 +51,7 @@ module Measures =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
     let getSize (graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        graph.Nodes  |> ResizeArray.length
+        graph.NodeKeys  |> ResizeArray.length
     
     /// <summary> 
     /// Returns the degree distribution of the graph
