@@ -120,7 +120,9 @@ module AdjGraph =
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         AdjGraph<'NodeKey, 'NodeData, 'EdgeData>()
 
-
+    /// <summary> 
+    /// Functions operating on nodes
+    /// </summary>
     type Node() =
 
         /// Counts all nodes 
@@ -132,6 +134,10 @@ module AdjGraph =
             : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
             Dictionary.addOrUpdateInPlace key (data,Dictionary<'NodeKey,_>()) graph |> ignore
             graph
+
+        /// 
+        static member containsKey (key:'NodeKey) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+            graph.ContainsKey key
 
          /// Applies the given function to each node of the graph
         static member iter (action : 'NodeKey -> 'NodeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
@@ -163,6 +169,9 @@ module AdjGraph =
             Node.iteri (fun i key node -> tmp.[i] <- key,node) graph
             tmp
 
+    /// <summary> 
+    /// Functions operating on directed edges
+    /// </summary>
     type Edge() =
         
         /// Counts all edges 
@@ -173,6 +182,24 @@ module AdjGraph =
                 adjComponent.Count
                 )
 
+
+        /// Add edge
+        static member add (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (data : 'EdgeData) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =                
+            if not <| graph.ContainsKey targetKey then
+                failwithf "The target node %O of the edge does not exist in this graph." targetKey        
+
+            match graph.ContainsKey(sourceKey) with
+            | true  -> 
+                let source,adjComponent = graph.[sourceKey]
+                Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
+                Dictionary.addOrUpdateInPlace sourceKey (source,adjComponent) graph |> ignore
+            | false -> 
+                failwithf "The source node %O of the edge does not exist in this graph." sourceKey
+            
+            graph
+
+
+
         /// Applies the given function to each node of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             for skv in graph do
@@ -180,6 +207,7 @@ module AdjGraph =
                 for tkv in adjComponent do  
                     action skv.Key tkv.Key tkv.Value
     
+
         //static member map (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             
 
