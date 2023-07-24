@@ -1,4 +1,7 @@
 namespace Graphoscope
 
 
-type Edje<'NodeKey,'lable> = 'NodeKey * 'NodeKey * 'lable
+/// <summary> 
+/// Edge representation with generic node key and edge data seperated by default
+/// </summary>
+type Edge<'NodeKey, 'EdgeData> = 'NodeKey * 'NodeKey * 'EdgeData 

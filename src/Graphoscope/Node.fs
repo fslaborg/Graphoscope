@@ -8,11 +8,6 @@ open System
 /// </summary>
 type Node<'NodeKey, 'NodeData> = 'NodeKey * 'NodeData
 
-/// <summary> 
-/// Edge representation with generic node key and edge data seperated by default
-/// </summary>
-type Edge<'NodeKey, 'EdgeData> = 'NodeKey * 'NodeKey * 'EdgeData 
-
 
 
 [<CustomComparison; CustomEquality>]
