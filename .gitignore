@@ -397,4 +397,9 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /tmp/watch
+
+# docs artifacts
 /.fsdocs
+/tmp/watch
+/output
+/temp/gh-pages
