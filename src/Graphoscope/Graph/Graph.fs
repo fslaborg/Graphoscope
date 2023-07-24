@@ -4,13 +4,13 @@ namespace Graphoscope.Graph
 open FSharpAux
 open System.Collections.Generic
 
-type Graph<'Node, 'EdgeData when 'Node: equality and 'Node: comparison>() = 
-    let idMap = Dictionary<'Node,int>()
-    let nodes = ResizeArray<'Node>() 
+type Graph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
+    let idMap = Dictionary<'NodeKey,int>()
+    let nodes = ResizeArray<'NodeKey>() 
     let edges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
 
-    member internal _.IdMap: Dictionary<'Node, int> = idMap
-    member internal _.Nodes: ResizeArray<'Node> = nodes
+    member internal _.IdMap: Dictionary<'NodeKey, int> = idMap
+    member internal _.Nodes: ResizeArray<'NodeKey> = nodes
     member internal _.Edges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = edges
 
 [<AutoOpen>]
@@ -21,7 +21,7 @@ module Operations =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of nodes</returns>
-    let getNodes (graph: Graph<'Node,'EdgeData>) =
+    let getNodes (graph: Graph<'NodeKey,'EdgeData>) =
         graph.Nodes
         |> Array.ofSeq
 
@@ -31,13 +31,13 @@ module Operations =
     /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
     /// /// <param name="graph">The graph the node will be added to.</param> 
     /// /// <returns>Unit</returns>
-    let addNode (graph: Graph<'Node,'EdgeData>) (node: 'Node) =
+    let addNode (graph: Graph<'NodeKey,'EdgeData>) (node: 'NodeKey) =
         // TODO: Check if node exists
         graph.IdMap.Add(node, graph.Nodes.Count * 1)
         graph.Nodes.Add node
         graph.Edges.Add (ResizeArray())
 
-    let addManyNodes (graph: Graph<'Node,'EdgeData>) (nodes: 'Node []) =
+    let addManyNodes (graph: Graph<'NodeKey,'EdgeData>) (nodes: 'NodeKey []) =
         nodes |> Array.iter (addNode graph)
 
     /// <summary> 
@@ -46,7 +46,7 @@ module Operations =
     /// <param name="node">The node to be removed.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    let removeNode (graph: Graph<'Node,'EdgeData>) (node: 'Node) = 
+    let removeNode (graph: Graph<'NodeKey,'EdgeData>) (node: 'NodeKey) = 
         let nodeIx = graph.IdMap[node]
 
         graph.Edges
@@ -82,7 +82,7 @@ module Operations =
     /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph the edge will be added to.</param> 
     /// <returns>Unit</returns>
-    let addEdge (graph: Graph<'Node,'EdgeData>) (edge: ('Node * 'Node * 'EdgeData)) =
+    let addEdge (graph: Graph<'NodeKey,'EdgeData>) (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
         // TODO: Check if orig and dest nodes exist
         let orig, dest, attr = edge
         let origIx = graph.IdMap[orig]
@@ -100,7 +100,7 @@ module Operations =
     /// <param name="origin">The node from which the edges start</param> 
     /// <param name="graph">The graph the node is present in</param> 
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
-    let getEdges (graph: Graph<'Node,'EdgeData>) (origin: 'Node): ('Node * 'EdgeData) []=
+    let getEdges (graph: Graph<'NodeKey,'EdgeData>) (origin: 'NodeKey): ('NodeKey * 'EdgeData) []=
         graph.Edges[graph.IdMap[origin]]
         |> Seq.map(fun (t, w) -> graph.Nodes[t], w)
         |> Array.ofSeq
@@ -110,7 +110,7 @@ module Operations =
     /// </summary>
     /// <param name="graph">The graph the edges are present in</param> 
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
-    let getAllEdges (graph: Graph<'Node,'EdgeData>): ('Node * 'Node * 'EdgeData) [] =
+    let getAllEdges (graph: Graph<'NodeKey,'EdgeData>): ('NodeKey * 'NodeKey * 'EdgeData) [] =
         getNodes graph
         |> Array.mapi(fun i n ->
             n
@@ -130,7 +130,7 @@ module Operations =
     /// <param name="edges">The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph to add the edge to</param> 
     /// <returns>Unit</returns>
-    let addManyEdges (graph: Graph<'Node,'EdgeData>) (edges: ('Node * 'Node * 'EdgeData) []) =
+    let addManyEdges (graph: Graph<'NodeKey,'EdgeData>) (edges: ('NodeKey * 'NodeKey * 'EdgeData) []) =
         edges |> Array.iter (addEdge graph)
 
     /// <summary> 
@@ -140,7 +140,7 @@ module Operations =
     /// <param name="destination">The target node of the edge</param> 
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
-    let findEdge (origin:'Node) (destination:'Node) (graph : Graph<'Node, 'EdgeData>) : 'Node * 'Node * 'EdgeData =
+    let findEdge (origin:'NodeKey) (destination:'NodeKey) (graph : Graph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
         let k2 = graph.IdMap[origin]
         graph.Edges[graph.IdMap[origin]]
         |> ResizeArray.find (fun (k,l) -> k=k2)
@@ -152,7 +152,7 @@ module Operations =
     /// </summary>
     /// <param name="graph">The graph to perform the operation on</param> 
     /// <returns>Unit</returns>
-    let normalizeEdges (graph: Graph<'Node,float>) = // should this return the graph?
+    let normalizeEdges (graph: Graph<'NodeKey,float>) = // should this return the graph?
         graph.Edges
         |> ResizeArray.iteri( fun ri edges ->
             let total =
@@ -170,7 +170,7 @@ module Operations =
     /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    let removeEdge (graph: Graph<'Node,'EdgeData>) (edge: ('Node * 'Node)) = 
+    let removeEdge (graph: Graph<'NodeKey,'EdgeData>) (edge: ('NodeKey * 'NodeKey)) = 
         let orig, dest = edge
         let ixIn = graph.Edges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
         let ixOut = graph.Edges[graph.IdMap[dest]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[orig])
@@ -183,7 +183,7 @@ module Operations =
         | None, None -> printfn $"Edge to be removed doesn't exist: {edge}"
 
     /// Returns all possible edges in a Graph, including self-loops.
-    let internal getAllPossibleEdges (graph: Graph<'Node,'EdgeData>): ('Node * 'Node) seq =
+    let internal getAllPossibleEdges (graph: Graph<'NodeKey,'EdgeData>): ('NodeKey * 'NodeKey) seq =
         seq {
             for i in 0 .. graph.Nodes.Count - 1 do 
                 for j in i .. 0 .. graph.Nodes.Count - 1 ->
@@ -191,7 +191,7 @@ module Operations =
         }
 
     /// Returns all possible edges in a Graph, excluding self-loops.
-    let internal getNonLoopingPossibleEdges (graph: Graph<'Node,'EdgeData>): ('Node * 'Node) seq  =
+    let internal getNonLoopingPossibleEdges (graph: Graph<'NodeKey,'EdgeData>): ('NodeKey * 'NodeKey) seq  =
         getAllPossibleEdges graph
         |> Seq.filter(fun (n1, n2) -> n1 <> n2)
 
@@ -202,7 +202,7 @@ module Builders =
     /// Edge data can be used to specify weights of edges or other edge labels. 
     /// </summary>
     /// <returns>A graph of the specified type</returns>
-    let create<'Node,'EdgeData when 'Node: equality and 'Node: comparison> () : Graph<'Node, 'EdgeData>=
+    let create<'NodeKey,'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> () : Graph<'NodeKey, 'EdgeData>=
         Graph()
 
     /// <summary> 
@@ -211,7 +211,7 @@ module Builders =
     /// </summary>
     /// <param name="nodes">An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.</param> 
     /// <returns>A graph containing the nodes</returns>
-    let createFromNodes<'Node,'EdgeData when 'Node: equality and 'Node: comparison> (nodes: 'Node []) : Graph<'Node, 'EdgeData> =
+    let createFromNodes<'NodeKey,'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> (nodes: 'NodeKey []) : Graph<'NodeKey, 'EdgeData> =
         let g = create()
         nodes |> Array.iter (addNode g)
         g
@@ -221,7 +221,7 @@ module Builders =
     /// </summary>
     /// <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
     /// <returns>A graph containing the nodes</returns>
-    let createFromEdges (edges: ('Node * 'Node * 'EdgeData)[]) : Graph<'Node, 'EdgeData> =
+    let createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : Graph<'NodeKey, 'EdgeData> =
         let g = 
             edges
             |> Array.map(fun (n1, n2, _) -> n1, n2)
@@ -243,7 +243,7 @@ module Converters =
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
-    let toAdjacencyMatrix (graph: Graph<'Node, float>) =
+    let toAdjacencyMatrix (graph: Graph<'NodeKey, float>) =
         let matrix = Array.init graph.Nodes.Count (fun _ -> Array.init graph.Nodes.Count (fun _ -> 0.))
         graph.Edges
         |> ResizeArray.iteri(fun ri r ->

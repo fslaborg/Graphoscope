@@ -6,7 +6,7 @@ open FSharpAux
 module Algorithms =
 
     type Dijkstra() =
-        static member internal getAdjacencyArrayFor (graph: Graph<'Node, float>) (nodeIx: int) =
+        static member internal getAdjacencyArrayFor (graph: Graph<'NodeKey, float>) (nodeIx: int) =
             let dist =
                 Array.init (graph.Nodes.Count) (fun x -> if x = nodeIx then 0. else infinity)
             graph.Edges[nodeIx]
@@ -20,7 +20,7 @@ module Algorithms =
         /// <param name="source"> Calculate the shortest paths from this node.</param>
         /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
         /// <returns>Tuples of target node and distance.</returns>
-        static member Compute (graph: Graph<'Node, float>) (source: 'Node): ('Node * float) [] =
+        static member Compute (graph: Graph<'NodeKey, float>) (source: 'NodeKey): ('NodeKey * float) [] =
             let que= ResizeArray()
             let sourceIx = graph.IdMap[source]
             let dist = Dijkstra.getAdjacencyArrayFor graph sourceIx
@@ -54,7 +54,7 @@ module Algorithms =
         /// The ordered array of nodes and 2D Array of distances where each
         /// row and column index corresponds to a node's index in the nodes array.
         /// </returns>
-        static member ComputeAllPairs (graph: Graph<'Node, float>): 'Node [] * float [][] =
+        static member ComputeAllPairs (graph: Graph<'NodeKey, float>): 'NodeKey [] * float [][] =
             let allDists = Converters.toAdjacencyMatrix graph
             allDists
             |> Array.iteri(fun ri r ->
@@ -126,7 +126,7 @@ module Algorithms =
         /// The ordered array of nodes and 2D Array of distances where each
         /// row and column index corresponds to a node's index in the nodes array.
         /// </returns>
-        static member Compute (graph: Graph<'Node, float>): 'Node [] * float [][] =
+        static member Compute (graph: Graph<'NodeKey, float>): 'NodeKey [] * float [][] =
             let adj = graph |> Converters.toAdjacencyMatrix
             graph.Nodes |> Array.ofSeq, FloydWarshall.fromAdjacencyMatrix adj
 

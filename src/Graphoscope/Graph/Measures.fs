@@ -12,7 +12,7 @@ module Measures =
     /// <param name="destination">The finishing node of the path</param> 
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the distance</returns>
-    let getShortestPath (origin :'Node)  (destination :'Node) (graph : Graph<'Node, float>)  =
+    let getShortestPath (origin :'NodeKey)  (destination :'NodeKey) (graph : Graph<'NodeKey, float>)  =
         Dijkstra.Compute graph origin 
         |> Array.tryFind(fun (d,_) -> d = destination)
         |> Option.map snd
@@ -22,7 +22,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    let getVolume(graph : Graph<'Node, 'EdgeData>)  = 
+    let getVolume(graph : Graph<'NodeKey, 'EdgeData>)  = 
         graph.Edges 
         |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
         |> ResizeArray.toArray
@@ -35,7 +35,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    let getSize (graph : Graph<'Node, 'EdgeData>) = 
+    let getSize (graph : Graph<'NodeKey, 'EdgeData>) = 
         graph.Nodes |> ResizeArray.length
 
     /// <summary> 
@@ -43,7 +43,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    let getMeanDegree (graph : Graph<'Node, 'EdgeData>)  = 
+    let getMeanDegree (graph : Graph<'NodeKey, 'EdgeData>)  = 
         2. * (getVolume graph |> float) / (getSize graph |> float)
     
     /// <summary> 
@@ -51,7 +51,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float array of degree values</returns>
-    let getDegreeDistribution (graph : Graph<'Node, 'EdgeData>) = 
+    let getDegreeDistribution (graph : Graph<'NodeKey, 'EdgeData>) = 
         graph.Edges 
         |> Seq.map(fun n -> n |> ResizeArray.length |> float)
         |> Seq.sortDescending

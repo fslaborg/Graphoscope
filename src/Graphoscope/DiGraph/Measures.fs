@@ -12,7 +12,7 @@ module Measures =
     /// <param name="destination">The finishing node of the path</param> 
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the distance</returns>
-    let getShortestPath (origin :'Node)  (destination :'Node) (graph : DiGraph<'Node, float>)  =
+    let getShortestPath (origin :'NodeKey)  (destination :'NodeKey) (graph : DiGraph<'NodeKey, float>)  =
         Dijkstra.Compute graph origin 
         |> Array.tryFind(fun (d,_) -> d = destination)
         |> fun o -> 
@@ -26,7 +26,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    let getMeanDegree (graph : DiGraph<'Node, 'EdgeData>)  = 
+    let getMeanDegree (graph : DiGraph<'NodeKey, 'EdgeData>)  = 
         graph.OutEdges
         |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
         |> ResizeArray.toArray
@@ -37,7 +37,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    let getVolume(graph : DiGraph<'Node, 'EdgeData>)  = 
+    let getVolume(graph : DiGraph<'NodeKey, 'EdgeData>)  = 
         graph.OutEdges 
         |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
         |> ResizeArray.toArray
@@ -50,7 +50,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    let getSize (graph : DiGraph<'Node, 'EdgeData>) = 
+    let getSize (graph : DiGraph<'NodeKey, 'EdgeData>) = 
         graph.Nodes  |> ResizeArray.length
     
     /// <summary> 
@@ -58,7 +58,7 @@ module Measures =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float array of degree values</returns>
-    let getDegreeDistribution (graph : DiGraph<'Node, 'EdgeData>) = 
+    let getDegreeDistribution (graph : DiGraph<'NodeKey, 'EdgeData>) = 
         graph.OutEdges 
         |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
         |> ResizeArray.toArray
