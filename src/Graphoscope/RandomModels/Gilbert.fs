@@ -2,7 +2,6 @@
 
 open Graphoscope
 
-
 // Adaptation of the gilbert random plane networks
  // Gilbert, E.N., 1961. Random plane networks. Journal of the society for industrial and applied mathematics, 9(4), pp.533-543.
  /// Returns an ArrayAdjacencyGraph that is generated randomly with the given parameters.
@@ -11,8 +10,11 @@ open Graphoscope
  /// probability represents the probability of an edge between 2 vertices.   
 type Gilbert() =
     
+    
+    /// <summary> 
     /// Inits a directed AdjGraph according to the gilbert random plane networks
-    static member initDirectedAdjCompGraph (numberOfModes: int) (probability: float) =
+    /// </summary>
+    static member initDirectedAdjGraph (numberOfModes: int) (probability: float) =
          if probability > 1. || probability < 0. then failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
 
          let rnd         = new System.Random()
