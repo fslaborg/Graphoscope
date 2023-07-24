@@ -3,7 +3,16 @@ namespace Graphoscope
 open System
 
 
-type Node<'NodeKey, 'Node> = 'NodeKey * 'Node
+/// <summary> 
+/// Node representation with generic key and data seperated by default
+/// </summary>
+type Node<'NodeKey, 'NodeData> = 'NodeKey * 'NodeData
+
+/// <summary> 
+/// Edge representation with generic node key and edge data seperated by default
+/// </summary>
+type Edge<'NodeKey, 'EdgeData> = 'NodeKey * 'NodeKey * 'EdgeData 
+
 
 
 [<CustomComparison; CustomEquality>]
