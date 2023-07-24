@@ -17,12 +17,6 @@ type AdjMatrix<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         let adjMatrix    = Array2D.zeroCreate n n        
         AdjMatrix(adjMatrix, nodeData, nodekeyIndex)
 
-    /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
-    /// </summary>
-    /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
-    /// <param name="graph">The graph to traverse.</param> 
-    /// <returns>Sequence of node key and adjacent components</returns>
     member this.Item(n:int, n:int) = 
          edgeData.[n,m]
     member this.Bykey(sourceKey:'NodeKey, targetKey:'NodeKey) =
