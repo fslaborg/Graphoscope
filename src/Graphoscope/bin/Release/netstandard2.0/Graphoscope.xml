@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doc>
+<assembly><name>Graphoscope</name></assembly>
+<members>
+<member name="M:Graphoscope.Graph.Generators.randomGnp(System.Random,System.Int32,System.Double)">
+ <summary> 
+ Generates a random Graph of size `n`.
+ It will create a graph of specified size and edge density. 
+ </summary>
+ <param name="n">The number of nodes in the created graph</param> 
+ <param name="rng">A random number generator</param> 
+ <param name="p">TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.</param> 
+ <returns>A random directed graph with integer type nodes and float typed edges with value 1.0</returns>
+</member>
+<member name="M:Graphoscope.Graph.Generators.complete(System.Int32)">
+ <summary> 
+ Generates a complete Graph of size `n`.
+ EdgeData is set to `1.0`. This in effect looks like an unweighted graph.
+ </summary>
+ <param name="n">The number of nodes in the created graph</param> 
+ <returns>A directed graph with integer type nodes and float typed edges with value 1.0</returns>
+</member>
+<member name="M:Graphoscope.Graph.Converters.toAdjacencyMatrix``1(Graphoscope.Graph.Graph{``0,System.Double})">
+ <summary> 
+ Converts the Graph to an Adjacency Matrix
+ This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+ The operation assumes edge data types of float in the graph.
+ </summary>
+ <param name="graph">The graph to be converted</param> 
+ <returns>An adjacency matrix</returns>
+</member>
+<member name="M:Graphoscope.Graph.Builders.createFromEdges``2(System.Tuple{``0,``0,``1}[])">
+ <summary> 
+ Builds a graph from a list of edges. 
+ </summary>
+ <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
+ <returns>A graph containing the nodes</returns>
+</member>
+<member name="M:Graphoscope.Graph.Builders.createFromNodes``2(``0[])">
+ <summary> 
+ Builds a graph from a list of nodes. 
+ The edges will then need to be added
+ </summary>
+ <param name="nodes">An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.</param> 
+ <returns>A graph containing the nodes</returns>
+</member>
+<member name="M:Graphoscope.Graph.Builders.create``2">
+ <summary> 
+ Create a new empty directed graph with nodes and edges of the specified type.
+ The type specified for the nodes must support equality operations. 
+ Edge data can be used to specify weights of edges or other edge labels. 
+ </summary>
+ <returns>A graph of the specified type</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.getNonLoopingPossibleEdges``2(Graphoscope.Graph.Graph{``0,``1})">
+<summary>
+ Returns all possible edges in a Graph, excluding self-loops.
+</summary>
+</member>
+<member name="M:Graphoscope.Graph.Operations.getAllPossibleEdges``2(Graphoscope.Graph.Graph{``0,``1})">
+<summary>
+ Returns all possible edges in a Graph, including self-loops.
+</summary>
+</member>
+<member name="M:Graphoscope.Graph.Operations.removeEdge``2(Graphoscope.Graph.Graph{``0,``1},``0,``0)">
+ <summary> 
+ Removes an edge to the graph.
+ </summary>
+ <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
+ <param name="graph">The graph the edge will be removed from.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.normalizeEdges``1(Graphoscope.Graph.Graph{``0,System.Double})">
+ <summary> 
+ Normalises the weights of edges for each node in a graph.
+ The function assumes that the edge data type of the graph will be float. 
+ </summary>
+ <param name="graph">The graph to perform the operation on</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.findEdge``2(``0,``0,Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
+ </summary>
+ <param name="origin">The starting node of the edge</param> 
+ <param name="destination">The target node of the edge</param> 
+ <param name="graph">The graph to find the edge in</param> 
+ <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.addManyEdges``2(Graphoscope.Graph.Graph{``0,``1},System.Tuple{``0,``0,``1}[])">
+ <summary> 
+ Adds many edges to a graph at once
+ </summary>
+ <param name="edges">The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+ <param name="graph">The graph to add the edge to</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.getAllEdges``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Returns the all edges in the graph
+ </summary>
+ <param name="graph">The graph the edges are present in</param> 
+ <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.getEdges``2(Graphoscope.Graph.Graph{``0,``1},``0)">
+ <summary> 
+ Returns the edges for given node
+ </summary>
+ <param name="origin">The node from which the edges start</param> 
+ <param name="graph">The graph the node is present in</param> 
+ <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.addEdge``2(Graphoscope.Graph.Graph{``0,``1},``0,``0,``1)">
+ <summary> 
+ Adds a new edge to the graph
+ </summary>
+ <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+ <param name="graph">The graph the edge will be added to.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.removeNode``2(Graphoscope.Graph.Graph{``0,``1},``0)">
+ <summary> 
+ Removes a node from the graph
+ </summary>
+ <param name="node">The node to be removed.</param> 
+ <param name="graph">The graph the edge will be removed from.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.addNode``2(Graphoscope.Graph.Graph{``0,``1},``0)">
+ <summary> 
+ Adds a new node to the graph
+ </summary>
+ <param name="node">The node to be created. The type must match the node type of the graph.</param> 
+ /// <param name="graph">The graph the node will be added to.</param> 
+ /// <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.Graph.Operations.getNodes``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Returns all nodes in te graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>An array of nodes</returns>
+</member>
+<member name="M:Graphoscope.Graph.Algorithms.FloydWarshall.Compute``1(Graphoscope.Graph.Graph{``0,System.Double})">
+ <summary> 
+ Computes all-pairs shortest paths for <paramref name="graph"/> using Floyd-Warshall algorithm.
+ </summary>
+ <param name="graph">The graph for which to compute the shortest path.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ </returns>
+</member>
+<member name="M:Graphoscope.Graph.Algorithms.Dijkstra.ComputeAllPairs``1(Graphoscope.Graph.Graph{``0,System.Double})">
+ <summary> 
+ Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
+ </summary>
+ <param name="graph">The graph for which to compute the shortest paths.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ </returns>
+</member>
+<member name="M:Graphoscope.Graph.Algorithms.Dijkstra.Compute``1(Graphoscope.Graph.Graph{``0,System.Double},``0)">
+ <summary> 
+ Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+ </summary>
+ <param name="graph"> The graph for which to compute the shortest path.</param>
+ <param name="source"> Calculate the shortest paths from this node.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>Tuples of target node and distance.</returns>
+</member>
+<member name="M:Graphoscope.Graph.Measures.getDegreeDistribution``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Returns the degree distribution of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float array of degree values</returns>
+</member>
+<member name="M:Graphoscope.Graph.Measures.getMeanDegree``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Get the mean degree of the graph. 
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the mean degree</returns>
+</member>
+<member name="M:Graphoscope.Graph.Measures.getSize``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Gets the total number of nodes of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the total nodes</returns>
+</member>
+<member name="M:Graphoscope.Graph.Measures.getVolume``2(Graphoscope.Graph.Graph{``0,``1})">
+ <summary> 
+ Gets the total number of edges of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the total edges</returns>
+</member>
+<member name="M:Graphoscope.Graph.Measures.getShortestPath``1(``0,``0,Graphoscope.Graph.Graph{``0,System.Double})">
+ <summary> 
+ Returns the distance in numebr of directed edges between two nodes.
+ </summary>
+ <param name="origin">The starting node of the path</param> 
+ <param name="destination">The finishing node of the path</param> 
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the distance</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Generators.randomGnp(System.Random,System.Int32,System.Double)">
+ <summary> 
+ Generates a random digraph of size `n`.
+ It will create a graph of specified size and edge density. 
+ </summary>
+ <param name="n">The number of nodes in the created graph</param> 
+ <param name="rng">A random number generator</param> 
+ <param name="p">TThe probability of an edge existing between a pair of nodes. Higher values will create more densely connected graphs.</param> 
+ <returns>A random directed graph with integer type nodes and float typed edges with value 1.0</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Generators.complete(System.Int32)">
+ <summary> 
+ Generates a complete digraph of size `n`.
+ EdgeData is set to `1.0`. This in effect looks like an unweighted graph.
+ </summary>
+ <param name="n">The number of nodes in the created graph</param> 
+ <returns>A directed graph with integer type nodes and float typed edges with value 1.0</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Converters.toAdjacencyMatrix``1(Graphoscope.DiGraph.DiGraph{``0,System.Double})">
+ <summary> 
+ Converts the DiGraph to an Adjacency Matrix
+ This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+ The operation assumes edge data types of float in the graph.
+ </summary>
+ <param name="graph">The graph to be converted</param> 
+ <returns>An adjacency matrix</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Builders.createFromEdges``2(System.Tuple{``0,``0,``1}[])">
+ <summary> 
+ Builds a graph from a list of edges. 
+ </summary>
+ <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
+ <returns>A graph containing the nodes</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Builders.createFromNodes``2(``0[])">
+ <summary> 
+ Builds a graph from a list of nodes. 
+ The edges will then need to be added
+ </summary>
+ <param name="nodes">An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.</param> 
+ <returns>A graph containing the nodes</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Builders.create``2">
+ <summary> 
+ Create a new empty directed graph with nodes and edges of the specified type.
+ The type specified for the nodes must support equality operations. 
+ Edge data can be used to specify weights of edges or other edge labels. 
+ </summary>
+ <returns>A graph of the specified type</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getNonLoopingPossibleEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+<summary>
+ Returns all possible edges in a digraph, excluding self-loops.
+</summary>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getAllPossibleEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+<summary>
+ Returns all possible edges in a digraph, including self-loops.
+</summary>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.removeEdge``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0,``0)">
+ <summary> 
+ Removes an edge to the graph.
+ </summary>
+ <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
+ <param name="graph">The graph the edge will be removed from.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.normalizeOutEdges``1(Graphoscope.DiGraph.DiGraph{``0,System.Double})">
+ <summary> 
+ Normalises the weights of outbound edges from each node in a graph.
+ The function assumes that the edge data type of the graph will be float. 
+ </summary>
+ <param name="graph">The graph to perform the operation on</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.findEdge``2(``0,``0,Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
+ </summary>
+ <param name="origin">The starting node of the edge</param> 
+ <param name="destination">The target node of the edge</param> 
+ <param name="graph">The graph to find the edge in</param> 
+ <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.addManyEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1},System.Tuple{``0,``0,``1}[])">
+ <summary> 
+ Adds many edges to a graph at once
+ </summary>
+ <param name="edges">The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+ <param name="graph">The graph to add the edge to</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getInEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0)">
+ <summary> 
+ Returns the outbound edges for given node
+ </summary>
+ <param name="origin">The node from which the edges start</param> 
+ <param name="graph">The graph the node is present in</param> 
+ <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getAllEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Returns the all outbound edges in the graph
+ </summary>
+ <param name="graph">The graph the edges are present in</param> 
+ <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getOutEdges``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0)">
+ <summary> 
+ Returns the outbound edges for given node
+ </summary>
+ <param name="origin">The node from which the edges start</param> 
+ <param name="graph">The graph the node is present in</param> 
+ <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.addEdge``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0,``0,``1)">
+ <summary> 
+ Adds a new edge to the graph
+ </summary>
+ <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+ <param name="graph">The graph the edge will be added to.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.removeNode``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0)">
+ <summary> 
+ Removes a node from the graph
+ </summary>
+ <param name="node">The node to be removed.</param> 
+ <param name="graph">The graph the edge will be removed from.</param> 
+ <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.addNode``2(Graphoscope.DiGraph.DiGraph{``0,``1},``0)">
+ <summary> 
+ Adds a new node to the graph
+ </summary>
+ <param name="node">The node to be created. The type must match the node type of the graph.</param> 
+ /// <param name="graph">The graph the node will be added to.</param> 
+ /// <returns>Unit</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Operations.getNodes``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Returns all nodes in te graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>An array of nodes</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Algorithms.FloydWarshall.Compute``1(Graphoscope.DiGraph.DiGraph{``0,System.Double})">
+ <summary> 
+ Computes all-pairs shortest paths for <paramref name="graph"/> using Floyd-Warshall algorithm.
+ </summary>
+ <param name="graph">The graph for which to compute the shortest path.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ </returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Algorithms.Dijkstra.ComputeAllPairs``1(Graphoscope.DiGraph.DiGraph{``0,System.Double})">
+ <summary> 
+ Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
+ </summary>
+ <param name="graph">The graph for which to compute the shortest paths.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>
+ The ordered array of nodes and 2D Array of distances where each
+ row and column index corresponds to a node's index in the nodes array.
+ </returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Algorithms.Dijkstra.Compute``1(Graphoscope.DiGraph.DiGraph{``0,System.Double},``0)">
+ <summary> 
+ Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+ </summary>
+ <param name="graph"> The graph for which to compute the shortest path.</param>
+ <param name="source"> Calculate the shortest paths from this node.</param>
+ <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+ <returns>Tuples of target node and distance.</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Measures.getDegreeDistribution``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Returns the degree distribution of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float array of degree values</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Measures.getSize``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Gets the total number of nodes of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the total nodes</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Measures.getVolume``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Gets the total number of edges of the graph
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the total edges</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Measures.getMeanDegree``2(Graphoscope.DiGraph.DiGraph{``0,``1})">
+ <summary> 
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
+ </summary>
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the mean degree</returns>
+</member>
+<member name="M:Graphoscope.DiGraph.Measures.getShortestPath``1(``0,``0,Graphoscope.DiGraph.DiGraph{``0,System.Double})">
+ <summary> 
+ Returns the distance in numebr of directed edges between two nodes.
+ </summary>
+ <param name="origin">The starting node of the path</param> 
+ <param name="destination">The finishing node of the path</param> 
+ <param name="graph">The graph to be analysed</param> 
+ <returns>A float of the distance</returns>
+</member>
+<member name="M:Graphoscope.Utility.Import.importUnDirectedGraph(System.String,System.String,System.Int32,System.Boolean)">
+ <summary> 
+ Imports and builds a Undirected graph from an edge list file
+ </summary>
+ <param name="fullpath">The path and file name to the file to be imported</param> 
+ <param name="delimiter">The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t </param> 
+ <param name="headerRows">The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.</param> 
+ <param name="weightsIncluded">Specifies if  there is a third column with the edge weights. These will be treated as floats.</param> 
+ <returns>A Undirected graph containing the nodes and edges specified in the file</returns>
+</member>
+<member name="M:Graphoscope.Utility.Import.importDirectedGraph(System.String,System.String,System.Int32,System.Boolean)">
+ <summary> 
+ Imports and builds a Directed graph from an edge list file
+ </summary>
+ <param name="fullpath">The path and file name to the file to be imported</param> 
+ <param name="delimiter">The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t </param> 
+ <param name="headerRows">The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.</param> 
+ <param name="weightsIncluded">Specifies if  there is a third column with the edge weights. These will be treated as floats.</param> 
+ <returns>A Directed graph containing the nodes and edges specified in the file</returns>
+</member>
+</members>
+</doc>

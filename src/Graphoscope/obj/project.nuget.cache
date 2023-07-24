@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "dgSpecHash": "FZpCk3KHGnrzrTzjxZR0H8zfw96xU0Hda9JDrzL8tbbBfa2+qiK3JidnQf/8zjvzanbp+PWwrxrh1HwrcZzAOQ==",
+  "success": true,
+  "projectFilePath": "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.core\\6.0.7\\fsharp.core.6.0.7.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data\\6.2.0\\fsharp.data.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.csv.core\\6.2.0\\fsharp.data.csv.core.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.html.core\\6.2.0\\fsharp.data.html.core.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.http\\6.2.0\\fsharp.data.http.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.json.core\\6.2.0\\fsharp.data.json.core.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.runtime.utilities\\6.2.0\\fsharp.data.runtime.utilities.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.worldbank.core\\6.2.0\\fsharp.data.worldbank.core.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharp.data.xml.core\\6.2.0\\fsharp.data.xml.core.6.2.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharpaux.core\\2.0.0\\fsharpaux.core.2.0.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\fsharpx.collections\\3.1.0\\fsharpx.collections.3.1.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\harry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

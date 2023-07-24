@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <RestoreSuccess Condition=" '$(RestoreSuccess)' == '' ">True</RestoreSuccess>
+    <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
+    <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
+    <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\harry\.nuget\packages\</NuGetPackageFolders>
+    <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.3.3</NuGetToolVersion>
+  </PropertyGroup>
+  <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <SourceRoot Include="C:\Users\harry\.nuget\packages\" />
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
+    <PkgFSharp_Core Condition=" '$(PkgFSharp_Core)' == '' ">C:\Users\harry\.nuget\packages\fsharp.core\6.0.7</PkgFSharp_Core>
+    <PkgFake_IO_FileSystem Condition=" '$(PkgFake_IO_FileSystem)' == '' ">C:\Users\harry\.nuget\packages\fake.io.filesystem\5.23.1</PkgFake_IO_FileSystem>
+    <PkgFake_Core_Process Condition=" '$(PkgFake_Core_Process)' == '' ">C:\Users\harry\.nuget\packages\fake.core.process\5.23.1</PkgFake_Core_Process>
+    <PkgFake_Tools_Git Condition=" '$(PkgFake_Tools_Git)' == '' ">C:\Users\harry\.nuget\packages\fake.tools.git\5.23.1</PkgFake_Tools_Git>
+    <PkgFake_Core_Target Condition=" '$(PkgFake_Core_Target)' == '' ">C:\Users\harry\.nuget\packages\fake.core.target\5.23.1</PkgFake_Core_Target>
+    <PkgFake_Core_ReleaseNotes Condition=" '$(PkgFake_Core_ReleaseNotes)' == '' ">C:\Users\harry\.nuget\packages\fake.core.releasenotes\5.23.1</PkgFake_Core_ReleaseNotes>
+    <PkgFake_Api_GitHub Condition=" '$(PkgFake_Api_GitHub)' == '' ">C:\Users\harry\.nuget\packages\fake.api.github\5.23.1</PkgFake_Api_GitHub>
+    <PkgFake_Extensions_Release Condition=" '$(PkgFake_Extensions_Release)' == '' ">C:\Users\harry\.nuget\packages\fake.extensions.release\0.3.1</PkgFake_Extensions_Release>
+    <PkgFake_DotNet_MSBuild Condition=" '$(PkgFake_DotNet_MSBuild)' == '' ">C:\Users\harry\.nuget\packages\fake.dotnet.msbuild\5.23.1</PkgFake_DotNet_MSBuild>
+    <PkgFake_DotNet_Cli Condition=" '$(PkgFake_DotNet_Cli)' == '' ">C:\Users\harry\.nuget\packages\fake.dotnet.cli\5.23.1</PkgFake_DotNet_Cli>
+    <PkgBlackFox_Fake_BuildTask Condition=" '$(PkgBlackFox_Fake_BuildTask)' == '' ">C:\Users\harry\.nuget\packages\blackfox.fake.buildtask\0.1.3</PkgBlackFox_Fake_BuildTask>
+  </PropertyGroup>
+</Project>

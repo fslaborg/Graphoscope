@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>build</id>
+    <version>1.0.0-local4</version>
+    <authors>build</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="BlackFox.Fake.BuildTask" version="0.1.3" exclude="Build,Analyzers" />
+        <dependency id="FSharp.Core" version="6.0.7" exclude="Build,Analyzers" />
+        <dependency id="Fake.Api.Github" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.Core.Process" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.Core.ReleaseNotes" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.Core.Target" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.DotNet.Cli" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.DotNet.MSBuild" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.Extensions.Release" version="0.3.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.IO.FileSystem" version="5.23.1" exclude="Build,Analyzers" />
+        <dependency id="Fake.Tools.Git" version="5.23.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Projects\Graphoscope\build\bin\Release\net6.0\build.runtimeconfig.json" target="lib\net6.0\build.runtimeconfig.json" />
+    <file src="C:\Projects\Graphoscope\build\bin\Release\net6.0\build.dll" target="lib\net6.0\build.dll" />
+  </files>
+</package>

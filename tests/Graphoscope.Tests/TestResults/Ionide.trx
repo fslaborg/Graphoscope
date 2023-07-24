@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TestRun id="ec5dc86f-2697-4897-8df2-451a3411f3c1" name="harry@SENECA 2023-07-24 08:33:42" runUser="SENECA\harry" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2023-07-24T08:33:42.0074388+01:00" queuing="2023-07-24T08:33:42.0074390+01:00" start="2023-07-24T08:33:38.5580872+01:00" finish="2023-07-24T08:33:42.0270421+01:00" />
+  <TestSettings name="default" id="58218f98-39d4-4746-bef8-01bd028a1a1a">
+    <Deployment runDeploymentRoot="harry_SENECA_2023-07-24_08_33_42" />
+  </TestSettings>
+  <Results>
+    <UnitTestResult executionId="aadb4922-f53c-4c69-9b66-3352eee33a62" testId="483d06ee-84a1-85c1-2e23-7cab660883b4" testName="DiGraphTests.All Pairs Dijkstra for DiGraph works correctly" computerName="SENECA" duration="00:00:00.0126049" startTime="2023-07-24T08:33:41.9711553+01:00" endTime="2023-07-24T08:33:41.9711671+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="aadb4922-f53c-4c69-9b66-3352eee33a62" />
+    <UnitTestResult executionId="bf13a02f-3ed3-47f7-9b31-cf194040134d" testId="ad1afc6b-7a89-b47b-5d13-ddda30f1b34c" testName="DiGraphTests.Node removal updates correctly" computerName="SENECA" duration="00:00:00.0020339" startTime="2023-07-24T08:33:41.9931555+01:00" endTime="2023-07-24T08:33:41.9931556+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="bf13a02f-3ed3-47f7-9b31-cf194040134d" />
+    <UnitTestResult executionId="85d4e218-1724-4670-9627-145167513bff" testId="b7041531-afdc-ab17-b439-c6bad40ac6e5" testName="DiGraphTests.Existing edge cannot be added" computerName="SENECA" duration="00:00:00.0001265" startTime="2023-07-24T08:33:41.9978195+01:00" endTime="2023-07-24T08:33:41.9978195+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="85d4e218-1724-4670-9627-145167513bff" />
+    <UnitTestResult executionId="c51a6c7e-e1f9-4ebb-8df9-97bde8cb9227" testId="ca67eaeb-e839-844b-e0ba-fbca460b357a" testName="GraphTests.Karate graph import has correct measures" computerName="SENECA" duration="00:00:00.0158271" startTime="2023-07-24T08:33:41.9909534+01:00" endTime="2023-07-24T08:33:41.9909535+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="c51a6c7e-e1f9-4ebb-8df9-97bde8cb9227" />
+    <UnitTestResult executionId="3bd9f1c4-5d86-4d66-874e-65ab24412ddc" testId="56c2f816-2f4e-4e44-293a-b2228380aad3" testName="DiGraphTests.Monkey graph import has correct measures" computerName="SENECA" duration="00:00:00.0193724" startTime="2023-07-24T08:33:41.9910848+01:00" endTime="2023-07-24T08:33:41.9910849+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="3bd9f1c4-5d86-4d66-874e-65ab24412ddc" />
+    <UnitTestResult executionId="d220ce51-7e06-4de4-8056-42bdfd9d1efa" testId="56d025a7-25b0-1f00-7040-3c95c1a963ca" testName="DiGraphTests.Can create empty graph and add nodes and edges" computerName="SENECA" duration="00:00:00.0000851" startTime="2023-07-24T08:33:41.9932398+01:00" endTime="2023-07-24T08:33:41.9932399+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="d220ce51-7e06-4de4-8056-42bdfd9d1efa" />
+    <UnitTestResult executionId="ef94f279-637b-4304-bbe3-27326de5f9f7" testId="8e24ff63-6f06-eec3-af61-fb6cd8f4dd62" testName="GraphTests.Existing edge cannot be added" computerName="SENECA" duration="00:00:00.0041359" startTime="2023-07-24T08:33:41.9750924+01:00" endTime="2023-07-24T08:33:41.9750925+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="ef94f279-637b-4304-bbe3-27326de5f9f7" />
+    <UnitTestResult executionId="4d422177-a725-473f-ade7-7dc9922fdf23" testId="6e69b055-3339-323b-01d2-16d31f50a6a9" testName="GraphTests.Node removal updates correctly" computerName="SENECA" duration="00:00:00.0139534" startTime="2023-07-24T08:33:41.9731150+01:00" endTime="2023-07-24T08:33:41.9731150+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4d422177-a725-473f-ade7-7dc9922fdf23" />
+    <UnitTestResult executionId="0203f76f-2726-40bd-9084-4f33393f6be2" testId="678bb72f-feea-3e27-21d7-43cffcbbb1eb" testName="GraphTests.Can create empty graph and add nodes and edges" computerName="SENECA" duration="00:00:00.0000956" startTime="2023-07-24T08:33:41.9910706+01:00" endTime="2023-07-24T08:33:41.9910707+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="0203f76f-2726-40bd-9084-4f33393f6be2" />
+    <UnitTestResult executionId="f4f89a03-1986-4c8e-a926-5e74a021b3bc" testId="f2ca0c0a-030d-a861-47d8-d126595a6556" testName="DiGraphTests.All Pairs Floyd Warshall for DiGraph works correctly" computerName="SENECA" duration="00:00:00.0007889" startTime="2023-07-24T08:33:41.9731537+01:00" endTime="2023-07-24T08:33:41.9731537+01:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Passed" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="f4f89a03-1986-4c8e-a926-5e74a021b3bc" />
+  </Results>
+  <TestDefinitions>
+    <UnitTest name="DiGraphTests.Can create empty graph and add nodes and edges" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="56d025a7-25b0-1f00-7040-3c95c1a963ca">
+      <Execution id="d220ce51-7e06-4de4-8056-42bdfd9d1efa" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="Can create empty graph and add nodes and edges" />
+    </UnitTest>
+    <UnitTest name="DiGraphTests.All Pairs Dijkstra for DiGraph works correctly" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="483d06ee-84a1-85c1-2e23-7cab660883b4">
+      <Execution id="aadb4922-f53c-4c69-9b66-3352eee33a62" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="All Pairs Dijkstra for DiGraph works correctly" />
+    </UnitTest>
+    <UnitTest name="DiGraphTests.Existing edge cannot be added" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="b7041531-afdc-ab17-b439-c6bad40ac6e5">
+      <Execution id="85d4e218-1724-4670-9627-145167513bff" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="Existing edge cannot be added" />
+    </UnitTest>
+    <UnitTest name="DiGraphTests.Node removal updates correctly" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="ad1afc6b-7a89-b47b-5d13-ddda30f1b34c">
+      <Execution id="bf13a02f-3ed3-47f7-9b31-cf194040134d" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="Node removal updates correctly" />
+    </UnitTest>
+    <UnitTest name="DiGraphTests.Monkey graph import has correct measures" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="56c2f816-2f4e-4e44-293a-b2228380aad3">
+      <Execution id="3bd9f1c4-5d86-4d66-874e-65ab24412ddc" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="Monkey graph import has correct measures" />
+    </UnitTest>
+    <UnitTest name="GraphTests.Existing edge cannot be added" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="8e24ff63-6f06-eec3-af61-fb6cd8f4dd62">
+      <Execution id="ef94f279-637b-4304-bbe3-27326de5f9f7" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GraphTests" name="Existing edge cannot be added" />
+    </UnitTest>
+    <UnitTest name="GraphTests.Node removal updates correctly" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="6e69b055-3339-323b-01d2-16d31f50a6a9">
+      <Execution id="4d422177-a725-473f-ade7-7dc9922fdf23" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GraphTests" name="Node removal updates correctly" />
+    </UnitTest>
+    <UnitTest name="GraphTests.Karate graph import has correct measures" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="ca67eaeb-e839-844b-e0ba-fbca460b357a">
+      <Execution id="c51a6c7e-e1f9-4ebb-8df9-97bde8cb9227" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GraphTests" name="Karate graph import has correct measures" />
+    </UnitTest>
+    <UnitTest name="GraphTests.Can create empty graph and add nodes and edges" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="678bb72f-feea-3e27-21d7-43cffcbbb1eb">
+      <Execution id="0203f76f-2726-40bd-9084-4f33393f6be2" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="GraphTests" name="Can create empty graph and add nodes and edges" />
+    </UnitTest>
+    <UnitTest name="DiGraphTests.All Pairs Floyd Warshall for DiGraph works correctly" storage="c:\projects\graphoscope\tests\graphoscope.tests\bin\debug\net6.0\graphoscope.tests.dll" id="f2ca0c0a-030d-a861-47d8-d126595a6556">
+      <Execution id="f4f89a03-1986-4c8e-a926-5e74a021b3bc" />
+      <TestMethod codeBase="c:\Projects\Graphoscope\tests\Graphoscope.Tests\bin\Debug\net6.0\Graphoscope.Tests.dll" adapterTypeName="executor://xunit/VsTestRunner2/netcoreapp" className="DiGraphTests" name="All Pairs Floyd Warshall for DiGraph works correctly" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestEntries>
+    <TestEntry testId="483d06ee-84a1-85c1-2e23-7cab660883b4" executionId="aadb4922-f53c-4c69-9b66-3352eee33a62" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ad1afc6b-7a89-b47b-5d13-ddda30f1b34c" executionId="bf13a02f-3ed3-47f7-9b31-cf194040134d" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="b7041531-afdc-ab17-b439-c6bad40ac6e5" executionId="85d4e218-1724-4670-9627-145167513bff" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="ca67eaeb-e839-844b-e0ba-fbca460b357a" executionId="c51a6c7e-e1f9-4ebb-8df9-97bde8cb9227" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56c2f816-2f4e-4e44-293a-b2228380aad3" executionId="3bd9f1c4-5d86-4d66-874e-65ab24412ddc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="56d025a7-25b0-1f00-7040-3c95c1a963ca" executionId="d220ce51-7e06-4de4-8056-42bdfd9d1efa" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="8e24ff63-6f06-eec3-af61-fb6cd8f4dd62" executionId="ef94f279-637b-4304-bbe3-27326de5f9f7" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="6e69b055-3339-323b-01d2-16d31f50a6a9" executionId="4d422177-a725-473f-ade7-7dc9922fdf23" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="678bb72f-feea-3e27-21d7-43cffcbbb1eb" executionId="0203f76f-2726-40bd-9084-4f33393f6be2" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestEntry testId="f2ca0c0a-030d-a861-47d8-d126595a6556" executionId="f4f89a03-1986-4c8e-a926-5e74a021b3bc" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <ResultSummary outcome="Completed">
+    <Counters total="10" executed="10" passed="10" failed="0" error="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" completed="0" inProgress="0" pending="0" />
+    <Output>
+      <StdOut>[xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.3+1b45f5407b (64-bit .NET 6.0.20)&#xD;
+[xUnit.net 00:00:02.56]   Discovering: Graphoscope.Tests&#xD;
+[xUnit.net 00:00:02.57]   Discovered:  Graphoscope.Tests&#xD;
+[xUnit.net 00:00:02.58]   Starting:    Graphoscope.Tests&#xD;
+[xUnit.net 00:00:02.64]   Finished:    Graphoscope.Tests&#xD;
+</StdOut>
+    </Output>
+  </ResultSummary>
+</TestRun>

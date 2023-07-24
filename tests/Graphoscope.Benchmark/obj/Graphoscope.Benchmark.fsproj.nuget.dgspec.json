@@ -1,0 +1,152 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Projects\\Graphoscope\\tests\\Graphoscope.Benchmark\\Graphoscope.Benchmark.fsproj": {}
+  },
+  "projects": {
+    "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj",
+        "projectName": "Graphoscope",
+        "projectPath": "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj",
+        "packagesPath": "C:\\Users\\harry\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Graphoscope\\src\\Graphoscope\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\harry\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Packages": {},
+          "C:\\Program Files\\dotnet\\sdk\\6.0.412\\FSharp\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/hackandcraft/_packaging/hncPackages/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[6.0.7, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Data": {
+              "target": "Package",
+              "version": "[6.2.0, )",
+              "generatePathProperty": true
+            },
+            "FSharpAux.Core": {
+              "target": "Package",
+              "version": "[2.0.0, )",
+              "generatePathProperty": true
+            },
+            "FSharpx.Collections": {
+              "target": "Package",
+              "version": "[3.1.0, )",
+              "generatePathProperty": true
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true,
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Projects\\Graphoscope\\tests\\Graphoscope.Benchmark\\Graphoscope.Benchmark.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Graphoscope\\tests\\Graphoscope.Benchmark\\Graphoscope.Benchmark.fsproj",
+        "projectName": "Graphoscope.Benchmark",
+        "projectPath": "C:\\Projects\\Graphoscope\\tests\\Graphoscope.Benchmark\\Graphoscope.Benchmark.fsproj",
+        "packagesPath": "C:\\Users\\harry\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Graphoscope\\tests\\Graphoscope.Benchmark\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\harry\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Packages": {},
+          "C:\\Program Files\\dotnet\\sdk\\6.0.412\\FSharp\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/hackandcraft/_packaging/hncPackages/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {
+              "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj": {
+                "projectPath": "C:\\Projects\\Graphoscope\\src\\Graphoscope\\Graphoscope.fsproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "BenchmarkDotNet": {
+              "target": "Package",
+              "version": "[0.13.5, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[6.0.7, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

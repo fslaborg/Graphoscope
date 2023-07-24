@@ -1,0 +1,11 @@
+C:\Projects\Graphoscope\src\Graphoscope\bin\Release\netstandard2.0\Graphoscope.deps.json
+C:\Projects\Graphoscope\src\Graphoscope\bin\Release\netstandard2.0\Graphoscope.dll
+C:\Projects\Graphoscope\src\Graphoscope\bin\Release\netstandard2.0\Graphoscope.pdb
+C:\Projects\Graphoscope\src\Graphoscope\bin\Release\netstandard2.0\Graphoscope.xml
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.fsproj.AssemblyReference.cache
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.AssemblyInfoInputs.cache
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.AssemblyInfo.fs
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.fsproj.CoreCompileInputs.cache
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.dll
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.xml
+C:\Projects\Graphoscope\src\Graphoscope\obj\Release\netstandard2.0\Graphoscope.pdb

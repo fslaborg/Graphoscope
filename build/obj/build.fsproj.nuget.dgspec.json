@@ -1,0 +1,117 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Projects\\Graphoscope\\build\\build.fsproj": {}
+  },
+  "projects": {
+    "C:\\Projects\\Graphoscope\\build\\build.fsproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Projects\\Graphoscope\\build\\build.fsproj",
+        "projectName": "build",
+        "projectPath": "C:\\Projects\\Graphoscope\\build\\build.fsproj",
+        "packagesPath": "C:\\Users\\harry\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\Graphoscope\\build\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\harry\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net6.0"
+        ],
+        "sources": {
+          "C:\\Packages": {},
+          "C:\\Program Files\\dotnet\\sdk\\6.0.412\\FSharp\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/hackandcraft/_packaging/hncPackages/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net6.0": {
+            "targetAlias": "net6.0",
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "dependencies": {
+            "BlackFox.Fake.BuildTask": {
+              "target": "Package",
+              "version": "[0.1.3, )",
+              "generatePathProperty": true
+            },
+            "FSharp.Core": {
+              "include": "Runtime, Compile, Build, Native, Analyzers, BuildTransitive",
+              "target": "Package",
+              "version": "[6.0.7, )",
+              "generatePathProperty": true
+            },
+            "Fake.Api.Github": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.Core.Process": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.Core.ReleaseNotes": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.Core.Target": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.DotNet.Cli": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.DotNet.MSBuild": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.Extensions.Release": {
+              "target": "Package",
+              "version": "[0.3.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.IO.FileSystem": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            },
+            "Fake.Tools.Git": {
+              "target": "Package",
+              "version": "[5.23.1, )",
+              "generatePathProperty": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.412\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
