@@ -14,8 +14,7 @@ let rnd = new System.Random()
 [<MemoryDiagnoser>]
 type Graphs () =
     let mutable edgesArr : (int*int*float) [] = [||]
-    let mutable adjGraph     = AdjGraph.create<int,int,float>()
-    let mutable adjComp      = AdjCompGraph.create<int,int,float>()
+    let mutable adjGraph     = AdjGraph.empty<int,int,float>()
     let mutable diGraph      = DiGraph.create<int,float>()
     let mutable diNodeGraph  = DiGraph.create<DiNode<int>,float>()
     let mutable fGraph       = FGraph.create<int,int,float>()
@@ -41,7 +40,7 @@ type Graphs () =
         let gAdj= AdjGraph.create<int,int,float>()
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            AdjGraph.addEdgeWithNodes node1 node1 node2 node2 data gAdj |> ignore
+            AdjGraph.addElement node1 node1 node2 node2 data gAdj |> ignore
         adjGraph <- gAdj
         //prepare DiGraph
         let gComp= AdjCompGraph.create<int,int,float>()

@@ -16,10 +16,10 @@ type Gilbert() =
          if probability > 1. || probability < 0. then failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
 
          let rnd         = new System.Random()
-         let g = AdjCompGraph()
+         let g = AdjGraph()
 
          for i=0 to (numberOfModes-1) do          
              for ii=0 to (numberOfModes-1) do
                  if rnd.NextDouble() < probability then
-                     g.AddEdgeWithNodes(i,i,ii,ii,i+ii) |> ignore
+                     AdjGraph.addElement (i,i,ii,ii,i+ii) |> ignore
          g

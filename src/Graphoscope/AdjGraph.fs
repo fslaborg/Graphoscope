@@ -19,12 +19,14 @@ type AdjGraph() =
     /// Creates an empty Adjacency Graph
     /// </summary>
     /// <returns>Empty AdjGraph</returns>
-    static member empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>() 
+    static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>()
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         AdjGraph<'NodeKey, 'NodeData, 'EdgeData>()
 
 
-    // Adds a labeled, edge to the graph.
+    /// <summary> 
+    /// Adds an edge and the corresponding nodes with data to the graph
+    /// </summary>
     static member addElement (sourceKey : 'NodeKey) (source : 'NodeData)  (targetKey : 'NodeKey) (target : 'NodeData) (data : 'EdgeData) 
         (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =            
         
@@ -60,11 +62,10 @@ type AdjGraph() =
                 
         graph
 
-    /// 
+
     /// <summary> 
-    /// Returns an Adjacency graph as a sequence of edges
+    /// Returns the Adjacency graph conetent as a sequence of edges 
     /// </summary>
-    /// <returns>Empty AdjGraph</returns>
     static member toSeq  (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         seq {
             for skv in graph do
@@ -74,23 +75,52 @@ type AdjGraph() =
                     yield (skv.Key,source,tkv.Key,target,tkv.Value)
         }
 
-    /// Creates a graph of a sequence of edges
     
     /// <summary> 
-    /// Returns an Adjacency graph as a sequence of edges
+    /// Creates an Adjacency graph of a sequence of edges
     /// </summary>
-    /// <returns>Empty AdjGraph</returns>
     static member ofSeq(edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        let graph = AdjGraph.create ()//new AdjGraph<'NodeKey, 'Nodedata,'EdgeData>()
+        let graph = AdjGraph.create()//new AdjGraph<'NodeKey, 'Nodedata,'EdgeData>()
         edgelist
         |> Seq.iter (fun e -> AdjGraph.addElement e graph |> ignore)
         graph
 
+    
+    /// <summary> 
+    /// Converts Adjacency graph to its Adjacency matrix representation
+    /// </summary>
+    static member toAdjGraph (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)
+        : AdjMatrix<'NodeKey, 'NodeData, 'EdgeData> =
+        let nodeData     = Array.zeroCreate graph.Count
+        let nodekeyIndex = Dictionary<'NodeKey, int>(graph.Count)
+        let adjMatrix    = Array2D.zeroCreate graph.Count graph.Count
+        let mutable index = 0
+        for skv in graph do
+            let source, _ = skv.Value
+            nodeData.[index] <- source
+            nodekeyIndex.Add(skv.Key, index)
+            index <- index + 1
+        index <- 0
+        for skv in graph do
+            let source, adjComponent = skv.Value
+            for tkv in adjComponent do  
+                adjMatrix.[index, nodekeyIndex.[tkv.Key]] <- tkv.Value
+            index <- index + 1
+        AdjMatrix(adjMatrix, nodeData, nodekeyIndex)
 
 
 module AdjGraph =
     
+    /// <summary> 
+    /// Creates an empty Adjacency Graph
+    /// </summary>
+    /// <returns>Empty AdjGraph</returns>
+    let emtpy<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
+        : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        AdjGraph<'NodeKey, 'NodeData, 'EdgeData>()
+
+
     type Node() =
 
         /// Counts all nodes 

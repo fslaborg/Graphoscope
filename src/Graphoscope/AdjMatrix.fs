@@ -17,8 +17,9 @@ type AdjMatrix<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         let adjMatrix    = Array2D.zeroCreate n n        
         AdjMatrix(adjMatrix, nodeData, nodekeyIndex)
 
-    member this.Item(n:int, n:int) = 
+    member this.Item(n:int, m:int) = 
          edgeData.[n,m]
+
     member this.Bykey(sourceKey:'NodeKey, targetKey:'NodeKey) =
         edgeData.[nodekeyIndex.[sourceKey], nodekeyIndex.[targetKey]]    
     
