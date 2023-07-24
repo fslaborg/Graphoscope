@@ -26,6 +26,7 @@
     <Compile Include="DiGraph.fs" />
     <Compile Include="FGraph.fs" />
     <Compile Include="Collections/Queue.fs" />
+    <Compile Include="Algorithms\BFS.fs" />
     <Compile Include="Algorithms/Dijkstra.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />

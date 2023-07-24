@@ -19,6 +19,15 @@ type DiGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: compariso
 
 module DiGraph =
 
+    
+    /// <summary> 
+    /// Creates an empty DiGraph
+    /// </summary>
+    /// <returns>Empty DiGraph</returns>
+    let emtpy<'NodeKey, 'EdgeData when 'NodeKey : comparison>
+        : DiGraph<'NodeKey, 'EdgeData> =
+        DiGraph<'NodeKey, 'EdgeData>()
+    
     /// <summary> 
     /// Converts the DiGraph to an Adjacency Matrix
     /// This is preliminary step in many graph algorithms such as Floyd-Warshall. 
