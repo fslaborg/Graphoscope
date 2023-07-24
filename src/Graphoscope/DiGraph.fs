@@ -24,7 +24,7 @@ module DiGraph =
     /// Creates an empty DiGraph
     /// </summary>
     /// <returns>Empty DiGraph</returns>
-    let emtpy<'NodeKey, 'EdgeData when 'NodeKey : comparison>
+    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
         : DiGraph<'NodeKey, 'EdgeData> =
         DiGraph<'NodeKey, 'EdgeData>()
     
@@ -194,7 +194,7 @@ module DiGraph =
         /// <param name="destination">The target node of the edge</param> 
         /// <param name="graph">The graph to find the edge in</param> 
         /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
-        static member findEdge (origin:'NodeKey) (destination:'NodeKey) (graph : DiGraph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
+        static member find (origin:'NodeKey) (destination:'NodeKey) (graph : DiGraph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
                 let k2 = graph.IdMap[origin]
                 graph.OutEdges[graph.IdMap[origin]]
                 |> ResizeArray.find (fun (k,l) -> k=k2)
@@ -224,7 +224,7 @@ module DiGraph =
         /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
         /// <returns>Unit</returns>
-        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey,'EdgeData>)  = 
+        static member remove (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey,'EdgeData>)  = 
             let orig, dest = edge
             let ix = graph.OutEdges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
             match ix with

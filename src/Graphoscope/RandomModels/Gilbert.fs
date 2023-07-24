@@ -18,7 +18,7 @@ type Gilbert() =
          if probability > 1. || probability < 0. then failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
 
          let rnd = new System.Random()
-         let g   = AdjGraph.emtpy
+         let g   = AdjGraph.empty
 
          for i=0 to (numberOfModes-1) do          
              for ii=0 to (numberOfModes-1) do

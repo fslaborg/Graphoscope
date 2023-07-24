@@ -116,7 +116,7 @@ module AdjGraph =
     /// Creates an empty Adjacency Graph
     /// </summary>
     /// <returns>Empty AdjGraph</returns>
-    let emtpy<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
+    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         AdjGraph<'NodeKey, 'NodeData, 'EdgeData>()
 
@@ -206,6 +206,19 @@ module AdjGraph =
                 let source, adjComponent = skv.Value
                 for tkv in adjComponent do  
                     action skv.Key tkv.Key tkv.Value
+        
+        /// <summary> 
+        /// Tries to find an edge between the specified nodes. Raises Exception if no such edge exists in the graph.
+        /// </summary>
+        static member find (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+            match graph.ContainsKey(sourceKey) with
+            | true  -> 
+                let source,adjComponent = graph.[sourceKey]
+                match adjComponent.ContainsKey(targetKey) with
+                | true -> sourceKey,targetKey,adjComponent.[targetKey]
+                | false -> failwithf "Edge %O - %O does not exist in this graph." sourceKey targetKey 
+            | false -> 
+                failwithf "The source node %O of the edge does not exist in this graph." sourceKey
     
 
         //static member map (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
