@@ -224,14 +224,24 @@ module FGraph =
                     
             g
 
-        /// Applies the given function to each node of the graph
+        /// Applies the given function on each egdge of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             for skv in graph do
                 let (_, _, s) = skv.Value
                 for tkv in s do  
                     action skv.Key tkv.Key tkv.Value
-        // ///Performs a given function on every edge of the graph, which also receives an ascending integer index.
-        // static member iteri 
+        
+        /// Applies the given function on every edge of the graph, which also receives an ascending integer index.
+        static member iteri (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+            let mutable index = -1
+            for skv in graph do
+                let (_, _, s) = skv.Value
+                for tkv in s do  
+                    index <- index + 1
+                    action index skv.Key tkv.Key tkv.Value
+        
+        
+
         // ///Maps edgeData of the graph.
         // static member map 
         // /// Returns a new graph containing only the edges for which the given predicate returns true.
@@ -239,5 +249,3 @@ module FGraph =
         // ///Removes an edge from the graph.
         // static member remove 
          
-        //  ///Creates a sequence of all edges and their labels         
-        // static member toSeq
