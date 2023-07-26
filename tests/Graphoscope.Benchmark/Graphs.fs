@@ -106,13 +106,16 @@ type Graphs () =
     [<Benchmark>]
     member this.FGraph () =
         let g = FGraph.create<int,int,float>()
-         // Add nodes
-        for i=0 to this.NumberNodes-1 do
-            FGraph.Node.add i i g |> ignore
-        // Add edges
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            FGraph.Edge.add node1 node2 data g |> ignore
+            FGraph.addElement node1 node1 node2 node2 data g |> ignore
+        //// Add nodes
+        //for i=0 to this.NumberNodes-1 do
+        //    FGraph.Node.add i i g |> ignore
+        //// Add edges
+        //for i=0 to this.NumberEdges-1 do
+        //    let (node1,node2,data) = edgesArr.[i]
+        //    FGraph.Edge.add node1 node2 data g |> ignore
         
 
 
