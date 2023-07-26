@@ -26,10 +26,12 @@ module FGraph =
     /// <returns>Empty FGraph</returns>
     let create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
-
+  
+    /// <summary> 
+    /// Adds a labeled, directed edge to the graph.
+    /// </summary>
     
-    
-    ///Adds a labeled, directed edge to the graph.
+    /// <returns>FGraph with new element</returns>
     let addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk1,&contextNk1) with
@@ -90,17 +92,17 @@ module FGraph =
         g    
 
 
-    // /// <summary> 
-    // /// Returns the Adjacency graph conetent as a sequence of edges 
-    // /// </summary>
-    // let toSeq  (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-    //     seq {
-    //         for skv in graph.OutEdges do
-    //             let source = graph.Nodes.[skv.Key]
-    //             for tkv in skv.Value do
-    //                 let target = graph.Nodes.[tkv.Key]                     
-    //                 yield (skv.Key,source,tkv.Key,target,tkv.Value)
-    //     }
+     /// <summary> 
+     /// Returns the FGraph content as a sequence of edges 
+     /// </summary>
+    let toSeq  (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        seq {
+             for skv in graph do
+                let (_, source, s) = skv.Value
+                for tkv in s do                      
+                    let (_, target, _) = graph.[tkv.Key]
+                    yield (skv.Key,source,tkv.Key,target,tkv.Value)
+         }
 
     
     /// <summary> 
