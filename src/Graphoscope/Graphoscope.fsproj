@@ -29,6 +29,7 @@
     <Compile Include="Algorithms\BFS.fs" />
     <Compile Include="Algorithms\FloydWarshall.fs" />
     <Compile Include="Algorithms/Dijkstra.fs" />
+    <Compile Include="Measures\Degree.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="Undirected/Core.fs" />

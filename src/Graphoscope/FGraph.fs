@@ -3,15 +3,81 @@
 open FSharpAux
 open System.Collections.Generic
 
+type Adj<'NodeKey, 'EdgeData> = seq<'NodeKey * 'EdgeData>
 
-type MContext<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
+type FContext<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
      Dictionary<'NodeKey,'EdgeData> * 'NodeData * Dictionary<'NodeKey,'EdgeData>
 
+
 type FGraph<'NodeKey,'NodeData,'EdgeData> when 'NodeKey: comparison =
-    Dictionary<'NodeKey, MContext<'NodeKey, 'NodeData, 'EdgeData>>
+    Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>
+
+// (* Transition functions *)
+
+// let internal fromAdj<'NodeKey,'EdgeData when 'NodeKey: comparison> : Adj<'NodeKey, 'EdgeData> -> Dictionary<'NodeKey,'EdgeData> =
+//     fun x -> Dictionary.ofSeq x |> upcast 
+
+// let internal fromContext<'Vertex,'Label,'Edge when 'Vertex: comparison> : Context<'Vertex,'Label,'Edge> -> MContext<'Vertex,'Label,'Edge> =
+//     fun (p, _, l, s) -> fromAdj p, l, fromAdj s
+
+// let internal toAdj<'NodeKey,'EdgeData when 'NodeKey: comparison> : Dictionary<'NodeKey,'EdgeData> -> Adj<'NodeKey,'EdgeData> =
+//     Dictionary.toSeq
+
+// let internal toContext (v:'Vertex) (mc : MContext<'Vertex,'Label,'Edge>) : Context<'Vertex,'Label,'Edge> =
+//     mc
+//     |> fun (p, l, s) -> toAdj p, v, l, toAdj s
+
+
+
+module FContext =
+    ///Lists the vertices which have edges pointing to the vertex.
+    let predecessors (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : Adj<'NodeKey, 'EdgeData> = 
+        let (p, _, _) = context
+        seq {
+            for kv in p do
+                yield kv.Key,kv.Value 
+        }
+
+    ///Lists the vertices which have edges pointing away from the vertex.
+    let successors (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : Adj<'NodeKey, 'EdgeData> = 
+        let (_, _, s) = context
+        seq {
+            for kv in s do
+                yield kv.Key,kv.Value 
+        }
+        
+    ///Lists the vertices which are connected to the vertex.
+    let neighbours (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : Adj<'NodeKey, 'EdgeData> =
+        let (p, _, s) = context
+        seq {
+            for kv in p do
+                yield kv.Key,kv.Value
+            for kv in s do
+                yield kv.Key,kv.Value 
+        }
+
+    // //Properties
+
+    ///Evaluates the number of edges pointing to the vertex.
+    let inwardDegree (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : int=
+        let (p, _, _) = context
+        p.Count
+
+    ///Evaluates the number of edges pointing away from the vertex.
+    let outwardDegree (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+        let (_, _, s) = context
+        s.Count
+    
+    ///Evaluates the number of edges associated with the vertex.
+    let degree (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : int =
+        let (p, _, s) = context
+        p.Count + s.Count
+
+
 
 
 module FGraph =
+
 
     /// <summary> 
     /// Returns a new, empty graph
@@ -91,6 +157,10 @@ module FGraph =
                     g.Add(nk1,(p1,nd1,s1))                       
         g    
 
+    ///Maps contexts of the graph.
+    let mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
+        g
+        |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
      /// <summary> 
      /// Returns the FGraph content as a sequence of edges 
