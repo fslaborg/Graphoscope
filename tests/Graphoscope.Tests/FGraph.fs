@@ -17,5 +17,23 @@ let ``Can create empty graph and add nodes and edges`` () =
    
     Assert.Equal(1.0, (FGraph.Edge.count graph))
     Assert.Equal(3.0, (FGraph.Node.count graph))
-    //Assert.Equal(0.6666666666666666, (Measures.getMeanDegree emptyGraph))
+    Assert.Equal(0.6666666666666666, (Measures.Degree.average graph))
 
+
+[<Fact>]
+let ``Can create a graph with multiple nodes and edges including loops`` () =
+    let graph =
+        FGraph.empty
+        |> FGraph.addElement 0 0 1 0 true
+        |> FGraph.addElement 0 0 2 0 true
+        |> FGraph.addElement 1 0 2 0 true    
+        |> FGraph.addElement 2 0 0 0 true
+        |> FGraph.addElement 2 0 3 0 true
+        // Tests loops where node exists
+        |> FGraph.addElement 3 0 3 0 true
+        |> FGraph.addElement 5 0 3 0 true
+        |> FGraph.addElement 6 0 6 0 true
+   
+    Assert.Equal(8.0, (FGraph.Edge.count graph))
+    Assert.Equal(6.0, (FGraph.Node.count graph))
+    Assert.Equal(2.6666666666666666, (Measures.Degree.average graph))

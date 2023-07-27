@@ -10,7 +10,7 @@
   <ItemGroup>
     <Compile Include="Degree.fs" />
     <Compile Include="FGraph.fs" />
-    <Compile Include="UndirectedTests.fs" />
+    <Compile Include="UndirectedGraph.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 
