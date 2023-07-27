@@ -23,6 +23,7 @@
     <Compile Include="Edge.fs" />
     <Compile Include="AdjMatrix.fs" />
     <Compile Include="AdjGraph.fs" />
+    <Compile Include="Graph.fs" />
     <Compile Include="DiGraph.fs" />
     <Compile Include="FGraph.fs" />
     <Compile Include="Collections/Queue.fs" />
