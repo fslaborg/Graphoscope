@@ -49,8 +49,9 @@ let ``All Pairs Floyd Warshall for FGraph works correctly`` () =
         edges
         |> Seq.map (fun (s, t, w) -> s,s,t,t,w)
         |> FGraph.ofSeq
-        |> FGraph.toArray2D
+        |> FGraph.toArray2D (id)
         |> Algorithms.FloydWarshall.fromArray2D 
-    
+    printfn "%A" actual
+
     let expected = Array2D.init 10 10 (fun n m -> expected.[n].[m])
     Assert.Equal<float[,]>(expected, actual)

@@ -53,26 +53,25 @@ type FloydWarshall() =
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>        
     static member fromArray2D (graph: float [,]) : float [,] =
-        let count = graph.Length
+        let n = graph.GetLength(0)
         let arr = 
-            Array2D.init count count (fun n m ->
+            Array2D.init n n (fun n m ->
                     let c = graph[n, m]
                     if c = 0. && n <> m then
                         infinity
                     elif n = m then
                         0.
                     else
-                        c 
-                    )
-        
-        for k in 0 .. arr.Length - 1 do
-            for i in 0 .. arr.Length - 1 do
-                for j in 0 .. arr.Length - 1 do
+                        c )
+        for k in 0 .. n - 1 do
+            for i in 0 .. n - 1 do
+                for j in 0 .. n - 1 do
                     let w = arr[i, j]
                     let newW = arr[i, k] + arr[k, j]
                     if w > newW then
                         arr[i, j] <- newW
         arr
+
 
     static member compute() = 42
 

@@ -61,7 +61,7 @@ type Graphs () =
         //prepare FGraph
         let gF = FGraph.create<int,int,float>()
         for i=0 to this.NumberNodes-1 do
-            FGraph.Node.add i i gF |> ignore
+            FGraph. Node.add i i gF |> ignore
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
             FGraph.Edge.add node1 node2 data gF |> ignore

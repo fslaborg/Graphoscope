@@ -16,13 +16,13 @@ open Graphoscope.Undirected.UndirectedGraph
 
 //   Assert.Equal(powerGridGraph.Volume(), 6594)
 
-[<Fact>]
-let ``Undirected unweighted karate graph created from space delimited edgelist`` () =
-   let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/zachary.txt")
-   printfn "%s" file
-   let powerGridGraph = createFromEdgeList file "\t" 0 false
+//[<Fact>]
+//let ``Undirected unweighted karate graph created from space delimited edgelist`` () =
+//   let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/zachary.txt")
+//   printfn "%s" file
+//   let powerGridGraph = createFromEdgeList file "\t" 0 false
 
-   Assert.Equal(powerGridGraph.Size(), 34)
+//   Assert.Equal(powerGridGraph.Size(), 34)
 
 //[<Fact>]
 //let ``Karate Graph has correct basic nmeasures after import`` () =

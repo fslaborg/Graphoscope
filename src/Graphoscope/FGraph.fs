@@ -85,127 +85,6 @@ module FGraph =
     /// <returns>Empty FGraph</returns>
     let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         Dictionary<_,_>()
-
-    /// <summary> 
-    /// Creates a new, empty graph
-    /// </summary>
-    /// <returns>Empty FGraph</returns>
-    let create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        Dictionary<_,_>()
- 
- 
-    /// <summary> 
-    /// Converts the FGraph to an array2d 
-    /// </summary>
-    /// <param name="graph">The graph to be converted</param> 
-    /// <returns>An array2d</returns>
-    let toArray2D (g : FGraph<'NodeKey,'NodeData,'EdgeData>) =
-        let nodeIndex =
-            // TODO: better without sorting 
-            g
-            |> Seq.sortBy (fun kv -> kv.Key)
-            |> Seq.mapi (fun i kv -> kv.Key,i)
-            |> Dict.ofSeq 
-        let matrix = Array2D.zeroCreate nodeIndex.Count nodeIndex.Count
-        for skv in g do
-            let (_, _, s) = skv.Value
-            for tkv in s do  
-                matrix.[nodeIndex[skv.Key], nodeIndex[tkv.Key]] <- tkv.Value
-            
-        matrix
-
-    /// <summary> 
-    /// Adds a labeled, directed edge to the graph.
-    /// </summary>
-    
-    /// <returns>FGraph with new element</returns>
-    let addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-        let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
-        match g.TryGetValue(nk1,&contextNk1) with
-        | true  ->
-            if nk1 <> nk2 then
-                let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
-                match g.TryGetValue(nk2,&contextNk2) with            
-                | true  ->
-                    let p1, nd1, s1 = contextNk1
-                    //let mutable s1_ = Unchecked.defaultof<'EdgeData>
-                    match s1.ContainsKey(nk2) with
-                    | true  -> ()//failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
-                    | false -> 
-                        // Potentially update edge data
-                        s1.Add(nk2,ed)                                        
-                        let (p2, nd2, s2) = contextNk2
-                        p2.Add(nk1,ed)
-                | false -> 
-                    let p1, nd1, s1 = contextNk1
-                    s1.Add(nk2,ed)                                        
-                    let p2 = Dictionary<_,_>()
-                    p2.Add(nk1,ed)
-                    g.Add(nk2,(p2,nd2,Dictionary<_,_>()))               
-            else
-                // inser self loop p
-                let p1, nd1, s1 = contextNk1
-                match s1.ContainsKey(nk2) with
-                | true -> ()
-                | false ->
-                    // Potentially update edge data
-                    s1.Add(nk2,ed)                
-                    p1.Add(nk1,ed)
-                
-        | false -> 
-            let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
-            match g.TryGetValue(nk2,&contextNk2) with
-            | true  ->   
-                let s1 = Dictionary<_,_>()                
-                s1.Add(nk2,ed)            
-                g.Add(nk1,(Dictionary<_,_>(),nd1,s1))                
-                let (p2, nd2, s2) = contextNk2
-                p2.Add(nk1,ed)                                                
-            | false ->                 
-                if nk1 <> nk2 then
-                    let s1 = Dictionary<_,_>()                
-                    s1.Add(nk2,ed)            
-                    g.Add(nk1,(Dictionary<_,_>(),nd1,s1))     
-                    
-                    let p2 = Dictionary<_,_>()
-                    p2.Add(nk1,ed)
-                    g.Add(nk2,(p2,nd2,Dictionary<_,_>()))
-                else
-                    let s1 = Dictionary<_,_>()                
-                    s1.Add(nk2,ed)
-                    let p1 = Dictionary<_,_>()
-                    p1.Add(nk1,ed)            
-                    g.Add(nk1,(p1,nd1,s1))                       
-        g    
-
-    ///Maps contexts of the graph.
-    let mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
-        g
-        |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
-
-     /// <summary> 
-     /// Returns the FGraph content as a sequence of edges 
-     /// </summary>
-    let toSeq  (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        seq {
-             for skv in graph do
-                let (_, source, s) = skv.Value
-                for tkv in s do                      
-                    let (_, target, _) = graph.[tkv.Key]
-                    yield (skv.Key,source,tkv.Key,target,tkv.Value)
-         }
-
-    
-    /// <summary> 
-    /// Creates an Adjacency graph of a sequence of edges
-    /// </summary>
-    let ofSeq(edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
-        : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        let graph = empty
-        edgelist
-        |> Seq.iter (fun (sk,s,tk,t,ed) -> addElement sk s tk t ed graph |> ignore)
-        graph
-
     
     type Node() =
     
@@ -331,6 +210,130 @@ module FGraph =
                     index <- index + 1
                     action index skv.Key tkv.Key tkv.Value
         
+type FGraph() = 
+    
+    /// <summary> 
+    /// Creates a new, empty graph
+    /// </summary>
+    /// <returns>Empty FGraph</returns>
+    static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        Dictionary<_,_>()
+ 
+ 
+    /// <summary> 
+    /// Converts the FGraph to an array2d 
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An array2d</returns>
+    static member toArray2D (nodeIndexer : 'NodeKey -> int)  =
+        (fun (g : FGraph<'NodeKey,'NodeData,'EdgeData>) ->
+            //let nodeIndex =
+            //    // TODO: better without sorting 
+            //    g
+            //    |> Seq.sortBy (fun kv -> kv.Key)
+            //    |> Seq.mapi (fun i kv -> kv.Key,i)
+            //    |> Dict.ofSeq 
+            let n = g.Count
+            let matrix = Array2D.zeroCreate n n
+            for skv in g do
+                let (_, _, s) = skv.Value
+                for tkv in s do  
+                    matrix.[nodeIndexer skv.Key,nodeIndexer tkv.Key] <- tkv.Value
+            
+            matrix
+            )
+
+    /// <summary> 
+    /// Adds a labeled, directed edge to the graph.
+    /// </summary>
+    
+    /// <returns>FGraph with new element</returns>
+    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+        let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&contextNk1) with
+        | true  ->
+            if nk1 <> nk2 then
+                let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
+                match g.TryGetValue(nk2,&contextNk2) with            
+                | true  ->
+                    let p1, nd1, s1 = contextNk1
+                    //let mutable s1_ = Unchecked.defaultof<'EdgeData>
+                    match s1.ContainsKey(nk2) with
+                    | true  -> ()//failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
+                    | false -> 
+                        // Potentially update edge data
+                        s1.Add(nk2,ed)                                        
+                        let (p2, nd2, s2) = contextNk2
+                        p2.Add(nk1,ed)
+                | false -> 
+                    let p1, nd1, s1 = contextNk1
+                    s1.Add(nk2,ed)                                        
+                    let p2 = Dictionary<_,_>()
+                    p2.Add(nk1,ed)
+                    g.Add(nk2,(p2,nd2,Dictionary<_,_>()))               
+            else
+                // inser self loop p
+                let p1, nd1, s1 = contextNk1
+                match s1.ContainsKey(nk2) with
+                | true -> ()
+                | false ->
+                    // Potentially update edge data
+                    s1.Add(nk2,ed)                
+                    p1.Add(nk1,ed)
+                
+        | false -> 
+            let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
+            match g.TryGetValue(nk2,&contextNk2) with
+            | true  ->   
+                let s1 = Dictionary<_,_>()                
+                s1.Add(nk2,ed)            
+                g.Add(nk1,(Dictionary<_,_>(),nd1,s1))                
+                let (p2, nd2, s2) = contextNk2
+                p2.Add(nk1,ed)                                                
+            | false ->                 
+                if nk1 <> nk2 then
+                    let s1 = Dictionary<_,_>()                
+                    s1.Add(nk2,ed)            
+                    g.Add(nk1,(Dictionary<_,_>(),nd1,s1))     
+                    
+                    let p2 = Dictionary<_,_>()
+                    p2.Add(nk1,ed)
+                    g.Add(nk2,(p2,nd2,Dictionary<_,_>()))
+                else
+                    let s1 = Dictionary<_,_>()                
+                    s1.Add(nk2,ed)
+                    let p1 = Dictionary<_,_>()
+                    p1.Add(nk1,ed)            
+                    g.Add(nk1,(p1,nd1,s1))                       
+        g    
+
+    ///Maps contexts of the graph.
+    static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
+        g
+        |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
+
+     /// <summary> 
+     /// Returns the FGraph content as a sequence of edges 
+     /// </summary>
+    static member toSeq  (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        seq {
+             for skv in graph do
+                let (_, source, s) = skv.Value
+                for tkv in s do                      
+                    let (_, target, _) = graph.[tkv.Key]
+                    yield (skv.Key,source,tkv.Key,target,tkv.Value)
+         }
+
+    
+    /// <summary> 
+    /// Creates an Adjacency graph of a sequence of edges
+    /// </summary>
+    static member ofSeq(edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
+        : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        let graph = FGraph.empty
+        edgelist
+        |> Seq.iter (fun (sk,s,tk,t,ed) -> FGraph.addElement sk s tk t ed graph |> ignore)
+        graph
         
 
         // ///Maps edgeData of the graph.
