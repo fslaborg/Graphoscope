@@ -18,34 +18,6 @@ type DiGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: compariso
 
 
 module DiGraph =
-
-    
-    /// <summary> 
-    /// Creates an empty DiGraph
-    /// </summary>
-    /// <returns>Empty DiGraph</returns>
-    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
-        : DiGraph<'NodeKey, 'EdgeData> =
-        DiGraph<'NodeKey, 'EdgeData>()
-    
-    /// <summary> 
-    /// Converts the DiGraph to an Adjacency Matrix
-    /// This is preliminary step in many graph algorithms such as Floyd-Warshall. 
-    /// The operation assumes edge data types of float in the graph.
-    /// </summary>
-    /// <param name="graph">The graph to be converted</param> 
-    /// <returns>An adjacency matrix</returns>
-    let toMatrix (graph: DiGraph<'NodeKey, float>) =
-        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
-        graph.OutEdges
-        |> ResizeArray.iteri(fun ri r ->
-            r
-            |> ResizeArray.iter(fun c ->
-                matrix[ri][fst c] <- snd c
-            )
-        )
-        matrix
-
     
     type Node() =
 
@@ -234,3 +206,58 @@ module DiGraph =
             | None -> printfn $"Edge to be removed doesn't exist: {edge}"
         
             // g.InEdges[g.IdMap[dest]]...
+
+    
+    /// <summary> 
+    /// Creates an empty DiGraph
+    /// </summary>
+    /// <returns>Empty DiGraph</returns>
+    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
+        : DiGraph<'NodeKey, 'EdgeData> =
+        DiGraph<'NodeKey, 'EdgeData>()
+
+    /// <summary> 
+    /// Builds a graph from a list of nodes. 
+    /// The edges will then need to be added
+    /// </summary>
+    /// <param name="nodes">An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.</param> 
+    /// <returns>A graph containing the nodes</returns>
+    let createFromNodes<'NodeKey,'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> (nodes: 'NodeKey []) : DiGraph<'NodeKey, 'EdgeData> =
+        let g = empty
+        nodes |> Array.iter (fun n -> Node.add n g)
+        g
+
+    /// <summary> 
+    /// Builds a graph from a list of edges. 
+    /// </summary>
+    /// <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
+    /// <returns>A graph containing the nodes</returns>
+    let createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : DiGraph<'NodeKey, 'EdgeData> =
+        let g = 
+            edges
+            |> Array.map(fun (n1, n2, _) -> n1, n2)
+            |> Array.unzip
+            |> fun (a1, a2) -> Array.append a1 a2
+            |> Array.distinct
+            |> Array.sort
+            |> createFromNodes
+
+        edges |> Array.iter (fun e -> Edge.add e g)
+        g
+    
+    /// <summary> 
+    /// Converts the DiGraph to an Adjacency Matrix 
+    /// The operation assumes edge data types of float in the graph.
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An adjacency matrix</returns>
+    let toMatrix (graph: DiGraph<'NodeKey, float>) =
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
+        graph.OutEdges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iter(fun c ->
+                matrix[ri][fst c] <- snd c
+            )
+        )
+        matrix

@@ -1,4 +1,4 @@
-﻿namespace Graphoscope.Algorithm
+﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
 open System.Collections.Generic

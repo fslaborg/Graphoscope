@@ -14,6 +14,30 @@ type Graph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>
 
 module Graph =
 
+    /// <summary> 
+    /// Creates an empty undirected Graph
+    /// </summary>
+    /// <returns>Empty DiGraph</returns>
+    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
+        : Graph<'NodeKey, 'EdgeData> =
+        Graph<'NodeKey, 'EdgeData>()
+    
+    /// <summary> 
+    /// Converts the Graph to an Adjacency Matrix
+    /// The operation assumes edge data types of float in the graph.
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An adjacency matrix</returns>
+    let toMatrix (graph: Graph<'NodeKey, float>) =
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
+        graph.Edges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iter(fun c ->
+                matrix[ri][fst c] <- snd c
+            )
+        )
+        matrix
 
     type Node() =
 

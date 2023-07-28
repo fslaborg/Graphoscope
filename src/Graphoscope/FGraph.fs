@@ -92,7 +92,28 @@ module FGraph =
     /// <returns>Empty FGraph</returns>
     let create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
-  
+ 
+ 
+    /// <summary> 
+    /// Converts the FGraph to an array2d 
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An array2d</returns>
+    let toArray2D (g : FGraph<'NodeKey,'NodeData,'EdgeData>) =
+        let nodeIndex =
+            // TODO: better without sorting 
+            g
+            |> Seq.sortBy (fun kv -> kv.Key)
+            |> Seq.mapi (fun i kv -> kv.Key,i)
+            |> Dict.ofSeq 
+        let matrix = Array2D.zeroCreate nodeIndex.Count nodeIndex.Count
+        for skv in g do
+            let (_, _, s) = skv.Value
+            for tkv in s do  
+                matrix.[nodeIndex[skv.Key], nodeIndex[tkv.Key]] <- tkv.Value
+            
+        matrix
+
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
