@@ -1,4 +1,4 @@
-﻿module Bfs
+﻿module BFS
 
 open Xunit
 open Graphoscope

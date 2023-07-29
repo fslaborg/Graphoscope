@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Bfs.fs" />
+    <Compile Include="Dijkstra.fs" />
+    <Compile Include="DFS.fs" />
+    <Compile Include="BFS.fs" />
     <Compile Include="FloydWarshall.fs" />
     <Compile Include="Degree.fs" />
     <Compile Include="FGraph.fs" />
