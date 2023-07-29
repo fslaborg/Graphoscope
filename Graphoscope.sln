@@ -56,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".ci", ".ci", "{F2BBB9F9-E96
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.Benchmark", "tests\Graphoscope.Benchmark\Graphoscope.Benchmark.fsproj", "{1B734B74-3519-4F8F-98AB-46A5FDD9ECCA}"
 EndProject
-Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.IO", "Graphoscope.IO\Graphoscope.IO.fsproj", "{D314B67C-7F07-438D-86C7-8786E0ABA4E6}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.IO", "src\Graphoscope.IO\Graphoscope.IO.fsproj", "{D314B67C-7F07-438D-86C7-8786E0ABA4E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
