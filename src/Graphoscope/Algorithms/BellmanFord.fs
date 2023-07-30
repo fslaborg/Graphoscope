@@ -3,11 +3,27 @@
 open Graphoscope
 open System.Collections.Generic
 
+module private BF =
+    
+    let rec internal loopEdges (snk:'NodeKey) (adj: byref<Dictionary.Enumerator<'NodeKey, float>>) 
+        (distances:Dictionary<'NodeKey, float>) =
+        match adj.MoveNext() with
+        | true ->
+            let weight = adj.Current.Value
+            if (distances[snk] <> System.Double.MaxValue
+                && distances[snk] + weight < distances[adj.Current.Key]) then
+                true
+            else
+                loopEdges snk (&adj) distances
+        | false -> false
+
+
 
 /// <summary> 
 /// Computes BellmanFord shortest path
 /// </summary>
 type BellmanFord() =
+
 
 
     static member ofFGraph (starting: 'NodeKey) (graph :  FGraph<'NodeKey, 'NodeData, float>) =
@@ -34,5 +50,26 @@ type BellmanFord() =
                     distances[ekv.Key] <- distances[nkv.Key] + ekv.Value
         
         distances
+ 
 
+    static member hasNegativeCycles (graph : FGraph<'NodeKey, 'NodeData, float>) (distances:Dictionary<'NodeKey, float>) =
+    
+        // // Step 3: check for negative-weight cycles. The
+        // // above step guarantees shortest distances if graph
+        // // doesn't contain negative weight cycle. If we get
+        // // a shorter path, then there is a cycle.
+        let mutable enGraph = graph.GetEnumerator()
+        let rec loopNodes () = //(enGraph: byref<Dictionary.Enumerator<'NodeKey, FContext<'NodeKey, 'NodeData, 'float>>>) 
+            //(distances:Dictionary<'NodeKey, float>) =
+            match enGraph.MoveNext() with
+            | false -> false
+            | true -> 
+                let nodeKey = enGraph.Current.Key
+                let (_,_,p) = enGraph.Current.Value
+                let mutable enP = p.GetEnumerator()
+                match (BF.loopEdges nodeKey (&enP) distances) with
+                | true -> true
+                | false -> loopNodes ()
 
+        loopNodes()
+    
