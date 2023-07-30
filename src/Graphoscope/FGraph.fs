@@ -8,7 +8,6 @@ type Adj<'NodeKey, 'EdgeData> = seq<'NodeKey * 'EdgeData>
 type FContext<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
      Dictionary<'NodeKey,'EdgeData> * 'NodeData * Dictionary<'NodeKey,'EdgeData>
 
-
 type FGraph<'NodeKey,'NodeData,'EdgeData> when 'NodeKey: comparison =
     Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>
 
@@ -96,6 +95,9 @@ module FGraph =
             | false -> g.Add(nk,(Dictionary<_,_>(),nd,Dictionary<_,_>()))            
             g
 
+        ///Adds labeled nodes to the graph.
+        static member addMany (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+            Seq.fold (fun graph (nk,nd) -> Node.add nk nd graph) g nodeSeq
 
         ///Evaluates the number of nodes in the graph.
         static member count (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
