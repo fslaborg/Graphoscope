@@ -195,10 +195,37 @@ module FGraph =
                         p1.Add(nk1,ed)
                     
             g
-            
+        
         ///Add labeled, directed edges to the graph.
         static member addMany (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
             Seq.fold (fun graph (nk1,nk2,ed) -> Edge.add nk1 nk2 ed graph) g edgeSeq
+
+        ///Remove a directed edge
+        static member removeDirected (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            match Edge.contains nkSource nkTarget g with
+            | true    -> 
+                g.Item nkSource|> fun (p,nd,s) -> s.Remove nkTarget |>ignore
+                g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkTarget |>ignore
+                g
+            | _         -> g 
+
+        ///Remove all connections between nk1 and nk2 
+        static member removeUndirected (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            match Node.contains nk1 g, Node.contains nk2 g with
+            | true,true -> 
+                let removeAll (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) (nkRemove : 'NodeKey)= 
+                    let (p, _, s) = context
+                    p.Remove nkRemove|>ignore
+                    s.Remove nkRemove|>ignore
+                let contextNK1,contextNK2 = g.Item nk1 ,g.Item nk2
+                removeAll contextNK1|>ignore
+                removeAll contextNK2|>ignore
+                g
+            | _,_ -> g
+
+        ///Removes all edges according to the given removeF
+        static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            Seq.fold(fun g (nk1,nk2,ed) -> removeF nk1 nk2 g ) g edgeSeq
 
         /// Applies the given function on each egdge of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
