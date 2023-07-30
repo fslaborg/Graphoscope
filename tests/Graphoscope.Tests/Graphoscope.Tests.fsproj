@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="BellmanFord.fs" />
     <Compile Include="Dijkstra.fs" />
     <Compile Include="DFS.fs" />
     <Compile Include="BFS.fs" />
