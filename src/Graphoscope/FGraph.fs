@@ -195,6 +195,10 @@ module FGraph =
                         p1.Add(nk1,ed)
                     
             g
+            
+        ///Add labeled, directed edges to the graph.
+        static member addMany (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            Seq.fold (fun graph (nk1,nk2,ed) -> Edge.add nk1 nk2 ed graph) g edgeSeq
 
         /// Applies the given function on each egdge of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
