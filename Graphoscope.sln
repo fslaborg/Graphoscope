@@ -25,6 +25,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9055F8EC-31C0-48B8-92D7-058D9C99C60D}"
 	ProjectSection(SolutionItems) = preProject
 		docs\Dockerfile = docs\Dockerfile
+		docs\import.fsx = docs\import.fsx
 		docs\index.fsx = docs\index.fsx
 		docs\newGRaph.fsx = docs\newGRaph.fsx
 		docs\NuGet.config = docs\NuGet.config

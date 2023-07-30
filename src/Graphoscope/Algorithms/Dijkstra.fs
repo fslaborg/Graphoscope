@@ -35,6 +35,7 @@ type Dijkstra() =
             for kv in predecessors do
                 if kv.Value < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
                 let totalDistance = (currentDistance + kv.Value) // Assuming edgeWeight is always 1 in this example
+                // Impove getValue
                 if totalDistance < distance.[kv.Key] then
                     distance.[kv.Key] <- totalDistance
                     priorityQueue.Add((kv.Key, totalDistance)) |> ignore

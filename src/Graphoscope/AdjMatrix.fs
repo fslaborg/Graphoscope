@@ -8,7 +8,7 @@ open System.Collections.Generic
 /// A adjacency matrix storing additional node information 
 /// </summary>
 type AdjMatrix<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
-    (edgeData : 'EdgeData array2d, nodeData : array<'NodeData>, nodekeyIndex : Dictionary<'NodeKey, int>) =
+    (edgeData : 'EdgeData [,], nodeData : array<'NodeData>, nodekeyIndex : Dictionary<'NodeKey, int>) =
 
     new (nodeCount : int) = 
         let n = nodeCount - 1
