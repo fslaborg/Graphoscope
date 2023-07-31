@@ -57,3 +57,14 @@ type Degree() =
 
 
     //static member compute() = 42.
+    
+    /// <summary> 
+    /// Get the max degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the max degree</returns>
+    static member maximum(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph Seq.maximum 
+        |> FGraph.mapContexts FContext.degree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+    
