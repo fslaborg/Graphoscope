@@ -2,12 +2,7 @@
 
 open Graphoscope
 
-// Adaptation of the gilbert random plane networks
- // Gilbert, E.N., 1961. Random plane networks. Journal of the society for industrial and applied mathematics, 9(4), pp.533-543.
- /// Returns an ArrayAdjacencyGraph that is generated randomly with the given parameters.
- ///
- /// numberOfNodes indicates the number of vertices the final graph will have. 
- /// probability represents the probability of an edge between 2 vertices.   
+// The Bollobás-Riordan method is a procedure for generating random graphs based on a given degree sequence.
 type BollobasRiordan() =
     
     /// <summary> 
