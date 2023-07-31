@@ -224,8 +224,8 @@ module FGraph =
             | _,_ -> g
 
         ///Removes all edges according to the given removeF
-        static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            Seq.fold(fun g (nk1,nk2,ed) -> removeF nk1 nk2 g ) g edgeSeq
+        static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            Seq.fold(fun g (nk1,nk2) -> removeF nk1 nk2 g ) g edgeSeq
 
         /// Applies the given function on each egdge of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
