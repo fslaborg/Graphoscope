@@ -345,6 +345,24 @@ type FGraph() =
         g
         |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
+    
+    ///Remove the Node and all edges connected to it
+    member this.removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        match FGraph.Node.contains nk g with
+        |true   -> 
+            g.Item nk
+            |> fun (p, _, s) ->
+                seq {
+                    for kv in p do
+                        yield kv.Key
+                    for kv in s do
+                        yield kv.Key
+                }
+            |> Seq.fold(fun graph (ids) -> FGraph.Edge.removeUndirected nk ids graph) g
+            |> fun graph -> graph.Remove nk|>ignore
+            g 
+        |_ -> g
+
      /// <summary> 
      /// Returns the FGraph content as a sequence of edges 
      /// </summary>
