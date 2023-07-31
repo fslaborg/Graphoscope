@@ -26,7 +26,7 @@ let ``Can create a graph with multiple nodes and edges including loops`` () =
         FGraph.empty
         |> FGraph.addElement 0 0 1 0 true
         |> FGraph.addElement 0 0 2 0 true
-        |> FGraph.addElement 1 0 2 0 true    
+        |> FGraph.addElement 1 0 2 0 true
         |> FGraph.addElement 2 0 0 0 true
         |> FGraph.addElement 2 0 3 0 true
         // Tests loops where node exists
@@ -58,4 +58,14 @@ let ``Can reverse a given FGraph's Edges`` () =
 
     let revGraph = FGraph.reverseEdges originalGraph
 
-    Assert.Equal<int seq>(originalGraphManuallyReversed.Keys |> Seq.sort, revGraph.Keys |> Seq.sort)
+    let manRevGraphKeys = originalGraphManuallyReversed.Keys |> Seq.sort
+    let revGraphKeys = revGraph.Keys |> Seq.sort
+    //let manRevGraphVals = originalGraphManuallyReversed.Values |> Seq.map (fun (n1,e,n2) -> List.ofSeq n1.Keys, e, Seq.toList n2.Keys)
+    //let revGraphVals = revGraph.Values |> Seq.map (fun (n1,e,n2) -> Seq.toList n1.Keys, e, List.ofSeq n2.Keys)
+    let manRevGraphVals = originalGraphManuallyReversed.Values |> Seq.map (fun (n1,e,n2) -> List.ofSeq n1.Keys, e, Seq.toList n2.Keys) |> Seq.sort
+    let revGraphVals = revGraph.Values |> Seq.map (fun (n1,e,n2) -> Seq.toList n1.Keys, e, List.ofSeq n2.Keys) |> Seq.sort
+
+    Assert.Equal<int seq>(manRevGraphKeys, revGraphKeys)
+    Assert.Equal<int list * int * int list>(manRevGraphVals, revGraphVals)
+    Assert.Equal(5.0, (FGraph.Edge.count revGraph))
+    Assert.Equal(4.0, (FGraph.Node.count revGraph))
