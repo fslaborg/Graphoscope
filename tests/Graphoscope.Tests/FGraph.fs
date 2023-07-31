@@ -37,3 +37,25 @@ let ``Can create a graph with multiple nodes and edges including loops`` () =
     Assert.Equal(8.0, (FGraph.Edge.count graph))
     Assert.Equal(6.0, (FGraph.Node.count graph))
     Assert.Equal(2.6666666666666666, (Measures.Degree.average graph))
+
+[<Fact>]
+let ``Can reverse a given FGraph's Edges`` () =
+    let originalGraph = 
+        FGraph.empty
+        |> FGraph.addElement 0 0 1 0 true
+        |> FGraph.addElement 0 0 2 0 true
+        |> FGraph.addElement 1 0 2 0 true
+        |> FGraph.addElement 2 0 0 0 true
+        |> FGraph.addElement 2 0 3 0 true
+
+    let originalGraphManuallyReversed =
+        FGraph.empty
+        |> FGraph.addElement 1 0 0 0 true
+        |> FGraph.addElement 2 0 0 0 true
+        |> FGraph.addElement 2 0 1 0 true
+        |> FGraph.addElement 0 0 2 0 true
+        |> FGraph.addElement 3 0 2 0 true
+
+    let revGraph = FGraph.reverseEdges originalGraph
+
+    Assert.Equal<int seq>(originalGraphManuallyReversed.Keys |> Seq.sort, revGraph.Keys |> Seq.sort)
