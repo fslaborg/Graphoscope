@@ -32,6 +32,7 @@
     <Compile Include="Measures\Degree.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
     <Compile Include="Measures\InformationEntropy.fs" />
+    <Compile Include="Measures\Loop.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="RandomModels\BollobasRiordan.fs" />
     <Compile Include="RandomModels\BarabasiAlbert.fs" />
