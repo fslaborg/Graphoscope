@@ -205,7 +205,7 @@ module FGraph =
             match Edge.contains nkSource nkTarget g with
             | true    -> 
                 g.Item nkSource|> fun (p,nd,s) -> s.Remove nkTarget |>ignore
-                g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkTarget |>ignore
+                g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkSource |>ignore
                 g
             | _         -> g 
 
@@ -213,14 +213,15 @@ module FGraph =
         static member removeUndirected (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
             match Node.contains nk1 g, Node.contains nk2 g with
             | true,true -> 
-                let removeAll (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) (nkRemove : 'NodeKey)= 
-                    let (p, _, s) = context
-                    p.Remove nkRemove|>ignore
-                    s.Remove nkRemove|>ignore
-                let contextNK1,contextNK2 = g.Item nk1 ,g.Item nk2
-                removeAll contextNK1|>ignore
-                removeAll contextNK2|>ignore
+
+                g.Item nk1|> fun (p,nd,s) -> p.Remove nk2 |>ignore
+                g.Item nk1|> fun (p,nd,s) -> s.Remove nk2 |>ignore                
+
+                g.Item nk2|> fun (p,nd,s) -> p.Remove nk1 |>ignore
+                g.Item nk2|> fun (p,nd,s) -> s.Remove nk1 |>ignore                
+                
                 g
+
             | _,_ -> g
 
         ///Removes all edges according to the given removeF
@@ -347,7 +348,7 @@ type FGraph() =
 
     
     ///Remove the Node and all edges connected to it
-    member this.removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+    static member removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         match FGraph.Node.contains nk g with
         |true   -> 
             g.Item nk
