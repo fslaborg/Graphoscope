@@ -4,12 +4,28 @@ open Graphoscope
 open FSharpAux
 
 type Degree() =
+    /// <summary> 
+    /// Returns the in-degree distribution of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of in-degree values</returns>
+    static member inwardDistributio(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph
+        |> FGraph.mapContexts FContext.inwardDegree
+        |> Seq.map (fun (_,d) -> float d)
 
-    static member inwardDistributio(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 42.
     static member inwardDistributio(graph : DiGraph<'NodeKey, 'EdgeData>) = 42.
-    
 
-    static member outwardDistribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 42.
+    /// <summary> 
+    /// Returns the out-degree distribution of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of out-degree values</returns>
+    static member outwardDistribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph
+        |> FGraph.mapContexts FContext.outwardDegree
+        |> Seq.map (fun (_,d) -> float d)
+
     static member outwardDistribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 42.
     
     /// <summary> 
@@ -57,3 +73,39 @@ type Degree() =
 
 
     //static member compute() = 42.
+    
+    /// <summary> 
+    /// Get the max degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max degree</returns>
+    static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph 
+        |> FGraph.mapContexts FContext.degree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+        |> snd 
+
+
+    /// <summary> 
+    /// Get the max In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max In-degree</returns>
+    static member maximumInDegree (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph 
+        |> FGraph.mapContexts FContext.inwardDegree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+        |> snd 
+
+    /// <summary> 
+    /// Get the max Out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max Out-degree</returns>
+    static member maximumOutDegree (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph 
+        |> FGraph.mapContexts FContext.outwardDegree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+        |> snd 
+    
+    
