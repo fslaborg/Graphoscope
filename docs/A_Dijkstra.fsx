@@ -88,7 +88,6 @@ vizGraph
         ) 
 |> CyGraph.withSize(800, 400) 
 |> CyGraph.show
-//|> HTML.toGraphHTML()
- 
-(*** include-it-raw ***)
+|> HTML.toGraphHTML
+ (*** include-it-raw ***)
 

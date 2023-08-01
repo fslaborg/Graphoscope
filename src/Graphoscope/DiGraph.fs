@@ -315,4 +315,3 @@ module Import =
     let importUnDirectedGraph (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool) = 
         importRows fullpath delimiter headerRows weightsIncluded
         |> DiGraph.createFromEdges
-
