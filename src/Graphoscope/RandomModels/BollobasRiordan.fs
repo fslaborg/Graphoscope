@@ -35,8 +35,8 @@ type BollobasRiordan() =
         let G: FGraph<int, int, float> = 
             if create_using.Count < 3 then 
                 FGraph.empty
-                |> FGraph.Node.addMany [|(0,0);(1,1);(2,2)|]
-                |> FGraph.Edge.addMany [|(0, 1, 1.); (1, 2, 1.); (2, 0, 1.)|]
+                |> FGraph.addNodes [|(0,0);(1,1);(2,2)|]
+                |> FGraph.addEdges [|(0, 1, 1.); (1, 2, 1.); (2, 0, 1.)|]
             else
                 create_using
     
@@ -69,21 +69,21 @@ type BollobasRiordan() =
                 failwith "ERROR"
         
         while G.Count < n do
-            let psum_in     = float (FGraph.Edge.count G) + delta_in  *  float (G.Count)
-            let psum_out    = float (FGraph.Edge.count G) + delta_out * float (G.Count)
+            let psum_in     = float (FGraph.countEdges G) + delta_in  *  float (G.Count)
+            let psum_out    = float (FGraph.countEdges G) + delta_out * float (G.Count)
             let r = rnd.NextDouble()
     
             if r < alpha then
                 let v = (G.Count)
                 let w = _choose_node("in",delta_in,psum_in)
-                FGraph.Node.add v v G
-                |> FGraph.Edge.add v w 1. 
+                FGraph.addNode v v G
+                |> FGraph.addEdge v w 1. 
                 |> ignore
 
             elif r < (alpha + beta) then
                 let v = _choose_node("out",delta_out,psum_out)
                 let w = _choose_node("in", delta_in, psum_in)
-                FGraph.Edge.add v w 1. G
+                FGraph.addEdge v w 1. G
                 |> ignore
 
     
@@ -91,8 +91,8 @@ type BollobasRiordan() =
                 let v = _choose_node("out",delta_out,psum_out)
                 let w = G.Count
 
-                FGraph.Node.add w w G
-                |> FGraph.Edge.add v w 1. 
+                FGraph.addNode w w G
+                |> FGraph.addEdge v w 1. 
                 |> ignore
 
         G

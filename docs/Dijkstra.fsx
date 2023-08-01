@@ -36,20 +36,20 @@ open Graphoscope
 
 let dwg =
     FGraph.empty
-    |> FGraph.Node.add 0 "A"
-    |> FGraph.Node.add 1 "B"
-    |> FGraph.Node.add 2 "C"
-    |> FGraph.Node.add 3 "D"
-    |> FGraph.Node.add 4 "E"
-    |> FGraph.Node.add 5 "F"
-    |> FGraph.Edge.add 0 1 7.
-    |> FGraph.Edge.add 0 2 12.
-    |> FGraph.Edge.add 1 2 2.
-    |> FGraph.Edge.add 1 3 9.
-    |> FGraph.Edge.add 2 4 10.
-    |> FGraph.Edge.add 4 3 4.
-    |> FGraph.Edge.add 3 5 1.
-    |> FGraph.Edge.add 4 5 5.
+    |> FGraph.addNode 0 "A"
+    |> FGraph.addNode 1 "B"
+    |> FGraph.addNode 2 "C"
+    |> FGraph.addNode 3 "D"
+    |> FGraph.addNode 4 "E"
+    |> FGraph.addNode 5 "F"
+    |> FGraph.addEdge 0 1 7.
+    |> FGraph.addEdge 0 2 12.
+    |> FGraph.addEdge 1 2 2.
+    |> FGraph.addEdge 1 3 9.
+    |> FGraph.addEdge 2 4 10.
+    |> FGraph.addEdge 4 3 4.
+    |> FGraph.addEdge 3 5 1.
+    |> FGraph.addEdge 4 5 5.
 
 let dij = Algorithms.Dijkstra.ofFGraph 0 dwg
 

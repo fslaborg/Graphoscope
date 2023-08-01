@@ -26,11 +26,11 @@ type BarabasiAlbert() =
         for n=oldV to oldV+numberOfVertices do
             let vertex  = fVertexKey n
             let label   = fLabel vertex
-            FGraph.Node.add vertex label g|> ignore
+            FGraph.addNode vertex label g|> ignore
             
             let mutable m = 0
     
-            let p k = ( (float (g.Item k|>FContext.degree )) / (float (FGraph.Edge.count g)) )
+            let p k = ( (float (g.Item k|>FContext.degree )) / (float (FGraph.countEdges g)) )
             let possibleConnections = 
                 [
                     for i in g.Keys do
@@ -41,7 +41,7 @@ type BarabasiAlbert() =
             let rec getEdges counter m edges =
      
                 if m = 0 then
-                    FGraph.Edge.addMany edges g
+                    FGraph.addEdges edges g
                 else
                     
                     if counter = possibleConnections.Length then

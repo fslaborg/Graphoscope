@@ -45,26 +45,26 @@ type Graphs () =
         //prepare DiGraph
         let gDi = DiGraph.empty<int,float>
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Node.add i gDi
+            DiGraph.addNode i gDi
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edge.add (node1, node2, data) gDi
+            DiGraph.addEdge (node1, node2, data) gDi
         diGraph <- gDi
         //prepare DiNodeGraph
         let gDiNo = DiGraph.empty<DiNode<int>,float>
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Node.add ({Id=i;Data=i}) gDiNo
+            DiGraph.addNode ({Id=i;Data=i}) gDiNo
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edge.add ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
+            DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
         diNodeGraph <- gDiNo
         //prepare FGraph
         let gF = FGraph.create<int,int,float>()
         for i=0 to this.NumberNodes-1 do
-            FGraph. Node.add i i gF |> ignore
+            FGraph.addNode i i gF |> ignore
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            FGraph.Edge.add node1 node2 data gF |> ignore
+            FGraph.addEdge node1 node2 data gF |> ignore
         fGraph <- gF
 
 
@@ -84,11 +84,11 @@ type Graphs () =
         let g = DiGraph.empty<int,float>
          // Add nodes
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Node.add (i) g
+            DiGraph.addNode (i) g
         // Add edges
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edge.add ((node1), (node2), float i) g 
+            DiGraph.addEdge ((node1), (node2), float i) g 
 
 
     [<Benchmark>]
@@ -96,11 +96,11 @@ type Graphs () =
         let g = DiGraph.empty<DiNode<int>,float>
          // Add nodes
         for i=0 to this.NumberNodes-1 do
-            DiGraph.Node.add ({Id=i;Data=i}) g
+            DiGraph.addNode ({Id=i;Data=i}) g
         // Add edges
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.Edge.add ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) g 
+            DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) g 
 
 
     [<Benchmark>]
