@@ -63,6 +63,7 @@ let's use Cytoscape.NET for visualization:
 *)
 
 open Cytoscape.NET
+
 let vizGraph =
     CyGraph.initEmpty ()
     |> CyGraph.withElements [
@@ -84,6 +85,4 @@ vizGraph
 |> CyGraph.withSize(800, 400) 
 |> HTML.toGraphHTML()
 (*** include-it-raw ***)
-
-
 
