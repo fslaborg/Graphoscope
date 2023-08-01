@@ -3,6 +3,9 @@
 //open FSharpx.Collections
 open FSharpAux
 open System.Collections.Generic
+open FSharp.Data
+open Graphoscope
+open System
 
 type DiGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
@@ -263,3 +266,53 @@ type DiGraph() =
             )
         )
         matrix
+
+    /// <summary> 
+    /// Gets the total number of nodes of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total nodes</returns>
+    static member countNodes (graph: DiGraph<'NodeKey, float>) : int = 
+        graph.NodeKeys |> ResizeArray.length
+        
+    /// <summary> 
+    /// Gets the total number of edges of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total edges</returns>
+    static member getVolume (graph: DiGraph<'NodeKey, float>)  :int = 
+        DiGraph.getAllEdges graph 
+        |> Array.length 
+
+module Import =
+
+    let private importRows (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool)  = 
+        let rows  = CsvFile.Load(fullpath, delimiter, skipRows = headerRows, hasHeaders = false).Rows
+        rows
+        |> Seq.map (fun row -> int row[0], int row[1], if weightsIncluded then float row[2] else 1.0)
+        |> Seq.toArray
+    
+    /// <summary> 
+    /// Imports and builds a Directed graph from an edge list file
+    /// </summary>
+    /// <param name="fullpath">The path and file name to the file to be imported</param> 
+    /// <param name="delimiter">The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t </param> 
+    /// <param name="headerRows">The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.</param> 
+    /// <param name="weightsIncluded">Specifies if  there is a third column with the edge weights. These will be treated as floats.</param> 
+    /// <returns>A Directed graph containing the nodes and edges specified in the file</returns>
+    let importDirectedGraph (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool) = 
+        importRows fullpath delimiter headerRows weightsIncluded
+        |> DiGraph.createFromEdges
+
+    /// <summary> 
+    /// Imports and builds a Undirected graph from an edge list file
+    /// </summary>
+    /// <param name="fullpath">The path and file name to the file to be imported</param> 
+    /// <param name="delimiter">The delimter between the nodes in the file. Often a space or a tab which can be indicated with a \t </param> 
+    /// <param name="headerRows">The number of meta data rows at the start of the file. These often begin with a % and there is usually 2.</param> 
+    /// <param name="weightsIncluded">Specifies if  there is a third column with the edge weights. These will be treated as floats.</param> 
+    /// <returns>A Undirected graph containing the nodes and edges specified in the file</returns>
+    let importUnDirectedGraph (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool) = 
+        importRows fullpath delimiter headerRows weightsIncluded
+        |> DiGraph.createFromEdges
+

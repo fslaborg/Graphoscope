@@ -2,8 +2,8 @@
 ---
 title: Dijkstra
 category: Algorithms 
-categoryindex: 2
-index: 1
+categoryindex: 1
+index: 2
 ---
 *)
 
@@ -22,13 +22,13 @@ index: 1
 #endif // IPYNB
 
 (**
-# Shortest path between all the vertices using Dijkstra’a Algorithm.
+# Shortest path between all the vertices using Dijkstraï¿½a Algorithm.
 
-Dijkstra’s algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959. 
-Dijkstra’s algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
+Dijkstraï¿½s algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959. 
+Dijkstraï¿½s algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
 graph that has non-negative edge weight.
 
-Let's start with a directed weighted graph. We will find shortest path between all the vertices using Dijkstra’a Algorithm.
+Let's start with a directed weighted graph. We will find shortest path between all the vertices using Dijkstraï¿½a Algorithm.
 
 *)
 

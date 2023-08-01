@@ -16,7 +16,7 @@ type BarabasiAlbert() =
     /// <param name="startingGraph"> is the original graph, that is used as the initial connected network. The rest of the calculations and growth of the network are performed on this graph.</param>
     /// <returns>An FGraph</returns>
 
-    static member initFGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> 'Vertex) (fLabel: 'Vertex -> 'Label) (fWeight: 'Vertex*'Vertex -> 'Edge) (startingGraph: FGraph<int, int, float>)  =
+    static member initFGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> int) (fLabel: int -> int) (fWeight: int*int -> float) (startingGraph: FGraph<int, int, float>)  =
         let rnd = new System.Random()
            
         let g = startingGraph
