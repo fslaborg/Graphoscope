@@ -85,165 +85,9 @@ module FGraph =
     let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         Dictionary<_,_>()
     
-    type Node() =
-    
-        ///Adds a labeled node to the graph.
-        static member  add (nk:'NodeKey) (nd : 'NodeData)  (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-            let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
-            match g.TryGetValue(nk,&context) with
-            | true  -> context <- (Dictionary<_,_>(),nd,Dictionary<_,_>())
-            | false -> g.Add(nk,(Dictionary<_,_>(),nd,Dictionary<_,_>()))            
-            g
+//    type Node() =
 
-        ///Adds labeled nodes to the graph.
-        static member addMany (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-            Seq.fold (fun graph (nk,nd) -> Node.add nk nd graph) g nodeSeq
-
-        ///Evaluates the number of nodes in the graph.
-        static member count (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
-            g.Count
- 
-        ///Returns true, if the node v is contained in the graph. Otherwise, it returns false.
-        static member contains vk (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : bool =
-            Dictionary.containsKey vk g
-
-        ///Lookup a labeled vertex in the graph. Raising KeyNotFoundException if no binding exists in the graph.
-        static member find (n: 'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'NodeData) = 
-            Dictionary.item n g
-            |> fun (_, nd, _) -> n, nd
-    
-
-
-    ///Functions for edges of directed Graphs
-    type Edge() = 
-
-        ///Evaluates the number of edges in the graph.
-        static member count (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : int =
-            g 
-            |> Seq.sumBy (fun kv -> 
-                let (_,_,s) = kv.Value
-                s.Count
-                )
-
-        ///Returns true, if the edge from vertex v1 to vertex v2 is contained in the graph. Otherwise, it returns false.
-        static member contains v1 v2 (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : bool =
-            let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
-            match g.TryGetValue(v1,&context) with
-            | true  -> 
-                let (_, _, s) = context
-                s.ContainsKey(v2)
-            | false -> false
-            
-    
-        ///Lookup a labeled edge in the graph. Raising KeyNotFoundException if no binding exists in the graph.
-        static member find (v1:'NodeKey) (v2:'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
-                Dictionary.item v1 g
-                |> fun (_, _, s) -> Dictionary.item v2 s
-                |> fun e -> (v1,v2,e)
-    
-        ///Lookup a labeled edge in the graph, returning a Some value if a binding exists and None if not.
-        static member tryFind (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) option =
-            let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
-            match g.TryGetValue(nk1,&context) with
-            | false -> None
-            | true  -> 
-                let (_, _, s) = context
-                match s.TryGetValue(nk1) with
-                | false,_  -> None
-                | true, e  ->                     
-                    Some (nk1,nk2,e)
-
-
-        //Add and remove
-
-        ///Adds a labeled, directed edge to the graph.
-        static member tryAdd (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> option =
-            if (Node.contains nk1 g |> not) || (Node.contains nk2 g |> not) || Edge.contains nk1 nk2 g then
-                None
-            else 
-                let (p1, nd1, s1) = Dictionary.item nk1 g
-                Dictionary.addOrUpdateInPlace nk2 ed s1 |> ignore
-                let (p2, nd2, s2) = Dictionary.item nk2 g
-                Dictionary.addOrUpdateInPlace nk1 ed p2 |> ignore
-                g |> Some
-
-        ///Adds a labeled, directed edge to the graph.
-        static member add (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
-            match g.TryGetValue(nk1,&contextNk1) with
-            | false -> () //failwithf "Source Node %O does not exist" nk1 
-            | true  ->
-                if nk1 <> nk2 then
-                    let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
-                    match g.TryGetValue(nk2,&contextNk2) with
-                    | false -> failwithf "Target Node %O does not exist" nk2
-                    | true  ->   
-                        let p1, nd1, s1 = contextNk1
-                        //let mutable s1_ = Unchecked.defaultof<'EdgeData>
-                        match s1.ContainsKey(nk2) with                    
-                        | true  -> failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
-                        | false -> 
-                            s1.Add(nk2,ed)                                        
-                            let (p2, nd2, s2) = contextNk2
-                            p2.Add(nk1,ed)
-                else
-                    let p1, nd1, s1 = contextNk1
-                    match s1.ContainsKey(nk1) with 
-                    | true -> failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
-                    | false ->
-                        s1.Add(nk1,ed)                
-                        p1.Add(nk1,ed)
-                    
-            g
-        
-        ///Add labeled, directed edges to the graph.
-        static member addMany (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            Seq.fold (fun graph (nk1,nk2,ed) -> Edge.add nk1 nk2 ed graph) g edgeSeq
-
-        ///Remove a directed edge
-        static member removeDirected (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            match Edge.contains nkSource nkTarget g with
-            | true    -> 
-                g.Item nkSource|> fun (p,nd,s) -> s.Remove nkTarget |>ignore
-                g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkSource |>ignore
-                g
-            | _         -> g 
-
-        ///Remove all connections between nk1 and nk2 
-        static member removeUndirected (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            match Node.contains nk1 g, Node.contains nk2 g with
-            | true,true -> 
-
-                g.Item nk1|> fun (p,nd,s) -> p.Remove nk2 |>ignore
-                g.Item nk1|> fun (p,nd,s) -> s.Remove nk2 |>ignore                
-
-                g.Item nk2|> fun (p,nd,s) -> p.Remove nk1 |>ignore
-                g.Item nk2|> fun (p,nd,s) -> s.Remove nk1 |>ignore                
-                
-                g
-
-            | _,_ -> g
-
-        ///Removes all edges according to the given removeF
-        static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            Seq.fold(fun g (nk1,nk2) -> removeF nk1 nk2 g ) g edgeSeq
-
-        /// Applies the given function on each egdge of the graph
-        static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            for skv in graph do
-                let (_, _, s) = skv.Value
-                for tkv in s do  
-                    action skv.Key tkv.Key tkv.Value
-        
-        /// Applies the given function on every edge of the graph, which also receives an ascending integer index.
-        static member iteri (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            let mutable index = -1
-            for skv in graph do
-                let (_, _, s) = skv.Value
-                for tkv in s do  
-                    index <- index + 1
-                    action index skv.Key tkv.Key tkv.Value
-
+   
 
 type FGraph() = 
 
@@ -254,30 +98,6 @@ type FGraph() =
     static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
  
- 
-    /// <summary> 
-    /// Converts the FGraph to an array2d 
-    /// </summary>
-    /// <param name="graph">The graph to be converted</param> 
-    /// <returns>An array2d</returns>
-    static member toArray2D (nodeIndexer : 'NodeKey -> int)  =
-        (fun (g : FGraph<'NodeKey,'NodeData,'EdgeData>) ->
-            //let nodeIndex =
-            //    // TODO: better without sorting 
-            //    g
-            //    |> Seq.sortBy (fun kv -> kv.Key)
-            //    |> Seq.mapi (fun i kv -> kv.Key,i)
-            //    |> Dict.ofSeq 
-            let n = g.Count
-            let matrix = Array2D.zeroCreate n n
-            for skv in g do
-                let (_, _, s) = skv.Value
-                for tkv in s do  
-                    matrix.[nodeIndexer skv.Key,nodeIndexer tkv.Key] <- tkv.Value
-            
-            matrix
-            )
-
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
@@ -342,27 +162,54 @@ type FGraph() =
                     g.Add(nk1,(p1,nd1,s1))                       
         g    
 
+
+    ///Adds a labeled node to the graph.
+    static member  addNode (nk:'NodeKey) (nd : 'NodeData)  (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk,&context) with
+        | true  -> context <- (Dictionary<_,_>(),nd,Dictionary<_,_>())
+        | false -> g.Add(nk,(Dictionary<_,_>(),nd,Dictionary<_,_>()))            
+        g
+
+    ///Adds labeled nodes to the graph.
+    static member addNodes (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        Seq.fold (fun graph (nk,nd) -> FGraph.addNode nk nd graph) g nodeSeq
+
+    ///Evaluates the number of nodes in the graph.
+    static member countNodes (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+        g.Count
+ 
+    ///Returns true, if the node v is contained in the graph. Otherwise, it returns false.
+    static member containsNode vk (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : bool =
+        Dictionary.containsKey vk g
+
+    ///Lookup a labeled vertex in the graph. Raising KeyNotFoundException if no binding exists in the graph.
+    static member findNode (n: 'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'NodeData) = 
+        Dictionary.item n g
+        |> fun (_, nd, _) -> n, nd
+
+
     ///Maps contexts of the graph.
     static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
         g
         |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
-    ///Remove the Node and all edges connected to it
-    static member removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        match FGraph.Node.contains nk g with
-        |true   -> 
-            g.Item nk
-            |> fun (p, _, s) ->
-                seq {
-                    for kv in p do
-                        yield kv.Key
-                    for kv in s do
-                        yield kv.Key
-                }
-            |> Seq.fold(fun graph (ids) -> FGraph.Edge.removeUndirected nk ids graph) g
-            |> fun graph -> graph.Remove nk|>ignore
-            g 
-        |_ -> g
+    /////Remove the Node and all edges connected to it
+    //static member removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+    //    match FGraph.containsNode nk g with
+    //    |true   -> 
+    //        g.Item nk
+    //        |> fun (p, _, s) ->
+    //            seq {
+    //                for kv in p do
+    //                    yield kv.Key
+    //                for kv in s do
+    //                    yield kv.Key
+    //            }
+    //        |> Seq.fold(fun graph (ids) -> FGraph.Edge.removeUndirected nk ids graph) g
+    //        |> fun graph -> graph.Remove nk|>ignore
+    //        g 
+    //    |_ -> g
 
      /// <summary> 
      /// Returns the FGraph content as a sequence of edges 
@@ -404,6 +251,148 @@ type FGraph() =
                 newGraph.Add(n, (newEdgeSource, edgeLabel, newEdgeSink))
         )
         newGraph
+
+    /// <summary> 
+    /// Converts the FGraph to an array2d 
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An array2d</returns>
+    static member toArray2D (nodeIndexer : 'NodeKey -> int)  =
+        (fun (g : FGraph<'NodeKey,'NodeData,'EdgeData>) ->
+            //let nodeIndex =
+            //    // TODO: better without sorting 
+            //    g
+            //    |> Seq.sortBy (fun kv -> kv.Key)
+            //    |> Seq.mapi (fun i kv -> kv.Key,i)
+            //    |> Dict.ofSeq 
+            let n = g.Count
+            let matrix = Array2D.zeroCreate n n
+            for skv in g do
+                let (_, _, s) = skv.Value
+                for tkv in s do  
+                    matrix.[nodeIndexer skv.Key,nodeIndexer tkv.Key] <- tkv.Value
+            
+            matrix
+            )
+
+
+
+    ///Evaluates the number of edges in the graph.
+    static member countEdges (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : int =
+        g 
+        |> Seq.sumBy (fun kv -> 
+            let (_,_,s) = kv.Value
+            s.Count
+            )
+
+    ///Returns true, if the edge from vertex v1 to vertex v2 is contained in the graph. Otherwise, it returns false.
+    static member containsEdge v1 v2 (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : bool =
+        let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(v1,&context) with
+        | true  -> 
+            let (_, _, s) = context
+            s.ContainsKey(v2)
+        | false -> false
+            
+    
+    ///Lookup a labeled edge in the graph. Raising KeyNotFoundException if no binding exists in the graph.
+    static member findEdge (v1:'NodeKey) (v2:'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
+            Dictionary.item v1 g
+            |> fun (_, _, s) -> Dictionary.item v2 s
+            |> fun e -> (v1,v2,e)
+    
+    ///Lookup a labeled edge in the graph, returning a Some value if a binding exists and None if not.
+    static member tryFindEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) option =
+        let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&context) with
+        | false -> None
+        | true  -> 
+            let (_, _, s) = context
+            match s.TryGetValue(nk1) with
+            | false,_  -> None
+            | true, e  ->                     
+                Some (nk1,nk2,e)
+
+
+    //Add and remove
+
+    ///Adds a labeled, directed edge to the graph.
+    static member tryAddEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> option =
+        if (FGraph.containsNode nk1 g |> not) || (FGraph.containsNode nk2 g |> not) || FGraph.containsEdge nk1 nk2 g then
+            None
+        else 
+            let (p1, nd1, s1) = Dictionary.item nk1 g
+            Dictionary.addOrUpdateInPlace nk2 ed s1 |> ignore
+            let (p2, nd2, s2) = Dictionary.item nk2 g
+            Dictionary.addOrUpdateInPlace nk1 ed p2 |> ignore
+            g |> Some
+
+    ///Adds a labeled, directed edge to the graph.
+    static member addEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+        let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&contextNk1) with
+        | false -> () //failwithf "Source Node %O does not exist" nk1 
+        | true  ->
+            if nk1 <> nk2 then
+                let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
+                match g.TryGetValue(nk2,&contextNk2) with
+                | false -> failwithf "Target Node %O does not exist" nk2
+                | true  ->   
+                    let p1, nd1, s1 = contextNk1
+                    //let mutable s1_ = Unchecked.defaultof<'EdgeData>
+                    match s1.ContainsKey(nk2) with                    
+                    | true  -> failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
+                    | false -> 
+                        s1.Add(nk2,ed)                                        
+                        let (p2, nd2, s2) = contextNk2
+                        p2.Add(nk1,ed)
+            else
+                let p1, nd1, s1 = contextNk1
+                match s1.ContainsKey(nk1) with 
+                | true -> failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
+                | false ->
+                    s1.Add(nk1,ed)                
+                    p1.Add(nk1,ed)
+                    
+        g
+        
+    ///Add labeled, directed edges to the graph.
+    static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+        Seq.fold (fun graph (nk1,nk2,ed) -> FGraph.addEdge nk1 nk2 ed graph) g edgeSeq
+
+    ///Remove a directed edge
+    static member removeEdge (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+        match FGraph.containsEdge nkSource nkTarget g with
+        | true    -> 
+            g.Item nkSource|> fun (p,nd,s) -> s.Remove nkTarget |>ignore
+            g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkSource |>ignore
+            g
+        | _         -> g 
+
+
+    ///Removes all edges according to the given removeF
+    static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+        Seq.fold(fun g (nk1,nk2) -> removeF nk1 nk2 g ) g edgeSeq
+
+    /// Applies the given function on each egdge of the graph
+    static member iterEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        for skv in graph do
+            let (_, _, s) = skv.Value
+            for tkv in s do  
+                action skv.Key tkv.Key tkv.Value
+        
+    /// Applies the given function on every edge of the graph, which also receives an ascending integer index.
+    static member iteriEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let mutable index = -1
+        for skv in graph do
+            let (_, _, s) = skv.Value
+            for tkv in s do  
+                index <- index + 1
+                action index skv.Key tkv.Key tkv.Value
+
+
+
+
 
         // ///Maps edgeData of the graph.
         // static member map 
