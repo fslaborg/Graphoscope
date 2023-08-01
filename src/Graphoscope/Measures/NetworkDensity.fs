@@ -18,7 +18,7 @@ type GraphDensity() =
     /// </returns> 
     static member ofFGraph (graph :  FGraph<'NodeKey, 'NodeData, float>) =
         let nodesCount  = graph.Count|>float
-        let edgeCount   = FGraph.Edge.count graph |>float
+        let edgeCount   = FGraph.countEdges graph |>float
         let potentialConnections = ((nodesCount) * (nodesCount-1.)) / 2.
         let density = edgeCount / potentialConnections
         density
