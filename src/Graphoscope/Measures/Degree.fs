@@ -79,9 +79,33 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max degree</returns>
-    static member maximum(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
         |> FGraph.mapContexts FContext.degree
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
+
+
+    /// <summary> 
+    /// Get the max In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max In-degree</returns>
+    static member maximumInDegree (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph 
+        |> FGraph.mapContexts FContext.inwardDegree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+        |> snd 
+
+    /// <summary> 
+    /// Get the max Out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max Out-degree</returns>
+    static member maximumOutDegree (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph 
+        |> FGraph.mapContexts FContext.outwardDegree
+        |> Seq.maxBy (fun (_,d) -> float d) 
+        |> snd 
+    
     
