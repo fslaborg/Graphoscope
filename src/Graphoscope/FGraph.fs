@@ -6,7 +6,7 @@ open System.Collections.Generic
 type Adj<'NodeKey, 'EdgeData> = seq<'NodeKey * 'EdgeData>
 
 type FContext<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
-     Dictionary<'NodeKey,'EdgeData> * 'NodeData * Dictionary<'NodeKey,'EdgeData>
+    Dictionary<'NodeKey,'EdgeData> * 'NodeData * Dictionary<'NodeKey,'EdgeData>
 
 type FGraph<'NodeKey,'NodeData,'EdgeData> when 'NodeKey: comparison =
     Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>
@@ -243,9 +243,10 @@ module FGraph =
                 for tkv in s do  
                     index <- index + 1
                     action index skv.Key tkv.Key tkv.Value
-        
+
+
 type FGraph() = 
-    
+
     /// <summary> 
     /// Creates a new, empty graph
     /// </summary>
@@ -280,7 +281,7 @@ type FGraph() =
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
-    
+
     /// <returns>FGraph with new element</returns>
     static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
@@ -346,7 +347,6 @@ type FGraph() =
         g
         |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
-    
     ///Remove the Node and all edges connected to it
     static member removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         match FGraph.Node.contains nk g with
@@ -367,7 +367,7 @@ type FGraph() =
      /// <summary> 
      /// Returns the FGraph content as a sequence of edges 
      /// </summary>
-    static member toSeq  (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member toSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         seq {
              for skv in graph do
                 let (_, source, s) = skv.Value
@@ -376,17 +376,34 @@ type FGraph() =
                     yield (skv.Key,source,tkv.Key,target,tkv.Value)
          }
 
-    
     /// <summary> 
     /// Creates an Adjacency graph of a sequence of edges
     /// </summary>
-    static member ofSeq(edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
+    static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
         : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         let graph = FGraph.empty
         edgelist
         |> Seq.iter (fun (sk,s,tk,t,ed) -> FGraph.addElement sk s tk t ed graph |> ignore)
         graph
-        
+
+    /// <summary>
+    /// Creates an FGraph consisting of the Nodes of a given FGraph but with its directed Edges reversed.
+    /// </summary>
+    static member reverseEdges (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        let newGraph = Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>()
+        (graph.Keys, graph.Values)
+        ||> Seq.iter2 (
+            fun n e -> 
+                let edgeSource, edgeLabel, edgeSink = e
+                let newEdgeSource = Dictionary<'NodeKey,'EdgeData>()
+                (edgeSink.Keys, edgeSink.Values)
+                ||> Seq.iter2 (fun k d -> newEdgeSource.Add(k, d))
+                let newEdgeSink = Dictionary<'NodeKey,'EdgeData>()
+                (edgeSource.Keys, edgeSource.Values)
+                ||> Seq.iter2 (fun k d -> newEdgeSink.Add(k, d))
+                newGraph.Add(n, (newEdgeSource, edgeLabel, newEdgeSink))
+        )
+        newGraph
 
         // ///Maps edgeData of the graph.
         // static member map 
