@@ -1,12 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-
     <IsPackable>false</IsPackable>
     <GenerateProgramFile>false</GenerateProgramFile>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="BellmanFord.fs" />
     <Compile Include="Dijkstra.fs" />
@@ -16,15 +13,14 @@
     <Compile Include="Degree.fs" />
     <Compile Include="FGraph.fs" />
     <Compile Include="UndirectedGraph.fs" />
+    <Compile Include="NetworkDensity.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="ReferenceGraphs\*.*">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>  
+    </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -37,10 +33,8 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\src\Graphoscope\Graphoscope.fsproj" />
     <ProjectReference Include="..\Graphoscope.Benchmark\Graphoscope.Benchmark.fsproj" />
   </ItemGroup>
-
 </Project>
