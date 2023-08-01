@@ -22,7 +22,10 @@ let ``Monkey graph import has correct measures`` () =
                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
         |> FGraph.ofSeq
     
-    
     //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
     //Assert.Equal(16, (Measures.getSize monkeyGraph)) 
     Assert.Equal(13.8750,(Measures.Degree.average monkeyGraph)) 
+    Assert.Equal(20,(Measures.Degree.maximum monkeyGraph)) 
+    Assert.Equal(12,(Measures.Degree.maximumInDegree monkeyGraph)) 
+    Assert.Equal(10,(Measures.Degree.maximumOutDegree monkeyGraph)) 
+    Assert.Equal(10,(Measures.Degree.maximumOutDegree monkeyGraph)) 
