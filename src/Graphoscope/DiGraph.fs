@@ -272,7 +272,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member countNodes (graph: DiGraph<'NodeKey, float>) : int = 
+    static member countNodes (graph: DiGraph<'NodeKey, 'EdgeData>) : int = 
         graph.NodeKeys |> ResizeArray.length
         
     /// <summary> 
@@ -280,7 +280,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member countEdges (graph: DiGraph<'NodeKey, float>)  :int = 
+    static member countEdges (graph: DiGraph<'NodeKey, 'EdgeData>)  :int = 
         DiGraph.getAllEdges graph 
         |> Array.length 
 
