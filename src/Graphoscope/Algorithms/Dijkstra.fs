@@ -111,7 +111,7 @@ type Dijkstra() =
         //TODO: Implement Dijkstra.ofFGraphBetween
         System.NotImplementedException() |> raise
 
-    static member computeBEtween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, float>) =
+    static member computeBetween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, float>) =
         //TODO: Implement Dijkstra.ofDiGraphBetween
         System.NotImplementedException() |> raise
 
