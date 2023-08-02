@@ -318,7 +318,7 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.maximumOfFGraph   
+        InDegree.maximumOfFGraph graph
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -409,7 +409,7 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
     static member distribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.distributionOfFGraph
+        OutDegree.distributionOfFGraph graph
 
     /// <summary> 
     /// Returns the out-degree distribution of the graph
@@ -417,7 +417,7 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
     static member distribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        OutDegree.distributionOfDiGraph
+        OutDegree.distributionOfDiGraph graph
 
 
 
@@ -499,7 +499,7 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.maximumOfFGraph   
+        OutDegree.maximumOfFGraph graph
 
     /// <summary> 
     /// Get the max out-degree of the graph. 

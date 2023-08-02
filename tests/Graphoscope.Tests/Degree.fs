@@ -26,6 +26,5 @@ let ``Monkey graph import has correct measures`` () =
     //Assert.Equal(16, (Measures.getSize monkeyGraph)) 
     Assert.Equal(13.8750,(Measures.Degree.average monkeyGraph)) 
     Assert.Equal(20,(Measures.Degree.maximum monkeyGraph)) 
-    Assert.Equal(12,(Measures.Degree.maximumInDegree monkeyGraph)) 
-    Assert.Equal(10,(Measures.Degree.maximumOutDegree monkeyGraph)) 
-    Assert.Equal(10,(Measures.Degree.maximumOutDegree monkeyGraph)) 
+    Assert.Equal(12,(Measures.InDegree.maximum monkeyGraph)) 
+    Assert.Equal(10,(Measures.OutDegree.maximum monkeyGraph)) 
