@@ -5,21 +5,7 @@ category: Graphoscope
 categoryindex: 1
 index: 1 
 ---
-*)
-(*** hide ***)
 
-(*** condition: prepare ***)
-#r "nuget: FSharpAux.Core, 2.0.0"
-#r "nuget: FSharpx.Collections, 3.1.0"
-#r "nuget: FSharp.Data, 6.2.0"
-#r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
-
-(*** condition: ipynb ***)
-#if IPYNB
-#r "nuget: Graphoscope, {{fsdocs-package-version}}"
-#endif // IPYNB
-
-(**
 # Graphoscope
 
 The Graphoscope project aims to provide a rigorous and performant tool for Network Science. 

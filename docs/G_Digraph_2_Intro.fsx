@@ -88,7 +88,6 @@ printf "Successfully imported the graph! It has %i nodes and %i edges. The avera
 We can also import undirected graphs using the [Graph](reference/graphoscope-graph.html) namespace. These examples use the [Karate club](http://konect.cc/networks/ucidata-zachary/) graph.
 *)
 
-
 let karateFile= __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/zachary.txt"
 let karateGraph = 
   let g = DiGraph.empty<int, float>
@@ -99,30 +98,9 @@ let karateGraph =
 printf "Successfully imported the undirected karate graph! It has %i nodes and %i edges. The average degree is %f " 
   (DiGraph.countNodes karateGraph) (DiGraph.countEdges karateGraph) (Measures.Degree.average karateGraph)
 (*** include-output ***)
-(**
-## Algorithms
-A key aim of Graposcope is to provide highly performant graph analysis. 
-Currently it contains implementations of Dijkstra, including a parallelised version, and Floyd-Warshall.
 
-We can get the shortest path between two nodes as follows 
-*)
-open Graphoscope.Algorithms
-
-// Dijkstra.computeBetween (26,16,karateGraph)
 (**
-Alternatively you can return all the shortest paths for every pair of nodes using parrallel Dijkstra as follows 
-// *)
-// let paths = 
-//   Dijkstra.computeBetween karateGraph
-(***include-value:paths***)
-(**
-Or with Floyd-Warshall
-*)
-FloydWarshall.fromJaggedArray (DiGraph.toMatrix karateGraph)
-(**
-
-These algorthms both operate on an Adjacency Matrix and a function for converting graphs to this data structure is provided in the Converters modules. 
-It can be executed as follows. 
+A conversion into an Adjacency Matrix is also very easily achievable. It can be executed as follows. 
 *)
 let monkeyAdjacencyMatrix = DiGraph.toMatrix monkeyGraph
 (***include-value:monkeyAdjacencyMatrix***)

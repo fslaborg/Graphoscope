@@ -5,30 +5,8 @@ category: Random Graph
 categoryindex: 4
 index: 1 
 ---
-*)
 
-(*** hide ***)
-
-(*** condition: prepare ***)
-#r "nuget: FSharpAux.Core, 2.0.0"
-#r "nuget: FSharpx.Collections, 3.1.0"
-#r "nuget: FSharpAux.IO, 2.0.0"
-#r "nuget: FSharp.Data, 6.2.0"
-#r "nuget: Plotly.NET, 4.1.0"
-#r "nuget: Plotly.NET.Interactive, 4.1.0"
-#r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
-
-(*** condition: ipynb ***)
-#if IPYNB
-#r "nuget: Graphoscope, {{fsdocs-package-version}}"
-#endif // IPYNB
-
-(**
-#Random graph models
-*)
-open Graphoscope
-open Graphoscope.RandomModels
-(**
+# Random graph models
 ## Motivation and overview
 In every implementation workflow, there comes the point where you have to test wether everything works as expexted or not.
 For this, a matching test set is necessary. In some cases (e.g. List sorting algorithms) creating those test sets is done in a matter of seconds.
