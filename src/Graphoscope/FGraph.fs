@@ -92,12 +92,12 @@ module FGraph =
 type FGraph() = 
 
     /// <summary> 
-    /// Creates a new, empty graph
+    /// Creates a new graph with the given Data
     /// </summary>
-    /// <returns>Empty FGraph</returns>
+    /// <returns>FGraph</returns>
     static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
- 
+    
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
@@ -173,7 +173,8 @@ type FGraph() =
 
     ///Adds labeled nodes to the graph.
     static member addNodes (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        Seq.fold (fun graph (nk,nd) -> FGraph.addNode nk nd graph) g nodeSeq
+        Seq.iter (fun (nk,nd) -> (FGraph.addNode nk nd g)|>ignore) nodeSeq |>ignore
+        g
 
     ///Evaluates the number of nodes in the graph.
     static member countNodes (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
@@ -354,7 +355,8 @@ type FGraph() =
         
     ///Add labeled, directed edges to the graph.
     static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-        Seq.fold (fun graph (nk1,nk2,ed) -> FGraph.addEdge nk1 nk2 ed graph) g edgeSeq
+        Seq.iter (fun (nk1,nk2,ed) -> FGraph.addEdge nk1 nk2 ed g|>ignore) edgeSeq|>ignore
+        g
 
     ///Remove a directed edge
     static member removeEdge (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
@@ -368,7 +370,8 @@ type FGraph() =
 
     ///Removes all edges according to the given removeF
     static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-        Seq.fold(fun g (nk1,nk2) -> removeF nk1 nk2 g ) g edgeSeq
+        Seq.iter(fun (nk1,nk2) -> (removeF nk1 nk2 g )|>ignore) edgeSeq|>ignore
+        g
 
     /// Applies the given function on each egdge of the graph
     static member iterEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
@@ -386,10 +389,32 @@ type FGraph() =
                 index <- index + 1
                 action index skv.Key tkv.Key tkv.Value
 
+    /// <summary> 
+    /// Creates a new graph with the given node Data
+    /// </summary>
+    /// <returns>FGraph</returns>
+    static member createFromNodes (nodes:seq<(('NodeKey)*('NodeData))>) :FGraph<'NodeKey,'NodeData,'EdgeData> =
+        FGraph.create()
+        |> FGraph.addNodes nodes
 
+    // static member createOfEdgeSeq (edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>) :FGraph<'NodeKey,'NodeKey,'EdgeData> =
+    //     let nodes: seq<'NodeKey * 'NodeKey> = 
+    //         edges
+    //         |> Seq.map(fun (s,t,w) -> [s,s;t,t])
+    //         |> Seq.concat
+    //         |> Seq.distinct
+    //     FGraph.create()
+    //     |> FGraph.addNodes nodes
+    //     |> FGraph.addEdges edges
 
-
-
+    /// <summary> 
+    /// Creates a new graph with the given Data
+    /// </summary>
+    /// <returns>FGraph</returns>
+    static member create ((nodes:seq<(('NodeKey)*('NodeData))>),(edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>)) :FGraph<'NodeKey,'NodeData,'EdgeData> =
+        FGraph.createFromNodes nodes
+        |> FGraph.addEdges edges
+        
         // ///Maps edgeData of the graph.
         // static member map 
         // /// Returns a new graph containing only the edges for which the given predicate returns true.
