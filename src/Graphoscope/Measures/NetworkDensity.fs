@@ -33,7 +33,7 @@ type GraphDensity() =
     /// The graph density.
     /// </returns> 
     static member ofDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
-        "TODO"  
+        failwith "not implemented yet"  
 
     /// <summary> 
     /// Computes the graph density of the given graph <paramref name="graph"/>.

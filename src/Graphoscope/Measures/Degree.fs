@@ -219,7 +219,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
 
     /// <summary> 
@@ -265,7 +265,7 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        "TODO"
+        failwith "not implemented yet"
    
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -310,7 +310,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -353,7 +353,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
     /// <summary> 
     /// Get the min In-degree of the graph. 
@@ -400,7 +400,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
 
     /// <summary> 
@@ -446,7 +446,7 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        "TODO"
+        failwith "not implemented yet"
    
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -491,7 +491,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -534,7 +534,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = "TODO"
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
 
     /// <summary> 
     /// Get the min out-degree of the graph. 

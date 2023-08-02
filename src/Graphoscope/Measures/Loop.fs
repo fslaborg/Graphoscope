@@ -27,7 +27,7 @@ type Loop() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the mean degree</returns>
     static member loopCountOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
-        "TODO"
+        failwith "not implemented yet"
 
     /// <summary> 
     /// Get the amount of self loops. 

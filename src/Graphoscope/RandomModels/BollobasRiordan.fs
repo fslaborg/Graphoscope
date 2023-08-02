@@ -17,7 +17,6 @@ type BollobasRiordan() =
     /// <param name="create_using">Basis for the graph generation</param>
     /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
     /// <returns>An FGraph</returns>
-
     static member initDirectedFGraph (n: int) (alpha: float) (beta: float) (gamma: float) (delta_in: float) (delta_out: float) (create_using:FGraph<int, int, float>) =
         
         if alpha+beta+gamma <> 1. then 
@@ -96,4 +95,53 @@ type BollobasRiordan() =
                 |> ignore
 
         G
-        
+    
+
+    /// <summary> 
+    /// Returns a randomly generated, directed, scale free DiGraph, based on the given paramters.
+    /// </summary>
+    /// <param name="n">Number of nodes in graph, integer.</param>
+    /// <param name="alpha">Probability for adding a new node connected to an existing node chosen randomly according to the in-degree distribution, float</param>
+    /// <param name="beta">Probability for adding an edge between two existing nodes. One existing node is chosen randomly according the in-degree distribution and the other chosen randomly according to the out-degree distribution,float</param>
+    /// <param name="gamma">Probability for adding a new node connected to an existing node chosen randomly according to the out-degree distribution, float</param>
+    /// <param name="delta_in">Bias for choosing nodes from in-degree distribution, float</param>
+    /// <param name="delta_out">Bias for choosing nodes from out-degree distribution, float</param>
+    /// <param name="create_using">Basis for the graph generation</param>
+    /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
+    /// <returns>A DiGraph</returns>
+    static member initDirectedDiGraph (n: int) (alpha: float) (beta: float) (gamma: float) (delta_in: float) (delta_out: float) (create_using:DiGraph<'NodeKey, 'EdgeData>) =
+        failwith"not implemented yet"
+
+
+
+
+    /// <summary> 
+    /// Returns a randomly generated, directed, scale free FGraph, based on the given paramters.
+    /// </summary>
+    /// <param name="n">Number of nodes in graph, integer.</param>
+    /// <param name="alpha">Probability for adding a new node connected to an existing node chosen randomly according to the in-degree distribution, float</param>
+    /// <param name="beta">Probability for adding an edge between two existing nodes. One existing node is chosen randomly according the in-degree distribution and the other chosen randomly according to the out-degree distribution,float</param>
+    /// <param name="gamma">Probability for adding a new node connected to an existing node chosen randomly according to the out-degree distribution, float</param>
+    /// <param name="delta_in">Bias for choosing nodes from in-degree distribution, float</param>
+    /// <param name="delta_out">Bias for choosing nodes from out-degree distribution, float</param>
+    /// <param name="create_using">Basis for the graph generation</param>
+    /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
+    /// <returns>An FGraph</returns>
+    static member initDirected ((n: int),(alpha: float),(beta: float),(gamma: float),(delta_in: float),(delta_out: float),(create_using:FGraph<int, int, float>)) =
+        BollobasRiordan.initDirectedFGraph n alpha beta gamma delta_in delta_out create_using
+
+    /// <summary> 
+    /// Returns a randomly generated, directed, scale free DiGraph, based on the given paramters.
+    /// </summary>
+    /// <param name="n">Number of nodes in graph, integer.</param>
+    /// <param name="alpha">Probability for adding a new node connected to an existing node chosen randomly according to the in-degree distribution, float</param>
+    /// <param name="beta">Probability for adding an edge between two existing nodes. One existing node is chosen randomly according the in-degree distribution and the other chosen randomly according to the out-degree distribution,float</param>
+    /// <param name="gamma">Probability for adding a new node connected to an existing node chosen randomly according to the out-degree distribution, float</param>
+    /// <param name="delta_in">Bias for choosing nodes from in-degree distribution, float</param>
+    /// <param name="delta_out">Bias for choosing nodes from out-degree distribution, float</param>
+    /// <param name="create_using">Basis for the graph generation</param>
+    /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
+    /// <returns>A DiGraph</returns>
+    static member initDirected ((n: int),(alpha: float),(beta: float),(gamma: float),(delta_in: float),(delta_out: float),(create_using:DiGraph<'NodeKey, 'EdgeData>)) =
+        BollobasRiordan.initDirectedDiGraph n alpha beta gamma delta_in delta_out create_using
+    
