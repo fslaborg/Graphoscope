@@ -280,7 +280,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member getVolume (graph: DiGraph<'NodeKey, float>)  :int = 
+    static member countEdges (graph: DiGraph<'NodeKey, float>)  :int = 
         DiGraph.getAllEdges graph 
         |> Array.length 
 

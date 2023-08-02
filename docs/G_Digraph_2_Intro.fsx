@@ -65,7 +65,7 @@ let file = __SOURCE_DIRECTORY__ + "/data/out.moreno_rhesus_rhesus.txt"
 let monkeyGraph =  Import.importDirectedGraph file " " 2 false
 
 printf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " 
-  (DiGraph.countNodes monkeyGraph) (DiGraph.getVolume monkeyGraph) (Measures.Degree.average monkeyGraph)
+  (DiGraph.countNodes monkeyGraph) (DiGraph.countEdges monkeyGraph) (Measures.Degree.average monkeyGraph)
 (*** include-output ***)
 
 (**
@@ -77,7 +77,7 @@ let karateFile= __SOURCE_DIRECTORY__ + "/data/zachary.txt"
 let karateGraph = Import.importUnDirectedGraph karateFile " " 2 false
 
 printf "Successfully imported the undirected karate graph! It has %i nodes and %i edges. The average degree is %f " 
-  (DiGraph.countNodes karateGraph) (DiGraph.getVolume karateGraph) (Measures.Degree.average karateGraph)
+  (DiGraph.countNodes karateGraph) (DiGraph.countEdges karateGraph) (Measures.Degree.average karateGraph)
 (*** include-output ***)
 (**
 ## Algorithms
