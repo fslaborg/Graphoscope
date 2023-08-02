@@ -51,7 +51,7 @@ let graphToFill =
     |> FGraph.addNode 2 "2"
     |> FGraph.addEdge 1 2 1.
 
-printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes graphToFill) (FGraph.countEdges graphToFill)
+printfn "You have created a graph with %i nodes and %i edges" (FGraph.countNodes graphToFill) (FGraph.countEdges graphToFill)
 (*** include-output ***)
 
 (**    
@@ -84,7 +84,7 @@ let graphWithRemovedElements =
     |> FGraph.removeEdge 1 2
     |> FGraph.removeNode 0
 
-printfn"You have reduced the graph to %i nodes and %i edges"(FGraph.countNodes graphWithRemovedElements) (FGraph.countEdges graphWithRemovedElements)
+printfn "You have reduced the graph to %i nodes and %i edges" (FGraph.countNodes graphWithRemovedElements) (FGraph.countEdges graphWithRemovedElements)
 (*** include-output ***)
 
 (**
@@ -152,5 +152,5 @@ vizGraph
 |> CyGraph.withZoom(CytoscapeModel.Zoom.Init(ZoomingEnabled=false)) 
 |> CyGraph.withSize(800, 400) 
 |> HTML.toGraphHTML()
-(*** include-output ***)
+(*** include-it-raw ***)
 

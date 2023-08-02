@@ -1,7 +1,7 @@
 (**
 ---
 title: Dijkstra
-category: Algorithms 
+category: Algorithms
 categoryindex: 3
 index: 1
 ---
@@ -24,7 +24,7 @@ index: 1
 (**
 # Shortest path between all the vertices using Dijkstra�a Algorithm.
 
-Dijkstra�s algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959. 
+Dijkstra�s algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959.
 Dijkstra�s algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
 graph that has non-negative edge weight.
 
@@ -67,12 +67,12 @@ let vizGraph =
                 yield Elements.node tk [ CyParam.label t ]
                 yield Elements.edge  (sprintf "%s_%s" sk tk) sk tk [ CyParam.label el ]
         ]
-    |> CyGraph.withStyle "node"     
+    |> CyGraph.withStyle "node"
         [
             CyParam.content =. CyParam.label
             CyParam.color "#A00975"
         ]
-    |> CyGraph.withStyle "edge"     
+    |> CyGraph.withStyle "edge"
         [
             CyParam.content =. CyParam.label
             CyParam.Curve.style "bezier"
@@ -81,12 +81,12 @@ let vizGraph =
             CyParam.color "#438AFE"
         ]
 (***hide***)
-vizGraph 
-|> CyGraph.withZoom(CytoscapeModel.Zoom.Init(ZoomingEnabled=false)) 
+vizGraph
+|> CyGraph.withZoom(CytoscapeModel.Zoom.Init(ZoomingEnabled=false))
     |> CyGraph.withLayout (
-        Layout.initCose (Layout.LayoutOptions.Cose(ComponentSpacing=40)) 
-        ) 
-|> CyGraph.withSize(800, 400) 
-|> Cytoscape.NET.HTML.toEmbeddedHTML  
- (*** include-it-raw ***)
+        Layout.initCose (Layout.LayoutOptions.Cose(ComponentSpacing=40))
+        )
+|> CyGraph.withSize(800, 400)
+|> Cytoscape.NET.HTML.toGraphHTML() 
+(*** include-it-raw ***)
 

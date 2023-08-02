@@ -12,6 +12,9 @@ index: 2
 #r "nuget: FSharpAux.Core, 2.0.0"
 #r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharp.Data, 6.2.0"
+#r "nuget: Plotly.NET, 4.1.0"
+Plotly.NET.Defaults.DefaultDisplayOptions <-
+    Plotly.NET.DisplayOptions.init (PlotlyJSReference = Plotly.NET.PlotlyJSReference.NoReference)
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
@@ -61,8 +64,21 @@ to import and analyse using Graphoscope. We will start by importing a [graph](ht
 Create a monkeys.fsx and run the following code to import and print some basic measures. Further documention of DiGraph functionality is [here](reference/graphoscope-digraph.html)
 *)
 
-let file = __SOURCE_DIRECTORY__ + "/data/out.moreno_rhesus_rhesus.txt"
-let monkeyGraph =  Import.importDirectedGraph file " " 2 false
+open FSharp.Data
+
+let getElementOfFile (fullpath: string) (delimiter: string) (headerRows: int) (weightsIncluded: bool)  = 
+        let rows  = CsvFile.Load(fullpath, delimiter, skipRows = headerRows, hasHeaders = false).Rows
+        rows
+        |> Seq.map (fun row -> int row[0],int row[0], int row[1],int row[1], if weightsIncluded then float row[2] else 1.0)
+
+
+let file = __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/out.moreno_rhesus_rhesus.txt"
+let monkeyGraph = 
+  let g = DiGraph.empty<int, float>
+  getElementOfFile file " " 2 false
+  |> Seq.iter(fun (s1,s2,t1,t2,w) -> DiGraph.addElement s1 s2 t1 t2 w g|>ignore)
+  g
+
 
 printf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " 
   (DiGraph.countNodes monkeyGraph) (DiGraph.countEdges monkeyGraph) (Measures.Degree.average monkeyGraph)
@@ -73,8 +89,12 @@ We can also import undirected graphs using the [Graph](reference/graphoscope-gra
 *)
 
 
-let karateFile= __SOURCE_DIRECTORY__ + "/data/zachary.txt"
-let karateGraph = Import.importUnDirectedGraph karateFile " " 2 false
+let karateFile= __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/zachary.txt"
+let karateGraph = 
+  let g = DiGraph.empty<int, float>
+  getElementOfFile karateFile " " 2 false
+  |> Seq.iter(fun (s1,s2,t1,t2,w: float) -> DiGraph.addElement s1 s2 t1 t2 w g|>ignore)
+  g
 
 printf "Successfully imported the undirected karate graph! It has %i nodes and %i edges. The average degree is %f " 
   (DiGraph.countNodes karateGraph) (DiGraph.countEdges karateGraph) (Measures.Degree.average karateGraph)
@@ -88,11 +108,12 @@ We can get the shortest path between two nodes as follows
 *)
 open Graphoscope.Algorithms
 
-Dijkstra.getShortestPath 26 16 karateGraph
+// Dijkstra.computeBetween (26,16,karateGraph)
 (**
 Alternatively you can return all the shortest paths for every pair of nodes using parrallel Dijkstra as follows 
-*)
-let paths = Dijkstra.Compute karateGraph
+// *)
+// let paths = 
+//   Dijkstra.computeBetween karateGraph
 (***include-value:paths***)
 (**
 Or with Floyd-Warshall
@@ -116,5 +137,5 @@ open Plotly.NET
 
 Measures.Degree.distribution karateGraph
 |> Chart.Histogram
-|> GenericChart.toEmbeddedHTML
+|> GenericChart.toChartHTML
 (***include-it-raw***)
