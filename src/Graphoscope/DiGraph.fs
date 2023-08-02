@@ -218,7 +218,7 @@ type DiGraph() =
         
         // g.InEdges[g.IdMap[dest]]...
 
-   /// <summary> 
+    /// <summary> 
     /// Builds a graph from a list of edges. 
     /// </summary>
     /// <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
