@@ -83,35 +83,35 @@ type Dijkstra() =
         dist
         |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
 
-        
-        /// <summary> 
-        /// Returns the distance in numebr of directed edges between two nodes.
-        /// </summary>
-        /// <param name="origin">The starting node of the path</param> 
-        /// <param name="destination">The finishing node of the path</param> 
-        /// <param name="graph">The graph to be analysed</param> 
-        /// <returns>A float of the distance</returns>
-        static member ofDiGraphBetween (graph : DiGraph<'NodeKey, float>) (origin :'NodeKey)  (destination :'NodeKey)  =
-            Dijkstra.ofDiGraph origin graph
-            |> Array.tryFind(fun (d,_) -> d = destination)
-            |> fun o -> 
-                match o with 
-                | Some (n,f) -> Some f
-                | None -> None
-        
+    
+    /// <summary> 
+    /// Returns the distance in numebr of directed edges between two nodes.
+    /// </summary>
+    /// <param name="origin">The starting node of the path</param> 
+    /// <param name="destination">The finishing node of the path</param> 
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the distance</returns>
+    static member ofDiGraphBetween (graph : DiGraph<'NodeKey, float>) (origin :'NodeKey)  (destination :'NodeKey)  =
+        Dijkstra.ofDiGraph origin graph
+        |> Array.tryFind(fun (d,_) -> d = destination)
+        |> fun o -> 
+            match o with 
+            | Some (n,f) -> Some f
+            | None -> None
+    
 
 
-        static member compute (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
-            Dijkstra.ofFGraph starting graph 
+    static member compute (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
+        Dijkstra.ofFGraph starting graph 
 
-        static member compute (starting : 'NodeKey, graph :  DiGraph<'NodeKey, float>) =
-            Dijkstra.ofDiGraph starting graph 
+    static member compute (starting : 'NodeKey, graph :  DiGraph<'NodeKey, float>) =
+        Dijkstra.ofDiGraph starting graph 
 
-        static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
-            //TODO: Implement Dijkstra.ofFGraphBetween
-            System.NotImplementedException() |> raise
+    static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
+        //TODO: Implement Dijkstra.ofFGraphBetween
+        System.NotImplementedException() |> raise
 
-        static member computeBEtween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, float>) =
-            //TODO: Implement Dijkstra.ofDiGraphBetween
-            System.NotImplementedException() |> raise
+    static member computeBEtween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, float>) =
+        //TODO: Implement Dijkstra.ofDiGraphBetween
+        System.NotImplementedException() |> raise
 
