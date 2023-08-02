@@ -2,8 +2,8 @@
 ---
 title: Random Graph generation
 category: Random Graph 
-categoryindex: 1
-index: 4 
+categoryindex: 4
+index: 1 
 ---
 *)
 

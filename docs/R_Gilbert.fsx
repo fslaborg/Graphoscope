@@ -2,8 +2,8 @@
 ---
 title: Gilbert
 category: Random Graph 
-categoryindex: 2
-index: 4 
+categoryindex: 4
+index: 2 
 ---
 *)
 

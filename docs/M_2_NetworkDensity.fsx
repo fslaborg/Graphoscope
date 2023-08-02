@@ -3,7 +3,7 @@
 title: Network Density
 category: Measures 
 categoryindex: 2
-index: 3 
+index: 2 
 ---
 *)
 
@@ -52,6 +52,8 @@ let monkeyGraph =
 Network density measures the proportion of connections or edges present in a network relative to the total possible number of connections. 
 It quantifies the level of interconnectedness between nodes in the network and carries several key implications for the Connectivity of the graph.
 *)
-let networkDensity = Measures.GraphDensity.ofFGraph monkeyGraph
+let networkDensity = Measures.GraphDensity.compute monkeyGraph
+
+(***hide***)
 printfn "The network density of the monkey graph is %f" networkDensity
 (*** include-output ***)

@@ -2,8 +2,8 @@
 ---
 title: Degree
 category: Measures 
-categoryindex: 1
-index: 3 
+categoryindex: 2
+index: 1 
 ---
 *)
 
@@ -64,7 +64,10 @@ Measures.Degree.distribution monkeyGraph
 ### Average Degree
 The average degree (also known as the average node degree or average connectivity) of a graph is a measure that indicates, on average, how many connections each node has in the network.
 *)
-Measures.Degree.average monkeyGraph
+let averageDegree = Measures.Degree.average monkeyGraph
+
+(***hide***)
+printfn "The average degree is %f"averageDegree
 (*** include-output ***)
 
 (**
@@ -72,5 +75,8 @@ Measures.Degree.average monkeyGraph
 The maximum degree of a graph provides insights into the importance of highly connected nodes (hubs) within the network. 
 Understanding hubs is crucial for analyzing network resilience, efficiency, and vulnerability
 *)
-Measures.Degree.maximum monkeyGraph
+let maxDegree = Measures.Degree.maximum monkeyGraph
+
+(***hide***)
+printfn "The maximal degree is %i" maxDegree
 (*** include-output ***)

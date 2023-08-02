@@ -2,8 +2,8 @@
 ---
 title: DiGraph
 category: Graphoscope 
-categoryindex: 2
-index: 1 
+categoryindex: 1
+index: 2 
 ---
 *)
 (*** hide ***)
@@ -116,5 +116,5 @@ open Plotly.NET
 
 Measures.Degree.distribution karateGraph
 |> Chart.Histogram
-|> GenericChart.toChartHTML
+|> GenericChart.toEmbeddedHTML
 (***include-it-raw***)

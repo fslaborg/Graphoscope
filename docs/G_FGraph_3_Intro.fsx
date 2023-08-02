@@ -2,8 +2,8 @@
 ---
 title: FGraph
 category: Graphoscope 
-categoryindex: 3
-index: 1 
+categoryindex: 1
+index: 3 
 ---
 *)
 (*** hide ***)

@@ -2,8 +2,8 @@
 ---
 title: Bollobas-Riordan
 category: Random Graph 
-categoryindex: 3
-index: 4 
+categoryindex: 4
+index: 3 
 ---
 *)
 

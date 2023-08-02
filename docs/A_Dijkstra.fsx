@@ -2,8 +2,8 @@
 ---
 title: Dijkstra
 category: Algorithms 
-categoryindex: 1
-index: 2
+categoryindex: 3
+index: 1
 ---
 *)
 
@@ -87,7 +87,6 @@ vizGraph
         Layout.initCose (Layout.LayoutOptions.Cose(ComponentSpacing=40)) 
         ) 
 |> CyGraph.withSize(800, 400) 
-|> CyGraph.show
-|> HTML.toGraphHTML
+|> Cytoscape.NET.HTML.toEmbeddedHTML  
  (*** include-it-raw ***)
 

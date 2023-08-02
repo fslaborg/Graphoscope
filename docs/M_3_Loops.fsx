@@ -2,7 +2,7 @@
 ---
 title: Loops
 category: Measures 
-categoryindex: 3
+categoryindex: 2
 index: 3 
 ---
 *)
@@ -52,7 +52,8 @@ The loop count of a graph, also known as the number of self-loops, refers to the
 While some may consider self-loops as noise or artifacts, in other cases, they offer valuable insights into the system being modeled and form an integral part of the graph's structure.
 *)
 
-let loopCount = Measures.Loop.loopCountFGraph monkeyGraph
-loopCount
+let loopCount = Measures.Loop.loopCount monkeyGraph
+(***hide***)
+printfn "The graph has %i loops"loopCount
 (*** include-output ***)
 
