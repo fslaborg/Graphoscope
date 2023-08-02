@@ -20,3 +20,27 @@ type Loop() =
             v.Keys|>Seq.countIf (fun x -> x=nk)
         )
     
+    //TODO
+    /// <summary> 
+    /// Get the amount of self loops. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the mean degree</returns>
+    static member loopCountOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
+        "TODO"
+
+    /// <summary> 
+    /// Get the amount of self loops. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the mean degree</returns>
+    static member loopCount (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Loop.loopCountFGraph graph
+    
+    /// <summary> 
+    /// Get the amount of self loops. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the mean degree</returns>
+    static member loopCount (graph: DiGraph<'NodeKey,'EdgeData>) = 
+        Loop.loopCountOfDiGraph graph

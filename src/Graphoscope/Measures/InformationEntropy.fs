@@ -43,4 +43,46 @@ type InformationEntropy() =
             let surprise    = System.Math.Log10((1./p))
             p * surprise
         )    
-        
+
+    //TODO
+    /// <summary> 
+    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// </summary>
+    /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
+    /// <param name="graph">The graph for which to compute the information entropy.</param>
+    /// <param name="n">The node for which to compute the information entropy.</param>
+    /// <remarks> This calculation does not consider self loops </remarks>
+    /// <returns>
+    /// The information entropy of the given node .
+    /// </returns> 
+    static member ofDiGraph (labelF:'NodeData -> 'Information) (graph: DiGraph<'NodeKey,'EdgeData>) (n:'NodeKey) =   
+        "TODO"
+
+    /// <summary> 
+    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// </summary>
+    /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
+    /// <param name="graph">The graph for which to compute the information entropy.</param>
+    /// <param name="n">The node for which to compute the information entropy.</param>
+    /// <remarks> This calculation does not consider self loops </remarks>
+    /// <returns>
+    /// The information entropy of the given node .
+    /// </returns> 
+    static member compute ((labelF:'NodeData -> 'Information),(graph: DiGraph<'NodeKey,'EdgeData>),(n:'NodeKey)) =
+        InformationEntropy.ofDiGraph labelF graph n
+
+    
+    /// <summary> 
+    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// </summary>
+    /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
+    /// <param name="graph">The graph for which to compute the information entropy.</param>
+    /// <param name="n">The node for which to compute the information entropy.</param>
+    /// <remarks> This calculation does not consider self loops </remarks>
+    /// <returns>
+    /// The information entropy of the given node .
+    /// </returns> 
+    static member compute ((labelF:'NodeData -> 'Information),(graph:FGraph<'NodeKey,'NodeData,'EdgeData>),(n:'NodeKey)) =
+        InformationEntropy.ofFGraph labelF graph n
+
+    
