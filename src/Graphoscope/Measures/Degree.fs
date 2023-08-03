@@ -86,9 +86,9 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member averageofSimpleGraph(graph : Graph.SimpleGraph<'NodeKey, 'EdgeData>) =
+    static member averageofUndirectedGraph(graph : Graph.UndirectedGraph<'NodeKey, 'EdgeData>) =
         graph.Edges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) |> float)
+        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
         |> ResizeArray.toArray
         |> Array.average
    
@@ -116,8 +116,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member average (graph : Graph.SimpleGraph<'NodeKey,'EdgeData>) =
-        Degree.averageofSimpleGraph graph
+    static member average (graph : Graph.UndirectedGraph<'NodeKey,'EdgeData>) =
+        Degree.averageofUndirectedGraph graph
 
 
     // Get Max Degree

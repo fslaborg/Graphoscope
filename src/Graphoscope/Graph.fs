@@ -3,7 +3,7 @@
 open FSharpAux
 open System.Collections.Generic
 
-type SimpleGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
+type UndirectedGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
     let nodeKeys = ResizeArray<'NodeKey>() 
     let edges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
@@ -12,24 +12,24 @@ type SimpleGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: compa
     member internal _.NodeKeys: ResizeArray<'NodeKey> = nodeKeys
     member internal _.Edges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = edges
 
-module SimpleGraph =
+module UndirectedGraph =
 
     /// <summary> 
     /// Creates an empty undirected Graph
     /// </summary>
     /// <returns>Empty DiGraph</returns>
     let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
-        : SimpleGraph<'NodeKey, 'EdgeData> =
-        SimpleGraph<'NodeKey, 'EdgeData>()
+        : UndirectedGraph<'NodeKey, 'EdgeData> =
+        UndirectedGraph<'NodeKey, 'EdgeData>()
 
-type SimpleGraph() =
+type UndirectedGraph() =
     /// <summary> 
     /// Converts the Graph to an Adjacency Matrix
     /// The operation assumes edge data types of float in the graph.
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
-    let toMatrix (graph: SimpleGraph<'NodeKey, float>) =
+    let toMatrix (graph: UndirectedGraph<'NodeKey, float>) =
         let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
         graph.Edges
         |> ResizeArray.iteri(fun ri r ->
@@ -45,7 +45,7 @@ type SimpleGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of nodes</returns>
-    static member getNodes (graph: SimpleGraph<'NodeKey,'EdgeData>) =
+    static member getNodes (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
         graph.NodeKeys
         |> Array.ofSeq
 
@@ -55,14 +55,14 @@ type SimpleGraph() =
     /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
     /// /// <param name="graph">The graph the node will be added to.</param> 
     /// /// <returns>Unit</returns>
-    static member addNode (node: 'NodeKey) (graph: SimpleGraph<'NodeKey,'EdgeData>) =
+    static member addNode (node: 'NodeKey) (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
         // TODO: Check if node exists
         graph.IdMap.Add(node, graph.NodeKeys.Count * 1)
         graph.NodeKeys.Add node
         graph.Edges.Add (ResizeArray())
 
-    static member addNodes (nodes: 'NodeKey []) (graph: SimpleGraph<'NodeKey,'EdgeData>) =
-        nodes |> Array.iter (fun n -> SimpleGraph.addNode n graph)
+    static member addNodes (nodes: 'NodeKey []) (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+        nodes |> Array.iter (fun n -> UndirectedGraph.addNode n graph)
 
     /// <summary> 
     /// Removes a node from the graph
@@ -70,7 +70,7 @@ type SimpleGraph() =
     /// <param name="node">The node to be removed.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    static member removeNode (node: 'NodeKey) (graph: SimpleGraph<'NodeKey,'EdgeData>) = 
+    static member removeNode (node: 'NodeKey) (graph: UndirectedGraph<'NodeKey,'EdgeData>) = 
         let nodeIx = graph.IdMap[node]
 
         graph.Edges
@@ -107,17 +107,20 @@ type SimpleGraph() =
     /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph the edge will be added to.</param> 
     /// <returns>Unit</returns>
-    static member addEdge (edge: ('NodeKey * 'NodeKey * 'EdgeData)) (graph: SimpleGraph<'NodeKey,'EdgeData>)=
-        // TODO: Check if orig and dest nodes exist
+    static member addEdge (edge: ('NodeKey * 'NodeKey * 'EdgeData)) (graph: UndirectedGraph<'NodeKey,'EdgeData>)=
         let orig, dest, attr = edge
-        let origIx = graph.IdMap[orig]
-        let destIx = graph.IdMap[dest]
-        match graph.Edges[origIx] |> ResizeArray.tryFind(fun (t,_) -> t = destIx) with
-        | Some _ -> failwith $"Edge already exists: ({orig}, {dest})"
-        | None ->
-            graph.Edges[origIx].Add(destIx, attr)
-            if orig <> dest then
-                graph.Edges[destIx].Add(origIx, attr)
+        match (graph.IdMap.ContainsKey orig),(graph.IdMap.ContainsKey dest) with
+        | true,true ->         
+            let origIx = graph.IdMap[orig]
+            let destIx = graph.IdMap[dest]
+            match graph.Edges[origIx] |> ResizeArray.tryFind(fun (t,_) -> t = destIx) with
+            | Some _ -> ()
+            | None ->
+                graph.Edges[origIx].Add(destIx, attr)
+                if orig <> dest then
+                    graph.Edges[destIx].Add(origIx, attr)
+        |_,_ ->
+            ()
 
     /// <summary> 
     /// Returns the edges for given node
@@ -125,7 +128,7 @@ type SimpleGraph() =
     /// <param name="origin">The node from which the edges start</param> 
     /// <param name="graph">The graph the node is present in</param> 
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
-    static member getEdges (origin: 'NodeKey) (graph: SimpleGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'EdgeData) []=
+    static member getEdges (origin: 'NodeKey) (graph: UndirectedGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.Edges[graph.IdMap[origin]]
         |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
@@ -135,10 +138,10 @@ type SimpleGraph() =
     /// </summary>
     /// <param name="graph">The graph the edges are present in</param> 
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
-    static member getAllEdges (graph: SimpleGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) [] =
-        SimpleGraph.getNodes graph
+    static member getAllEdges (graph: UndirectedGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) [] =
+        UndirectedGraph.getNodes graph
         |> Array.mapi(fun i n ->
-            SimpleGraph.getEdges n graph
+            UndirectedGraph.getEdges n graph
             |> Array.choose(fun (t, w) ->
                 if graph.IdMap[t] >= i then
                     Some (n, t, w)
@@ -154,8 +157,8 @@ type SimpleGraph() =
     /// <param name="edges">The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph to add the edge to</param> 
     /// <returns>Unit</returns>
-    static member addEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData) []) (graph: SimpleGraph<'NodeKey,'EdgeData>) =
-        edges |> Array.iter (fun e -> (SimpleGraph.addEdge e graph)|>ignore)
+    static member addEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData) []) (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+        edges |> Array.iter (fun e -> (UndirectedGraph.addEdge e graph)|>ignore)
         graph
 
     /// <summary> 
@@ -165,7 +168,7 @@ type SimpleGraph() =
     /// <param name="destination">The target node of the edge</param> 
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
-    static member find (origin:'NodeKey) (destination:'NodeKey) (graph : SimpleGraph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
+    static member find (origin:'NodeKey) (destination:'NodeKey) (graph : UndirectedGraph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
         let k2 = graph.IdMap[origin]
         graph.Edges[graph.IdMap[origin]]
         |> ResizeArray.find (fun (k,l) -> k=k2)
@@ -177,7 +180,7 @@ type SimpleGraph() =
     /// </summary>
     /// <param name="graph">The graph to perform the operation on</param> 
     /// <returns>Unit</returns>
-    static member normalizeEdges (graph: SimpleGraph<'NodeKey,float>) = // should this return the graph?
+    static member normalizeEdges (graph: UndirectedGraph<'NodeKey,float>) = // should this return the graph?
         graph.Edges
         |> ResizeArray.iteri( fun ri edges ->
             let total =
@@ -195,7 +198,7 @@ type SimpleGraph() =
     /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: SimpleGraph<'NodeKey,'EdgeData>)  = 
+    static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: UndirectedGraph<'NodeKey,'EdgeData>)  = 
         let orig, dest = edge
         let ixIn = graph.Edges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
         let ixOut = graph.Edges[graph.IdMap[dest]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[orig])
@@ -209,30 +212,30 @@ type SimpleGraph() =
 
 
 
-    static member createFromNodes(nodes: 'NodeKey []) : SimpleGraph<'NodeKey, 'EdgeData> =
-        let g = SimpleGraph.empty
-        SimpleGraph.addNodes nodes g|>ignore
+    static member createFromNodes(nodes: 'NodeKey []) : UndirectedGraph<'NodeKey, 'EdgeData> =
+        let g = UndirectedGraph.empty
+        UndirectedGraph.addNodes nodes g|>ignore
         g
     
 
-    static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : SimpleGraph<'NodeKey, 'EdgeData> =
-        let g = SimpleGraph.empty
-        SimpleGraph.addEdges edges g|>ignore
+    static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : UndirectedGraph<'NodeKey, 'EdgeData> =
+        let g = UndirectedGraph.empty
+        UndirectedGraph.addEdges edges g|>ignore
         g
 
     static member create ((nodes: 'NodeKey []), (edges: ('NodeKey * 'NodeKey * 'EdgeData)[])) =
         nodes
-        |> SimpleGraph.createFromNodes
-        |> SimpleGraph.addEdges edges
+        |> UndirectedGraph.createFromNodes
+        |> UndirectedGraph.addEdges edges
 
 
-    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : SimpleGraph<'NodeKey, 'EdgeData>) : SimpleGraph<'NodeKey, 'EdgeData> =
+    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : UndirectedGraph<'NodeKey, 'EdgeData>) : UndirectedGraph<'NodeKey, 'EdgeData> =
         if not (g.IdMap.ContainsKey nk1) then
-            SimpleGraph.addNode nk1 g
+            UndirectedGraph.addNode nk1 g
         if not (g.IdMap.ContainsKey nk2) then
-            SimpleGraph.addNode nk2 g
+            UndirectedGraph.addNode nk2 g
         
-        SimpleGraph.addEdge (nk1,nk2,ed) g
+        UndirectedGraph.addEdge (nk1,nk2,ed) g
         g
 
     
