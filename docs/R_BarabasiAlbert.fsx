@@ -14,8 +14,6 @@ index: 4
 #r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
-#r "nuget: Plotly.NET, 4.1.0"
-#r "nuget: Plotly.NET.Interactive, 4.1.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
@@ -37,7 +35,8 @@ let N = 50
 
 let edgesPerIteration = 5
 
-let myBarabasiAlbert = RandomModels.BarabasiAlbert.initFGraph  N edgesPerIteration id id (fun x -> 1.) FGraph.empty
+// let myBarabasiAlbert = RandomModels.BarabasiAlbert.initFGraph  N edgesPerIteration id id (fun x -> 1.) FGraph.empty
 
-printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes myBarabasiAlbert) (FGraph.countEdges myBarabasiAlbert)
+//printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes myBarabasiAlbert) (FGraph.countEdges myBarabasiAlbert)
+printfn"WIP"
 (*** include-output ***)

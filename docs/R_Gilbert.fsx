@@ -14,8 +14,6 @@ index: 2
 #r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
-#r "nuget: Plotly.NET, 4.1.0"
-#r "nuget: Plotly.NET.Interactive, 4.1.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)

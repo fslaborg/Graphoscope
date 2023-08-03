@@ -14,8 +14,6 @@ index: 2
 #r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
-#r "nuget: Plotly.NET, 4.1.0"
-#r "nuget: Plotly.NET.Interactive, 4.1.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
@@ -33,7 +31,6 @@ Step 1 is the loading of our [example graph](http://konect.cc/networks/moreno_rh
 *)
 (***hide***)
 open Graphoscope
-open Plotly.NET
 open FSharpAux.IO
 open FSharpAux.IO.SchemaReader.Attribute
 type MonkeyEdge = {
@@ -54,6 +51,5 @@ It quantifies the level of interconnectedness between nodes in the network and c
 *)
 let networkDensity = Measures.GraphDensity.compute monkeyGraph
 
-(***hide***)
 printfn "The network density of the monkey graph is %f" networkDensity
 (*** include-output ***)

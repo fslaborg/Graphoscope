@@ -45,13 +45,16 @@ The int and float after the "create" define the type of the nodes and edges.
 *)
 
 let emptyGraph :DiGraph<int, float> = DiGraph.empty
-DiGraph.addNode 1 emptyGraph
-DiGraph.addNode 2 emptyGraph
-DiGraph.addNode 3 emptyGraph
-let edge = (1,3, 1.0)
-DiGraph.addEdge edge emptyGraph
 
-printf "Manually created a graph with %i nodes" (DiGraph.countNodes emptyGraph)
+let edge = (1,3, 1.0)
+
+emptyGraph
+|> DiGraph.addNode 1
+|> DiGraph.addNode 2
+|> DiGraph.addNode 3
+|> DiGraph.addEdge edge
+|> DiGraph.countNodes
+|> printf "Manually created a graph with %i nodes"
 (*** include-output ***)
 
 (**
@@ -74,10 +77,13 @@ let getElementOfFile (fullpath: string) (delimiter: string) (headerRows: int) (w
 
 let file = __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/out.moreno_rhesus_rhesus.txt"
 let monkeyGraph = 
-  let g = DiGraph.empty<int, float>
-  getElementOfFile file " " 2 false
-  |> Seq.iter(fun (s1,s2,t1,t2,w) -> DiGraph.addElement s1 s2 t1 t2 w g|>ignore)
-  g
+  
+  CsvFile.Load(file, " ", skipRows = 2, hasHeaders = false).Rows
+  |> Seq.map (fun row -> 
+              int row[0],int row[0], int row[1],int row[1], float row[2])
+  |> DiGraph.ofSeq
+
+
 
 
 printf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " 

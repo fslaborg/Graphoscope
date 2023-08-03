@@ -14,8 +14,6 @@ index: 3
 #r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
-#r "nuget: Plotly.NET, 4.1.0"
-#r "nuget: Plotly.NET.Interactive, 4.1.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
@@ -33,7 +31,6 @@ Step 1 is the loading of our [example graph](http://konect.cc/networks/moreno_rh
 *)
 (***hide***)
 open Graphoscope
-open Plotly.NET
 open FSharpAux.IO
 open FSharpAux.IO.SchemaReader.Attribute
 type MonkeyEdge = {
@@ -53,7 +50,7 @@ While some may consider self-loops as noise or artifacts, in other cases, they o
 *)
 
 let loopCount = Measures.Loop.loopCount monkeyGraph
-(***hide***)
+
 printfn "The graph has %i loops"loopCount
 (*** include-output ***)
 

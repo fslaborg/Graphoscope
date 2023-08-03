@@ -39,11 +39,12 @@ let dwg =
     let edges = [|0,1,7.;0,2,12.;1,2,2.;1,3,9.;2,4,10.;4,3,4.;3,5,1.;4,5,5.|]
     FGraph.create(nodes,edges)
 
-let dij = Algorithms.Dijkstra.compute(0,dwg)
+(**
+Let´s have a look on the graph:
+*)
 
-
+(***hide***)
 open Cytoscape.NET
-
 let vizGraph =
     CyGraph.initEmpty ()
     |> CyGraph.withElements [
@@ -66,7 +67,6 @@ let vizGraph =
             CyParam.Source.Arrow.shape "circle"
             CyParam.color "#438AFE"
         ]
-(***hide***)
 vizGraph
 |> CyGraph.withZoom(CytoscapeModel.Zoom.Init(ZoomingEnabled=false))
     |> CyGraph.withLayout (
@@ -75,6 +75,13 @@ vizGraph
 |> CyGraph.withSize(800, 400)
 |> Cytoscape.NET.HTML.toGraphHTML() 
 (*** include-it-raw ***)
+
+(**
+And now, let´s compute the shortest paths via Dijkstra :
+
+*)
+let dij = Algorithms.Dijkstra.compute(0,dwg)
+
 
 (**
 # Shortest path between all the vertices using Dijkstra�a Algorithm on DiGraph.
@@ -86,41 +93,8 @@ Lets compare them using the same graph as above:
 let dwgDiGraph =
     let nodes = [|0;1;2;3;4;5|]
     let edges = [|0,1,7.;0,2,12.;1,2,2.;1,3,9.;2,4,10.;4,3,4.;3,5,1.;4,5,5.|]
-    let g = DiGraph.createFromNodes nodes
-    DiGraph.addEdges g edges 
-    g
+    DiGraph.createFromNodes nodes
+    |> DiGraph.addEdges edges
+    
 
 let dijDiGraph = Algorithms.Dijkstra.compute(0,dwgDiGraph)
-
-let vizDiGraph =
-    CyGraph.initEmpty ()
-    |> CyGraph.withElements [
-            for (sk,tk,el) in (DiGraph.getAllEdges dwgDiGraph) do
-                let sk, tk = (string sk), (string tk)
-                yield Elements.node sk [ CyParam.label sk ]
-                yield Elements.node tk [ CyParam.label tk ]
-                yield Elements.edge  (sprintf "%s_%s" sk tk) sk tk [ CyParam.label el ]
-        ]
-    |> CyGraph.withStyle "node"
-        [
-            CyParam.content =. CyParam.label
-            CyParam.color "#A00975"
-        ]
-    |> CyGraph.withStyle "edge"
-        [
-            CyParam.content =. CyParam.label
-            CyParam.Curve.style "bezier"
-            CyParam.Target.Arrow.shape "triangle"
-            CyParam.Source.Arrow.shape "circle"
-            CyParam.color "#438AFE"
-        ]
-
-(***hide***)
-vizDiGraph
-|> CyGraph.withZoom(CytoscapeModel.Zoom.Init(ZoomingEnabled=false))
-    |> CyGraph.withLayout (
-        Layout.initCose (Layout.LayoutOptions.Cose(ComponentSpacing=40))
-        )
-|> CyGraph.withSize(800, 400)
-|> Cytoscape.NET.HTML.toGraphHTML() 
-(*** include-it-raw ***)
