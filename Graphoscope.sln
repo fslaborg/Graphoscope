@@ -24,12 +24,23 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Graphoscope.Tests", "tests\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9055F8EC-31C0-48B8-92D7-058D9C99C60D}"
 	ProjectSection(SolutionItems) = preProject
+		docs\A_Dijkstra.fsx = docs\A_Dijkstra.fsx
+		docs\A_FloydWarshall.fsx = docs\A_FloydWarshall.fsx
 		docs\Dijkstra.fsx = docs\Dijkstra.fsx
 		docs\Dockerfile = docs\Dockerfile
+		docs\G_Digraph_2_Intro.fsx = docs\G_Digraph_2_Intro.fsx
+		docs\G_FGraph_3_Intro.fsx = docs\G_FGraph_3_Intro.fsx
 		docs\import.fsx = docs\import.fsx
 		docs\index.fsx = docs\index.fsx
+		docs\M_1_Degree.fsx = docs\M_1_Degree.fsx
+		docs\M_2_NetworkDensity.fsx = docs\M_2_NetworkDensity.fsx
+		docs\M_3_Loops.fsx = docs\M_3_Loops.fsx
 		docs\newGRaph.fsx = docs\newGRaph.fsx
 		docs\NuGet.config = docs\NuGet.config
+		docs\R_BarabasiAlbert.fsx = docs\R_BarabasiAlbert.fsx
+		docs\R_BollobasRiordan.fsx = docs\R_BollobasRiordan.fsx
+		docs\R_Gilbert.fsx = docs\R_Gilbert.fsx
+		docs\R_RandomGraphs.fsx = docs\R_RandomGraphs.fsx
 		docs\_template.html = docs\_template.html
 		docs\_template.ipynb = docs\_template.ipynb
 	EndProjectSection
