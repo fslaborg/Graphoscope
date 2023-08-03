@@ -11,7 +11,6 @@ index: 2
 
 (*** condition: prepare ***)
 #r "nuget: FSharpAux.Core, 2.0.0"
-#r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
@@ -51,5 +50,6 @@ It quantifies the level of interconnectedness between nodes in the network and c
 *)
 let networkDensity = Measures.GraphDensity.compute monkeyGraph
 
-printfn "The network density of the monkey graph is %f" networkDensity
-(*** include-output ***)
+(***hide***)
+let density = sprintf "The network density of the monkey graph is %f" networkDensity
+(*** include-value: density ***)

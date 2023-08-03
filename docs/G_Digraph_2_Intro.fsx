@@ -48,14 +48,16 @@ let emptyGraph :DiGraph<int, float> = DiGraph.empty
 
 let edge = (1,3, 1.0)
 
-emptyGraph
-|> DiGraph.addNode 1
-|> DiGraph.addNode 2
-|> DiGraph.addNode 3
-|> DiGraph.addEdge edge
-|> DiGraph.countNodes
-|> printf "Manually created a graph with %i nodes"
-(*** include-output ***)
+let filledGraph =
+  emptyGraph
+  |> DiGraph.addNode 1
+  |> DiGraph.addNode 2
+  |> DiGraph.addNode 3
+  |> DiGraph.addEdge edge
+
+(***hide***)
+let filledGraphNodes = filledGraph |> DiGraph.countNodes|> sprintf "Manually created a graph with %i nodes"
+(*** include-value: filledGraphNodes ***)
 
 (**
 # Working with Graphs
@@ -85,10 +87,10 @@ let monkeyGraph =
 
 
 
+(***hide***)
+let outputMonkeyGraph = sprintf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " (DiGraph.countNodes monkeyGraph) (DiGraph.countEdges monkeyGraph) (Measures.Degree.average monkeyGraph)
+(*** include-value: outputMonkeyGraph ***)
 
-printf "Successfully imported the graph! It has %i nodes and %i edges. The average degree is %f " 
-  (DiGraph.countNodes monkeyGraph) (DiGraph.countEdges monkeyGraph) (Measures.Degree.average monkeyGraph)
-(*** include-output ***)
 
 (**
 We can also import undirected graphs using the [Graph](reference/graphoscope-graph.html) namespace. These examples use the [Karate club](http://konect.cc/networks/ucidata-zachary/) graph.
@@ -101,15 +103,15 @@ let karateGraph =
   |> Seq.iter(fun (s1,s2,t1,t2,w: float) -> DiGraph.addElement s1 s2 t1 t2 w g|>ignore)
   g
 
-printf "Successfully imported the undirected karate graph! It has %i nodes and %i edges. The average degree is %f " 
-  (DiGraph.countNodes karateGraph) (DiGraph.countEdges karateGraph) (Measures.Degree.average karateGraph)
-(*** include-output ***)
+(***hide***)
+let karateOutput = sprintf "Successfully imported the undirected karate graph! It has %i nodes and %i edges. The average degree is %f " (DiGraph.countNodes karateGraph) (DiGraph.countEdges karateGraph) (Measures.Degree.average karateGraph)
+(*** include-value: karateOutput ***)
 
 (**
 A conversion into an Adjacency Matrix is also very easily achievable. It can be executed as follows. 
 *)
 let monkeyAdjacencyMatrix = DiGraph.toMatrix monkeyGraph
-(***include-value:monkeyAdjacencyMatrix***)
+(***include-value: monkeyAdjacencyMatrix***)
 
 (**
 ## Charting

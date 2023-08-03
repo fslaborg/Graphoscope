@@ -35,5 +35,6 @@ let N = 50
 
 let myBollobasRiordan = RandomModels.BollobasRiordan.initDirectedFGraph  N 0.1 0.6 0.3 0.6 0.4 FGraph.empty
 
-printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes myBollobasRiordan) (FGraph.countEdges myBollobasRiordan)
-(*** include-output ***)
+(***hide***)
+let g = sprintf "You have created a graph with %i nodes and %i edges"(FGraph.countNodes myBollobasRiordan) (FGraph.countEdges myBollobasRiordan)
+(*** include-value: g ***)

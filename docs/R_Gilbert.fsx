@@ -35,5 +35,6 @@ let p = 0.5
 
 let myGilbertGraph = Gilbert.initDirectedFGraph N p
 
-printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes myGilbertGraph) (FGraph.countEdges myGilbertGraph)
-(*** include-output ***)
+(***hide***)
+let g = sprintf "You have created a graph with %i nodes and %i edges"(FGraph.countNodes myGilbertGraph) (FGraph.countEdges myGilbertGraph)
+(*** include-value: g ***)

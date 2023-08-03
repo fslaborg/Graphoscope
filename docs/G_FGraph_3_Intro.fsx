@@ -51,8 +51,10 @@ let graphToFill =
     |> FGraph.addNode 2 "2"
     |> FGraph.addEdge 1 2 1.
 
-printfn "You have created a graph with %i nodes and %i edges" (FGraph.countNodes graphToFill) (FGraph.countEdges graphToFill)
-(*** include-output ***)
+
+(***hide***)
+let graphToFillOutput = sprintf "You have created a graph with %i nodes and %i edges" (FGraph.countNodes graphToFill) (FGraph.countEdges graphToFill)
+(*** include-value: graphToFillOutput ***)
 
 (**    
 # Working with Graphs
@@ -72,8 +74,9 @@ let graphToFill' =
     |> FGraph.addNodes nodes
     |> FGraph.addEdges edges
 
-printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes graphToFill') (FGraph.countEdges graphToFill')
-(*** include-output ***)
+(***hide***)
+let graphToFill2Output = sprintf "You have created a graph with %i nodes and %i edges"(FGraph.countNodes graphToFill') (FGraph.countEdges graphToFill')
+(*** include-value: graphToFill2Output ***)
 
 (**
 ### Removing Nodes and Edges
@@ -84,8 +87,9 @@ let graphWithRemovedElements =
     |> FGraph.removeEdge 1 2
     |> FGraph.removeNode 0
 
-printfn "You have reduced the graph to %i nodes and %i edges" (FGraph.countNodes graphWithRemovedElements) (FGraph.countEdges graphWithRemovedElements)
-(*** include-output ***)
+(***hide***)
+let removing = sprintf "You have reduced the graph to %i nodes and %i edges" (FGraph.countNodes graphWithRemovedElements) (FGraph.countEdges graphWithRemovedElements)
+(*** include-value: removing ***)
 
 (**
 ##

@@ -11,7 +11,6 @@ index: 3
 
 (*** condition: prepare ***)
 #r "nuget: FSharpAux.Core, 2.0.0"
-#r "nuget: FSharpx.Collections, 3.1.0"
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
@@ -51,6 +50,6 @@ While some may consider self-loops as noise or artifacts, in other cases, they o
 
 let loopCount = Measures.Loop.loopCount monkeyGraph
 
-printfn "The graph has %i loops"loopCount
-(*** include-output ***)
-
+(***hide***)
+let loop = sprintf "The graph has %i loops"loopCount
+(*** include-value: loop ***)

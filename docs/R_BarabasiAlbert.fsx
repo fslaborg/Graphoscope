@@ -38,5 +38,4 @@ let edgesPerIteration = 5
 // let myBarabasiAlbert = RandomModels.BarabasiAlbert.initFGraph  N edgesPerIteration id id (fun x -> 1.) FGraph.empty
 
 //printfn"You have created a graph with %i nodes and %i edges"(FGraph.countNodes myBarabasiAlbert) (FGraph.countEdges myBarabasiAlbert)
-printfn"WIP"
-(*** include-output ***)
+
