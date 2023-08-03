@@ -72,21 +72,6 @@ module FContext =
         let (p, _, s) = context
         p.Count + s.Count
 
-
-
-
-module FGraph =
-
-
-    /// <summary> 
-    /// Returns a new, empty graph
-    /// </summary>
-    /// <returns>Empty FGraph</returns>
-    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        Dictionary<_,_>()
-    
-//    type Node() =
-
    
 
 type FGraph() = 
@@ -225,7 +210,7 @@ type FGraph() =
     /// </summary>
     static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
         : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        let graph = FGraph.empty
+        let graph = FGraph.create()
         edgelist
         |> Seq.iter (fun (sk,s,tk,t,ed) -> FGraph.addElement sk s tk t ed graph |> ignore)
         graph
@@ -421,4 +406,28 @@ type FGraph() =
         // static member filter (predicate)
         // ///Removes an edge from the graph.
         // static member remove 
-         
+        
+
+module FGraph =
+
+    /// <summary> 
+    /// Returns a new, empty graph
+    /// </summary>
+    /// <returns>Empty FGraph</returns>
+    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        Dictionary<_,_>()
+    
+    type Node() =
+        
+        static member addNode (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) (nd : 'NodeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+            FGraph.addNode nk nd g
+        
+        static member removeNode (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey)  : FGraph<'NodeKey, 'NodeData, 'EdgeData> =     
+            FGraph.removeNode nk g
+    
+    type Edge() =
+        static member addEdge (g : FGraph<'NodeKey,'NodeData,'EdgeData>) (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            FGraph.addEdge nk1 nk2 ed g
+
+        static member removeEdge (g : FGraph<'NodeKey,'NodeData,'EdgeData>) (nkSource : 'NodeKey) (nkTarget : 'NodeKey) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+            FGraph.removeEdge nkSource nkTarget g

@@ -12,15 +12,6 @@ type UndirectedGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: c
     member internal _.NodeKeys: ResizeArray<'NodeKey> = nodeKeys
     member internal _.Edges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = edges
 
-module UndirectedGraph =
-
-    /// <summary> 
-    /// Creates an empty undirected Graph
-    /// </summary>
-    /// <returns>Empty DiGraph</returns>
-    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
-        : UndirectedGraph<'NodeKey, 'EdgeData> =
-        UndirectedGraph<'NodeKey, 'EdgeData>()
 
 type UndirectedGraph() =
     /// <summary> 
@@ -60,9 +51,11 @@ type UndirectedGraph() =
         graph.IdMap.Add(node, graph.NodeKeys.Count * 1)
         graph.NodeKeys.Add node
         graph.Edges.Add (ResizeArray())
+        graph
 
     static member addNodes (nodes: 'NodeKey []) (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
-        nodes |> Array.iter (fun n -> UndirectedGraph.addNode n graph)
+        nodes |> Array.iter (fun n -> UndirectedGraph.addNode n graph|>ignore)
+        graph
 
     /// <summary> 
     /// Removes a node from the graph
@@ -81,7 +74,7 @@ type UndirectedGraph() =
             |> ResizeArray.rev
             |> ResizeArray.iter(fun x -> graph.Edges[ri].RemoveAt x)
         )
-
+        
         // Update IdMap
         graph.IdMap.Remove node |> ignore
         for KeyValue(k,v) in graph.IdMap do
@@ -99,7 +92,7 @@ type UndirectedGraph() =
                     graph.Edges[ri][ci] <- target - 1, w
             )
         )
-    
+        graph
 
     /// <summary> 
     /// Adds a new edge to the graph
@@ -121,6 +114,7 @@ type UndirectedGraph() =
                     graph.Edges[destIx].Add(origIx, attr)
         |_,_ ->
             ()
+        graph
 
     /// <summary> 
     /// Returns the edges for given node
@@ -191,6 +185,7 @@ type UndirectedGraph() =
                 graph.Edges[ri][ci] <- (dest, weight / total)
             )
         )
+        graph
 
     /// <summary> 
     /// Removes an edge to the graph.
@@ -209,33 +204,78 @@ type UndirectedGraph() =
         | Some _ , None
         | None, Some _ -> failwith "Something in undirected graph edges went horribly wrong."
         | None, None -> printfn $"Edge to be removed doesn't exist: {edge}"
-
-
+        graph
 
     static member createFromNodes(nodes: 'NodeKey []) : UndirectedGraph<'NodeKey, 'EdgeData> =
-        let g = UndirectedGraph.empty
-        UndirectedGraph.addNodes nodes g|>ignore
-        g
+        let g = UndirectedGraph<'NodeKey, 'EdgeData>()
+        UndirectedGraph.addNodes nodes g
+        
     
 
     static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : UndirectedGraph<'NodeKey, 'EdgeData> =
-        let g = UndirectedGraph.empty
-        UndirectedGraph.addEdges edges g|>ignore
-        g
-
+        let g = UndirectedGraph<'NodeKey, 'EdgeData>()
+        UndirectedGraph.addEdges edges g
+        
     static member create ((nodes: 'NodeKey []), (edges: ('NodeKey * 'NodeKey * 'EdgeData)[])) =
         nodes
         |> UndirectedGraph.createFromNodes
         |> UndirectedGraph.addEdges edges
 
-
     static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : UndirectedGraph<'NodeKey, 'EdgeData>) : UndirectedGraph<'NodeKey, 'EdgeData> =
         if not (g.IdMap.ContainsKey nk1) then
-            UndirectedGraph.addNode nk1 g
+            UndirectedGraph.addNode nk1 g|>ignore
         if not (g.IdMap.ContainsKey nk2) then
-            UndirectedGraph.addNode nk2 g
+            UndirectedGraph.addNode nk2 g|>ignore
         
         UndirectedGraph.addEdge (nk1,nk2,ed) g
-        g
-
     
+module UndirectedGraph =
+
+    /// <summary> 
+    /// Creates an empty undirected Graph
+    /// </summary>
+    /// <returns>Empty DiGraph</returns>
+    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
+        : UndirectedGraph<'NodeKey, 'EdgeData> =
+        UndirectedGraph<'NodeKey, 'EdgeData>()
+
+
+
+    type Node() =
+        /// <summary> 
+        /// Adds a new node to the graph
+        /// </summary>
+        /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
+        /// /// <param name="graph">The graph the node will be added to.</param> 
+        /// /// <returns>Unit</returns>
+        static member addNode (graph: UndirectedGraph<'NodeKey,'EdgeData>) (node: 'NodeKey) =
+            UndirectedGraph.addNode node graph
+
+        /// <summary> 
+        /// Removes a node from the graph
+        /// </summary>
+        /// <param name="node">The node to be removed.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        static member removeNode (graph: UndirectedGraph<'NodeKey,'EdgeData>) (node: 'NodeKey) = 
+            UndirectedGraph.removeNode node graph
+    
+    type Edge() =
+
+        /// <summary> 
+        /// Adds a new edge to the graph
+        /// </summary>
+        /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+        /// <param name="graph">The graph the edge will be added to.</param> 
+        /// <returns>Unit</returns>
+        static member addEdge (graph: UndirectedGraph<'NodeKey,'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
+            UndirectedGraph.addEdge edge graph
+
+        /// <summary> 
+        /// Removes an edge to the graph.
+        /// </summary>
+        /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: UndirectedGraph<'NodeKey,'EdgeData>)  = 
+            UndirectedGraph.removeEdge edge graph
