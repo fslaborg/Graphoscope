@@ -70,7 +70,7 @@ type BollobasRiordan() =
         while G.Count < n do
             let psum_in     = float (FGraph.countEdges G) + delta_in  *  float (G.Count)
             let psum_out    = float (FGraph.countEdges G) + delta_out * float (G.Count)
-            let r = rnd.NextDouble()
+            let r           = rnd.NextDouble()
     
             if r < alpha then
                 let v = (G.Count)
@@ -82,8 +82,11 @@ type BollobasRiordan() =
             elif r < (alpha + beta) then
                 let v = _choose_node("out",delta_out,psum_out)
                 let w = _choose_node("in", delta_in, psum_in)
-                FGraph.addEdge v w 1. G
-                |> ignore
+                match FGraph.containsEdge v w G with
+                |false -> 
+                    FGraph.addEdge v w 1. G
+                    |> ignore
+                |true -> ()
 
     
             else

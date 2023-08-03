@@ -17,7 +17,21 @@ type BarabasiAlbert() =
     /// <returns>An FGraph</returns>
     static member initFGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> int) (fLabel: int -> int) (fWeight: int*int -> float) (startingGraph: FGraph<int, int, float>)  =
         let rnd = new System.Random()
-           
+        
+        let p (g:FGraph<int, int, float>) k = ((float (g.Item k|>FContext.degree )) / (float (FGraph.countEdges g)))
+        
+        let getPossibleConnections (g:FGraph<int, int, float>) vertex = 
+            [
+                for i in g.Keys do
+                    if FGraph.containsEdge vertex i g then 
+                        None
+                    else
+                        Some ((vertex,i),(p g i))
+            ]
+            |> List.choose id
+            |> List.sortBy snd
+            
+        
         let g = startingGraph
     
         let oldV = g.Count
@@ -26,34 +40,33 @@ type BarabasiAlbert() =
             let vertex  = fVertexKey n
             let label   = fLabel vertex
             FGraph.addNode vertex label g|> ignore
-            
-            let mutable m = 0
-    
-            let p k = ( (float (g.Item k|>FContext.degree )) / (float (FGraph.countEdges g)) )
-            let possibleConnections = 
-                [
-                    for i in g.Keys do
-                        (vertex,i),(p i)
-                ]
-                |> List.sortBy snd
-            
-            let rec getEdges counter m edges =
+                
+
+            let rec getEdges counter m possibleTargets edges =
      
                 if m = 0 then
                     FGraph.addEdges edges g
                 else
                     
-                    if counter = possibleConnections.Length then
-                        getEdges 0 m edges
+                    if counter = List.length possibleTargets then
+                        getEdges 0 m (getPossibleConnections g vertex) edges
+
                     else
-                        let (edge,probability) = possibleConnections.[counter]
+
+                        let (edge,probability) = possibleTargets.[counter]
                         let r = rnd.NextDouble()
+                        let addEdge = fst edge, snd edge,fWeight edge
+
                         if r > probability then
-                            getEdges (counter+1) (m) (edges)
+                            getEdges (counter+1) (m) (getPossibleConnections g vertex) (edges)
+
+                        elif Set.contains (addEdge) edges then
+                            getEdges (counter+1) (m) (getPossibleConnections g vertex) (edges)
+
                         else
-                            let addEdge = fst edge, snd edge,fWeight edge
-                            getEdges (counter+1) (m-1) (addEdge::edges)
-            getEdges 0 numberOfEdgesPerIteration [] |> ignore
+                            getEdges (counter+1) (m-1) (getPossibleConnections g vertex) (Set.add addEdge edges)
+                    
+            getEdges 0 numberOfEdgesPerIteration (getPossibleConnections g vertex) Set.empty |> ignore
     
         g
     
