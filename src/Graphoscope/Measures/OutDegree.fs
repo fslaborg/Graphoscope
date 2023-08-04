@@ -29,7 +29,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
 
     /// <summary> 
@@ -75,7 +75,7 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        failwith "not implemented yet"
+        System.NotImplementedException() |> raise
    
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -120,7 +120,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -163,7 +163,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
     /// <summary> 
     /// Get the min out-degree of the graph. 

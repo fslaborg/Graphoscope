@@ -33,7 +33,7 @@ type GraphDensity() =
     /// The graph density.
     /// </returns> 
     static member ofDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
-        failwith "not implemented yet"  
+        System.NotImplementedException() |> raise  
 
     /// <summary> 
     /// Computes the graph density of the given graph <paramref name="graph"/>.

@@ -29,7 +29,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
 
     /// <summary> 
@@ -75,7 +75,7 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        failwith "not implemented yet"
+        System.NotImplementedException() |> raise
    
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -120,7 +120,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -163,7 +163,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = failwith "not implemented yet"
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
 
     /// <summary> 
     /// Get the min In-degree of the graph. 

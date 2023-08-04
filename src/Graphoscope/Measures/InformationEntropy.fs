@@ -56,7 +56,7 @@ type InformationEntropy() =
     /// The information entropy of the given node .
     /// </returns> 
     static member ofDiGraph (labelF:'NodeData -> 'Information) (graph: DiGraph<'NodeKey,'EdgeData>) (n:'NodeKey) =   
-        failwith "not implemented yet"
+        System.NotImplementedException() |> raise
 
     /// <summary> 
     /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
