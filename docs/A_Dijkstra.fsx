@@ -22,13 +22,13 @@ index: 1
 #endif // IPYNB
 
 (**
-# Shortest path between all the vertices using Dijkstra�a Algorithm on an FGraph.
+# Shortest path between all the vertices using Dijkstra Algorithm on an FGraph.
 
-Dijkstra�s algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959.
-Dijkstra�s algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
+Dijkstra algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959.
+Dijkstra algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
 graph that has non-negative edge weight.
 
-Let's start with a directed weighted graph. We will find shortest path between all the vertices using Dijkstra�a Algorithm.
+Let's start with a directed weighted graph. We will find shortest path between all the vertices using Dijkstra Algorithm.
 
 *)
 
@@ -84,7 +84,7 @@ let dij = Algorithms.Dijkstra.compute(0,dwg)
 
 
 (**
-# Shortest path between all the vertices using Dijkstra�a Algorithm on DiGraph.
+# Shortest path between all the vertices using Dijkstra Algorithm on DiGraph.
 Computation of the shortest paths is also available using the DiGraph structure.
 Lets compare them using the same graph as above:
 *)
