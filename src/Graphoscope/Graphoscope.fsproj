@@ -29,7 +29,7 @@
     <Compile Include="Algorithms\BFS.fs" />
     <Compile Include="Algorithms\FloydWarshall.fs" />
     <Compile Include="Algorithms/Dijkstra.fs" />
-    <Compile Include="Measures\Degree.fs" />    
+    <Compile Include="Measures\Degree.fs" />
     <Compile Include="Measures\OutDegree.fs" />
     <Compile Include="Measures\InDegree.fs" />
     <Compile Include="Measures/BetweennessCentrality.fs" />
@@ -38,6 +38,7 @@
     <Compile Include="Measures\Loop.fs" />
     <Compile Include="Measures\Volume.fs" />
     <Compile Include="Measures\Size.fs" />
+    <Compile Include="Measures\ClusteringCoefficient.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="RandomModels\BollobasRiordan.fs" />
     <Compile Include="RandomModels\BarabasiAlbert.fs" />
