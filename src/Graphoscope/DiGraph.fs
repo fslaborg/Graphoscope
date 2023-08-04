@@ -290,6 +290,16 @@ type DiGraph() =
         |> Seq.iter (fun (sk,s,tk,t,ed) -> DiGraph.addElement sk s tk t ed graph |> ignore)
         graph
 
+    static member toSeq (graph:DiGraph<'NodeKey,'EdgeData>) :seq<'NodeKey * 'NodeKey * 'NodeKey * 'NodeKey * 'EdgeData> =
+        graph.NodeKeys
+        |> Seq.map(fun n ->
+            n
+            |> (fun n -> graph.OutEdges[graph.IdMap[n]]|> Seq.map(fun (t, w) -> graph.NodeKeys[t], w))
+            |> Seq.map(fun (t, w) -> n, n, t, t,  w)
+        )
+        |> Seq.concat
+
+
 module DiGraph =    
     /// <summary> 
     /// Creates an empty DiGraph

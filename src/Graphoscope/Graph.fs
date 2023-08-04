@@ -229,6 +229,22 @@ type UndirectedGraph() =
         
         UndirectedGraph.addEdge (nk1,nk2,ed) g
     
+    static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) :UndirectedGraph<'NodeKey,'EdgeData> =
+        let graph = UndirectedGraph<'NodeKey, 'EdgeData>()
+        edgelist
+        |> Seq.iter (fun (sk,s,tk,t,ed) -> UndirectedGraph.addElement sk s tk t ed graph |> ignore)
+        graph
+
+    static member toSeq (graph:UndirectedGraph<'NodeKey,'EdgeData>) :seq<'NodeKey * 'NodeKey * 'NodeKey * 'NodeKey * 'EdgeData> =
+        graph.NodeKeys
+        |> Seq.map(fun n ->
+            n
+            |> (fun n -> graph.Edges[graph.IdMap[n]]|> Seq.map(fun (t, w) -> graph.NodeKeys[t], w))
+            |> Seq.map(fun (t, w) -> n, n, t, t,  w)
+        )
+        |> Seq.concat
+
+
 module UndirectedGraph =
 
     /// <summary> 
