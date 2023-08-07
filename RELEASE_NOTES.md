@@ -1,4 +1,25 @@
-### 0.0.1+a06b9c2 (Released 2023-7-18)
+### 0.2.0+d39805b (Released 2023-8-7)
+* Additions:
+    * [[#d39805b](https://github.com/fslaborg/Graphoscope/commit/d39805b5fe0cb07c83092267d202027c0151c261)] Add ClusteringCoefficient Measure
+    * [[#ad0599a](https://github.com/fslaborg/Graphoscope/commit/ad0599ac457fcece01d0ca24165b2810516c2c62)] add ofSeq and toSeq functions to all graph types
+    * [[#0b3c5f0](https://github.com/fslaborg/Graphoscope/commit/0b3c5f07db507d0eed4099c3aea73915f5f9ec3f)] Added .NotImplementedException
+    * [[#c1db954](https://github.com/fslaborg/Graphoscope/commit/c1db9544e7ce064a9d3c669cc711f82bdc0eecda)] Update Docs GraphStructures
+    * [[#3f5b4eb](https://github.com/fslaborg/Graphoscope/commit/3f5b4eb73dfd42c72fb8cdd9a1561009391239a6)] Upgrade RandomModelPerformance
+    * [[#febbb46](https://github.com/fslaborg/Graphoscope/commit/febbb46e9fdfff6af1af79c0363a550348fb0f1e)] Rename Graph to UndirectedGraph
+    * [[#f0010d6](https://github.com/fslaborg/Graphoscope/commit/f0010d6ebf17e33c3667a6d82bd32deb84481641)] Add docs to solution file
+    * [[#4651149](https://github.com/fslaborg/Graphoscope/commit/4651149d1c777416add6244f57ea3765dfe0a9c0)] add addElement to DiGraph
+    * [[#2ff74fb](https://github.com/fslaborg/Graphoscope/commit/2ff74fbeb0f504c50e1c41b53657d90d947e66c0)] Update FGraph graph creation functions
+    * [[#54a79c4](https://github.com/fslaborg/Graphoscope/commit/54a79c4e17ac830694a0b47514c36c4ea8a2b2ef)] Restructure
+    * [[#24bb61a](https://github.com/fslaborg/Graphoscope/commit/24bb61afd54eb0eb0e3d1ba592295aaab97fda70)] Add volume and size to measures and adapt graphs
+    * [[#bc92135](https://github.com/fslaborg/Graphoscope/commit/bc92135b38952984d0ad1c7811d4d0b7f61d1c5a)] Update naming
+    * [[#0eb28b9](https://github.com/fslaborg/Graphoscope/commit/0eb28b91e2a98986fe053982a8caec8912516802)] Refactoring Dijkstra
+    * [[#d4372bb](https://github.com/fslaborg/Graphoscope/commit/d4372bb8a08735d2174d46731a6a9bc0621aae6b)] Update structure
+
+* Bugfixes:
+    * [[#9fe089f](https://github.com/fslaborg/Graphoscope/commit/9fe089ff1329be0c3fbbe852a7bf11c1e445b9bb)] Fix indenting categoryindex
+    * [[#f2cfe76](https://github.com/fslaborg/Graphoscope/commit/f2cfe76d0fe1d544c733ec72cf95ea58169f6a6d)] Fix degree tests
+
+### 0.0.1 (Released 2023-7-18)
 * Additions:
     * [[#a06b9c2](https://github.com/fslaborg/Graphoscope/commit/a06b9c296df63e7beba95c7dbcd7ff89fa0622ce)] Add benchmark into readme.md
     * [[#ea4f982](https://github.com/fslaborg/Graphoscope/commit/ea4f982fb7de8d843768fb7bdd5a524d375052ba)] Update benchmark
@@ -22,4 +43,3 @@
 ### 0.0.0 (Released 2023-6-6)
 * Additions:
     * Initial set up for RELEASE_Notes.md
-
