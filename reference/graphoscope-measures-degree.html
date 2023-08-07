@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>DiGraph (Graphoscope)</title>
+    <title>Degree (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
@@ -73,13 +73,13 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    DiGraph Type
+    Degree Type
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope.html">
-        Graphoscope
+      <a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-measures.html">
+        Graphoscope.Measures
       </a>
     </dt>
     <dt>
@@ -122,24 +122,24 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
+              <code onmouseout="hideTip(event, '185', 185)" onmouseover="showTip(event, '185', 185)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
-                      <code><span>DiGraph<span>()</span></span></code>
+                      <code><span>Degree<span>()</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="57">
+              <div class="fsdocs-tip" id="185">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph<span>()</span></span></code>
+                  <code><span>Degree<span>()</span></span></code>
                   <br/>
                   <br/>
                   <span>
                     Returns: 
-                    <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">DiGraph</a></code>
+                    <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-measures-degree.html">Degree</a></code>
                   </span>
                   <br/>
                 </div>
@@ -148,15 +148,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.DiGraph.#ctor`')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Measures.Degree.#ctor`')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.#ctor\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.#ctor\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L23-23" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L6-6" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -169,7 +169,7 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph.html">DiGraph</a></code>
+                <code><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-measures-degree.html">Degree</a></code>
               </dt>
               <dd class="fsdocs-return-docs"></dd>
             </dl>
@@ -198,50 +198,40 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+              <code onmouseout="hideTip(event, '186', 186)" onmouseover="showTip(event, '186', 186)">
                 <p>
-                  <a id="addEdge">
-                    <a href="#addEdge">
-                      <code><span>DiGraph.addEdge&#32;<span>edge&#32;graph</span></span></code>
+                  <a id="average">
+                    <a href="#average">
+                      <code><span>Degree.average&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="58">
+              <div class="fsdocs-tip" id="186">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.addEdge&#32;<span>edge&#32;graph</span></span></code>
+                  <code><span>Degree.average&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        edge
-                      </b>
-                      :
-                      <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
-                       - 
-                      The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
                         graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-undirectedgraph-2.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph the edge will be added to.
+                      The graph to be analysed
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
-                  Unit
+                  A float of the mean degree
                   <br/>
                 </div>
               </div>
@@ -249,47 +239,36 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.addEdge``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.average``2```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.addEdge``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.average``2\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L106-106" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L119-119" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Adds a new edge to the graph
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  edge
-                </span>
-                :
-                <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
                   graph
                 </span>
                 :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-undirectedgraph-2.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph the edge will be added to.
+                  The graph to be analysed
                 </p>
               </dd>
             </dl>
@@ -298,11 +277,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  Unit
+                  A float of the mean degree
                 </p>
               </dd>
             </dl>
@@ -311,50 +290,40 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
+              <code onmouseout="hideTip(event, '187', 187)" onmouseover="showTip(event, '187', 187)">
                 <p>
-                  <a id="addEdges">
-                    <a href="#addEdges">
-                      <code><span>DiGraph.addEdges&#32;<span>edges&#32;graph</span></span></code>
+                  <a id="average">
+                    <a href="#average">
+                      <code><span>Degree.average&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="59">
+              <div class="fsdocs-tip" id="187">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.addEdges&#32;<span>edges&#32;graph</span></span></code>
+                  <code><span>Degree.average&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        edges
-                      </b>
-                      :
-                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-                       - 
-                      The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
                         graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to add the edge to
+                      The graph to be analysed
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
-                  Unit
+                  A float of the mean degree
                   <br/>
                 </div>
               </div>
@@ -362,47 +331,36 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.addEdges``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.average``3```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.addEdges``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.average``3\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L163-163" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L110-110" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Adds many edges to a graph at once
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  edges
-                </span>
-                :
-                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
                   graph
                 </span>
                 :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to add the edge to
+                  The graph to be analysed
                 </p>
               </dd>
             </dl>
@@ -411,11 +369,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  Unit
+                  A float of the mean degree
                 </p>
               </dd>
             </dl>
@@ -424,384 +382,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
+              <code onmouseout="hideTip(event, '188', 188)" onmouseover="showTip(event, '188', 188)">
                 <p>
-                  <a id="addElement">
-                    <a href="#addElement">
-                      <code><span>DiGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
+                  <a id="average">
+                    <a href="#average">
+                      <code><span>Degree.average&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="60">
+              <div class="fsdocs-tip" id="188">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        nk1
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        nd1
-                      </b>
-                      :
-                      <code>'NodeData</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        nk2
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        nd2
-                      </b>
-                      :
-                      <code>'NodeData</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        ed
-                      </b>
-                      :
-                      <code>'EdgeData</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        g
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.addElement``3```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.addElement``3\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L234-234" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nk1
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nd1
-                </span>
-                :
-                <code>'NodeData</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nk2
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nd2
-                </span>
-                :
-                <code>'NodeData</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  ed
-                </span>
-                :
-                <code>'EdgeData</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  g
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs"></dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
-                <p>
-                  <a id="addNode">
-                    <a href="#addNode">
-                      <code><span>DiGraph.addNode&#32;<span>node&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="61">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.addNode&#32;<span>node&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        node
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      The node to be created. The type must match the node type of the graph.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the node will be added to.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  Unit
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.addNode``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.addNode``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L40-40" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Adds a new node to the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  node
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The node to be created. The type must match the node type of the graph.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the node will be added to.
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Unit
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
-                <p>
-                  <a id="addNodes">
-                    <a href="#addNodes">
-                      <code><span>DiGraph.addNodes&#32;<span>nodes&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="62">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.addNodes&#32;<span>nodes&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        nodes
-                      </b>
-                      :
-                      <code><span>'NodeKey[]</span></code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.addNodes``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.addNodes``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L48-48" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nodes
-                </span>
-                :
-                <code><span>'NodeKey[]</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs"></dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
-                <p>
-                  <a id="countEdges">
-                    <a href="#countEdges">
-                      <code><span>DiGraph.countEdges&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="63">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.countEdges&#32;<span>graph</span></span></code>
+                  <code><span>Degree.average&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -820,9 +413,9 @@
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code>float</code>
                   </span>
-                  A float of the total edges
+                  A float of the mean degree
                   <br/>
                 </div>
               </div>
@@ -830,21 +423,22 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.countEdges``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.average``2```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.countEdges``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.average``2\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L283-283" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L101-101" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Gets the total number of edges of the graph
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
  
               </p>
             </div>
@@ -855,6 +449,828 @@
                 </span>
                 :
                 <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the mean degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '189', 189)" onmouseover="showTip(event, '189', 189)">
+                <p>
+                  <a id="averageofDiGraph">
+                    <a href="#averageofDiGraph">
+                      <code><span>Degree.averageofDiGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="189">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.averageofDiGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>float</code>
+                  </span>
+                  A float of the mean degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.averageofDiGraph``2```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.averageofDiGraph``2\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L77-77" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the mean degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '190', 190)" onmouseover="showTip(event, '190', 190)">
+                <p>
+                  <a id="averageofFGraph">
+                    <a href="#averageofFGraph">
+                      <code><span>Degree.averageofFGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="190">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.averageofFGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>float</code>
+                  </span>
+                  A float of the mean degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.averageofFGraph``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.averageofFGraph``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L66-66" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the mean degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '191', 191)" onmouseover="showTip(event, '191', 191)">
+                <p>
+                  <a id="averageofUndirectedGraph">
+                    <a href="#averageofUndirectedGraph">
+                      <code><span>Degree.averageofUndirectedGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="191">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.averageofUndirectedGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-undirectedgraph-2.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>float</code>
+                  </span>
+                  A float of the mean degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.averageofUndirectedGraph``2```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.averageofUndirectedGraph``2\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L89-89" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the mean degree of the graph. 
+ This is an undirected measure so inbound links add to a nodes degree.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-graph-undirectedgraph-2.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the mean degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '192', 192)" onmouseover="showTip(event, '192', 192)">
+                <p>
+                  <a id="distribution">
+                    <a href="#distribution">
+                      <code><span>Degree.distribution&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="192">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.distribution&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;float&gt;</span></code>
+                  </span>
+                  A float seq of degree values
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.distribution``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.distribution``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L49-49" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the degree distribution of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;float&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float seq of degree values
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '193', 193)" onmouseover="showTip(event, '193', 193)">
+                <p>
+                  <a id="distribution">
+                    <a href="#distribution">
+                      <code><span>Degree.distribution&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="193">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.distribution&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;float&gt;</span></code>
+                  </span>
+                  A float seq of degree values
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.distribution``2```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.distribution``2\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L41-41" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the degree distribution of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;float&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float seq of degree values
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '194', 194)" onmouseover="showTip(event, '194', 194)">
+                <p>
+                  <a id="distributionOfFGraph">
+                    <a href="#distributionOfFGraph">
+                      <code><span>Degree.distributionOfFGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="194">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.distributionOfFGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;float&gt;</span></code>
+                  </span>
+                  A float seq of degree values
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.distributionOfFGraph``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.distributionOfFGraph``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L21-21" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the degree distribution of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;float&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float seq of degree values
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '195', 195)" onmouseover="showTip(event, '195', 195)">
+                <p>
+                  <a id="distributionofDiGraph">
+                    <a href="#distributionofDiGraph">
+                      <code><span>Degree.distributionofDiGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="195">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.distributionofDiGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;float&gt;</span></code>
+                  </span>
+                  A float seq of degree values
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.distributionofDiGraph``2```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.distributionofDiGraph``2\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L31-31" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the degree distribution of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;float&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float seq of degree values
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '196', 196)" onmouseover="showTip(event, '196', 196)">
+                <p>
+                  <a id="maximum">
+                    <a href="#maximum">
+                      <code><span>Degree.maximum&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="196">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.maximum&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>float</code>
+                  </span>
+                  An int of the max degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.maximum``2```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.maximum``2\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L163-163" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the max degree of the graph. 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An int of the max degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '197', 197)" onmouseover="showTip(event, '197', 197)">
+                <p>
+                  <a id="maximum">
+                    <a href="#maximum">
+                      <code><span>Degree.maximum&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="197">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.maximum&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  An int of the max degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.maximum``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.maximum``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L155-155" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the max degree of the graph. 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -871,7 +1287,7 @@
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  A float of the total edges
+                  An int of the max degree
                 </p>
               </dd>
             </dl>
@@ -880,19 +1296,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
+              <code onmouseout="hideTip(event, '198', 198)" onmouseover="showTip(event, '198', 198)">
                 <p>
-                  <a id="countNodes">
-                    <a href="#countNodes">
-                      <code><span>DiGraph.countNodes&#32;<span>graph</span></span></code>
+                  <a id="maximumOfDiGraph">
+                    <a href="#maximumOfDiGraph">
+                      <code><span>Degree.maximumOfDiGraph&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="64">
+              <div class="fsdocs-tip" id="198">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.countNodes&#32;<span>graph</span></span></code>
+                  <code><span>Degree.maximumOfDiGraph&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -911,9 +1327,9 @@
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code>float</code>
                   </span>
-                  A float of the total nodes
+                  An int of the max degree
                   <br/>
                 </div>
               </div>
@@ -921,21 +1337,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.countNodes``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.maximumOfDiGraph``2```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.countNodes``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.maximumOfDiGraph``2\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L275-275" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L144-144" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Gets the total number of nodes of the graph
+ Get the max degree of the graph. 
  
               </p>
             </div>
@@ -946,6 +1362,97 @@
                 </span>
                 :
                 <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An int of the max degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '199', 199)" onmouseover="showTip(event, '199', 199)">
+                <p>
+                  <a id="maximumOfFGraph">
+                    <a href="#maximumOfFGraph">
+                      <code><span>Degree.maximumOfFGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="199">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.maximumOfFGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  An int of the max degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.maximumOfFGraph``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.maximumOfFGraph``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L133-133" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the max degree of the graph. 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -962,7 +1469,7 @@
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  A float of the total nodes
+                  An int of the max degree
                 </p>
               </dd>
             </dl>
@@ -971,535 +1478,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
+              <code onmouseout="hideTip(event, '200', 200)" onmouseover="showTip(event, '200', 200)">
                 <p>
-                  <a id="createFromEdges">
-                    <a href="#createFromEdges">
-                      <code><span>DiGraph.createFromEdges&#32;<span>edges</span></span></code>
+                  <a id="minimum">
+                    <a href="#minimum">
+                      <code><span>Degree.minimum&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="65">
+              <div class="fsdocs-tip" id="200">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.createFromEdges&#32;<span>edges</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        edges
-                      </b>
-                      :
-                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-                       - 
-                      An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  A graph containing the nodes
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.createFromEdges``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.createFromEdges``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L222-222" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Builds a graph from a list of edges. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  edges
-                </span>
-                :
-                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A graph containing the nodes
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
-                <p>
-                  <a id="createFromNodes">
-                    <a href="#createFromNodes">
-                      <code><span>DiGraph.createFromNodes&#32;<span>nodes</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="66">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.createFromNodes&#32;<span>nodes</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        nodes
-                      </b>
-                      :
-                      <code><span>'NodeKey[]</span></code>
-                       - 
-                      An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  A graph containing the nodes
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.createFromNodes``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.createFromNodes``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L248-248" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Builds a graph from a list of nodes. 
- The edges will then need to be added
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  nodes
-                </span>
-                :
-                <code><span>'NodeKey[]</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A graph containing the nodes
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
-                <p>
-                  <a id="find">
-                    <a href="#find">
-                      <code><span>DiGraph.find&#32;<span>origin&#32;destination&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="67">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.find&#32;<span>origin&#32;destination&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        origin
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      The starting node of the edge
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        destination
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      The target node of the edge
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to find the edge in
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
-                  </span>
-                  A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.find``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.find``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L177-177" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  origin
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The starting node of the edge
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  destination
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The target node of the edge
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to find the edge in
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
-                <p>
-                  <a id="getAllEdges">
-                    <a href="#getAllEdges">
-                      <code><span>DiGraph.getAllEdges&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="68">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.getAllEdges&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the edges are present in
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-                  </span>
-                  An array of origin, destination nodes and the corresponding 'EdgeData tuples.
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.getAllEdges``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.getAllEdges``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L137-137" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the all outbound edges in the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the edges are present in
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An array of origin, destination nodes and the corresponding 'EdgeData tuples.
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
-                <p>
-                  <a id="getInEdges">
-                    <a href="#getInEdges">
-                      <code><span>DiGraph.getInEdges&#32;<span>graph&#32;destination</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="69">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.getInEdges&#32;<span>graph&#32;destination</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the node is present in
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        destination
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-                  </span>
-                  An array of target nodes and the corresponding 'EdgeData.
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.getInEdges``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.getInEdges``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L152-152" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the outbound edges for given node
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the node is present in
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  destination
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An array of target nodes and the corresponding 'EdgeData.
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
-                <p>
-                  <a id="getNodes">
-                    <a href="#getNodes">
-                      <code><span>DiGraph.getNodes&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="70">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.getNodes&#32;<span>graph</span></span></code>
+                  <code><span>Degree.minimum&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -1518,9 +1509,9 @@
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>'NodeKey[]</span></code>
+                    <code>float</code>
                   </span>
-                  An array of nodes
+                  An int of the min degree
                   <br/>
                 </div>
               </div>
@@ -1528,21 +1519,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.getNodes``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.minimum``2```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.getNodes``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.minimum``2\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L30-30" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L209-209" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Returns all nodes in te graph
+ Get the min degree of the graph. 
  
               </p>
             </div>
@@ -1565,11 +1556,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>'NodeKey[]</span></code>
+                <code>float</code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  An array of nodes
+                  An int of the min degree
                 </p>
               </dd>
             </dl>
@@ -1578,132 +1569,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
+              <code onmouseout="hideTip(event, '201', 201)" onmouseover="showTip(event, '201', 201)">
                 <p>
-                  <a id="getOutEdges">
-                    <a href="#getOutEdges">
-                      <code><span>DiGraph.getOutEdges&#32;<span>origin&#32;graph</span></span></code>
+                  <a id="minimum">
+                    <a href="#minimum">
+                      <code><span>Degree.minimum&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="71">
+              <div class="fsdocs-tip" id="201">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.getOutEdges&#32;<span>origin&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        origin
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      The node from which the edges start
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the node is present in
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-                  </span>
-                  An array of target nodes and the corresponding 'EdgeData.
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.getOutEdges``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.getOutEdges``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L127-127" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the outbound edges for given node
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  origin
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The node from which the edges start
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the node is present in
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An array of target nodes and the corresponding 'EdgeData.
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '72', 72)" onmouseover="showTip(event, '72', 72)">
-                <p>
-                  <a id="normalizeOutEdges">
-                    <a href="#normalizeOutEdges">
-                      <code><span>DiGraph.normalizeOutEdges&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="72">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.normalizeOutEdges&#32;<span>graph</span></span></code>
+                  <code><span>Degree.minimum&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -1713,18 +1591,18 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to perform the operation on
+                      The graph to be analysed
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
+                    <code>int</code>
                   </span>
-                  Unit
+                  An int of the min degree
                   <br/>
                 </div>
               </div>
@@ -1732,22 +1610,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.normalizeOutEdges``1```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.minimum``3```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.normalizeOutEdges``1\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.minimum``3\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L189-189" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L201-201" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Normalises the weights of outbound edges from each node in a graph.
- The function assumes that the edge data type of the graph will be float. 
+ Get the min degree of the graph. 
  
               </p>
             </div>
@@ -1757,11 +1634,11 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to perform the operation on
+                  The graph to be analysed
                 </p>
               </dd>
             </dl>
@@ -1770,11 +1647,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
+                <code>int</code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  Unit
+                  An int of the min degree
                 </p>
               </dd>
             </dl>
@@ -1783,415 +1660,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
+              <code onmouseout="hideTip(event, '202', 202)" onmouseover="showTip(event, '202', 202)">
                 <p>
-                  <a id="ofSeq">
-                    <a href="#ofSeq">
-                      <code><span>DiGraph.ofSeq&#32;<span>edgelist</span></span></code>
+                  <a id="minimumOfDiGraph">
+                    <a href="#minimumOfDiGraph">
+                      <code><span>Degree.minimumOfDiGraph&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="73">
+              <div class="fsdocs-tip" id="202">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>DiGraph.ofSeq&#32;<span>edgelist</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        edgelist
-                      </b>
-                      :
-                      <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.ofSeq``3```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.ofSeq``3\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L287-287" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  edgelist
-                </span>
-                :
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs"></dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
-                <p>
-                  <a id="removeEdge">
-                    <a href="#removeEdge">
-                      <code><span>DiGraph.removeEdge&#32;<span>edge&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="74">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.removeEdge&#32;<span>edge&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        edge
-                      </b>
-                      :
-                      <code><span>'NodeKey&#32;*&#32;'NodeKey</span></code>
-                       - 
-                      The edge to be removed. A two part tuple containing the origin node, the destination node.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the edge will be removed from.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  Unit
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.removeEdge``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.removeEdge``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L208-208" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Removes an edge to the graph.
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  edge
-                </span>
-                :
-                <code><span>'NodeKey&#32;*&#32;'NodeKey</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The edge to be removed. A two part tuple containing the origin node, the destination node.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the edge will be removed from.
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Unit
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
-                <p>
-                  <a id="removeNode">
-                    <a href="#removeNode">
-                      <code><span>DiGraph.removeNode&#32;<span>node&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="75">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.removeNode&#32;<span>node&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        node
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      The node to be removed.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph the edge will be removed from.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-                  </span>
-                  Unit
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.removeNode``2```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.removeNode``2\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L59-59" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Removes a node from the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  node
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The node to be removed.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph the edge will be removed from.
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Unit
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '76', 76)" onmouseover="showTip(event, '76', 76)">
-                <p>
-                  <a id="toMatrix">
-                    <a href="#toMatrix">
-                      <code><span>DiGraph.toMatrix&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="76">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.toMatrix&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
-                       - 
-                      The graph to be converted
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span><span>float[]</span>[]</span></code>
-                  </span>
-                  An adjacency matrix
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.toMatrix``1```')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.toMatrix``1\'/>')">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L259-259" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Converts the DiGraph to an Adjacency Matrix 
- The operation assumes edge data types of float in the graph.
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;float</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be converted
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span><span>float[]</span>[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An adjacency matrix
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '77', 77)" onmouseover="showTip(event, '77', 77)">
-                <p>
-                  <a id="toSeq">
-                    <a href="#toSeq">
-                      <code><span>DiGraph.toSeq&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="77">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>DiGraph.toSeq&#32;<span>graph</span></span></code>
+                  <code><span>Degree.minimumOfDiGraph&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -2202,14 +1683,17 @@
                       </b>
                       :
                       <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
+                  An int of the min degree
                   <br/>
                 </div>
               </div>
@@ -2217,20 +1701,22 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.DiGraph.toSeq``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.minimumOfDiGraph``2```')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.DiGraph.toSeq``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.minimumOfDiGraph``2\'/>')">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/DiGraph.fs#L293-293" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L190-190" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
-                
+                 
+ Get the min degree of the graph. 
+ 
               </p>
             </div>
             <dl class="fsdocs-params">
@@ -2241,16 +1727,115 @@
                 :
                 <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
-              <dd class="fsdocs-param-docs"></dd>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
             </dl>
             <dl class="fsdocs-returns">
               <dt>
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
-              <dd class="fsdocs-return-docs"></dd>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An int of the min degree
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '203', 203)" onmouseover="showTip(event, '203', 203)">
+                <p>
+                  <a id="minimumOfFGraph">
+                    <a href="#minimumOfFGraph">
+                      <code><span>Degree.minimumOfFGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="203">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Degree.minimumOfFGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  An int of the min degree
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Degree.minimumOfFGraph``3```')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Degree.minimumOfFGraph``3\'/>')">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Degree.fs#L179-179" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://github.com/fslaborg/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Get the min degree of the graph. 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://github.com/fslaborg/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An int of the min degree
+                </p>
+              </dd>
             </dl>
           </td>
         </tr>

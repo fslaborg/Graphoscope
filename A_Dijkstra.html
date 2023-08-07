@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Dijkstra</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="FsLab open source contributors">
+
+    <!--Opengraph properties (https://ogp.me/)-->
+    <meta property="og:title" content="Dijkstra" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plotly.NET" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.21.0.min.js"></script>
+    <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.24.0/cytoscape.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="https://github.com/fslaborg/Graphoscope/">
+                        <figure class="image is-128x128 container">
+                            <img src="https://github.com/fslaborg/Graphoscope/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="searchbox" id="fsdocs-searchbox">
+                            <label for="search-by">
+                                <i class="fas fa-search"></i>
+                            </label>
+                            <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                            <span data-search-clear="">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License (MIT)</a></li>
+                        <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md">Release Notes</a></li>
+                        <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/">Source Repository</a></li>
+                        <li class="nav-header">
+  Graphoscope
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/G_Digraph_2_Intro.html">
+    DiGraph
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/G_FGraph_3_Intro.html">
+    FGraph
+  </a>
+</li>             
+<li class="nav-header">
+  Measures
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_1_Degree.html">
+    Degree
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_2_NetworkDensity.html">
+    Network Density
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_3_Loops.html">
+    Loops
+  </a>
+</li>             
+<li class="nav-header">
+  Algorithms
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/A_Dijkstra.html">
+    Dijkstra
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/A_FloydWarshall.html">
+    Floyd-Warshall
+  </a>
+</li>             
+<li class="nav-header">
+  Random Graph
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_RandomGraphs.html">
+    Random Graph generation
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_Gilbert.html">
+    Gilbert
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_BollobasRiordan.html">
+    Bollobas-Riordan
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_BarabasiAlbert.html">
+    Barab&#225;si-Albert
+  </a>
+</li>
+                        <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<h1><a name="Shortest-path-between-all-the-vertices-using-Dijkstra-Algorithm-on-an-FGraph" class="anchor" href="#Shortest-path-between-all-the-vertices-using-Dijkstra-Algorithm-on-an-FGraph">Shortest path between all the vertices using Dijkstra Algorithm on an FGraph.</a></h1>
+<p>Dijkstra algorithm, given by a brilliant Dutch computer scientist and software engineer Dr. Edsger Dijkstra in 1959.
+Dijkstra algorithm is a greedy algorithm that solves the single-source shortest path problem for a directed and undirected
+graph that has non-negative edge weight.</p>
+<p>Let's start with a directed weighted graph. We will find shortest path between all the vertices using Dijkstra Algorithm.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Graphoscope</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="id">dwg</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="fn">nodes</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0</span><span class="pn">,</span><span class="s">&quot;A&quot;</span><span class="pn">;</span><span class="n">1</span><span class="pn">,</span><span class="s">&quot;B&quot;</span><span class="pn">;</span><span class="n">2</span><span class="pn">,</span><span class="s">&quot;C&quot;</span><span class="pn">;</span><span class="n">3</span><span class="pn">,</span><span class="s">&quot;D&quot;</span><span class="pn">;</span><span class="n">4</span><span class="pn">,</span><span class="s">&quot;E&quot;</span><span class="pn">;</span><span class="n">5</span><span class="pn">,</span><span class="s">&quot;F&quot;</span><span class="pn">|]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 4)" onmouseover="showTip(event, 'fs4', 4)" class="fn">edges</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0</span><span class="pn">,</span><span class="n">1</span><span class="pn">,</span><span class="n">7.</span><span class="pn">;</span><span class="n">0</span><span class="pn">,</span><span class="n">2</span><span class="pn">,</span><span class="n">12.</span><span class="pn">;</span><span class="n">1</span><span class="pn">,</span><span class="n">2</span><span class="pn">,</span><span class="n">2.</span><span class="pn">;</span><span class="n">1</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span><span class="n">9.</span><span class="pn">;</span><span class="n">2</span><span class="pn">,</span><span class="n">4</span><span class="pn">,</span><span class="n">10.</span><span class="pn">;</span><span class="n">4</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span><span class="n">4.</span><span class="pn">;</span><span class="n">3</span><span class="pn">,</span><span class="n">5</span><span class="pn">,</span><span class="n">1.</span><span class="pn">;</span><span class="n">4</span><span class="pn">,</span><span class="n">5</span><span class="pn">,</span><span class="n">5.</span><span class="pn">|]</span>
+    <span onmouseout="hideTip(event, 'fs5', 5)" onmouseover="showTip(event, 'fs5', 5)" class="m">FGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 6)" onmouseover="showTip(event, 'fs6', 6)" class="id">create</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs3', 7)" onmouseover="showTip(event, 'fs3', 7)" class="fn">nodes</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs4', 8)" onmouseover="showTip(event, 'fs4', 8)" class="fn">edges</span><span class="pn">)</span>
+</code></pre>
+<p>Let´s have a look on the graph:</p>
+<div id="edfa194b781" style="width:600px; height:600px"><!-- Cytoscape graph will be drawn inside this DIV --></div><script type="text/javascript">
+    var graphdata = {"container":document.getElementById('edfa194b781'),"elements":[{"data":{"id":"0","label":"A"}},{"data":{"id":"1","label":"B"}},{"data":{"id":"0_1","source":"0","target":"1","label":7.0}},{"data":{"id":"0","label":"A"}},{"data":{"id":"2","label":"C"}},{"data":{"id":"0_2","source":"0","target":"2","label":12.0}},{"data":{"id":"1","label":"B"}},{"data":{"id":"2","label":"C"}},{"data":{"id":"1_2","source":"1","target":"2","label":2.0}},{"data":{"id":"1","label":"B"}},{"data":{"id":"3","label":"D"}},{"data":{"id":"1_3","source":"1","target":"3","label":9.0}},{"data":{"id":"2","label":"C"}},{"data":{"id":"4","label":"E"}},{"data":{"id":"2_4","source":"2","target":"4","label":10.0}},{"data":{"id":"3","label":"D"}},{"data":{"id":"5","label":"F"}},{"data":{"id":"3_5","source":"3","target":"5","label":1.0}},{"data":{"id":"4","label":"E"}},{"data":{"id":"3","label":"D"}},{"data":{"id":"4_3","source":"4","target":"3","label":4.0}},{"data":{"id":"4","label":"E"}},{"data":{"id":"5","label":"F"}},{"data":{"id":"4_5","source":"4","target":"5","label":5.0}}],"style":[{"selector":"node","style":{"content":"data(label)","color":"#A00975"}},{"selector":"edge","style":{"content":"data(label)","curve-style":"bezier","target-arrow-shape":"triangle","source-arrow-shape":"circle","color":"#438AFE"}}],"layout":{"name":"cose","componentSpacing":40},"zoom":{"level":null,"zoomingEnabled":false}}
+    var cy = cytoscape( graphdata );
+    cy.userZoomingEnabled( false );
+    </script>
+<p>And now, let´s compute the shortest paths via Dijkstra :</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs50', 98)" onmouseover="showTip(event, 'fs50', 98)" class="id">dij</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 99)" onmouseover="showTip(event, 'fs51', 99)" class="id">Algorithms</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 100)" onmouseover="showTip(event, 'fs52', 100)" class="rt">Dijkstra</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 101)" onmouseover="showTip(event, 'fs53', 101)" class="id">compute</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs2', 102)" onmouseover="showTip(event, 'fs2', 102)" class="id">dwg</span><span class="pn">)</span>
+</code></pre>
+<h1><a name="Shortest-path-between-all-the-vertices-using-Dijkstra-Algorithm-on-DiGraph" class="anchor" href="#Shortest-path-between-all-the-vertices-using-Dijkstra-Algorithm-on-DiGraph">Shortest path between all the vertices using Dijkstra Algorithm on DiGraph.</a></h1>
+<p>Computation of the shortest paths is also available using the DiGraph structure.
+Lets compare them using the same graph as above:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 103)" onmouseover="showTip(event, 'fs54', 103)" class="id">dwgDiGraph</span> <span class="o">=</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs55', 104)" onmouseover="showTip(event, 'fs55', 104)" class="fn">nodes</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0</span><span class="pn">;</span><span class="n">1</span><span class="pn">;</span><span class="n">2</span><span class="pn">;</span><span class="n">3</span><span class="pn">;</span><span class="n">4</span><span class="pn">;</span><span class="n">5</span><span class="pn">|]</span>
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 105)" onmouseover="showTip(event, 'fs4', 105)" class="fn">edges</span> <span class="o">=</span> <span class="pn">[|</span><span class="n">0</span><span class="pn">,</span><span class="n">1</span><span class="pn">,</span><span class="n">7.</span><span class="pn">;</span><span class="n">0</span><span class="pn">,</span><span class="n">2</span><span class="pn">,</span><span class="n">12.</span><span class="pn">;</span><span class="n">1</span><span class="pn">,</span><span class="n">2</span><span class="pn">,</span><span class="n">2.</span><span class="pn">;</span><span class="n">1</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span><span class="n">9.</span><span class="pn">;</span><span class="n">2</span><span class="pn">,</span><span class="n">4</span><span class="pn">,</span><span class="n">10.</span><span class="pn">;</span><span class="n">4</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span><span class="n">4.</span><span class="pn">;</span><span class="n">3</span><span class="pn">,</span><span class="n">5</span><span class="pn">,</span><span class="n">1.</span><span class="pn">;</span><span class="n">4</span><span class="pn">,</span><span class="n">5</span><span class="pn">,</span><span class="n">5.</span><span class="pn">|]</span>
+    <span onmouseout="hideTip(event, 'fs56', 106)" onmouseover="showTip(event, 'fs56', 106)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs57', 107)" onmouseover="showTip(event, 'fs57', 107)" class="id">createFromNodes</span> <span onmouseout="hideTip(event, 'fs55', 108)" onmouseover="showTip(event, 'fs55', 108)" class="fn">nodes</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs56', 109)" onmouseover="showTip(event, 'fs56', 109)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs58', 110)" onmouseover="showTip(event, 'fs58', 110)" class="id">addEdges</span> <span onmouseout="hideTip(event, 'fs4', 111)" onmouseover="showTip(event, 'fs4', 111)" class="fn">edges</span>
+    
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs59', 112)" onmouseover="showTip(event, 'fs59', 112)" class="id">dijDiGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs51', 113)" onmouseover="showTip(event, 'fs51', 113)" class="id">Algorithms</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs52', 114)" onmouseover="showTip(event, 'fs52', 114)" class="rt">Dijkstra</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 115)" onmouseover="showTip(event, 'fs53', 115)" class="id">compute</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs54', 116)" onmouseover="showTip(event, 'fs54', 116)" class="id">dwgDiGraph</span><span class="pn">)</span>
+</code></pre>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs2">val dwg: FGraph&lt;int,string,float&gt;</div>
+<div class="fsdocs-tip" id="fs3">val nodes: (int * string)[]</div>
+<div class="fsdocs-tip" id="fs4">val edges: (int * int * float)[]</div>
+<div class="fsdocs-tip" id="fs5">Multiple items<br />module FGraph
+
+from Graphoscope<br /><br />--------------------<br />type FGraph =
+  new: unit -&gt; FGraph
+  static member addEdge: nk1: &#39;NodeKey -&gt; nk2: &#39;NodeKey -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addEdges: edgeSeq: seq&lt;&#39;NodeKey * &#39;NodeKey * &#39;EdgeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member containsEdge: v1: &#39;NodeKey -&gt; v2: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member containsNode: vk: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  ...<br /><br />--------------------<br />type FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; = System.Collections.Generic.Dictionary&lt;&#39;NodeKey,FContext&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt;&gt;<br /><br />--------------------<br />new: unit -&gt; FGraph</div>
+<div class="fsdocs-tip" id="fs6">static member FGraph.create: unit -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)<br />static member FGraph.create: nodes: seq&lt;&#39;NodeKey * &#39;NodeData&gt; * edges: seq&lt;&#39;NodeKey * &#39;NodeKey * &#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs7">namespace Cytoscape</div>
+<div class="fsdocs-tip" id="fs8">namespace Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs9">val vizGraph: CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs10">module CyGraph
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs11">val initEmpty: unit -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs12">val withElements: elems: seq&lt;CytoscapeModel.Element&gt; -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs13">val sk: int</div>
+<div class="fsdocs-tip" id="fs14">val s: string</div>
+<div class="fsdocs-tip" id="fs15">val tk: int</div>
+<div class="fsdocs-tip" id="fs16">val t: string</div>
+<div class="fsdocs-tip" id="fs17">val el: float</div>
+<div class="fsdocs-tip" id="fs18">static member FGraph.toSeq: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; seq&lt;&#39;NodeKey * &#39;NodeData * &#39;NodeKey * &#39;NodeData * &#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs19">val sk: string</div>
+<div class="fsdocs-tip" id="fs20">val tk: string</div>
+<div class="fsdocs-tip" id="fs21">Multiple items<br />val string: value: &#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;<br />&lt;example id=&quot;string-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs22">module Elements
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs23">val node: id: string -&gt; dataAttributes: CyParam.CyStyleParam list -&gt; Elements.Node</div>
+<div class="fsdocs-tip" id="fs24">module CyParam
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs25">val label: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs26">val edge: id: string -&gt; sourceId: string -&gt; targetId: string -&gt; dataAttributes: CyParam.CyStyleParam list -&gt; Elements.Edge</div>
+<div class="fsdocs-tip" id="fs27">val sprintf: format: Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;<br />&lt;example&gt;See &lt;c&gt;Printf.sprintf&lt;/c&gt; (link: &lt;see cref=&quot;M:Microsoft.FSharp.Core.PrintfModule.PrintFormatToStringThen``1&quot; /&gt;) for examples.&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">val withStyle: selector: string -&gt; cyStyles: seq&lt;CyParam.CyStyleParam&gt; -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs29">val content: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs30">val color: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs31">module Curve
+
+from Cytoscape.NET.CyParam</div>
+<div class="fsdocs-tip" id="fs32">val style: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs33">module Target
+
+from Cytoscape.NET.CyParam</div>
+<div class="fsdocs-tip" id="fs34">module Arrow
+
+from Cytoscape.NET.CyParam.Target</div>
+<div class="fsdocs-tip" id="fs35">val shape: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs36">module Source
+
+from Cytoscape.NET.CyParam</div>
+<div class="fsdocs-tip" id="fs37">module Arrow
+
+from Cytoscape.NET.CyParam.Source</div>
+<div class="fsdocs-tip" id="fs38">val withZoom: zoom: CytoscapeModel.Zoom -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs39">namespace Cytoscape.NET.CytoscapeModel</div>
+<div class="fsdocs-tip" id="fs40">Multiple items<br />type Zoom =
+  inherit DynamicObj
+  new: unit -&gt; Zoom
+  static member Init: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; Zoom
+  static member Update: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; (Zoom -&gt; Zoom)<br /><br />--------------------<br />new: unit -&gt; CytoscapeModel.Zoom</div>
+<div class="fsdocs-tip" id="fs41">static member CytoscapeModel.Zoom.Init: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; CytoscapeModel.Zoom</div>
+<div class="fsdocs-tip" id="fs42">val withLayout: ly: Layout -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs43">Multiple items<br />module Layout
+
+from Cytoscape.NET<br /><br />--------------------<br />type Layout =
+  inherit DynamicObj
+  new: name: string -&gt; Layout
+  member name: string<br /><em>&lt;summary&gt;
+ Layout type inherits from dynamic object
+&lt;/summary&gt;</em><br /><br />--------------------<br />new: name: string -&gt; Layout</div>
+<div class="fsdocs-tip" id="fs44">val initCose: applyOption: (Layout -&gt; Layout) -&gt; Layout<br /><em>&lt;summary&gt;
+ initializes a layout of type &quot;cose&quot; applying the givin layout option function.
+ The cose (Compound Spring Embedder) layout uses a physics simulation to lay out graphs.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs45">Multiple items<br />type LayoutOptions =
+  new: unit -&gt; LayoutOptions
+  static member Cose: ?Refresh: int * ?BoundingBox: &#39;a * ?NodeDimensionsIncludeLabels: bool * ?Randomize: bool * ?ComponentSpacing: int * ?NodeRepulsion: &#39;b * ?NodeOverlap: int * ?IdealEdgeLength: &#39;c * ?EdgeElasticity: &#39;d * ?NestingFactor: float * ?Gravity: int * ?NumIter: int * ?InitialTemp: int * ?CoolingFactor: float * ?MinTemp: float -&gt; (&#39;L -&gt; &#39;L) (requires &#39;L :&gt; Layout)
+  static member Generic: ?Positions: &#39;a0 * ?Zoom: &#39;a1 * ?Pan: &#39;a2 * ?Fit: bool * ?Padding: int * ?Animate: bool * ?AnimationDuration: int * ?AnimationEasing: &#39;a3 * ?AnimateFilter: &#39;a4 * ?AnimationThreshold: int * ?Ready: &#39;a5 * ?Stop: &#39;a6 * ?Transform: &#39;a7 -&gt; (&#39;L -&gt; &#39;L) (requires &#39;L :&gt; Layout)<br /><em>&lt;summary&gt;
+ Functions provide the options of the Layout objects
+&lt;/summary&gt;</em><br /><br />--------------------<br />new: unit -&gt; Layout.LayoutOptions</div>
+<div class="fsdocs-tip" id="fs46">static member Layout.LayoutOptions.Cose: ?Refresh: int * ?BoundingBox: &#39;a * ?NodeDimensionsIncludeLabels: bool * ?Randomize: bool * ?ComponentSpacing: int * ?NodeRepulsion: &#39;b * ?NodeOverlap: int * ?IdealEdgeLength: &#39;c * ?EdgeElasticity: &#39;d * ?NestingFactor: float * ?Gravity: int * ?NumIter: int * ?InitialTemp: int * ?CoolingFactor: float * ?MinTemp: float -&gt; (&#39;L -&gt; &#39;L) (requires &#39;L :&gt; Layout)</div>
+<div class="fsdocs-tip" id="fs47">val withSize: width: int * height: int -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs48">type HTML =
+  static member CreateGraphHTML: graphData: string * zooming: string * divId: string * cytoscapeReference: CytoscapeJSReference * ?Width: int * ?Height: int -&gt; XmlNode list
+  static member CreateGraphScript: graphData: string * zooming: string * cytoscapeReference: CytoscapeJSReference -&gt; XmlNode
+  static member Doc: graphHTML: XmlNode list * cytoscapeReference: CytoscapeJSReference * ?AdditionalHeadTags: XmlNode list -&gt; XmlNode
+  static member show: cy: Cytoscape * ?DisplayOpts: DisplayOptions -&gt; unit
+  static member toEmbeddedHTML: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; string)
+  static member toGraphHTML: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; string)
+  static member toGraphHTMLNodes: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; XmlNode list)<br /><em>&lt;summary&gt;
+ HTML template for Cytoscape
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs49">static member HTML.toGraphHTML: ?DisplayOpts: DisplayOptions -&gt; (CytoscapeModel.Cytoscape -&gt; string)</div>
+<div class="fsdocs-tip" id="fs50">val dij: System.Collections.Generic.Dictionary&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs51">namespace Graphoscope.Algorithms</div>
+<div class="fsdocs-tip" id="fs52">Multiple items<br />type Dijkstra =
+  new: unit -&gt; Dijkstra
+  static member compute: starting: &#39;NodeKey * graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,float&gt; -&gt; Dictionary&lt;&#39;NodeKey,float&gt; (requires comparison) + 1 overload
+  static member computeBetween: origin: &#39;NodeKey * destination: &#39;NodeKey * graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,float&gt; -&gt; &#39;a2 (requires comparison) + 1 overload
+  static member ofDiGraph: source: &#39;NodeKey -&gt; graph: DiGraph&lt;&#39;NodeKey,float&gt; -&gt; (&#39;NodeKey * float)[] (requires comparison)
+  static member ofDiGraphBetween: graph: DiGraph&lt;&#39;NodeKey,float&gt; -&gt; origin: &#39;NodeKey -&gt; destination: &#39;NodeKey -&gt; float option (requires comparison)
+  static member ofFGraph: starting: &#39;NodeKey -&gt; graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,float&gt; -&gt; Dictionary&lt;&#39;NodeKey,float&gt; (requires comparison)<br /><em>&lt;summary&gt; 
+ Computes Dijkstra&#39;s shortest path
+ &lt;/summary&gt;</em><br /><br />--------------------<br />new: unit -&gt; Algorithms.Dijkstra</div>
+<div class="fsdocs-tip" id="fs53">static member Algorithms.Dijkstra.compute: starting: &#39;NodeKey * graph: DiGraph&lt;&#39;NodeKey,float&gt; -&gt; (&#39;NodeKey * float)[] (requires comparison)<br />static member Algorithms.Dijkstra.compute: starting: &#39;NodeKey * graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,float&gt; -&gt; System.Collections.Generic.Dictionary&lt;&#39;NodeKey,float&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs54">val dwgDiGraph: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs55">val nodes: int[]</div>
+<div class="fsdocs-tip" id="fs56">Multiple items<br />module DiGraph
+
+from Graphoscope<br /><br />--------------------<br />type DiGraph =
+  new: unit -&gt; DiGraph
+  static member addEdge: edge: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData) -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addNode: node: &#39;NodeKey -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addNodes: nodes: &#39;NodeKey[] -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member countEdges: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member countNodes: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member createFromEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member createFromNodes: nodes: &#39;NodeKey[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  ...<br /><br />--------------------<br />type DiGraph&lt;&#39;NodeKey,&#39;EdgeData (requires comparison)&gt; =
+  new: unit -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt;<br /><br />--------------------<br />new: unit -&gt; DiGraph<br /><br />--------------------<br />new: unit -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt;</div>
+<div class="fsdocs-tip" id="fs57">static member DiGraph.createFromNodes: nodes: &#39;NodeKey[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs58">static member DiGraph.addEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs59">val dijDiGraph: (int * float)[]</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://github.com/fslaborg/Graphoscope/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>

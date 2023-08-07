@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Getting Started</title>
+    <title>Barabási-Albert</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
 
     <!--Opengraph properties (https://ogp.me/)-->
-    <meta property="og:title" content="Getting Started" />
+    <meta property="og:title" content="Barabási-Albert" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Plotly.NET" />
 
@@ -148,29 +148,29 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     
-<h1><a name="Graphoscope" class="anchor" href="#Graphoscope">Graphoscope</a></h1>
-<p>The Graphoscope project aims to provide a rigorous and performant tool for Network Science.
-It is aimed at anyone who works with Graphs/Networks and does not require a strong knowledge of F# to get started.</p>
-<h1><a name="Getting-Started" class="anchor" href="#Getting-Started">Getting Started</a></h1>
-<h2><a name="Prerequisites" class="anchor" href="#Prerequisites">Prerequisites</a></h2>
-<p>To set up a dev environment, we recommend <a href="https://code.visualstudio.com/">VSCode</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp">Ionide</a> plugin<br />
-You will also need <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">DotNet 6</a> installed.</p>
-<p>The library is designed primarily for use in an fsharp scripting environment using .fsx files.
-But it also works well in <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode">notebooks</a>.
-This <a href="https://www.youtube.com/watch?v=1ROKvmcOloo&amp;list=PLdo4fOcmZ0oUFghYOp89baYFBTGxUkC7Z&amp;index=3">video</a> has a good walk through of setting your environment.</p>
-<h1><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h1>
-<p>The project is hosted on <a href="https://github.com/fslaborg/Graphoscope">GitHub</a> where you can <a href="https://github.com/fslaborg/Graphoscope/issues">report issues</a>, fork
-the project and submit pull requests. If you're adding a new public API, please also
-consider adding <a href="https://github.com/fslaborg/Graphoscope/tree/main/docs">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/fslaborg/Graphoscope/blob/main/README.md">library design notes</a> to understand how it works.</p>
-<p>The library is available under the OSI-approved MIT license, which allows modification and
-redistribution for both commercial and non-commercial purposes. For more information see the
-<a href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License file</a> in the GitHub repository.</p>
+<h1><a name="Random-graph-models" class="anchor" href="#Random-graph-models">Random graph models</a></h1>
+<h2><a name="Barabási-Albert-model" class="anchor" href="#Barabási-Albert-model">Barabási-Albert model</a></h2>
+<p>The Barabási-Albert (BA) model is a popular network growth model used to generate random scale-free networks.<br />
+It provides a valuable tool for generating synthetic networks that exhibit similar properties to many natural and man-made networks, mainly a scale-free character.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Graphoscope</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="id">RandomModels</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="id">N</span> <span class="o">=</span> <span class="n">50</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="id">edgesPerIteration</span> <span class="o">=</span> <span class="n">5</span>
+
+<span class="c">// let myBarabasiAlbert = RandomModels.BarabasiAlbert.initFGraph  N edgesPerIteration id id (fun x -&gt; 1.) FGraph.empty</span>
+
+<span class="c">//printfn&quot;You have created a graph with %i nodes and %i edges&quot;(FGraph.countNodes myBarabasiAlbert) (FGraph.countEdges myBarabasiAlbert)</span>
+</code></pre>
 
                 </div>
             </div>
         </div>
-        
+        <div class="fsdocs-tip" id="fs1">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs2">namespace Graphoscope.RandomModels</div>
+<div class="fsdocs-tip" id="fs3">val N: int</div>
+<div class="fsdocs-tip" id="fs4">val edgesPerIteration: int</div>
+
     </div>
 
     <!-- BEGIN SEARCH BOX: this adds support for the search box -->

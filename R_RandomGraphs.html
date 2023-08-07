@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Getting Started</title>
+    <title>Random Graph generation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
 
     <!--Opengraph properties (https://ogp.me/)-->
-    <meta property="og:title" content="Getting Started" />
+    <meta property="og:title" content="Random Graph generation" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Plotly.NET" />
 
@@ -148,24 +148,18 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     
-<h1><a name="Graphoscope" class="anchor" href="#Graphoscope">Graphoscope</a></h1>
-<p>The Graphoscope project aims to provide a rigorous and performant tool for Network Science.
-It is aimed at anyone who works with Graphs/Networks and does not require a strong knowledge of F# to get started.</p>
-<h1><a name="Getting-Started" class="anchor" href="#Getting-Started">Getting Started</a></h1>
-<h2><a name="Prerequisites" class="anchor" href="#Prerequisites">Prerequisites</a></h2>
-<p>To set up a dev environment, we recommend <a href="https://code.visualstudio.com/">VSCode</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp">Ionide</a> plugin<br />
-You will also need <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">DotNet 6</a> installed.</p>
-<p>The library is designed primarily for use in an fsharp scripting environment using .fsx files.
-But it also works well in <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode">notebooks</a>.
-This <a href="https://www.youtube.com/watch?v=1ROKvmcOloo&amp;list=PLdo4fOcmZ0oUFghYOp89baYFBTGxUkC7Z&amp;index=3">video</a> has a good walk through of setting your environment.</p>
-<h1><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h1>
-<p>The project is hosted on <a href="https://github.com/fslaborg/Graphoscope">GitHub</a> where you can <a href="https://github.com/fslaborg/Graphoscope/issues">report issues</a>, fork
-the project and submit pull requests. If you're adding a new public API, please also
-consider adding <a href="https://github.com/fslaborg/Graphoscope/tree/main/docs">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/fslaborg/Graphoscope/blob/main/README.md">library design notes</a> to understand how it works.</p>
-<p>The library is available under the OSI-approved MIT license, which allows modification and
-redistribution for both commercial and non-commercial purposes. For more information see the
-<a href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License file</a> in the GitHub repository.</p>
+<h1><a name="Random-graph-models" class="anchor" href="#Random-graph-models">Random graph models</a></h1>
+<h2><a name="Motivation-and-overview" class="anchor" href="#Motivation-and-overview">Motivation and overview</a></h2>
+<p>In every implementation workflow, there comes the point where you have to test wether everything works as expexted or not.
+For this, a matching test set is necessary. In some cases (e.g. List sorting algorithms) creating those test sets is done in a matter of seconds.
+In other cases, especially if the data you work with is more than one dimensional, it can get quite tedious.
+To this effect, FSharp.FGl comes equipped with implementations of random graph generation models.<br />
+In this tutorial I want to introduce you to the models implemented and how to generate graphs with the given functions:</p>
+<ul>
+<li>Gilbert model</li>
+<li>Barabási-Albert model</li>
+<li>Bollobás-Riordan methode</li>
+</ul>
 
                 </div>
             </div>

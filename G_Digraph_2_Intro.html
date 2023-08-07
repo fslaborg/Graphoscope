@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DiGraph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="FsLab open source contributors">
+
+    <!--Opengraph properties (https://ogp.me/)-->
+    <meta property="og:title" content="DiGraph" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plotly.NET" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://github.com/fslaborg/Graphoscope//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.21.0.min.js"></script>
+    <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.24.0/cytoscape.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://github.com/fslaborg/Graphoscope/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="https://github.com/fslaborg/Graphoscope/">
+                        <figure class="image is-128x128 container">
+                            <img src="https://github.com/fslaborg/Graphoscope/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="searchbox" id="fsdocs-searchbox">
+                            <label for="search-by">
+                                <i class="fas fa-search"></i>
+                            </label>
+                            <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                            <span data-search-clear="">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License (MIT)</a></li>
+                        <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md">Release Notes</a></li>
+                        <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/">Source Repository</a></li>
+                        <li class="nav-header">
+  Graphoscope
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/G_Digraph_2_Intro.html">
+    DiGraph
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/G_FGraph_3_Intro.html">
+    FGraph
+  </a>
+</li>             
+<li class="nav-header">
+  Measures
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_1_Degree.html">
+    Degree
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_2_NetworkDensity.html">
+    Network Density
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/M_3_Loops.html">
+    Loops
+  </a>
+</li>             
+<li class="nav-header">
+  Algorithms
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/A_Dijkstra.html">
+    Dijkstra
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/A_FloydWarshall.html">
+    Floyd-Warshall
+  </a>
+</li>             
+<li class="nav-header">
+  Random Graph
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_RandomGraphs.html">
+    Random Graph generation
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_Gilbert.html">
+    Gilbert
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_BollobasRiordan.html">
+    Bollobas-Riordan
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/R_BarabasiAlbert.html">
+    Barab&#225;si-Albert
+  </a>
+</li>
+                        <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://github.com/fslaborg/Graphoscope/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<h1><a name="Datastructure" class="anchor" href="#Datastructure">Datastructure</a></h1>
+<p>The DiGraph is a graph representation that uses a fast node-index-based lookup of edge data, utilizing ResizeArrays for efficient storage and retrieval of information.
+The structure is visualised here:</p>
+<p><a href="https://mermaid.live/edit#pako:eNpdkM8KwjAMxl9FclLQF9hBUDt1iF70ZLtDWKMrunbUDhHx3U39Q8Wevv6-JB_JHSqnCTI4nN21qtGH3k4o2-M3kcIsPLZ1ORqNp32j19gOPhYTIV0Xcn2kS5lgLo39ZVNmM7nhiBXdPkwwK94yTzLSuYy9AgOWyV_8w5iz_M78Bi1jUMosXn4hog1DaMg3aDSveY81CkJNDSnIWGr0JwXKPrgOu-C2N1tBFnxHQ-hajYGEwaPHBrIDni9MW7R759KftAnOr993fJ3z8QQLO2iF"><img src="https://mermaid.ink/img/pako:eNpdkM8KwjAMxl9FclLQF9hBUDt1iF70ZLtDWKMrunbUDhHx3U39Q8Wevv6-JB_JHSqnCTI4nN21qtGH3k4o2-M3kcIsPLZ1ORqNp32j19gOPhYTIV0Xcn2kS5lgLo39ZVNmM7nhiBXdPkwwK94yTzLSuYy9AgOWyV_8w5iz_M78Bi1jUMosXn4hog1DaMg3aDSveY81CkJNDSnIWGr0JwXKPrgOu-C2N1tBFnxHQ-hajYGEwaPHBrIDni9MW7R759KftAnOr993fJ3z8QQLO2iF?type=png" alt="" /></a></p>
+<h1><a name="Quickstart" class="anchor" href="#Quickstart">Quickstart</a></h1>
+<p>We can build a graph from scratch. Either by passing an array of edges:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs9', 14)" onmouseover="showTip(event, 'fs9', 14)" class="id">Graphoscope</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs10', 15)" onmouseover="showTip(event, 'fs10', 15)" class="m">DiGraph</span>
+
+<span class="pn">[|</span><span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span class="n">1</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">0</span><span class="pn">,</span> <span class="n">2</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">1</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span> <span class="n">3</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">3</span><span class="pn">,</span> <span class="n">2</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">;</span> <span class="pn">(</span><span class="n">4</span><span class="pn">,</span> <span class="n">0</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span><span class="pn">|]</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 16)" onmouseover="showTip(event, 'fs10', 16)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs11', 17)" onmouseover="showTip(event, 'fs11', 17)" class="id">createFromEdges</span>
+</code></pre>
+<p>or by creating an empty graph and adding the nodes and edges one by one.
+The int and float after the "create" define the type of the nodes and edges.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 18)" onmouseover="showTip(event, 'fs12', 18)" class="id">emptyGraph</span> <span class="pn">:</span><span onmouseout="hideTip(event, 'fs10', 19)" onmouseover="showTip(event, 'fs10', 19)" class="rt">DiGraph</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs13', 20)" onmouseover="showTip(event, 'fs13', 20)" class="vt">int</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs14', 21)" onmouseover="showTip(event, 'fs14', 21)" class="vt">float</span><span class="pn">&gt;</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 22)" onmouseover="showTip(event, 'fs10', 22)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 23)" onmouseover="showTip(event, 'fs15', 23)" class="id">empty</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 24)" onmouseover="showTip(event, 'fs16', 24)" class="id">edge</span> <span class="o">=</span> <span class="pn">(</span><span class="n">1</span><span class="pn">,</span><span class="n">3</span><span class="pn">,</span> <span class="n">1.0</span><span class="pn">)</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs17', 25)" onmouseover="showTip(event, 'fs17', 25)" class="id">filledGraph</span> <span class="o">=</span>
+  <span onmouseout="hideTip(event, 'fs12', 26)" onmouseover="showTip(event, 'fs12', 26)" class="id">emptyGraph</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 27)" onmouseover="showTip(event, 'fs10', 27)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 28)" onmouseover="showTip(event, 'fs18', 28)" class="id">addNode</span> <span class="n">1</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 29)" onmouseover="showTip(event, 'fs10', 29)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 30)" onmouseover="showTip(event, 'fs18', 30)" class="id">addNode</span> <span class="n">2</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 31)" onmouseover="showTip(event, 'fs10', 31)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 32)" onmouseover="showTip(event, 'fs18', 32)" class="id">addNode</span> <span class="n">3</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 33)" onmouseover="showTip(event, 'fs10', 33)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs19', 34)" onmouseover="showTip(event, 'fs19', 34)" class="id">addEdge</span> <span onmouseout="hideTip(event, 'fs16', 35)" onmouseover="showTip(event, 'fs16', 35)" class="id">edge</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"Manually created a graph with 3 nodes"</code></pre></td></tr></table>
+<h1><a name="Working-with-Graphs" class="anchor" href="#Working-with-Graphs">Working with Graphs</a></h1>
+<h1><a name="From-Data" class="anchor" href="#From-Data">From Data</a></h1>
+<p>For illustration, we will import a directed graph from The <a href="http://konect.cc/">KONECT Project</a> website. This is an excellent resource with many graphs in an edge list based format which is simple
+to import and analyse using Graphoscope. We will start by importing a <a href="http://konect.cc/networks/moreno_rhesus/">graph</a> describing the grooming interactions between rhesus monkeys.</p>
+<p>Create a monkeys.fsx and run the following code to import and print some basic measures. Further documention of DiGraph functionality is <a href="reference/graphoscope-digraph.html">here</a></p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs23', 41)" onmouseover="showTip(event, 'fs23', 41)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs24', 42)" onmouseover="showTip(event, 'fs24', 42)" class="id">Data</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs25', 43)" onmouseover="showTip(event, 'fs25', 43)" class="fn">getElementOfFile</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs26', 44)" onmouseover="showTip(event, 'fs26', 44)" class="fn">fullpath</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs27', 45)" onmouseover="showTip(event, 'fs27', 45)" class="rt">string</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs28', 46)" onmouseover="showTip(event, 'fs28', 46)" class="fn">delimiter</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs27', 47)" onmouseover="showTip(event, 'fs27', 47)" class="rt">string</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs29', 48)" onmouseover="showTip(event, 'fs29', 48)" class="fn">headerRows</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs13', 49)" onmouseover="showTip(event, 'fs13', 49)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 50)" onmouseover="showTip(event, 'fs30', 50)" class="fn">weightsIncluded</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs31', 51)" onmouseover="showTip(event, 'fs31', 51)" class="vt">bool</span><span class="pn">)</span>  <span class="o">=</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs32', 52)" onmouseover="showTip(event, 'fs32', 52)" class="fn">rows</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs33', 53)" onmouseover="showTip(event, 'fs33', 53)" class="d">CsvFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 54)" onmouseover="showTip(event, 'fs34', 54)" class="id">Load</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs26', 55)" onmouseover="showTip(event, 'fs26', 55)" class="fn">fullpath</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs28', 56)" onmouseover="showTip(event, 'fs28', 56)" class="fn">delimiter</span><span class="pn">,</span> <span class="fn">skipRows</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs29', 57)" onmouseover="showTip(event, 'fs29', 57)" class="fn">headerRows</span><span class="pn">,</span> <span class="fn">hasHeaders</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span><span class="pn">.</span><span class="id">Rows</span>
+        <span onmouseout="hideTip(event, 'fs32', 58)" onmouseover="showTip(event, 'fs32', 58)" class="fn">rows</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs35', 59)" onmouseover="showTip(event, 'fs35', 59)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 60)" onmouseover="showTip(event, 'fs36', 60)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs37', 61)" onmouseover="showTip(event, 'fs37', 61)" class="fn">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs13', 62)" onmouseover="showTip(event, 'fs13', 62)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 63)" onmouseover="showTip(event, 'fs37', 63)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs13', 64)" onmouseover="showTip(event, 'fs13', 64)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 65)" onmouseover="showTip(event, 'fs37', 65)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs13', 66)" onmouseover="showTip(event, 'fs13', 66)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 67)" onmouseover="showTip(event, 'fs37', 67)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs13', 68)" onmouseover="showTip(event, 'fs13', 68)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 69)" onmouseover="showTip(event, 'fs37', 69)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs30', 70)" onmouseover="showTip(event, 'fs30', 70)" class="fn">weightsIncluded</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs14', 71)" onmouseover="showTip(event, 'fs14', 71)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs37', 72)" onmouseover="showTip(event, 'fs37', 72)" class="fn">row</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span> <span class="k">else</span> <span class="n">1.0</span><span class="pn">)</span>
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs38', 73)" onmouseover="showTip(event, 'fs38', 73)" class="id">file</span> <span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span> <span class="o">+</span> <span class="s">&quot;/../tests/Graphoscope.Tests/ReferenceGraphs/out.moreno_rhesus_rhesus.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs39', 74)" onmouseover="showTip(event, 'fs39', 74)" class="id">monkeyGraph</span> <span class="o">=</span> 
+  
+  <span onmouseout="hideTip(event, 'fs33', 75)" onmouseover="showTip(event, 'fs33', 75)" class="d">CsvFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs34', 76)" onmouseover="showTip(event, 'fs34', 76)" class="id">Load</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs38', 77)" onmouseover="showTip(event, 'fs38', 77)" class="id">file</span><span class="pn">,</span> <span class="s">&quot; &quot;</span><span class="pn">,</span> <span class="fn">skipRows</span> <span class="o">=</span> <span class="n">2</span><span class="pn">,</span> <span class="fn">hasHeaders</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span><span class="pn">.</span><span class="id">Rows</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs35', 78)" onmouseover="showTip(event, 'fs35', 78)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 79)" onmouseover="showTip(event, 'fs36', 79)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs37', 80)" onmouseover="showTip(event, 'fs37', 80)" class="fn">row</span> <span class="k">-&gt;</span> 
+              <span onmouseout="hideTip(event, 'fs13', 81)" onmouseover="showTip(event, 'fs13', 81)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 82)" onmouseover="showTip(event, 'fs37', 82)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs13', 83)" onmouseover="showTip(event, 'fs13', 83)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 84)" onmouseover="showTip(event, 'fs37', 84)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs13', 85)" onmouseover="showTip(event, 'fs13', 85)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 86)" onmouseover="showTip(event, 'fs37', 86)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs13', 87)" onmouseover="showTip(event, 'fs13', 87)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs37', 88)" onmouseover="showTip(event, 'fs37', 88)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs14', 89)" onmouseover="showTip(event, 'fs14', 89)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs37', 90)" onmouseover="showTip(event, 'fs37', 90)" class="fn">row</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span><span class="pn">)</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs10', 91)" onmouseover="showTip(event, 'fs10', 91)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs40', 92)" onmouseover="showTip(event, 'fs40', 92)" class="id">ofSeq</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"Successfully imported the graph! It has 16 nodes and 111 edges. The average degree is 13.875000 "</code></pre></td></tr></table>
+<p>We can also import undirected graphs using the <a href="reference/graphoscope-graph.html">Graph</a> namespace. These examples use the <a href="http://konect.cc/networks/ucidata-zachary/">Karate club</a> graph.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs46', 105)" onmouseover="showTip(event, 'fs46', 105)" class="id">karateFile</span><span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span> <span class="o">+</span> <span class="s">&quot;/../tests/Graphoscope.Tests/ReferenceGraphs/zachary.txt&quot;</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs47', 106)" onmouseover="showTip(event, 'fs47', 106)" class="id">karateGraph</span> <span class="o">=</span> 
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs48', 107)" onmouseover="showTip(event, 'fs48', 107)" class="fn">g</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 108)" onmouseover="showTip(event, 'fs10', 108)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs15', 109)" onmouseover="showTip(event, 'fs15', 109)" class="id">empty</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs13', 110)" onmouseover="showTip(event, 'fs13', 110)" class="vt">int</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs14', 111)" onmouseover="showTip(event, 'fs14', 111)" class="vt">float</span><span class="pn">&gt;</span>
+  <span onmouseout="hideTip(event, 'fs25', 112)" onmouseover="showTip(event, 'fs25', 112)" class="fn">getElementOfFile</span> <span onmouseout="hideTip(event, 'fs46', 113)" onmouseover="showTip(event, 'fs46', 113)" class="id">karateFile</span> <span class="s">&quot; &quot;</span> <span class="n">2</span> <span class="k">false</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs35', 114)" onmouseover="showTip(event, 'fs35', 114)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs49', 115)" onmouseover="showTip(event, 'fs49', 115)" class="id">iter</span><span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs50', 116)" onmouseover="showTip(event, 'fs50', 116)" class="fn">s1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs51', 117)" onmouseover="showTip(event, 'fs51', 117)" class="fn">s2</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs52', 118)" onmouseover="showTip(event, 'fs52', 118)" class="fn">t1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs53', 119)" onmouseover="showTip(event, 'fs53', 119)" class="fn">t2</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs54', 120)" onmouseover="showTip(event, 'fs54', 120)" class="fn">w</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs14', 121)" onmouseover="showTip(event, 'fs14', 121)" class="vt">float</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs10', 122)" onmouseover="showTip(event, 'fs10', 122)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs55', 123)" onmouseover="showTip(event, 'fs55', 123)" class="id">addElement</span> <span onmouseout="hideTip(event, 'fs50', 124)" onmouseover="showTip(event, 'fs50', 124)" class="fn">s1</span> <span onmouseout="hideTip(event, 'fs51', 125)" onmouseover="showTip(event, 'fs51', 125)" class="fn">s2</span> <span onmouseout="hideTip(event, 'fs52', 126)" onmouseover="showTip(event, 'fs52', 126)" class="fn">t1</span> <span onmouseout="hideTip(event, 'fs53', 127)" onmouseover="showTip(event, 'fs53', 127)" class="fn">t2</span> <span onmouseout="hideTip(event, 'fs54', 128)" onmouseover="showTip(event, 'fs54', 128)" class="fn">w</span> <span onmouseout="hideTip(event, 'fs48', 129)" onmouseover="showTip(event, 'fs48', 129)" class="fn">g</span><span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs56', 130)" onmouseover="showTip(event, 'fs56', 130)" class="fn">ignore</span><span class="pn">)</span>
+  <span onmouseout="hideTip(event, 'fs48', 131)" onmouseover="showTip(event, 'fs48', 131)" class="fn">g</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"Successfully imported the undirected karate graph! It has 34 nodes and 78 edges. The average degree is 4.588235 "</code></pre></td></tr></table>
+<p>A conversion into an Adjacency Matrix is also very easily achievable. It can be executed as follows.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs58', 144)" onmouseover="showTip(event, 'fs58', 144)" class="id">monkeyAdjacencyMatrix</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs10', 145)" onmouseover="showTip(event, 'fs10', 145)" class="m">DiGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs59', 146)" onmouseover="showTip(event, 'fs59', 146)" class="id">toMatrix</span> <span onmouseout="hideTip(event, 'fs39', 147)" onmouseover="showTip(event, 'fs39', 147)" class="id">monkeyGraph</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>[|[|0.0; 3.0; 4.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0;
+    0.0|];
+  [|49.0; 0.0; 41.0; 3.0; 0.0; 0.0; 0.0; 0.0; 3.0; 2.0; 1.0; 6.0; 0.0; 0.0; 9.0;
+    1.0|];
+  [|25.0; 8.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 5.0; 1.0; 9.0; 2.0; 2.0; 0.0; 21.0;
+    0.0|];
+  [|0.0; 1.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0;
+    0.0|];
+  [|0.0; 0.0; 2.0; 0.0; 0.0; 15.0; 8.0; 2.0; 1.0; 9.0; 3.0; 1.0; 4.0; 2.0; 0.0;
+    0.0|];
+  [|17.0; 0.0; 1.0; 0.0; 5.0; 0.0; 0.0; 8.0; 0.0; 4.0; 0.0; 3.0; 0.0; 0.0; 1.0;
+    0.0|];
+  [|0.0; 1.0; 0.0; 0.0; 5.0; 0.0; 0.0; 2.0; 2.0; 0.0; 0.0; 0.0; 0.0; 11.0; 0.0;
+    0.0|];
+  [|0.0; 0.0; 0.0; 0.0; 0.0; 11.0; 1.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0;
+    0.0|];
+  [|0.0; 4.0; 6.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 0.0; 4.0; 0.0; 2.0; 6.0; 1.0;
+    0.0|];
+  [|1.0; 4.0; 4.0; 0.0; 5.0; 3.0; 0.0; 0.0; 2.0; 0.0; 8.0; 5.0; 16.0; 0.0; 11.0;
+    0.0|];
+  [|5.0; 9.0; 7.0; 0.0; 1.0; 0.0; 0.0; 0.0; 4.0; 1.0; 0.0; 0.0; 1.0; 0.0; 10.0;
+    5.0|];
+  [|0.0; 3.0; 24.0; 0.0; 2.0; 1.0; 0.0; 3.0; 0.0; 4.0; 5.0; 0.0; 2.0; 1.0; 25.0;
+    0.0|];
+  [|1.0; 0.0; 9.0; 0.0; 2.0; 0.0; 0.0; 0.0; 2.0; 21.0; 3.0; 4.0; 0.0; 0.0; 5.0;
+    0.0|];
+  [|0.0; 1.0; 1.0; 3.0; 0.0; 0.0; 1.0; 1.0; 8.0; 1.0; 0.0; 5.0; 1.0; 0.0; 2.0;
+    0.0|];
+  [|0.0; 6.0; 23.0; 1.0; 0.0; 0.0; 0.0; 0.0; 0.0; 4.0; 13.0; 2.0; 0.0; 1.0; 0.0;
+    4.0|];
+  [|0.0; 2.0; 2.0; 0.0; 0.0; 0.0; 0.0; 0.0; 1.0; 0.0; 3.0; 1.0; 0.0; 0.0; 3.0;
+    0.0|]|]</code></pre></td></tr></table>
+<h2><a name="Charting" class="anchor" href="#Charting">Charting</a></h2>
+<p>Consider using <a href="https://plotly.net/">Plotly.NET</a> for charting. Built on top of plotly.js, it is a mature library offering a wide range of customisable charts.
+Here is a basic example showing degree distribution within the Karate club.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="pp">#r</span> <span class="s">&quot;nuget: Plotly.NET, 4.1.0&quot;</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 148)" onmouseover="showTip(event, 'fs1', 148)" class="id">Plotly</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 149)" onmouseover="showTip(event, 'fs2', 149)" class="id">NET</span>
+
+<span onmouseout="hideTip(event, 'fs43', 150)" onmouseover="showTip(event, 'fs43', 150)" class="id">Measures</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 151)" onmouseover="showTip(event, 'fs44', 151)" class="rt">Degree</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs60', 152)" onmouseover="showTip(event, 'fs60', 152)" class="id">distribution</span> <span onmouseout="hideTip(event, 'fs47', 153)" onmouseover="showTip(event, 'fs47', 153)" class="id">karateGraph</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs61', 154)" onmouseover="showTip(event, 'fs61', 154)" class="rt">Chart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs62', 155)" onmouseover="showTip(event, 'fs62', 155)" class="id">Histogram</span>
+<span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs63', 156)" onmouseover="showTip(event, 'fs63', 156)" class="m">GenericChart</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs64', 157)" onmouseover="showTip(event, 'fs64', 157)" class="id">toChartHTML</span>
+</code></pre>
+<div><div id="f6da9d7f-a968-47c0-9519-c608648cc546"><!-- Plotly chart will be drawn inside this DIV --></div><script type="text/javascript">var renderPlotly_f6da9d7fa96847c09519c608648cc546 = function() {
+    var data = [{"type":"histogram","x":[16.0,8.0,8.0,3.0,2.0,3.0,1.0,0.0,3.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0,1.0,0.0,5.0,1.0,3.0,1.0,2.0,2.0,2.0,2.0,2.0,1.0,2.0,2.0,2.0,2.0,2.0,0.0],"marker":{"pattern":{}}}];
+    var layout = {"width":600,"height":600,"template":{"layout":{"title":{"x":0.05},"font":{"color":"rgba(42, 63, 95, 1.0)"},"paper_bgcolor":"rgba(255, 255, 255, 1.0)","plot_bgcolor":"rgba(229, 236, 246, 1.0)","autotypenumbers":"strict","colorscale":{"diverging":[[0.0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1.0,"#276419"]],"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]},"hovermode":"closest","hoverlabel":{"align":"left"},"coloraxis":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"geo":{"showland":true,"landcolor":"rgba(229, 236, 246, 1.0)","showlakes":true,"lakecolor":"rgba(255, 255, 255, 1.0)","subunitcolor":"rgba(255, 255, 255, 1.0)","bgcolor":"rgba(255, 255, 255, 1.0)"},"mapbox":{"style":"light"},"polar":{"bgcolor":"rgba(229, 236, 246, 1.0)","radialaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""},"angularaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","ticks":""}},"scene":{"xaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"yaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true},"zaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","gridwidth":2.0,"zerolinecolor":"rgba(255, 255, 255, 1.0)","backgroundcolor":"rgba(229, 236, 246, 1.0)","showbackground":true}},"ternary":{"aaxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"baxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"caxis":{"ticks":"","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)"},"bgcolor":"rgba(229, 236, 246, 1.0)"},"xaxis":{"title":{"standoff":15},"ticks":"","automargin":"height+width+left+right+top+bottom","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"yaxis":{"title":{"standoff":15},"ticks":"","automargin":"height+width+left+right+top+bottom","linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","zerolinecolor":"rgba(255, 255, 255, 1.0)","zerolinewidth":2.0},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"shapedefaults":{"line":{"color":"rgba(42, 63, 95, 1.0)"}},"colorway":["rgba(99, 110, 250, 1.0)","rgba(239, 85, 59, 1.0)","rgba(0, 204, 150, 1.0)","rgba(171, 99, 250, 1.0)","rgba(255, 161, 90, 1.0)","rgba(25, 211, 243, 1.0)","rgba(255, 102, 146, 1.0)","rgba(182, 232, 128, 1.0)","rgba(255, 151, 255, 1.0)","rgba(254, 203, 82, 1.0)"]},"data":{"bar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"error_x":{"color":"rgba(42, 63, 95, 1.0)"},"error_y":{"color":"rgba(42, 63, 95, 1.0)"}}],"barpolar":[{"marker":{"line":{"color":"rgba(229, 236, 246, 1.0)","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"carpet":[{"aaxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"},"baxis":{"linecolor":"rgba(255, 255, 255, 1.0)","gridcolor":"rgba(255, 255, 255, 1.0)","endlinecolor":"rgba(42, 63, 95, 1.0)","minorgridcolor":"rgba(255, 255, 255, 1.0)","startlinecolor":"rgba(42, 63, 95, 1.0)"}}],"choropleth":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"heatmap":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmapgl":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}}}],"histogram2d":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"histogram2dcontour":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"colorbar":{"outlinewidth":0.0,"ticks":""}}],"parcoords":[{"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"pie":[{"automargin":true}],"scatter":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatter3d":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}},"line":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattercarpet":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergeo":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattergl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scattermapbox":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolar":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterpolargl":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"scatterternary":[{"marker":{"colorbar":{"outlinewidth":0.0,"ticks":""}}}],"surface":[{"colorbar":{"outlinewidth":0.0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"table":[{"cells":{"fill":{"color":"rgba(235, 240, 248, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}},"header":{"fill":{"color":"rgba(200, 212, 227, 1.0)"},"line":{"color":"rgba(255, 255, 255, 1.0)"}}}]}}};
+    var config = {"responsive":true};
+    Plotly.newPlot('f6da9d7f-a968-47c0-9519-c608648cc546', data, layout, config);
+};
+renderPlotly_f6da9d7fa96847c09519c608648cc546();
+</script></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Plotly</div>
+<div class="fsdocs-tip" id="fs2">namespace Plotly.NET</div>
+<div class="fsdocs-tip" id="fs3">module Defaults
+
+from Plotly.NET<br /><em>&lt;summary&gt;
+ Contains mutable global default values.
+
+ Changing these values will apply the default values to all consecutive Chart generations.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs4">val mutable DefaultDisplayOptions: DisplayOptions</div>
+<div class="fsdocs-tip" id="fs5">Multiple items<br />type DisplayOptions =
+  inherit DynamicObj
+  new: unit -&gt; DisplayOptions
+  static member addAdditionalHeadTags: additionalHeadTags: XmlNode list -&gt; (DisplayOptions -&gt; DisplayOptions)
+  static member addDescription: description: XmlNode list -&gt; (DisplayOptions -&gt; DisplayOptions)
+  static member combine: first: DisplayOptions -&gt; second: DisplayOptions -&gt; DisplayOptions
+  static member getAdditionalHeadTags: displayOpts: DisplayOptions -&gt; XmlNode list
+  static member getDescription: displayOpts: DisplayOptions -&gt; XmlNode list
+  static member getPlotlyReference: displayOpts: DisplayOptions -&gt; PlotlyJSReference
+  static member init: ?AdditionalHeadTags: XmlNode list * ?Description: XmlNode list * ?PlotlyJSReference: PlotlyJSReference -&gt; DisplayOptions
+  static member initCDNOnly: unit -&gt; DisplayOptions
+  ...<br /><br />--------------------<br />new: unit -&gt; DisplayOptions</div>
+<div class="fsdocs-tip" id="fs6">static member DisplayOptions.init: ?AdditionalHeadTags: Giraffe.ViewEngine.HtmlElements.XmlNode list * ?Description: Giraffe.ViewEngine.HtmlElements.XmlNode list * ?PlotlyJSReference: PlotlyJSReference -&gt; DisplayOptions</div>
+<div class="fsdocs-tip" id="fs7">type PlotlyJSReference =
+  | CDN of string
+  | Full
+  | Require of string
+  | NoReference<br /><em>&lt;summary&gt;
+Sets how plotly is referenced in the head of html docs.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs8">union case PlotlyJSReference.NoReference: PlotlyJSReference</div>
+<div class="fsdocs-tip" id="fs9">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs10">Multiple items<br />module DiGraph
+
+from Graphoscope<br /><br />--------------------<br />type DiGraph =
+  new: unit -&gt; DiGraph
+  static member addEdge: edge: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData) -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addNode: node: &#39;NodeKey -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member addNodes: nodes: &#39;NodeKey[] -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member countEdges: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member countNodes: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member createFromEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  static member createFromNodes: nodes: &#39;NodeKey[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)
+  ...<br /><br />--------------------<br />type DiGraph&lt;&#39;NodeKey,&#39;EdgeData (requires comparison)&gt; =
+  new: unit -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt;<br /><br />--------------------<br />new: unit -&gt; DiGraph<br /><br />--------------------<br />new: unit -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt;</div>
+<div class="fsdocs-tip" id="fs11">static member DiGraph.createFromEdges: edges: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData)[] -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs12">val emptyGraph: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs13">Multiple items<br />val int: value: &#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;<br />&lt;example id=&quot;int-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">Multiple items<br />val float: value: &#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;<br />&lt;example id=&quot;float-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure.
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs15">val empty&lt;&#39;NodeKey,&#39;EdgeData (requires comparison)&gt; : DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)<br /><em>&lt;summary&gt; 
+ Creates an empty DiGraph
+ &lt;/summary&gt;<br />&lt;returns&gt;Empty DiGraph&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs16">val edge: int * int * float</div>
+<div class="fsdocs-tip" id="fs17">val filledGraph: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs18">static member DiGraph.addNode: node: &#39;NodeKey -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs19">static member DiGraph.addEdge: edge: (&#39;NodeKey * &#39;NodeKey * &#39;EdgeData) -&gt; graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs20">val filledGraphNodes: string</div>
+<div class="fsdocs-tip" id="fs21">static member DiGraph.countNodes: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+<div class="fsdocs-tip" id="fs22">val sprintf: format: Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;<br />&lt;example&gt;See &lt;c&gt;Printf.sprintf&lt;/c&gt; (link: &lt;see cref=&quot;M:Microsoft.FSharp.Core.PrintfModule.PrintFormatToStringThen``1&quot; /&gt;) for examples.&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs23">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs24">Multiple items<br />namespace FSharp.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="fsdocs-tip" id="fs25">val getElementOfFile: fullpath: string -&gt; delimiter: string -&gt; headerRows: int -&gt; weightsIncluded: bool -&gt; seq&lt;int * int * int * int * float&gt;</div>
+<div class="fsdocs-tip" id="fs26">val fullpath: string</div>
+<div class="fsdocs-tip" id="fs27">Multiple items<br />val string: value: &#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;<br />&lt;example id=&quot;string-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs28">val delimiter: string</div>
+<div class="fsdocs-tip" id="fs29">val headerRows: int</div>
+<div class="fsdocs-tip" id="fs30">val weightsIncluded: bool</div>
+<div class="fsdocs-tip" id="fs31">[&lt;Struct&gt;]
+type bool = System.Boolean<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Boolean&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs32">val rows: seq&lt;CsvRow&gt;</div>
+<div class="fsdocs-tip" id="fs33">type CsvFile =
+  inherit CsvFile&lt;CsvRow&gt;
+  member GetColumnIndex: columnName: string -&gt; int
+  member TryGetColumnIndex: columnName: string -&gt; int option
+  static member AsyncLoad: uri: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int * ?encoding: Encoding -&gt; Async&lt;CsvFile&gt;
+  static member Load: stream: Stream * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile + 2 overloads
+  static member Parse: text: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br /><em>&lt;summary&gt;
+ Represents a CSV file. The lines are read on demand from &lt;c&gt;reader&lt;/c&gt;.
+ Columns are delimited by one of the chars passed by &lt;c&gt;separators&lt;/c&gt; (defaults to just &lt;c&gt;,&lt;/c&gt;), and
+ to escape the separator chars, the &lt;c&gt;quote&lt;/c&gt; character will be used (defaults to &lt;c&gt;&quot;&lt;/c&gt;).
+ If &lt;c&gt;hasHeaders&lt;/c&gt; is true (the default), the first line read by &lt;c&gt;reader&lt;/c&gt; will not be considered part of data.
+ If &lt;c&gt;ignoreErrors&lt;/c&gt; is true (the default is false), rows with a different number of columns from the header row
+ (or the first row if headers are not present) will be ignored.
+ The first &lt;c&gt;skipRows&lt;/c&gt; lines will be skipped.
+ &lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">static member CsvFile.Load: reader: System.IO.TextReader * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br />static member CsvFile.Load: stream: System.IO.Stream * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br />static member CsvFile.Load: uri: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int * ?encoding: System.Text.Encoding -&gt; CsvFile</div>
+<div class="fsdocs-tip" id="fs35">module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs36">val map: mapping: (&#39;T -&gt; &#39;U) -&gt; source: seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However,
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;example id=&quot;item-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ let inputs = [&quot;a&quot;; &quot;bbb&quot;; &quot;cc&quot;]
+
+ inputs |&amp;gt; Seq.map (fun x -&amp;gt; x.Length)
+ &lt;/code&gt;
+ Evaluates to a sequence yielding the same results as &lt;c&gt;seq { 1; 3; 2 }&lt;/c&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs37">val row: CsvRow</div>
+<div class="fsdocs-tip" id="fs38">val file: string</div>
+<div class="fsdocs-tip" id="fs39">val monkeyGraph: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs40">static member DiGraph.ofSeq: edgelist: seq&lt;&#39;NodeKey * &#39;NodeData * &#39;NodeKey * &#39;NodeData * &#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs41">val outputMonkeyGraph: string</div>
+<div class="fsdocs-tip" id="fs42">static member DiGraph.countEdges: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+<div class="fsdocs-tip" id="fs43">namespace Graphoscope.Measures</div>
+<div class="fsdocs-tip" id="fs44">Multiple items<br />type Degree =
+  new: unit -&gt; Degree
+  static member average: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison) + 2 overloads
+  static member averageofDiGraph: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison)
+  static member averageofFGraph: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; float (requires comparison)
+  static member averageofUndirectedGraph: graph: UndirectedGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison)
+  static member distribution: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; seq&lt;float&gt; (requires comparison) + 1 overload
+  static member distributionOfFGraph: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; seq&lt;float&gt; (requires comparison)
+  static member distributionofDiGraph: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; seq&lt;float&gt; (requires comparison)
+  static member maximum: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison) + 1 overload
+  static member maximumOfDiGraph: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison)
+  ...<br /><br />--------------------<br />new: unit -&gt; Measures.Degree</div>
+<div class="fsdocs-tip" id="fs45">static member Measures.Degree.average: graph: Graph.UndirectedGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison)<br />static member Measures.Degree.average: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; float (requires comparison)<br />static member Measures.Degree.average: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; float (requires comparison)</div>
+<div class="fsdocs-tip" id="fs46">val karateFile: string</div>
+<div class="fsdocs-tip" id="fs47">val karateGraph: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs48">val g: DiGraph&lt;int,float&gt;</div>
+<div class="fsdocs-tip" id="fs49">val iter: action: (&#39;T -&gt; unit) -&gt; source: seq&lt;&#39;T&gt; -&gt; unit<br /><em>&lt;summary&gt;Applies the given function to each element of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;action&quot;&gt;A function to apply to each element of the sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;example id=&quot;iter-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ [&quot;a&quot;; &quot;b&quot;; &quot;c&quot;] |&amp;gt; Seq.iter (printfn &quot;%s&quot;)
+ &lt;/code&gt;
+ Evaluates to &lt;c&gt;unit&lt;/c&gt; and prints
+ &lt;code&gt;
+ a
+ b
+ c
+ &lt;/code&gt;
+ in the console.
+ &lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs50">val s1: int</div>
+<div class="fsdocs-tip" id="fs51">val s2: int</div>
+<div class="fsdocs-tip" id="fs52">val t1: int</div>
+<div class="fsdocs-tip" id="fs53">val t2: int</div>
+<div class="fsdocs-tip" id="fs54">val w: float</div>
+<div class="fsdocs-tip" id="fs55">static member DiGraph.addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs56">val ignore: value: &#39;T -&gt; unit<br /><em>&lt;summary&gt;Ignore the passed value. This is often used to throw away results of a computation.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The value to ignore.&lt;/param&gt;<br />&lt;example id=&quot;min-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+  ignore 55555   //  Evaluates to ()
+ &lt;/code&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs57">val karateOutput: string</div>
+<div class="fsdocs-tip" id="fs58">val monkeyAdjacencyMatrix: float[][]</div>
+<div class="fsdocs-tip" id="fs59">static member DiGraph.toMatrix: graph: DiGraph&lt;&#39;NodeKey,float&gt; -&gt; float[][] (requires comparison)</div>
+<div class="fsdocs-tip" id="fs60">static member Measures.Degree.distribution: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; seq&lt;float&gt; (requires comparison)<br />static member Measures.Degree.distribution: graph: DiGraph&lt;&#39;NodeKey,&#39;EdgeData&gt; -&gt; seq&lt;float&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs61">type Chart =
+  static member AnnotatedHeatmap: zData: seq&lt;#seq&lt;&#39;a1&gt;&gt; * annotationText: seq&lt;#seq&lt;string&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?X: seq&lt;&#39;a3&gt; * ?MultiX: seq&lt;seq&lt;&#39;a3&gt;&gt; * ?XGap: int * ?Y: seq&lt;&#39;a4&gt; * ?MultiY: seq&lt;seq&lt;&#39;a4&gt;&gt; * ?YGap: int * ?Text: &#39;a5 * ?MultiText: seq&lt;&#39;a5&gt; * ?ColorBar: ColorBar * ?ColorScale: Colorscale * ?ShowScale: bool * ?ReverseScale: bool * ?ZSmooth: SmoothAlg * ?Transpose: bool * ?UseWebGL: bool * ?ReverseYAxis: bool * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a3 :&gt; IConvertible and &#39;a4 :&gt; IConvertible and &#39;a5 :&gt; IConvertible) + 1 overload
+  static member Area: x: seq&lt;#IConvertible&gt; * y: seq&lt;#IConvertible&gt; * ?ShowMarkers: bool * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?MultiOpacity: seq&lt;float&gt; * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?TextPosition: TextPosition * ?MultiTextPosition: seq&lt;TextPosition&gt; * ?MarkerColor: Color * ?MarkerColorScale: Colorscale * ?MarkerOutline: Line * ?MarkerSymbol: MarkerSymbol * ?MultiMarkerSymbol: seq&lt;MarkerSymbol&gt; * ?Marker: Marker * ?LineColor: Color * ?LineColorScale: Colorscale * ?LineWidth: float * ?LineDash: DrawingStyle * ?Line: Line * ?AlignmentGroup: string * ?OffsetGroup: string * ?StackGroup: string * ?Orientation: Orientation * ?GroupNorm: GroupNorm * ?FillColor: Color * ?FillPatternShape: PatternShape * ?FillPattern: Pattern * ?UseWebGL: bool * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
+  static member Bar: values: seq&lt;#IConvertible&gt; * ?Keys: seq&lt;&#39;a1&gt; * ?MultiKeys: seq&lt;seq&lt;&#39;a1&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?MultiOpacity: seq&lt;float&gt; * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?MarkerColor: Color * ?MarkerColorScale: Colorscale * ?MarkerOutline: Line * ?MarkerPatternShape: PatternShape * ?MultiMarkerPatternShape: seq&lt;PatternShape&gt; * ?MarkerPattern: Pattern * ?Marker: Marker * ?Base: #IConvertible * ?Width: &#39;a4 * ?MultiWidth: seq&lt;&#39;a4&gt; * ?TextPosition: TextPosition * ?MultiTextPosition: seq&lt;TextPosition&gt; * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  static member BoxPlot: ?X: seq&lt;&#39;a0&gt; * ?MultiX: seq&lt;seq&lt;&#39;a0&gt;&gt; * ?Y: seq&lt;&#39;a1&gt; * ?MultiY: seq&lt;seq&lt;&#39;a1&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?FillColor: Color * ?MarkerColor: Color * ?Marker: Marker * ?Opacity: float * ?WhiskerWidth: float * ?BoxPoints: BoxPoints * ?BoxMean: BoxMean * ?Jitter: float * ?PointPos: float * ?Orientation: Orientation * ?OutlineColor: Color * ?OutlineWidth: float * ?Outline: Line * ?AlignmentGroup: string * ?OffsetGroup: string * ?Notched: bool * ?NotchWidth: float * ?QuartileMethod: QuartileMethod * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a0 :&gt; IConvertible and &#39;a1 :&gt; IConvertible and &#39;a2 :&gt; IConvertible) + 2 overloads
+  static member Bubble: x: seq&lt;#IConvertible&gt; * y: seq&lt;#IConvertible&gt; * sizes: seq&lt;int&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?MultiOpacity: seq&lt;float&gt; * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?TextPosition: TextPosition * ?MultiTextPosition: seq&lt;TextPosition&gt; * ?MarkerColor: Color * ?MarkerColorScale: Colorscale * ?MarkerOutline: Line * ?MarkerSymbol: MarkerSymbol * ?MultiMarkerSymbol: seq&lt;MarkerSymbol&gt; * ?Marker: Marker * ?LineColor: Color * ?LineColorScale: Colorscale * ?LineWidth: float * ?LineDash: DrawingStyle * ?Line: Line * ?AlignmentGroup: string * ?OffsetGroup: string * ?StackGroup: string * ?Orientation: Orientation * ?GroupNorm: GroupNorm * ?UseWebGL: bool * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible) + 1 overload
+  static member Candlestick: ``open`` : seq&lt;#IConvertible&gt; * high: seq&lt;#IConvertible&gt; * low: seq&lt;#IConvertible&gt; * close: seq&lt;#IConvertible&gt; * ?X: seq&lt;&#39;a4&gt; * ?MultiX: seq&lt;seq&lt;&#39;a4&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?Text: &#39;a5 * ?MultiText: seq&lt;&#39;a5&gt; * ?Line: Line * ?IncreasingColor: Color * ?Increasing: FinanceMarker * ?DecreasingColor: Color * ?Decreasing: FinanceMarker * ?WhiskerWidth: float * ?ShowXAxisRangeSlider: bool * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a4 :&gt; IConvertible and &#39;a5 :&gt; IConvertible) + 2 overloads
+  static member Column: values: seq&lt;#IConvertible&gt; * ?Keys: seq&lt;&#39;a1&gt; * ?MultiKeys: seq&lt;seq&lt;&#39;a1&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?MultiOpacity: seq&lt;float&gt; * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?MarkerColor: Color * ?MarkerColorScale: Colorscale * ?MarkerOutline: Line * ?MarkerPatternShape: PatternShape * ?MultiMarkerPatternShape: seq&lt;PatternShape&gt; * ?MarkerPattern: Pattern * ?Marker: Marker * ?Base: #IConvertible * ?Width: &#39;a4 * ?MultiWidth: seq&lt;&#39;a4&gt; * ?TextPosition: TextPosition * ?MultiTextPosition: seq&lt;TextPosition&gt; * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a2 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  static member Contour: zData: seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?X: seq&lt;&#39;a2&gt; * ?MultiX: seq&lt;seq&lt;&#39;a2&gt;&gt; * ?Y: seq&lt;&#39;a3&gt; * ?MultiY: seq&lt;seq&lt;&#39;a3&gt;&gt; * ?Text: &#39;a4 * ?MultiText: seq&lt;&#39;a4&gt; * ?ColorBar: ColorBar * ?ColorScale: Colorscale * ?ShowScale: bool * ?ReverseScale: bool * ?Transpose: bool * ?ContourLineColor: Color * ?ContourLineDash: DrawingStyle * ?ContourLineSmoothing: float * ?ContourLine: Line * ?ContoursColoring: ContourColoring * ?ContoursOperation: ConstraintOperation * ?ContoursType: ContourType * ?ShowContourLabels: bool * ?ContourLabelFont: Font * ?Contours: Contours * ?FillColor: Color * ?NContours: int * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a2 :&gt; IConvertible and &#39;a3 :&gt; IConvertible and &#39;a4 :&gt; IConvertible)
+  static member Funnel: x: seq&lt;#IConvertible&gt; * y: seq&lt;#IConvertible&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?Width: float * ?Offset: float * ?Text: &#39;a2 * ?MultiText: seq&lt;&#39;a2&gt; * ?TextPosition: TextPosition * ?MultiTextPosition: seq&lt;TextPosition&gt; * ?Orientation: Orientation * ?AlignmentGroup: string * ?OffsetGroup: string * ?MarkerColor: Color * ?MarkerOutline: Line * ?Marker: Marker * ?TextInfo: TextInfo * ?ConnectorLineColor: Color * ?ConnectorLineStyle: DrawingStyle * ?ConnectorFillColor: Color * ?ConnectorLine: Line * ?Connector: FunnelConnector * ?InsideTextFont: Font * ?OutsideTextFont: Font * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a2 :&gt; IConvertible)
+  static member Heatmap: zData: seq&lt;#seq&lt;&#39;a1&gt;&gt; * ?X: seq&lt;&#39;a2&gt; * ?MultiX: seq&lt;seq&lt;&#39;a2&gt;&gt; * ?Y: seq&lt;&#39;a3&gt; * ?MultiY: seq&lt;seq&lt;&#39;a3&gt;&gt; * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?XGap: int * ?YGap: int * ?Text: &#39;a4 * ?MultiText: seq&lt;&#39;a4&gt; * ?ColorBar: ColorBar * ?ColorScale: Colorscale * ?ShowScale: bool * ?ReverseScale: bool * ?ZSmooth: SmoothAlg * ?Transpose: bool * ?UseWebGL: bool * ?ReverseYAxis: bool * ?UseDefaults: bool -&gt; GenericChart (requires &#39;a1 :&gt; IConvertible and &#39;a2 :&gt; IConvertible and &#39;a3 :&gt; IConvertible and &#39;a4 :&gt; IConvertible) + 1 overload
+  ...</div>
+<div class="fsdocs-tip" id="fs62">static member Chart.Histogram: data: seq&lt;#System.IConvertible&gt; * orientation: StyleParam.Orientation * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?Text: &#39;a1 * ?MultiText: seq&lt;&#39;a1&gt; * ?HistFunc: StyleParam.HistFunc * ?HistNorm: StyleParam.HistNorm * ?AlignmentGroup: string * ?OffsetGroup: string * ?NBinsX: int * ?NBinsY: int * ?BinGroup: string * ?XBins: TraceObjects.Bins * ?YBins: TraceObjects.Bins * ?MarkerColor: Color * ?Marker: TraceObjects.Marker * ?Line: Line * ?XError: TraceObjects.Error * ?YError: TraceObjects.Error * ?Cumulative: TraceObjects.Cumulative * ?HoverLabel: LayoutObjects.Hoverlabel * ?UseDefaults: bool -&gt; GenericChart.GenericChart (requires &#39;a1 :&gt; System.IConvertible)<br />static member Chart.Histogram: ?X: seq&lt;&#39;a&gt; * ?MultiX: seq&lt;seq&lt;&#39;a&gt;&gt; * ?Y: seq&lt;&#39;b&gt; * ?MultiY: seq&lt;seq&lt;&#39;b&gt;&gt; * ?Orientation: StyleParam.Orientation * ?Name: string * ?ShowLegend: bool * ?Opacity: float * ?Text: &#39;c * ?MultiText: seq&lt;&#39;c&gt; * ?TextPosition: StyleParam.TextPosition * ?HistFunc: StyleParam.HistFunc * ?HistNorm: StyleParam.HistNorm * ?AlignmentGroup: string * ?OffsetGroup: string * ?NBinsX: int * ?NBinsY: int * ?BinGroup: string * ?XBins: TraceObjects.Bins * ?YBins: TraceObjects.Bins * ?MarkerColor: Color * ?MarkerColorScale: StyleParam.Colorscale * ?MarkerOutline: Line * ?MarkerPatternShape: StyleParam.PatternShape * ?MultiMarkerPatternShape: seq&lt;StyleParam.PatternShape&gt; * ?MarkerPattern: TraceObjects.Pattern * ?Marker: TraceObjects.Marker * ?Line: Line * ?XError: TraceObjects.Error * ?YError: TraceObjects.Error * ?Cumulative: TraceObjects.Cumulative * ?HoverLabel: LayoutObjects.Hoverlabel * ?UseDefaults: bool -&gt; GenericChart.GenericChart (requires &#39;a :&gt; System.IConvertible and &#39;b :&gt; System.IConvertible and &#39;c :&gt; System.IConvertible)</div>
+<div class="fsdocs-tip" id="fs63">module GenericChart
+
+from Plotly.NET<br /><em>&lt;summary&gt;
+ Module to represent a GenericChart
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs64">val toChartHTML: gChart: GenericChart.GenericChart -&gt; string</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://github.com/fslaborg/Graphoscope/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="https://github.com/fslaborg/Graphoscope/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>

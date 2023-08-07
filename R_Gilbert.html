@@ -3,12 +3,12 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Getting Started</title>
+    <title>Gilbert</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
 
     <!--Opengraph properties (https://ogp.me/)-->
-    <meta property="og:title" content="Getting Started" />
+    <meta property="og:title" content="Gilbert" />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Plotly.NET" />
 
@@ -148,29 +148,57 @@
             <div class="section pt-4">
                 <div class="container" id="fsdocs-content">
                     
-<h1><a name="Graphoscope" class="anchor" href="#Graphoscope">Graphoscope</a></h1>
-<p>The Graphoscope project aims to provide a rigorous and performant tool for Network Science.
-It is aimed at anyone who works with Graphs/Networks and does not require a strong knowledge of F# to get started.</p>
-<h1><a name="Getting-Started" class="anchor" href="#Getting-Started">Getting Started</a></h1>
-<h2><a name="Prerequisites" class="anchor" href="#Prerequisites">Prerequisites</a></h2>
-<p>To set up a dev environment, we recommend <a href="https://code.visualstudio.com/">VSCode</a> with the <a href="https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp">Ionide</a> plugin<br />
-You will also need <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0">DotNet 6</a> installed.</p>
-<p>The library is designed primarily for use in an fsharp scripting environment using .fsx files.
-But it also works well in <a href="https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.dotnet-interactive-vscode">notebooks</a>.
-This <a href="https://www.youtube.com/watch?v=1ROKvmcOloo&amp;list=PLdo4fOcmZ0oUFghYOp89baYFBTGxUkC7Z&amp;index=3">video</a> has a good walk through of setting your environment.</p>
-<h1><a name="Contributing-and-copyright" class="anchor" href="#Contributing-and-copyright">Contributing and copyright</a></h1>
-<p>The project is hosted on <a href="https://github.com/fslaborg/Graphoscope">GitHub</a> where you can <a href="https://github.com/fslaborg/Graphoscope/issues">report issues</a>, fork
-the project and submit pull requests. If you're adding a new public API, please also
-consider adding <a href="https://github.com/fslaborg/Graphoscope/tree/main/docs">samples</a> that can be turned into a documentation. You might
-also want to read the <a href="https://github.com/fslaborg/Graphoscope/blob/main/README.md">library design notes</a> to understand how it works.</p>
-<p>The library is available under the OSI-approved MIT license, which allows modification and
-redistribution for both commercial and non-commercial purposes. For more information see the
-<a href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License file</a> in the GitHub repository.</p>
+<h1><a name="Random-graph-models" class="anchor" href="#Random-graph-models">Random graph models</a></h1>
+<h2><a name="Gilbert-model" class="anchor" href="#Gilbert-model">Gilbert model</a></h2>
+<p>The gilbert model (or G(N,p) model) was introduced by Edgar Gilbert in 1959. In this model, you assign a fixed amount of vertices N and a probability p.
+p denotes the probality, that edge between two vertices exists or not.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Graphoscope</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 2)" onmouseover="showTip(event, 'fs1', 2)" class="id">Graphoscope</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs2', 3)" onmouseover="showTip(event, 'fs2', 3)" class="id">RandomModels</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 4)" onmouseover="showTip(event, 'fs3', 4)" class="id">N</span> <span class="o">=</span> <span class="n">50</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="id">p</span> <span class="o">=</span> <span class="n">0.5</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="id">myGilbertGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="rt">Gilbert</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">initDirectedFGraph</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="id">N</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="id">p</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"You have created a graph with 50 nodes and 1179 edges"</code></pre></td></tr></table>
 
                 </div>
             </div>
         </div>
-        
+        <div class="fsdocs-tip" id="fs1">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs2">namespace Graphoscope.RandomModels</div>
+<div class="fsdocs-tip" id="fs3">val N: int</div>
+<div class="fsdocs-tip" id="fs4">val p: float</div>
+<div class="fsdocs-tip" id="fs5">val myGilbertGraph: FGraph&lt;int,int,float&gt;</div>
+<div class="fsdocs-tip" id="fs6">Multiple items<br />type Gilbert =
+  new: unit -&gt; Gilbert
+  static member initDirectedAdjGraph: numberOfNodes: int -&gt; probability: float -&gt; AdjGraph&lt;int,int,int&gt;
+  static member initDirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;
+  static member initUndirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;<br /><em>&lt;summary&gt;
+ Returns an ArrayAdjacencyGraph that is generated randomly with the given parameters.
+
+ numberOfNodes indicates the number of vertices the final graph will have. 
+ probability represents the probability of an edge between 2 vertices.   
+&lt;/summary&gt;</em><br /><br />--------------------<br />new: unit -&gt; Gilbert</div>
+<div class="fsdocs-tip" id="fs7">static member Gilbert.initDirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;</div>
+<div class="fsdocs-tip" id="fs8">val g: string</div>
+<div class="fsdocs-tip" id="fs9">val sprintf: format: Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;<br />&lt;example&gt;See &lt;c&gt;Printf.sprintf&lt;/c&gt; (link: &lt;see cref=&quot;M:Microsoft.FSharp.Core.PrintfModule.PrintFormatToStringThen``1&quot; /&gt;) for examples.&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs10">Multiple items<br />module FGraph
+
+from Graphoscope<br /><br />--------------------<br />type FGraph =
+  new: unit -&gt; FGraph
+  static member addEdge: nk1: &#39;NodeKey -&gt; nk2: &#39;NodeKey -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addEdges: edgeSeq: seq&lt;&#39;NodeKey * &#39;NodeKey * &#39;EdgeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member containsEdge: v1: &#39;NodeKey -&gt; v2: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member containsNode: vk: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  ...<br /><br />--------------------<br />type FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; = System.Collections.Generic.Dictionary&lt;&#39;NodeKey,FContext&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt;&gt;<br /><br />--------------------<br />new: unit -&gt; FGraph</div>
+<div class="fsdocs-tip" id="fs11">static member FGraph.countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+<div class="fsdocs-tip" id="fs12">static member FGraph.countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+
     </div>
 
     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
