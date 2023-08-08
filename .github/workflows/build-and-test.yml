@@ -42,9 +42,5 @@ jobs:
     - name: Build and test
       working-directory: ./
       run: ./build.cmd runtests
-on:
-  push:
-    branches: [ developer ]
-  pull_request:
-    branches: [ developer ]
+
 
