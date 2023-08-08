@@ -2,9 +2,9 @@ name: Build and test
 
 on:
   push:
-    branches: [ main ]
+    branches: [ developer ]
   pull_request:
-    branches: [ main ]
+    branches: [ developer ]
 
 
 jobs:
@@ -22,7 +22,12 @@ jobs:
       run: chmod u+x build.sh
     - name: Build and test
       working-directory: ./
-      run: ./build.sh runtests
+      run: ./build.sh runTestsWithCodeCov
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        directory: "./TestResults/"
+        token: ${{ secrets.CODECOV_TOKEN }}
 
   build-and-test-windows:
     
@@ -37,3 +42,9 @@ jobs:
     - name: Build and test
       working-directory: ./
       run: ./build.cmd runtests
+on:
+  push:
+    branches: [ developer ]
+  pull_request:
+    branches: [ developer ]
+
