@@ -32,24 +32,24 @@ Step 1 is the loading of our [example graph](http://konect.cc/networks/moreno_rh
 open Graphoscope
 open FSharpAux.IO
 open FSharpAux.IO.SchemaReader.Attribute
-type MonkeyEdge = {
-    [<Field(0)>] Source  : int
-    [<Field(1)>] Target  : int
-    [<Field(2)>] Groomed : int
-}
-let monkeyGraph =
-    Seq.fromFileWithCsvSchema<MonkeyEdge>(@"tests\Graphoscope.Tests\ReferenceGraphs\out.moreno_rhesus_rhesus.txt",' ',false,skipLines=2 )
-    |> Seq.map (fun mke ->
-        mke.Source, sprintf "Monkey_%i" mke.Source,mke.Target,sprintf "Monkey_%i" mke.Target,float mke.Groomed)
+open FSharp.Data
+
+let file = __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/out.moreno_rhesus_rhesus.txt"
+
+let monkeyGraphLoop =
+    CsvFile.Load(file, " ", skipRows = 2, hasHeaders = false).Rows
+    |> Seq.map (fun row -> 
+                int row[0],int row[0], int row[1],int row[1], float row[2])
     |> FGraph.ofSeq
+
 (**
 ## Loops
 The loop count of a graph, also known as the number of self-loops, refers to the number of edges in the graph that connect a node to itself. 
 While some may consider self-loops as noise or artifacts, in other cases, they offer valuable insights into the system being modeled and form an integral part of the graph's structure.
 *)
 
-let loopCount = Measures.Loop.loopCount monkeyGraph
+let loopCount = Measures.Loop.loopCount monkeyGraphLoop
 
-(***hide***)
+(***hide***) 
 let loop = sprintf "The graph has %i loops"loopCount
 (*** include-value: loop ***)

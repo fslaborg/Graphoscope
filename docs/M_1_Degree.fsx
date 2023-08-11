@@ -31,27 +31,27 @@ Whether you are exploring social connections, optimizing communication pathways,
 ## Reading a complete graph representation
 Step 1 is the loading of our [example graph](http://konect.cc/networks/moreno_rhesus/), sourced from [The KONECT Project](http://konect.cc) describing the grooming interactions between rhesus monkeys.
 *)
-(***hide***)
 open Graphoscope
 open Plotly.NET
 open FSharpAux.IO
+open FSharp.Data
 open FSharpAux.IO.SchemaReader.Attribute
-type MonkeyEdge = {
-    [<Field(0)>] Source  : int
-    [<Field(1)>] Target  : int
-    [<Field(2)>] Groomed : int
-}
-let monkeyGraph =
-    Seq.fromFileWithCsvSchema<MonkeyEdge>(@"tests\Graphoscope.Tests\ReferenceGraphs\out.moreno_rhesus_rhesus.txt",' ',false,skipLines=2 )
-    |> Seq.map (fun mke ->
-        mke.Source, sprintf "Monkey_%i" mke.Source,mke.Target,sprintf "Monkey_%i" mke.Target,float mke.Groomed)
+
+(***hide***)
+let file = __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/out.moreno_rhesus_rhesus.txt"
+
+let monkeyGraphDeg =
+    CsvFile.Load(file, " ", skipRows = 2, hasHeaders = false).Rows
+    |> Seq.map (fun row -> 
+                int row[0],int row[0], int row[1],int row[1], float row[2])
     |> FGraph.ofSeq
-let monkeyGraph2 =
-    let g = DiGraph.empty<int,float>
-    Seq.fromFileWithCsvSchema<MonkeyEdge>(@"tests\Graphoscope.Tests\ReferenceGraphs\out.moreno_rhesus_rhesus.txt",' ',false,skipLines=2 )
-    |> Seq.iter (fun mke ->
-        DiGraph.addElement mke.Source  (mke.Source) mke.Target (mke.Target) (float mke.Groomed) g|>ignore)
-    g
+
+let monkeyGraph2Deg = 
+  
+  CsvFile.Load(file, " ", skipRows = 2, hasHeaders = false).Rows
+  |> Seq.map (fun row -> 
+              int row[0],int row[0], int row[1],int row[1], float row[2])
+  |> DiGraph.ofSeq
 
 (**
 ## Degree
@@ -63,8 +63,10 @@ The degree is a basic measure that provides valuable information about the topol
 The average degree (also known as the average node degree or average connectivity) of a graph is a measure that indicates, on average, how many connections each node has in the network.
 *)
 
-let averageDegreeMokeyGraph     = Measures.Degree.average monkeyGraph
-let averageDegreeMokeyGraph2    = Measures.Degree.average monkeyGraph2
+let averageDegreeMokeyGraph     = Measures.Degree.average monkeyGraphDeg
+
+let averageDegreeMokeyGraph2    = Measures.Degree.average monkeyGraph2Deg
+
 
 (***hide***)
 let avD = sprintf "The average degree is %f for FGraph and %f fOr DiGraph" (averageDegreeMokeyGraph) (averageDegreeMokeyGraph2)
@@ -76,7 +78,7 @@ The maximum degree of a graph provides insights into the importance of highly co
 Understanding hubs is crucial for analyzing network resilience, efficiency, and vulnerability
 *)
 
-let maxDregree = Measures.Degree.maximum monkeyGraph
+let maxDregree = Measures.Degree.maximum monkeyGraphDeg
 
 (***hide***)
 let maxD = sprintf "The maximal degree is %i" (maxDregree)
@@ -88,7 +90,7 @@ Degree distribution is an important concept in graph theory and network science 
 It provides valuable insights into the connectivity and structure of networks and plays a crucial role in understanding various aspects of complex systems.
 *)
 
-Measures.Degree.distribution monkeyGraph
+Measures.Degree.distribution monkeyGraphDeg
 |> Chart.Histogram
 |> GenericChart.toChartHTML
 (***include-it-raw***)
