@@ -38,7 +38,7 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
     static member distribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.distributionOfFGraph
+        InDegree.distributionOfFGraph graph
 
     /// <summary> 
     /// Returns the in-degree distribution of the graph
@@ -46,7 +46,7 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
     static member distribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        InDegree.distributionOfDiGraph
+        InDegree.distributionOfDiGraph graph
 
 
 
