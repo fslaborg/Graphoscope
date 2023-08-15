@@ -23,13 +23,16 @@ type OutDegree() =
         |> FGraph.mapContexts FContext.outwardDegree
         |> Seq.map (fun (_,d) -> float d)
 
-    //TODO
     /// <summary> 
-    /// Returns the out-degree distribution of the graph
+    /// Returns the out-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of out-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    /// <returns>An array of out-degree values in descending order</returns>
+    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
+        graph.OutEdges
+        |> ResizeArray.map(fun x -> x.Count)
+        |> ResizeArray.toArray
+        |> Array.sortDescending
 
 
     /// <summary> 
@@ -41,12 +44,12 @@ type OutDegree() =
         OutDegree.distributionOfFGraph graph
 
     /// <summary> 
-    /// Returns the out-degree distribution of the graph
+    /// Returns the out-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of out-degree values</returns>
-    static member distribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        OutDegree.distributionOfDiGraph graph
+    /// <returns>An array of out-degree values in descending order</returns>
+    static member sequence(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+        OutDegree.sequenceOfDiGraph graph
 
 
 
@@ -67,7 +70,6 @@ type OutDegree() =
         |> FGraph.mapContexts FContext.outwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
     
-    //TODO
     /// <summary> 
     /// Get the mean out-degree of the graph. 
     /// This is an undirected measure so inbound links add to a nodes out-degree.
@@ -75,7 +77,8 @@ type OutDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        System.NotImplementedException() |> raise
+        graph.OutEdges
+        |> Seq.averageBy(fun x -> float x.Count)
    
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -114,13 +117,15 @@ type OutDegree() =
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
 
-    //TODO
     /// <summary> 
     /// Get the max out-degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+        graph.OutEdges
+        |> ResizeArray.map(fun x -> x.Count)
+        |> ResizeArray.max
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -157,13 +162,16 @@ type OutDegree() =
         |> Seq.minBy (fun (_,d) -> float d) 
         |> snd 
 
-    //TODO
     /// <summary> 
     /// Get the min out-degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = 
+        graph.OutEdges
+        |> ResizeArray.minBy(fun x -> x.Count)
+        |> ResizeArray.length
+
 
     /// <summary> 
     /// Get the min out-degree of the graph. 
