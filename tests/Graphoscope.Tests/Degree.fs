@@ -56,6 +56,34 @@ let ``Monkey FGraph has correct measures`` () =
     Assert.Equal(12,(Measures.InDegree.maximum monkeyGraph)) 
     Assert.Equal(10,(Measures.OutDegree.maximum monkeyGraph)) 
 
+[<Fact>]
+let ``Monkey DiGraph has correct measures`` () =
+    
+    //measures taken from http://konect.cc/networks/moreno_rhesus/
+    let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
+     
+    let monkeyGraph = 
+        File.ReadLines file
+        |> Seq.skip 2 
+        |> Seq.map 
+            (fun str -> 
+                let arr = str.Split(' ')
+                int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
+        |> DiGraph.ofSeq
+
+    let degreeAverage = 13.8750
+    let degreeMax = 20
+    let degreeMin = 4
+    let degreeSequence = [|20; 20; 19; 19; 18; 18; 16; 15; 15; 15; 11; 9; 8; 8; 7; 4|]
+
+    let monkeySequence = Measures.Degree.sequence monkeyGraph
+
+    Assert.Equal(degreeAverage,(Measures.Degree.average monkeyGraph)) 
+    Assert.Equal(degreeMax,(Measures.Degree.maximum monkeyGraph)) 
+    Assert.Equal(degreeMin,(Measures.Degree.minimum monkeyGraph)) 
+    Assert.Equal<int>(degreeSequence, monkeySequence)
+    Assert.Equal(12,(Measures.InDegree.maximum monkeyGraph)) 
+    Assert.Equal(10,(Measures.OutDegree.maximum monkeyGraph)) 
 
 [<Fact>]
 let `` Simple FGraph has correct In and Out Degree Measures`` () =
@@ -105,3 +133,37 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
     Assert.Equal(minIn,(Measures.OutDegree.minimum outGraph)) 
     Assert.True(((Set.intersect distOutDegree distIn) = distIn))
     Assert.True(((Set.intersect distIn distOutDegree) = distIn))
+
+
+
+[<Fact>]
+let `` Simple DiGraph has correct In and Out Degree Measures`` () =
+    // InDegree //
+
+    let elementsInGraph = 
+        seq
+            {
+                0,0,1,1,1
+                1,1,2,2,1
+                2,2,3,3,1
+                3,3,4,4,1
+                4,4,0,0,1
+            }
+
+    let graph = DiGraph.ofSeq elementsInGraph
+    
+    let averageDegreeIn = 1.
+    let maxIn = 1.
+    let minIn = 1.
+    let distIn = [|1; 1; 1; 1; 1;|]
+    let distOut = [|1; 1; 1; 1; 1;|]
+
+    let distInDegree = Measures.InDegree.sequence graph
+    let distOutDegree = Measures.OutDegree.sequence graph
+
+    Assert.Equal(averageDegreeIn,(Measures.InDegree.average graph)) 
+    Assert.Equal(maxIn,(Measures.InDegree.maximum graph)) 
+    Assert.Equal(minIn,(Measures.InDegree.minimum graph)) 
+    Assert.Equal<int>(distInDegree, distIn)
+    Assert.Equal<int>(distOutDegree, distOut)
+
