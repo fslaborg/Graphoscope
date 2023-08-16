@@ -23,7 +23,7 @@ let ``Monkey graph import has correct measures`` () =
         |> FGraph.ofSeq
     
     //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
-    Assert.Equal(0.925,(Measures.GraphDensity.ofFGraph monkeyGraph)) 
+    Assert.Equal(0.925,(Measures.GraphDensity.ofUndirectedFGraph monkeyGraph)) 
     //Assert.Equal(13.8750,(Measures.GraphDensity.ofFGraph monkeyGraph)) 
     
 [<Fact>]
@@ -37,4 +37,4 @@ let ``Fully connected graph has correct measures`` () =
 
     let g = FGraph.empty|>FGraph.addNodes (nodes|>List.map(fun x -> x,x))|>FGraph.addEdges edges
  
-    Assert.Equal(1.,(Measures.GraphDensity.ofFGraph g)) 
+    Assert.Equal(1.,(Measures.GraphDensity.ofUndirectedFGraph g)) 
