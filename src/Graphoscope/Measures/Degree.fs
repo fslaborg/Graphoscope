@@ -14,14 +14,15 @@ type Degree() =
 
 
     /// <summary> 
-    /// Returns the degree distribution of the graph
+    /// Returns the degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of degree values</returns>
-    static member distributionOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         graph
         |> FGraph.mapContexts FContext.degree
         |> Seq.map (fun (_,d) -> float d)
+        |> Seq.sortDescending
 
     /// <summary> 
     /// Returns the degree sequence of the graph
@@ -42,12 +43,12 @@ type Degree() =
         Degree.sequenceOfDiGraph graph
 
     /// <summary> 
-    /// Returns the degree distribution of the graph
+    /// Returns the degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of degree values</returns>
-    static member distribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
-        Degree.distributionOfFGraph graph
+    static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
+        Degree.sequenceOfFGraph graph
 
 
 
