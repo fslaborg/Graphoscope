@@ -14,17 +14,18 @@ type InDegree() =
     
     
     /// <summary> 
-    /// Returns the in-degree distribution of the graph
+    /// Returns the in-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member distributionOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         graph
         |> FGraph.mapContexts FContext.inwardDegree
         |> Seq.map (fun (_,d) -> float d)
+        |> Seq.sortDescending
 
     /// <summary> 
-    /// Returns the in-degree distribution of the graph
+    /// Returns the in-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
@@ -36,15 +37,15 @@ type InDegree() =
 
 
     /// <summary> 
-    /// Returns the in-degree distribution of the graph
+    /// Returns the in-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member distribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.distributionOfFGraph graph
+    static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.sequenceOfFGraph graph
 
     /// <summary> 
-    /// Returns the in-degree distribution of the graph
+    /// Returns the in-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>

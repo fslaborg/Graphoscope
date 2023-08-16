@@ -14,14 +14,14 @@ type OutDegree() =
     
     
     /// <summary> 
-    /// Returns the out-degree distribution of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member distributionOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         graph
         |> FGraph.mapContexts FContext.outwardDegree
         |> Seq.map (fun (_,d) -> float d)
+        |> Seq.sortDescending
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph
@@ -36,12 +36,12 @@ type OutDegree() =
 
 
     /// <summary> 
-    /// Returns the out-degree distribution of the graph
+    /// Returns the out-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member distribution(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.distributionOfFGraph graph
+    static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.sequenceOfFGraph graph
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph

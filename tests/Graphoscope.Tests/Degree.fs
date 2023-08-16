@@ -46,7 +46,7 @@ let ``Monkey FGraph has correct measures`` () =
         }
         |>Set.ofSeq
 
-    let monkeyDist = Measures.Degree.distribution monkeyGraph|>Set.ofSeq
+    let monkeyDist = Measures.Degree.sequence monkeyGraph|>Set.ofSeq
 
     Assert.Equal(degreeAverage,(Measures.Degree.average monkeyGraph)) 
     Assert.Equal(degreeMax,(Measures.Degree.maximum monkeyGraph)) 
@@ -107,7 +107,7 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
     let distIn = 
         Seq.init 5 (fun x -> 1.)|>Set.ofSeq
 
-    let distInDegree = Measures.InDegree.distribution inGraph |>Set.ofSeq
+    let distInDegree = Measures.InDegree.sequence inGraph |>Set.ofSeq
 
     Assert.Equal(averageDegreeIn,(Measures.InDegree.average inGraph)) 
     Assert.Equal(maxIn,(Measures.InDegree.maximum inGraph)) 
@@ -126,7 +126,7 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
 
     let outGraph = FGraph.ofSeq elementsOutGraph
     
-    let distOutDegree = Measures.OutDegree.distribution inGraph |>Set.ofSeq
+    let distOutDegree = Measures.OutDegree.sequence inGraph |>Set.ofSeq
 
     Assert.Equal(averageDegreeIn,(Measures.OutDegree.average outGraph)) 
     Assert.Equal(maxIn,(Measures.OutDegree.maximum outGraph)) 

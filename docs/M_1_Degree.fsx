@@ -90,7 +90,7 @@ Degree distribution is an important concept in graph theory and network science 
 It provides valuable insights into the connectivity and structure of networks and plays a crucial role in understanding various aspects of complex systems.
 *)
 
-Measures.Degree.distribution monkeyGraphDeg
+Measures.Degree.sequence monkeyGraphDeg
 |> Chart.Histogram
 |> GenericChart.toChartHTML
 (***include-it-raw***)
