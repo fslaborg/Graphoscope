@@ -24,22 +24,22 @@ type Degree() =
         |> Seq.map (fun (_,d) -> float d)
 
     /// <summary> 
-    /// Returns the degree distribution of the graph
+    /// Returns the degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of degree values</returns>
-    static member distributionofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        graph.OutEdges 
-        |> ResizeArray.map(fun n -> n |> ResizeArray.length |> float)
-        |> ResizeArray.toSeq    
+    /// <returns>An array of degree values in descending order</returns>
+    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
+        Array.init graph.NodeKeys.Count (fun i -> graph.InEdges[i].Count + graph.OutEdges[i].Count)
+        |> Array.sortDescending
+
     
     /// <summary> 
-    /// Returns the degree distribution of the graph
+    /// Returns the degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of degree values</returns>
-    static member distribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        Degree.distributionofDiGraph graph
+    /// <returns>An array of degree values in descending order</returns>
+    static member sequence(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+        Degree.sequenceOfDiGraph graph
 
     /// <summary> 
     /// Returns the degree distribution of the graph
@@ -75,10 +75,8 @@ type Degree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        graph.OutEdges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
-        |> ResizeArray.toArray
-        |> Array.average
+        Degree.sequenceOfDiGraph graph
+        |> Array.averageBy float
 
     /// <summary> 
     /// Get the mean degree of the graph. 
@@ -142,10 +140,8 @@ type Degree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max degree</returns>
     static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
-        graph.OutEdges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
-        |> ResizeArray.toArray
-        |> Array.max
+        Degree.sequenceOfDiGraph graph
+        |> Array.head
 
     /// <summary> 
     /// Get the max degree of the graph. 
@@ -188,10 +184,9 @@ type Degree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min degree</returns>
     static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
-        graph.OutEdges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
-        |> ResizeArray.toArray
-        |> Array.min
+        Degree.sequenceOfDiGraph graph
+        |> Array.last
+
 
     /// <summary> 
     /// Get the min degree of the graph. 

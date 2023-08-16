@@ -9,7 +9,7 @@ type Loop() =
     /// Get the amount of self loops. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An int of the mean degree</returns>
+    /// <returns>An int of loop count</returns>
     static member loopCountFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         [|
             for values in graph do
@@ -20,14 +20,19 @@ type Loop() =
             v.Keys|>Seq.countIf (fun x -> x=nk)
         )
     
-    //TODO
     /// <summary> 
     /// Get the amount of self loops. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An int of the mean degree</returns>
+    /// <returns>An int of loop count</returns>
     static member loopCountOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
-        System.NotImplementedException() |> raise
+        graph.InEdges
+        |> ResizeArray.mapi(fun i x ->
+            match x |> ResizeArray.tryFind(fun (t,_) -> t = i) with
+            | Some _ -> 1
+            | None -> 0
+        )
+        |> Seq.sum
 
     /// <summary> 
     /// Get the amount of self loops. 

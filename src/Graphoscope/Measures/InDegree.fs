@@ -23,13 +23,16 @@ type InDegree() =
         |> FGraph.mapContexts FContext.inwardDegree
         |> Seq.map (fun (_,d) -> float d)
 
-    //TODO
     /// <summary> 
     /// Returns the in-degree distribution of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of in-degree values</returns>
-    static member distributionOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    /// <returns>An array of in-degree values in descending order</returns>
+    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+        graph.InEdges
+        |> ResizeArray.map(fun x -> x.Count)
+        |> ResizeArray.toArray
+        |> Array.sortDescending
 
 
     /// <summary> 
@@ -44,9 +47,9 @@ type InDegree() =
     /// Returns the in-degree distribution of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float seq of in-degree values</returns>
-    static member distribution(graph : DiGraph<'NodeKey, 'EdgeData>) = 
-        InDegree.distributionOfDiGraph graph
+    /// <returns>An array of in-degree values in descending order</returns>
+    static member sequence(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+        InDegree.sequenceOfDiGraph graph
 
 
 
@@ -67,7 +70,6 @@ type InDegree() =
         |> FGraph.mapContexts FContext.inwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
     
-    //TODO
     /// <summary> 
     /// Get the mean In-degree of the graph. 
     /// This is an undirected measure so inbound links add to a nodes In-degree.
@@ -75,7 +77,8 @@ type InDegree() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
     static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
-        System.NotImplementedException() |> raise
+        graph.InEdges
+        |> Seq.averageBy(fun x -> float x.Count)
    
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -114,13 +117,16 @@ type InDegree() =
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
 
-    //TODO
     /// <summary> 
     /// Get the max In-degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+        graph.InEdges
+        |> ResizeArray.map(fun x -> x.Count)
+        |> ResizeArray.max
+   
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -157,13 +163,15 @@ type InDegree() =
         |> Seq.minBy (fun (_,d) -> float d) 
         |> snd 
 
-    //TODO
     /// <summary> 
     /// Get the min In-degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = System.NotImplementedException() |> raise
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+        graph.InEdges
+        |> ResizeArray.map(fun x -> x.Count)
+        |> ResizeArray.max
 
     /// <summary> 
     /// Get the min In-degree of the graph. 
