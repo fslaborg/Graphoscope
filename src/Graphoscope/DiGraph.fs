@@ -149,7 +149,7 @@ type DiGraph() =
     /// <param name="origin">The node from which the edges start</param> 
     /// <param name="graph">The graph the node is present in</param> 
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
-    static member getInEdges (graph: DiGraph<'NodeKey,'EdgeData>) (destination: 'NodeKey): ('NodeKey * 'EdgeData) []=
+    static member getInEdges (destination: 'NodeKey) (graph: DiGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.InEdges[graph.IdMap[destination]]
         |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
