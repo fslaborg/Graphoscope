@@ -72,7 +72,13 @@ module FContext =
         let (p, _, s) = context
         p.Count + s.Count
 
-   
+    let weightedDegree (weightF:'EdgeData->float) (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : float =
+        let (p, _, s) = context
+        let pDegreeWeighted = 
+            p.Values|>Seq.sumBy(fun edgeData -> weightF edgeData)
+        let sDegreeWeighted = 
+            s.Values|>Seq.sumBy(fun edgeData -> weightF edgeData)
+        pDegreeWeighted+sDegreeWeighted
 
 type FGraph() = 
 
@@ -373,6 +379,17 @@ type FGraph() =
             for tkv in s do  
                 index <- index + 1
                 action index skv.Key tkv.Key tkv.Value
+
+    /// <summary> 
+    /// Returns the FGraph edges as a sequence of edges 
+    /// </summary>
+    static member getEdgeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        seq {
+             for skv in graph do
+                let (_, source, s) = skv.Value
+                for tkv in s do                      
+                    yield (skv.Key,tkv.Key,tkv.Value)
+         }
 
     /// <summary> 
     /// Creates a new graph with the given node Data
