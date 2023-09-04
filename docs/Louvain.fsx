@@ -31,7 +31,9 @@ open System.Collections.Generic
 
 ///Louvain method for community detection
 //Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008
-module Louvain =                   
+///Louvain method for community detection
+//Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008
+module LouvainGraphoscope =                   
     
     //All functions connected to dictionaries used.
     module private Dictionary = 
@@ -120,7 +122,7 @@ module Louvain =
             graphSeq
             |>Seq.map(fun (nk1,nd1,nk2,nd2,e) ->
                 nodeToCommunity.Item nk1,(nodeToCommunity.Item nk1,nodeToCommunity.Item nk1),
-                nodeToCommunity.Item nk1,(nodeToCommunity.Item nk1,nodeToCommunity.Item nk2),
+                nodeToCommunity.Item nk2,(nodeToCommunity.Item nk2,nodeToCommunity.Item nk2),
                 e
             )
             |>FGraph.ofSeq
@@ -139,7 +141,7 @@ module Louvain =
             //Array of all neighbouring vertices, returned as (vertex,edgeweight) array. The index of the element is the same as the vertex in verti.
             let neighbours =
                     verti
-                    |> Array.map(fun x -> graph.Item x|>FContext.neighbours|>Array.ofSeq)
+                    |> Array.map(fun x -> graph.Item x|>FContext.neighbours|>Seq.distinct|>Array.ofSeq)
 
                          
             //weighted Degree of the vertex. The index of the element is the same as the vertex in verti.
@@ -157,7 +159,7 @@ module Louvain =
             let selfLoops =                                                
                 neighbours
                 |>Array.mapi(fun i adj ->
-                    adj|> Seq.sumBy (fun (v,w) -> if v=(verti.[i]) then 2.*w else 0.)
+                    adj|> Seq.sumBy (fun (v,w) -> if v=(verti.[i]) then w else 0.)
                 )
 
             //A Dictionary, where the key is the community and the value is a tupel of the weighted degree of the community and the sum of all internal edges.
@@ -223,20 +225,26 @@ module Louvain =
                     let (originalCommunityTotalSum,originalCommunitySumIntern)       = Dictionary.getValue originalCommunity communitySumtotalSumintern
                               
                     //Remove node from its original community.                   
-                    FGraph.addNode node (fixedCommunity,-1) graph |> ignore
+                    FGraph.setNodeData node (fixedCommunity,-1) graph |> ignore
 
                     //All neighbors of the node with their edgeWeight.         
                     let neighbors           = 
                        
                         neighbours.[counter]
                         |> Array.filter (fun (vertex,weight) -> vertex <> node) 
-                   
+
+
+                    // printf $"{node} {ki} {selfloopNode} {originalCommunityTotalSum} {originalCommunitySumIntern} "|>ignore
+                    // neighbors|>Array.map(fun (n,v) -> printfn " %i  %f"n v)|>ignore
+                    // printfn " "|>ignore
+
                     //This if condition prevents problems If the node is isolated and has 0 edges. 
                     if neighbors = Array.empty then  
                            
-                        FGraph.addNode node (fixedCommunity, originalCommunity) graph|> ignore
+                        FGraph.setNodeData node (fixedCommunity, originalCommunity) graph|> ignore
                         louvainOneLevel (counter+1) (nbOfMoves)
-                   
+
+
                     else
                                       
                         //All communities the node is connected to with their edgeweight.
@@ -264,6 +272,10 @@ module Louvain =
                         let connectedCommunitiesCondensedNew =
                             Array.append [|originalCommunity,weightofConnectionToOldCommunity|] connectedCommunitiesCondensed
                             |> Array.distinct
+                        
+                        //connectedCommunitiesCondensedNew|>Array.map(fun (i,x) -> printfn"%i %f" i x)
+
+                        //printfn "EndOfIF"
 
                         //Calculating the best possible community for the node, based on modularity gain. 
                         //Outputs the bestCommunity, the gain acived by moving the node to that community and the weight of the connection to that new Community.  
@@ -273,6 +285,7 @@ module Louvain =
                                 connectedCommunitiesCondensedNew
                                 |> Array.map (fun (community,connectionToCommunity) -> 
                                         (
+                                        //printfn $"{community} {(resolution*connectionToCommunity-((Dictionary.getValue community communitySumtotalSumintern|>fst)*ki/totalWeight))} {connectionToCommunity}"
                                         community,
                                         (resolution*connectionToCommunity-((Dictionary.getValue community communitySumtotalSumintern|>fst)*ki/totalWeight)),
                                         connectionToCommunity
@@ -281,24 +294,26 @@ module Louvain =
 
                             calculations
                             |> Array.maxBy (fun (community,modularityGain,connectionToCommunity) -> modularityGain)
-                        
+                        //printfn "%i %f" bestCommunity modularityGain
                         //If there is a gain in modularity bigger than 0.
                         if modularityGain < 0.  then 
-                           
+                            //printfn "mod<0"
                             //Resetting the community to its original state.                       
-                            FGraph.addNode node (fixedCommunity,originalCommunity)|> ignore
+                            FGraph.setNodeData node (fixedCommunity,originalCommunity) graph|> ignore
                             communitySumtotalSumintern.Item originalCommunity <- (originalCommunityTotalSum,originalCommunitySumIntern)
                        
                             louvainOneLevel (counter+1) (nbOfMoves)
 
                         else                                           
+                            //printfn "mod>0"
+
                             let (communityNewSum,communityNewIn) = Dictionary.getValue bestCommunity communitySumtotalSumintern
 
                             //Moving the node to its new community.
                             let sumInternBestCommunity              =      (communityNewIn+((2.*(connectionToBestCommunity)+(selfloopNode))))
                             let communityWeightTotalBestCommunity   =      (communityNewSum+ki)
                            
-                            FGraph.addNode node (fixedCommunity,bestCommunity) |> ignore
+                            FGraph.setNodeData node (fixedCommunity,bestCommunity) graph|> ignore
                             communitySumtotalSumintern.Item bestCommunity <- (communityWeightTotalBestCommunity,sumInternBestCommunity)
 
                             (if bestCommunity <> originalCommunity then (nbOfMoves+1) else nbOfMoves)
@@ -344,7 +359,7 @@ module Louvain =
                         for i in copiedGraph.Keys do
                             let (originalLabel,currentLabel) = copiedGraph.Item i|> fun (_,s,_) ->s
                             let updateLabel     = vertexToLabelMap.[currentLabel]
-                            FGraph.addNode i (originalLabel,updateLabel) copiedGraph
+                            FGraph.setNodeData i (originalLabel,updateLabel) copiedGraph
                             |> ignore
                         
                         //Return the edgeList for the next iteration of the louvain algorithm.
@@ -503,3 +518,11 @@ let values =
 values|>Seq.distinctBy snd|> Seq.length
 
 aagLouvian.GetLabels()|>Seq.distinctBy snd|> Seq.length
+
+
+graphF.Item 0
+graphF.Item 2
+
+aagLouvian.VertexCount
+
+graphF.Count
