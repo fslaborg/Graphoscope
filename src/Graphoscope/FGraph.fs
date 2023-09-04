@@ -180,6 +180,12 @@ type FGraph() =
         Dictionary.item n g
         |> fun (_, nd, _) -> n, nd
 
+    ///Set the NodeData of a given NodeKey to the given NodeData
+    static member setNodeData (n: 'NodeKey) (nd: 'NodeData) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        let p,_,s = g.Item n
+        g.Item n <- (p,nd,s)
+        g
+
 
     ///Maps contexts of the graph.
     static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
