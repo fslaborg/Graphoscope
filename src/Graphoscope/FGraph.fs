@@ -375,6 +375,17 @@ type FGraph() =
                 action index skv.Key tkv.Key tkv.Value
 
     /// <summary> 
+    /// Returns the FGraph edges as a sequence of edges 
+    /// </summary>
+    static member toEdgeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        seq {
+             for skv in graph do
+                let (_, source, s) = skv.Value
+                for tkv in s do                      
+                    yield (skv.Key,tkv.Key,tkv.Value)
+         }
+
+    /// <summary> 
     /// Creates a new graph with the given node Data
     /// </summary>
     /// <returns>FGraph</returns>
