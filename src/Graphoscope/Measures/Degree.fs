@@ -204,3 +204,19 @@ type Degree() =
     /// <returns>An int of the min degree</returns>
     static member minimum (graph : DiGraph<'NodeKey, 'EdgeData>) =
         Degree.minimumOfDiGraph graph
+
+    /// <summary> 
+    /// Get the weighted degree of the node with the 'NodeKey nk of the graph. 
+    /// </summary>
+    /// <param name="nk">The NodeKey to get the weighted Degree</param> 
+    /// <param name="weightF">Function to get a float weight of the EdgeData</param> 
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the weighted degree of a node</returns>
+    static member weightedDegreeOfFGraphNode (nk:'NodeKey) (weightF:'EdgeData->float) (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        let (p, _, s) = 
+            graph.Item nk 
+        let pDegreeWeighted = 
+            p.Values|>Seq.sumBy(fun edgeData -> weightF edgeData)
+        let sDegreeWeighted = 
+            s.Values|>Seq.sumBy(fun edgeData -> weightF edgeData)
+        pDegreeWeighted+sDegreeWeighted
