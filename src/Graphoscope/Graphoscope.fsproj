@@ -45,6 +45,7 @@
     <Compile Include="Undirected/Core.fs" />
     <Compile Include="Undirected/UndirectedGraph.fs" />
     <Compile Include="Undirected/UndirectedHelpers.fs" />
+    <Compile Include="Algorithms\Louvain.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
