@@ -36,6 +36,7 @@
     <Compile Include="Measures\Loop.fs" />
     <Compile Include="Measures\Volume.fs" />
     <Compile Include="Measures\Size.fs" />
+    <Compile Include="Measures/Distance.fs" />
     <Compile Include="Measures\ClusteringCoefficient.fs" />
     <Compile Include="Measures/MatchingIndex.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
