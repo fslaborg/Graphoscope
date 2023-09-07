@@ -11,7 +11,7 @@ type Dijkstra() =
     
     
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member ofDirectedFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
         let infinity = System.Double.MaxValue
@@ -42,6 +42,39 @@ type Dijkstra() =
                     priorityQueue.Add((kv.Key, totalDistance)) |> ignore
         
 
+        distance
+
+    // Function to perform Dijkstra's shortest path algorithm
+    static member ofUndirectedFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+        let distance = Dictionary<'NodeKey, float>()
+        let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+        let infinity = System.Double.MaxValue
+
+        // Initialize distances to infinity for all nodes except the starting node
+        // TODO: this can be improved by getOrDefault
+        for nodeKey in graph.Keys do
+            if nodeKey = starting then
+                distance.[nodeKey] <- 0.
+            else
+                distance.[nodeKey] <- infinity
+
+        priorityQueue.Add((starting, 0)) |> ignore
+
+        while priorityQueue.Count > 0 do
+            let (currentNode, currentDistance) = priorityQueue.Min
+            priorityQueue.Remove(priorityQueue.Min) |> ignore
+        
+            let neighbours = graph.[currentNode] |> FContext.neighbours
+
+            for node,rawDistance in neighbours do
+                let weightedDistance = rawDistance |> getEdgeWeight
+                if weightedDistance < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
+                let totalDistance = (currentDistance + weightedDistance) // Assuming edgeWeight is always 1 in this example
+                // Impove getValue
+                if totalDistance < distance.[node] then
+                    distance.[node] <- totalDistance
+                    priorityQueue.Add((node, totalDistance)) |> ignore
+        
         distance
 
     /// Computes the shortest path
@@ -103,7 +136,7 @@ type Dijkstra() =
 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofFGraph starting getEdgeWeight graph 
+        Dijkstra.ofDirectedFGraph starting getEdgeWeight graph 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'EdgeData>) =
         Dijkstra.ofDiGraph starting getEdgeWeight graph 
