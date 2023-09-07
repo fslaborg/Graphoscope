@@ -220,3 +220,20 @@ type Degree() =
         let sDegreeWeighted = 
             s.Values|>Seq.sumBy(fun edgeData -> weightF edgeData)
         pDegreeWeighted+sDegreeWeighted
+
+    /// <summary> 
+    /// Return the cummulative Degree of a FGraph sorted from smallest degree to highest as tupel of degree and Nodecount with that degree.
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the weighted degree of a node</returns>
+    static member cumulativeDegreeOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        graph
+        |> FGraph.mapContexts FContext.degree
+        |> Seq.groupBy (fun (_,d) -> float d)
+        |> Seq.map (fun (degree,members) -> 
+            degree,
+            Seq.length members
+        )
+        |> Seq.sortBy fst
+
+
