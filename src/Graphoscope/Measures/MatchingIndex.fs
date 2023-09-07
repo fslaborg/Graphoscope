@@ -27,6 +27,5 @@ type MatchingIndex() =
     /// <param name="nk2">The NodeKey for the other node</param> 
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the matching index between two nodes</returns>
-
-    static member getweenNodes((graph : FGraph<'NodeKey,'NodeData,'EdgeData>),(nk1:'NodeKey),(nk2:'NodeKey)) =
+    static member betweenNodes((graph : FGraph<'NodeKey,'NodeData,'EdgeData>),(nk1:'NodeKey),(nk2:'NodeKey)) =
         MatchingIndex.betweenFGraphNodes graph nk1 nk2
