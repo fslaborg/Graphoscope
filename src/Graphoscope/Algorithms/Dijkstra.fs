@@ -76,6 +76,39 @@ type Dijkstra() =
                     priorityQueue.Add((node, totalDistance)) |> ignore
         
         distance
+    // Function to perform Dijkstra's shortest path algorithm
+    static member ofUndirectedFGraphIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+        let distance = Dictionary<'NodeKey,('NodeKey*float)>()
+        let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+        let infinity = System.Double.MaxValue
+
+        // Initialize distances to infinity for all nodes except the starting node
+        // TODO: this can be improved by getOrDefault
+        for nodeKey in graph.Keys do
+            if nodeKey = starting then
+                distance.[nodeKey] <- (starting,0.)
+            else
+                distance.[nodeKey] <- (starting,infinity)
+
+        priorityQueue.Add((starting, 0)) |> ignore
+
+        while priorityQueue.Count > 0 do
+            let (currentNode, currentDistance) = priorityQueue.Min
+            priorityQueue.Remove(priorityQueue.Min) |> ignore
+        
+            let neighbours = graph.[currentNode] |> FContext.neighbours
+
+            for node,rawDistance in neighbours do
+                let weightedDistance = rawDistance |> getEdgeWeight
+                if weightedDistance < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
+                let totalDistance = (currentDistance + weightedDistance) // Assuming edgeWeight is always 1 in this example
+                // Impove getValue
+                let prevNode,prevDistance = distance.[node]
+                if totalDistance < prevDistance then
+                    distance.[node] <- (currentNode,totalDistance)
+                    priorityQueue.Add((node, totalDistance)) |> ignore
+        
+        distance
 
     /// Computes the shortest path
     static member internal getAdjacencyArrayFor (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
