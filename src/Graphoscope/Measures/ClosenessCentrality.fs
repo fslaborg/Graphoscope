@@ -26,4 +26,16 @@ type ClosenessCentrality() =
             |>Seq.sum
         (nodeCount-1.) / shortestPathSum
 
-        
+    static member ofFGraph (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =    
+        let dict = new Dictionary<'NodeKey,float>()
+        for i in graph.Keys do
+            let closeness = ClosenessCentrality.ofFGraphNode dijkstraF getEdgeWeightF graph i
+            dict.Add(i,closeness)
+        dict
+
+    static member ofFGraphNormalised (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+        let dict = new Dictionary<'NodeKey,float>()
+        for i in graph.Keys do
+            let closeness = ClosenessCentrality.ofFGraphNodeNormalised dijkstraF getEdgeWeightF graph i
+            dict.Add(i,closeness)
+        dict
