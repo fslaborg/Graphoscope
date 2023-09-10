@@ -12,7 +12,7 @@ type EccentricityCentrality() =
         let eccentricity = Seq.max(dic.Values)
         1./eccentricity
 
-    static member ofFGraph2D (graph :  float array2d) =    
+    static member ofFGraph2D (graph : float [,]) =    
         let shortestPaths = graph
         // let indexToNode = graph.Keys|>Seq.map(fun x -> nodeIndexer x,x)|> Map.ofSeq
         let dict = new Dictionary<'NodeKey,'Eccentricity>()
