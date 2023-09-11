@@ -49,7 +49,7 @@
     <Compile Include="Measures/MatchingIndex.fs" />
     <Compile Include="Measures/Distance.fs" />
     <Compile Include="Measures/ClosenessCentrality.fs" />
-    <Compile Include="Measures/EccentricityCentrality.fs" />
+    <Compile Include="Measures/Eccentricity.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />

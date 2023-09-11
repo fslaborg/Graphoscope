@@ -4,16 +4,16 @@ open Graphoscope
 open System.Collections.Generic
 open FSharpAux
 
-type EccentricityCentrality() =
+type Eccentricity() =
     
     
     static member ofFGraphNode (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
         let dic = dijkstraF nodeKey getEdgeWeightF graph
         let eccentricity = Seq.max(dic.Values)
-        1./eccentricity
+        eccentricity
 
-    static member ofFGraph2D (graph : float [,]) =    
-        let shortestPaths = graph
+    static member ofFGraph2D (floydWarshallResult : float [,]) =    
+        let shortestPaths = floydWarshallResult
         // let indexToNode = graph.Keys|>Seq.map(fun x -> nodeIndexer x,x)|> Map.ofSeq
         let dict = new Dictionary<'NodeKey,'Eccentricity>()
         let getDict (arr: _ [,])  =
@@ -25,7 +25,7 @@ type EccentricityCentrality() =
                     if value < max then getMax i (j+1) max 
                     else getMax i (j+1) value 
             
-            for i=0 to ((Array2D.length1 arr)-1) do
+            for i=0 to (n-1) do
                 let eccentricity = getMax i 0 arr.[i,0]
                 let key = i//indexToNode.Item i
                 dict.Add(key,eccentricity)
