@@ -4,38 +4,38 @@ open FSharpAux
 
 type Distance() =
     
-    static member averageOfFGraph (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        let distances =
-            graph
-            |> FGraph.toArray2D nodeIndexer
-            |> Algorithms.FloydWarshall.fromArray2D
+    // static member averageOfFGraph () (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    //     let distances =
+    //         graph
+    //         |> FGraph.toArray2D nodeIndexer
+    //         |> Algorithms.FloydWarshall.fromArray2D
 
-        distances
-        |> Seq.cast<float>
-        |> Seq.average
+    //     distances
+    //     |> Seq.cast<float>
+    //     |> Seq.average
 
-    static member maxOfFGraph (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        let distances =
-            graph
-            |> FGraph.toArray2D nodeIndexer
-            |> Algorithms.FloydWarshall.fromArray2D
+    // static member maxOfFGraph (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    //     let distances =
+    //         graph
+    //         |> FGraph.toArray2D nodeIndexer
+    //         |> Algorithms.FloydWarshall.fromArray2D
 
-        distances
-        |> Seq.cast<float>
-        |> Seq.max
-
-
-    static member minOFGraph (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        let distances =
-            graph
-            |> FGraph.toArray2D nodeIndexer
-            |> Algorithms.FloydWarshall.fromArray2D
-
-        distances
-        |> Seq.cast<float>
-        |> Seq.min
+    //     distances
+    //     |> Seq.cast<float>
+    //     |> Seq.max
 
 
+    // static member minOFGraph (nodeIndexer:'NodeKey -> int) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    //     let distances =
+    //         graph
+    //         |> FGraph.toArray2D nodeIndexer
+    //         |> Algorithms.FloydWarshall.fromArray2D
+
+    //     distances
+    //     |> Seq.cast<float>
+    //     |> Seq.min
+
+    
     static member averageOfFloydWarshall (floydWarshall : float [,]) = 
         ///Returns the element of the array which is the smallest after projection according to the Operators.min operator
         let average (arr: _ [,])  =
