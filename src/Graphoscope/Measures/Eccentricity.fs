@@ -6,12 +6,25 @@ open FSharpAux
 
 type Eccentricity() =
     
-    
+    /// <summary> 
+    /// Get the Eccentricity of a node in an FGraph
+    /// </summary>
+    /// <param name="dijkstraF">Function to calculate the shortest Path via Dijksta Algorithm</param> 
+    /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
+    /// <param name="graph">The graph to be analysed</param>     
+    /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
+    /// <returns>A float of the Eccentricity of the node</returns>
     static member ofFGraphNode (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+        //Get the collection of the shortest Paths by the given Dijkstra function and find the longest shortest path
         let dic = dijkstraF nodeKey getEdgeWeightF graph
         let eccentricity = Seq.max(dic.Values)
         eccentricity
 
+    /// <summary> 
+    /// Get the Eccentricity of a graph of its FloydWarshall shortest Path result
+    /// </summary>
+    /// <param name="floydWarshallResult">Result of the FloydWarshall shortest Path calculation of a graph</param>  
+    /// <returns>A dictionary with the nodeIndeces as Keys and the Eccentricity as value</returns>
     static member ofFGraph2D (floydWarshallResult : float [,]) =    
         let shortestPaths = floydWarshallResult
         // let indexToNode = graph.Keys|>Seq.map(fun x -> nodeIndexer x,x)|> Map.ofSeq
