@@ -10,7 +10,15 @@ type ShortestPath={
 }
 
 type BetweennessCentrality() =
-        
+    
+    /// <summary> 
+    /// Get all of the shortest paths of a FGraph
+    /// </summary>
+    /// <param name="shortestPathAlgorithm">Function to calculate the shortest Path via floydWarshall</param> 
+    /// <param name="nodeIndexer">Function to index nodes based on their 'NodeKey</param>    
+    /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>      
+    /// <param name="graph">The graph to be analysed</param>     
+    /// <returns>A Dictionary with the indexed Node as the key and the shortest Paths as Set as value </returns>
     static member returnPaths (shortestPathAlgorithm:'NodeKey->('EdgeData -> float) ->FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,'NodeKey * float>) (nodeIndexer:'NodeKey->int) (getEdgeWeight : 'EdgeData -> float) (graph: FGraph<'NodeKey,'NodeData,'EdgeData>) = 
 
         let paths :Dictionary<('NodeKey),Set<ShortestPath>> = Dictionary<('NodeKey),Set<ShortestPath>>()
@@ -58,6 +66,14 @@ type BetweennessCentrality() =
                 getPaths keysList (counter+1)
         getPaths (graph.Keys|>Seq.map(fun x -> nodeIndexer x)|>List.ofSeq) 0
 
+
+    /// <summary> 
+    /// Get all of the shortest paths of a FGraph
+    /// </summary>
+    /// <param name="paths">The result of the returnPaths function. A collection of all shortestPaths </param> 
+    /// <param name="nodeIndexer">Function to index nodes based on their 'NodeKey</param>    
+    /// <param name="node">The NodeKey to get the Betweenness of</param>     
+    /// <returns>A float of the betweenness of the given node </returns>
     static member getBetweennessOfPathsAndNode (paths:Dictionary<int,Set<ShortestPath>>) (nodeIndexer:'NodeKey->int) (node:'NodeKey)=
         let pathCount = paths.Count*(paths.Count-1)|>float
         
