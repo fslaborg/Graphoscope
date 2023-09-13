@@ -262,7 +262,22 @@ type FGraph() =
             matrix
             )
 
-
+    /// <summary> 
+    /// Converts the FGraph to an array2d 
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An array2d</returns>
+    static member toArray2DUndirected (nodeIndexer : 'NodeKey -> int)  =       
+        (fun (g : FGraph<'NodeKey,'NodeData,'EdgeData>) ->
+                let n = g.Count
+                let matrix = Array2D.zeroCreate n n
+                for skv in g do
+                    let (_, _, s) = skv.Value
+                    for tkv in s do  
+                        matrix.[nodeIndexer skv.Key,nodeIndexer tkv.Key] <- tkv.Value
+                        matrix.[nodeIndexer tkv.Key,nodeIndexer skv.Key] <- tkv.Value
+                matrix
+                )
 
     ///Evaluates the number of edges in the graph.
     static member countEdges (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : int =
