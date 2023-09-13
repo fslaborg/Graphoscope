@@ -20,9 +20,10 @@ type BetweennessCentrality() =
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A Dictionary with the indexed Node as the key and the shortest Paths as Set as value </returns>
     static member returnPaths (shortestPathAlgorithm:'NodeKey->('EdgeData -> float) ->FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,'NodeKey * float>) (nodeIndexer:'NodeKey->int) (getEdgeWeight : 'EdgeData -> float) (graph: FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-
+        //Opens a Dictionary for ease of use
         let paths :Dictionary<('NodeKey),Set<ShortestPath>> = Dictionary<('NodeKey),Set<ShortestPath>>()
 
+        //Return the shortest Paths out of a Dijkstra-Result: The Result contains node; previously visited node, shortest Path. From there you can get the complete path to the node from the starting node.
         let getPathsOfDic key (dic:Dictionary<'NodeKey,('NodeKey*float)>) starting=
             let getPrev key =
                 dic.Item key |> fst
@@ -36,7 +37,7 @@ type BetweennessCentrality() =
                     getPath prev newSet
             getPath key Set.empty
 
-
+        //Function to build the path set of a given starting node 
         let rec buildSet (set:Set<ShortestPath>) (starting:'NodeKey) (sp: Dictionary<'NodeKey,('NodeKey * float)>) (keysList:'NodeKey list) counter =
             if counter=keysList.Length then
                 set
@@ -52,7 +53,7 @@ type BetweennessCentrality() =
                     let newSet = set.Add(setToSave)
                     buildSet newSet starting sp keysList (counter+1)
 
-
+        //Get the shortest Paths Set collection for each node in the graph
         let rec getPaths (keysList:'NodeKey list)  counter =
             if counter = Seq.length keysList then
                 paths
@@ -75,8 +76,10 @@ type BetweennessCentrality() =
     /// <param name="node">The NodeKey to get the Betweenness of</param>     
     /// <returns>A float of the betweenness of the given node </returns>
     static member getBetweennessOfPathsAndNode (paths:Dictionary<int,Set<ShortestPath>>) (nodeIndexer:'NodeKey->int) (node:'NodeKey)=
+        //Returns how many shortest paths can exist by combinatorics
         let pathCount = paths.Count*(paths.Count-1)|>float
         
+        //Filter all shortest paths that are started or go to the node of interest
         paths
         |> Seq.choose(fun nkv -> 
             let nodeV = nodeIndexer node
