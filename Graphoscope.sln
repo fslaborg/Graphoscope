@@ -30,6 +30,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9055F8EC-3
 		docs\M_1_Degree.fsx = docs\M_1_Degree.fsx
 		docs\M_2_NetworkDensity.fsx = docs\M_2_NetworkDensity.fsx
 		docs\M_3_Loops.fsx = docs\M_3_Loops.fsx		
+		docs\M_4_CentralityMeasures.fsx = docs\M_4_CentralityMeasures.fsx		
 		docs\A_Dijkstra.fsx = docs\A_Dijkstra.fsx
 		docs\A_FloydWarshall.fsx = docs\A_FloydWarshall.fsx
 		docs\R_BarabasiAlbert.fsx = docs\R_BarabasiAlbert.fsx
