@@ -15,6 +15,10 @@
     <Compile Include="UndirectedGraph.fs" />
     <Compile Include="NetworkDensity.fs" />
     <Compile Include="Loop.fs" />
+    <Compile Include="Distance.fs" />
+    <Compile Include="BetweennessCentrality.fs" />
+    <Compile Include="Eccentricity.fs" />
+    <Compile Include="ClosenessCentrality.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
