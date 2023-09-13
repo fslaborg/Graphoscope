@@ -121,7 +121,7 @@ Here is a basic example showing degree distribution within the Karate club.
 #r "nuget: Plotly.NET, 4.1.0"
 open Plotly.NET
 
-Measures.Degree.distribution karateGraph
+Measures.Degree.sequence karateGraph
 |> Chart.Histogram
 |> GenericChart.toChartHTML
 (***include-it-raw***)
