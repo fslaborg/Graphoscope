@@ -48,7 +48,7 @@ type Distance() =
             let rec sumCol i j sum =
                 if j = m then sum
                 else
-                    let value = arr.[i,j]
+                    let value = arr.[i,j]/2.
                     sumCol i (j+1) (sum+value) 
 
             let rec countRow sum i = 
@@ -80,6 +80,8 @@ type Distance() =
             let n,m = arr |> Array2D.length1, arr |> Array2D.length2
             let rec compareMin i j min =
                 if j = m then min
+                elif i=j then
+                    compareMin i (j+1) min 
                 else
                     let value = arr.[i,j]
                     if (projection value) > (projection min) then compareMin i (j+1) min 
@@ -87,7 +89,7 @@ type Distance() =
             let rec countRow min i = 
                 if i = n then min
                 else countRow (compareMin i 0 min) (i+1)
-            countRow arr.[0,0] 0
+            countRow infinity 0
 
         floydWarshall
         |> minBy id
