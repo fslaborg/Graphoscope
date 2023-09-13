@@ -62,7 +62,7 @@ type ClosenessCentrality() =
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member ofFGraphNormalised (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+    static member ofFGraphNormalised (dijkstraF:'NodeKey -> ('EdgeData -> float) ->  FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,float>) (getEdgeWeightF:'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =    
         let dict = new Dictionary<'NodeKey,float>()
         for i in graph.Keys do
             let closeness = ClosenessCentrality.ofFGraphNodeNormalised dijkstraF getEdgeWeightF graph i
