@@ -14,6 +14,7 @@ index: 4
 #r "nuget: FSharpAux.IO, 2.0.0"
 #r "nuget: FSharp.Data, 6.2.0"
 #r "nuget: Cytoscape.NET, 0.2.0"
+#r "nuget: OptimizedPriorityQueue, 5.1.0"
 #r "../src/Graphoscope/bin/Release/netstandard2.0/Graphoscope.dll"
 
 (*** condition: ipynb ***)
