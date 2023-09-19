@@ -16,17 +16,20 @@
     <FsDocsReleaseNotesLink>https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Node.fs" />
+    <Compile Include="Edge.fs" />
     <Compile Include="Graph.fs" />
-    <Compile Include="DiGraph.fs" />
+    <Compile Include="AdjMatrix.fs" />
     <Compile Include="AdjGraph.fs" />
-    <Compile Include="FGraph.fs" />
+    <Compile Include="DiGraph.fs" />
+    <Compile Include="FGraph.fs" />    
+    <Compile Include="UndirectedFGraph.fs" />
+    <Compile Include="Collections/Queue.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />
     <Compile Include="Algorithms\BFS.fs" />
     <Compile Include="Algorithms\FloydWarshall.fs" />
     <Compile Include="Algorithms/Dijkstra.fs" />
-    <Compile Include="Algorithms\Louvain.fs" />
-    <Compile Include="Algorithms\WedgeCount.fs" />
     <Compile Include="Measures\Degree.fs" />
     <Compile Include="Measures\OutDegree.fs" />
     <Compile Include="Measures\InDegree.fs" />
@@ -36,19 +39,18 @@
     <Compile Include="Measures\Loop.fs" />
     <Compile Include="Measures\Volume.fs" />
     <Compile Include="Measures\Size.fs" />
+    <Compile Include="Measures\ClusteringCoefficient.fs" />
+    <Compile Include="RandomModels/Gilbert.fs" />
+    <Compile Include="RandomModels\BollobasRiordan.fs" />
+    <Compile Include="RandomModels\BarabasiAlbert.fs" />
+    <Compile Include="Undirected/Core.fs" />
+    <Compile Include="Undirected/UndirectedGraph.fs" />
+    <Compile Include="Undirected/UndirectedHelpers.fs" />
+    <Compile Include="Algorithms\Louvain.fs" />
+    <Compile Include="Measures/MatchingIndex.fs" />
     <Compile Include="Measures/Distance.fs" />
     <Compile Include="Measures/ClosenessCentrality.fs" />
     <Compile Include="Measures/Eccentricity.fs" />
-    <Compile Include="Measures\ClusteringCoefficient.fs" />
-    <Compile Include="Measures/MatchingIndex.fs" />
-    <Compile Include="RandomModels/Gilbert.fs" />
-    <Compile Include="RandomModels\BollobasRiordan.fs" />
-    <Compile Include="RandomModels\ErdosRenyi.fs" />
-    <Compile Include="RandomModels\CompleteGraph.fs" />
-    <Compile Include="RandomModels\BarabasiAlbert.fs" />
-    <Compile Include="RandomModels\RegularRingLattice.fs" />
-    <Compile Include="RandomModels\WattsStrogatz.fs" />
-    <Compile Include="RandomModels/StarGraph.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
@@ -56,7 +58,8 @@
     <PackageReference Include="FSharp.Data" Version="6.2.0" />
     <PackageReference Include="FSharpAux" Version="2.0.0" />
     <PackageReference Include="OptimizedPriorityQueue" Version="5.1.0">
-      <GeneratePathProperty></GeneratePathProperty>
+      <GeneratePathProperty>
+      </GeneratePathProperty>
     </PackageReference>
   </ItemGroup>
 </Project>
