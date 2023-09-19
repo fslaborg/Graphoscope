@@ -19,7 +19,7 @@ let ``Dijkstra simple example on FGraph works correctly`` () =
         |> FGraph.addElement 2 "Node 2" 3 "Node 3" 9.
         |> FGraph.addElement 1 "Node 1" 2 "Node 2" 4.
 
-    let actual = Algorithms.Dijkstra.ofDirectedFGraph 2 id dijkstraTestGraph2
+    let actual = Algorithms.Dijkstra.ofFGraph 2 id dijkstraTestGraph2
 
 
 

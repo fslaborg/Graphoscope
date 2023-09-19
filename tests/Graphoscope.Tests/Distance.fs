@@ -21,9 +21,9 @@ let ``Simple example yields the correct metrics`` () =
             2,2,3,3,1.
         }
 
-    let graph = FGraph.ofSeq edges
+    let graph = UndirectedFGraph.ofSeq edges
 
-    let graph2d = FGraph.toArray2DUndirected (fun x -> x-1) graph
+    let graph2d = FGraph.toArray2D(fun x -> x-1) graph
 
     let floydWarshall = Algorithms.FloydWarshall.fromArray2D graph2d
 

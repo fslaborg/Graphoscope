@@ -22,7 +22,8 @@
     <Compile Include="AdjMatrix.fs" />
     <Compile Include="AdjGraph.fs" />
     <Compile Include="DiGraph.fs" />
-    <Compile Include="FGraph.fs" />
+    <Compile Include="FGraph.fs" />    
+    <Compile Include="UndirectedFGraph.fs" />
     <Compile Include="Collections/Queue.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />
@@ -57,7 +58,8 @@
     <PackageReference Include="FSharp.Data" Version="6.2.0" />
     <PackageReference Include="FSharpAux" Version="2.0.0" />
     <PackageReference Include="OptimizedPriorityQueue" Version="5.1.0">
-      <GeneratePathProperty></GeneratePathProperty>
+      <GeneratePathProperty>
+      </GeneratePathProperty>
     </PackageReference>
   </ItemGroup>
 </Project>

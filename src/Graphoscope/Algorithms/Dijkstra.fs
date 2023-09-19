@@ -11,7 +11,7 @@ type Dijkstra() =
     
     
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofDirectedFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member ofFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         //let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
         let priorityQueue: Priority_Queue.SimplePriorityQueue<('NodeKey * float),float> = Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
@@ -46,7 +46,7 @@ type Dijkstra() =
         distance
 
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofUndirectedFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member ofUndirectedFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  UndirectedFGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         let priorityQueue = Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
         let infinity = System.Double.MaxValue
@@ -78,7 +78,7 @@ type Dijkstra() =
         
         distance
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofUndirectedFGraphIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member ofUndirectedFGraphIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  UndirectedFGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey,('NodeKey*float)>()
         let priorityQueue = Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
         let infinity = System.Double.MaxValue
@@ -170,10 +170,13 @@ type Dijkstra() =
 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofDirectedFGraph starting getEdgeWeight graph 
+        Dijkstra.ofFGraph starting getEdgeWeight graph 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'EdgeData>) =
         Dijkstra.ofDiGraph starting getEdgeWeight graph 
+
+    // static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  UndirectedFGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    //     Dijkstra.ofUndirectedFGraph starting getEdgeWeight graph 
 
     static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
         //TODO: Implement Dijkstra.ofFGraphBetween
