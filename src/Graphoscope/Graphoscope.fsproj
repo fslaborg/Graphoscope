@@ -16,14 +16,11 @@
     <FsDocsReleaseNotesLink>https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md</FsDocsReleaseNotesLink>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Node.fs" />
-    <Compile Include="Edge.fs" />
     <Compile Include="Graph.fs" />
     <Compile Include="AdjMatrix.fs" />
     <Compile Include="AdjGraph.fs" />
     <Compile Include="DiGraph.fs" />
     <Compile Include="FGraph.fs" />
-    <Compile Include="Collections/Queue.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />
     <Compile Include="Algorithms\BFS.fs" />
@@ -42,9 +39,6 @@
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="RandomModels\BollobasRiordan.fs" />
     <Compile Include="RandomModels\BarabasiAlbert.fs" />
-    <Compile Include="Undirected/Core.fs" />
-    <Compile Include="Undirected/UndirectedGraph.fs" />
-    <Compile Include="Undirected/UndirectedHelpers.fs" />
     <Compile Include="Algorithms\Louvain.fs" />
   </ItemGroup>
   <ItemGroup>

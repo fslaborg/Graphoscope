@@ -155,7 +155,7 @@ module AdjGraph =
 
 
         /// Builds a graph whose elements are the results of applying the given function to each of the node.
-        static member map (mapping : 'NodeKey -> 'NodeData -> Node<'NodeKey, 'NodeData>) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        static member map (mapping : 'NodeKey -> 'NodeData -> ('NodeKey*'NodeData)) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             let tmpGraph =  Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>(graph.Count)
             for kv in graph do
                 let node, adjComponent = kv.Value
