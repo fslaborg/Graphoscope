@@ -8,7 +8,7 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member volumeOfDiGraph (graph: DiGraph<'NodeKey, 'NodeData,'EdgeData>) =
         DiGraph.countEdges graph
 
     /// <summary> 
@@ -32,6 +32,6 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph :DiGraph<'NodeKey,'EdgeData>) = 
+    static member compute (graph :DiGraph<'NodeKey, 'NodeData,'EdgeData>) = 
         Volume.volumeOfDiGraph graph
     

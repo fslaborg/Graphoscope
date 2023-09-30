@@ -45,7 +45,7 @@ type Dijkstra() =
         distance
 
     /// Computes the shortest path
-    static member internal getAdjacencyArrayFor (graph: DiGraph<'NodeKey, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+    static member internal getAdjacencyArrayFor (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
             let dist =
                 Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
             graph.OutEdges[nodeIx]
@@ -59,7 +59,7 @@ type Dijkstra() =
     /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
-    static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'EdgeData>) : ('NodeKey * float) [] =
+    static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * float) [] =
         let que= ResizeArray()
         let sourceIx = graph.IdMap[source]
         let dist = Dijkstra.getAdjacencyArrayFor graph getEdgeWeight sourceIx
@@ -92,7 +92,7 @@ type Dijkstra() =
     /// <param name="destination">The finishing node of the path</param> 
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the distance</returns>
-    static member ofDiGraphBetween (getEdgeWeight : 'EdgeData -> float) (graph : DiGraph<'NodeKey, 'EdgeData>) (origin :'NodeKey)  (destination :'NodeKey)  =
+    static member ofDiGraphBetween (getEdgeWeight : 'EdgeData -> float) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (origin :'NodeKey)  (destination :'NodeKey)  =
         Dijkstra.ofDiGraph origin getEdgeWeight graph
         |> Array.tryFind(fun (d,_) -> d = destination)
         |> fun o -> 
@@ -105,14 +105,14 @@ type Dijkstra() =
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofFGraph starting getEdgeWeight graph 
 
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'EdgeData>) =
+    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofDiGraph starting getEdgeWeight graph 
 
     static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
         //TODO: Implement Dijkstra.ofFGraphBetween
         System.NotImplementedException() |> raise
 
-    static member computeBetween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, float>) =
+    static member computeBetween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, 'NodeData, float>) =
         //TODO: Implement Dijkstra.ofDiGraphBetween
         System.NotImplementedException() |> raise
 
