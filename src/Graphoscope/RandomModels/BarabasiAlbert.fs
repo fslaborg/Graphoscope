@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.RandomModels
 
 open Graphoscope
+open Graphoscope.Graph
 
 // The Barabási-Albert (BA) model is a popular network growth model used to generate random scale-free networks.  It provides a valuable tool for generating synthetic networks that exhibit similar properties to many natural and man-made networks, mainly a scale-free character.
 type BarabasiAlbert() =
@@ -83,8 +84,6 @@ type BarabasiAlbert() =
     static member initDiGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> int) (fLabel: int -> int) (fWeight: int*int -> float) (startingGraph: DiGraph<'NodeKey, 'EdgeData>)  =    
         failwith"not implemented yet"
 
-
-
     /// <summary> 
     /// Returns an FGraph that was randomly grown according to the Barabási–Albert model with the given parameters. 
     /// </summary>
@@ -111,3 +110,65 @@ type BarabasiAlbert() =
     static member init ((numberOfVertices: int),(numberOfEdgesPerIteration: int),(fVertexKey: int -> int),(fLabel: int -> int),(fWeight: int*int -> float),(startingGraph: DiGraph<'NodeKey, 'EdgeData>)) =
         BarabasiAlbert.initDiGraph numberOfVertices numberOfEdgesPerIteration fVertexKey fLabel fWeight startingGraph
     
+    /// <summary> 
+    /// Returns an UndirectedGraph that was randomly grown according to the Barabási–Albert model with the given parameters. 
+    /// </summary>
+    /// <param name="nodesToAdd"> specifies how many additional vertices the final graph will have.</param>
+    /// <param name="m"> specifies how many edges should be added to the graph per iteration.</param>
+    static member initUndirected (nodesToAdd: int)(m:int)  = 
+
+        let  rng = System.Random()
+
+        let normalize (ar: float []) =
+            let tot = ar |> Array.sum
+            ar |> Array.map(fun x -> x / tot)
+
+        let inline cumulativeSum (ar: _ []) =
+            let mutable sum = LanguagePrimitives.GenericZero
+            ar |> Array.map(fun x ->
+                sum <- sum + x
+                sum
+            )
+
+        let chooseIndexWeighted (degrees: int []) =
+            let chance = rng.NextDouble()
+            degrees
+            |> Array.map float
+            |> normalize
+            |> cumulativeSum
+            |> Array.findIndex(fun x -> chance <= x)
+
+        let chooseRandomNodeWeightedByDegree (graph: UndirectedGraph<int, float>) =
+            let chance = rng.NextDouble()
+            let nodes =  graph |> UndirectedGraph.getNodes
+
+            nodes
+            |>Array.map (fun node ->
+                UndirectedGraph.getEdges node graph
+                |> Array.length
+            )
+            |> Array.map float
+            |> normalize
+            |> cumulativeSum
+            |> Array.findIndex(fun x -> chance <= x)
+            |> fun ix -> nodes[ix]
+
+        let addEdgesForNode m newNodeId (graph: UndirectedGraph<int, float>) =
+            UndirectedGraph.addNode newNodeId graph |> ignore
+            
+            Seq.initInfinite( fun _ -> chooseRandomNodeWeightedByDegree graph)
+            |> Seq.distinct
+            |> Seq.take m
+            |> Seq.map(fun linkNodeId -> newNodeId, linkNodeId, 1.0 )
+            |> Seq.toArray
+            |> fun newEdges -> UndirectedGraph.addEdges newEdges graph
+            
+        let rec addNodesandedges m nodes counter  (graph: UndirectedGraph<int, float>) = 
+            let maxId = UndirectedGraph.getNodes graph |> Array.max
+            addEdgesForNode m (maxId+1) graph |> ignore
+            let newCounter = counter + 1
+            if nodes > newCounter then 
+                addNodesandedges m nodes newCounter graph   
+                else graph
+
+        addNodesandedges m nodesToAdd 0 (CompleteGraph.init (m))

@@ -15,6 +15,7 @@
     <Compile Include="UndirectedGraph.fs" />
     <Compile Include="NetworkDensity.fs" />
     <Compile Include="Loop.fs" />
+    <Compile Include="GraphGenerators.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
