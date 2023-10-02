@@ -112,7 +112,7 @@ type BollobasRiordan() =
     /// <param name="create_using">Basis for the graph generation</param>
     /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
     /// <returns>A DiGraph</returns>
-    static member initDirectedDiGraph (n: int) (alpha: float) (beta: float) (gamma: float) (delta_in: float) (delta_out: float) (create_using:DiGraph<'NodeKey, 'EdgeData>) =
+    static member initDirectedDiGraph (n: int) (alpha: float) (beta: float) (gamma: float) (delta_in: float) (delta_out: float) (create_using:DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         failwith"not implemented yet"
 
 
@@ -145,6 +145,6 @@ type BollobasRiordan() =
     /// <param name="create_using">Basis for the graph generation</param>
     /// <remarks>If the given graph has less than 3 vertices, a hard-coded example is used instead. The sum of <paramref name="alpha"/>, <paramref name="beta"/>, and <paramref name="gamma"/> must be 1.</remarks>
     /// <returns>A DiGraph</returns>
-    static member initDirected ((n: int),(alpha: float),(beta: float),(gamma: float),(delta_in: float),(delta_out: float),(create_using:DiGraph<'NodeKey, 'EdgeData>)) =
+    static member initDirected ((n: int),(alpha: float),(beta: float),(gamma: float),(delta_in: float),(delta_out: float),(create_using:DiGraph<'NodeKey, 'NodeData, 'EdgeData>)) =
         BollobasRiordan.initDirectedDiGraph n alpha beta gamma delta_in delta_out create_using
     

@@ -2,6 +2,7 @@
 
 open FSharpAux
 open System.Collections.Generic
+open System.Linq
 
 type Adj<'NodeKey, 'EdgeData> = seq<'NodeKey * 'EdgeData>
 
@@ -71,8 +72,13 @@ module FContext =
     let degree (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : int =
         let (p, _, s) = context
         p.Count + s.Count
-
-   
+    
+    /// Clones context 
+    let clone (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) : FContext<'NodeKey, 'NodeData, 'EdgeData> =
+        let d1, data, d2 = context
+        let d1Cloned = new Dictionary<'NodeKey,'EdgeData>(d1)
+        let d2Cloned = new Dictionary<'NodeKey,'EdgeData>(d2)
+        (d1Cloned, data, d2Cloned)
 
 type FGraph() = 
 
@@ -82,6 +88,18 @@ type FGraph() =
     /// <returns>FGraph</returns>
     static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
+
+    /// <summary> 
+    /// Clones an existing graph
+    /// 
+    /// Note: Current implementation subject to change 
+    /// 
+    /// [see here for further info](https://github.com/fslaborg/Graphoscope/issues/52#issuecomment-1741746696)
+    /// </summary>
+    /// <returns>FGraph</returns>
+    static member clone (graph:FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph.ToDictionary( (fun f -> f.Key), 
+                            (fun f -> FContext.clone f.Value))
     
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.

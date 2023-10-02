@@ -7,27 +7,29 @@ open FSharp.Data
 open Graphoscope
 open System
 
-type DiGraph<'NodeKey, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
+type DiGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
     let nodeKeys = ResizeArray<'NodeKey>() 
+    let nodeData = ResizeArray<'NodeData>() 
     let outEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
     let inEdges = ResizeArray<ResizeArray<(int * 'EdgeData)>>()
-    // InEdges: ResizeArray<ResizeArray<(int * float)>>
 
     member internal _.IdMap: Dictionary<'NodeKey, int> = idMap
     member internal _.NodeKeys: ResizeArray<'NodeKey> = nodeKeys
+    member internal _.NodeData: ResizeArray<'NodeData> = nodeData
     member internal _.OutEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = outEdges
     member internal _.InEdges: ResizeArray<ResizeArray<(int * 'EdgeData)>> = inEdges
 
-
 type DiGraph() =
+    static member internal nodeExists (nodeKey: 'NodeKey) (g : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        g.IdMap.ContainsKey nodeKey
 
     /// <summary> 
     /// Returns all nodes in te graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of nodes</returns>
-    static member getNodes (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member getNodes (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.NodeKeys
         |> Array.ofSeq
 
@@ -37,17 +39,20 @@ type DiGraph() =
     /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
     /// /// <param name="graph">The graph the node will be added to.</param> 
     /// /// <returns>Unit</returns>
-    static member addNode (node: 'NodeKey) (graph: DiGraph<'NodeKey,'EdgeData>) =
-        // TODO: Check if node exists
-        graph.IdMap.Add(node, graph.NodeKeys.Count * 1)
-        graph.NodeKeys.Add node
-        graph.OutEdges.Add (ResizeArray())
-        graph.InEdges.Add (ResizeArray())
-        graph
+    static member addNode (nodeKey: 'NodeKey) (nodeData: 'NodeData) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        if not (DiGraph.nodeExists nodeKey graph) then
+            graph.IdMap.Add(nodeKey, graph.NodeKeys.Count * 1)
+            graph.NodeKeys.Add nodeKey
+            graph.NodeData.Add nodeData
+            graph.OutEdges.Add (ResizeArray())
+            graph.InEdges.Add (ResizeArray())
+            graph
+        else
+            failwith $"Node already exists, {nodeKey}."
 
-    static member addNodes (nodes: 'NodeKey []) (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member addNodes (nodes: ('NodeKey * 'NodeData) []) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         nodes 
-        |> Array.iter (fun n -> DiGraph.addNode n graph|>ignore)
+        |> Array.iter (fun (nk, nd) -> DiGraph.addNode nk nd graph|>ignore)
         graph
 
     /// <summary> 
@@ -56,7 +61,7 @@ type DiGraph() =
     /// <param name="node">The node to be removed.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    static member removeNode (node: 'NodeKey) (graph: DiGraph<'NodeKey,'EdgeData>) = 
+    static member removeNode (node: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         let nodeIx = graph.IdMap[node]
 
         graph.OutEdges
@@ -75,6 +80,7 @@ type DiGraph() =
                 graph.IdMap[k] <- v - 1
 
         graph.NodeKeys.RemoveAt nodeIx
+        graph.NodeData.RemoveAt nodeIx
         graph.OutEdges.RemoveAt nodeIx
         graph.InEdges.RemoveAt nodeIx
         
@@ -103,7 +109,7 @@ type DiGraph() =
     /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph the edge will be added to.</param> 
     /// <returns>Unit</returns>
-    static member addEdge (edge: ('NodeKey * 'NodeKey * 'EdgeData)) (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member addEdge (edge: ('NodeKey * 'NodeKey * 'EdgeData)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         // TODO: Check if orig and dest nodes exist
         let orig, dest, attr = edge
         let origIx = graph.IdMap[orig]
@@ -124,7 +130,7 @@ type DiGraph() =
     /// <param name="origin">The node from which the edges start</param> 
     /// <param name="graph">The graph the node is present in</param> 
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
-    static member getOutEdges (origin: 'NodeKey) (graph: DiGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'EdgeData) []=
+    static member getOutEdges (origin: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.OutEdges[graph.IdMap[origin]]
         |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
@@ -134,7 +140,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph the edges are present in</param> 
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
-    static member getAllEdges (graph: DiGraph<'NodeKey,'EdgeData>): ('NodeKey * 'NodeKey * 'EdgeData) [] =
+    static member getAllEdges (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>): ('NodeKey * 'NodeKey * 'EdgeData) [] =
         DiGraph.getNodes graph
         |> Array.map(fun n ->
             n
@@ -149,7 +155,7 @@ type DiGraph() =
     /// <param name="origin">The node from which the edges start</param> 
     /// <param name="graph">The graph the node is present in</param> 
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
-    static member getInEdges (destination: 'NodeKey) (graph: DiGraph<'NodeKey,'EdgeData>) : ('NodeKey * 'EdgeData) []=
+    static member getInEdges (destination: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.InEdges[graph.IdMap[destination]]
         |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
@@ -160,7 +166,7 @@ type DiGraph() =
     /// <param name="edges">The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
     /// <param name="graph">The graph to add the edge to</param> 
     /// <returns>Unit</returns>
-    static member addEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData) []) (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member addEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData) []) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         edges 
         |> Array.iter (fun e -> DiGraph.addEdge e graph|>ignore)
         graph
@@ -174,7 +180,7 @@ type DiGraph() =
     /// <param name="destination">The target node of the edge</param> 
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
-    static member find (origin:'NodeKey) (destination:'NodeKey) (graph : DiGraph<'NodeKey, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
+    static member find (origin:'NodeKey) (destination:'NodeKey) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
             let k2 = graph.IdMap[origin]
             graph.OutEdges[graph.IdMap[origin]]
             |> ResizeArray.find (fun (k,l) -> k=k2)
@@ -186,7 +192,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to perform the operation on</param> 
     /// <returns>Unit</returns>
-    static member normalizeOutEdges (graph: DiGraph<'NodeKey,float>) = // should this return the graph?
+    static member normalizeOutEdges (graph: DiGraph<'NodeKey, 'NodeData, float>) =
         graph.OutEdges
         |> ResizeArray.iter( fun outEdges ->
             let total =
@@ -205,39 +211,49 @@ type DiGraph() =
     /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
     /// <param name="graph">The graph the edge will be removed from.</param> 
     /// <returns>Unit</returns>
-    static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey,'EdgeData>)  = 
+    static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
         let orig, dest = edge
-        let ix = graph.OutEdges[graph.IdMap[orig]] |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
-        match ix with
+        let outIx =
+            graph.OutEdges[graph.IdMap[orig]]
+            |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[dest])
+        match outIx with
         | Some n -> graph.OutEdges[graph.IdMap[orig]].RemoveAt n
-        | None -> printfn $"Edge to be removed doesn't exist: {edge}"
+        | None -> printfn $"Out Edge to be removed doesn't exist: {edge}"
+
+        let inIx =
+            graph.InEdges[graph.IdMap[dest]]
+            |> ResizeArray.tryFindIndex(fun (n, _) -> n = graph.IdMap[orig])
+
+        match inIx with
+        | Some n -> graph.InEdges[graph.IdMap[dest]].RemoveAt n
+        | None -> printfn $"In Edge to be removed doesn't exist: {edge}"
+
         graph
-        // g.InEdges[g.IdMap[dest]]...
 
     /// <summary> 
     /// Builds a graph from a list of edges. 
     /// </summary>
     /// <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
     /// <returns>A graph containing the nodes</returns>
-    static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : DiGraph<'NodeKey, 'EdgeData> =
-        let g = DiGraph<'NodeKey, 'EdgeData>()
+    static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : DiGraph<'NodeKey, 'NodeKey, 'EdgeData> =
+        let g = DiGraph<'NodeKey, 'NodeKey, 'EdgeData>()
         edges
         |> Array.map(fun (n1, n2, _) -> n1, n2)
         |> Array.unzip
         |> fun (a1, a2) -> Array.append a1 a2
         |> Array.distinct
         |> Array.sort
-        |> fun x ->  DiGraph.addNodes x g
-        |> DiGraph.addEdges edges 
-    
+        |> fun x ->  DiGraph.addNodes (x|>Array.map(fun nk -> nk, nk )) g
+        |> DiGraph.addEdges edges
 
-    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : DiGraph<'NodeKey, 'EdgeData>) : DiGraph<'NodeKey, 'EdgeData> =
-        if not (g.IdMap.ContainsKey nk1) then
-            DiGraph.addNode nk1 g|>ignore
-        if not (g.IdMap.ContainsKey nk2) then
-            DiGraph.addNode nk2 g|>ignore
-        
-        DiGraph.addEdge (nk1,nk2,ed) g
+    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        if not (g |> DiGraph.nodeExists nk1) then
+            DiGraph.addNode nk1 nd1 g |>ignore
+
+        if not (g |> DiGraph.nodeExists nk2) then
+            DiGraph.addNode nk2 nd2 g |>ignore
+
+        DiGraph.addEdge (nk1,nk2,ed) g//gUpdated
 
     /// <summary> 
     /// Builds a graph from a list of nodes. 
@@ -245,8 +261,8 @@ type DiGraph() =
     /// </summary>
     /// <param name="nodes">An array of nodes. The type of the nodes will strongly type the created graph to use that type for all nodes.</param> 
     /// <returns>A graph containing the nodes</returns>
-    static member createFromNodes<'NodeKey,'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> (nodes: 'NodeKey []) : DiGraph<'NodeKey, 'EdgeData> =
-        DiGraph<'NodeKey, 'EdgeData>()
+    static member createFromNodes<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> (nodes: ('NodeKey * 'NodeData) []) : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        DiGraph<'NodeKey, 'NodeData, 'EdgeData>()
         |>DiGraph.addNodes nodes
         
 
@@ -256,7 +272,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
-    static member toMatrix (graph: DiGraph<'NodeKey, float>) =
+    static member toMatrix (graph: DiGraph<'NodeKey, 'NodeData, float>) =
         let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
         graph.OutEdges
         |> ResizeArray.iteri(fun ri r ->
@@ -272,7 +288,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member countNodes (graph: DiGraph<'NodeKey, 'EdgeData>) : int = 
+    static member countNodes (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
         graph.NodeKeys |> ResizeArray.length
         
     /// <summary> 
@@ -280,17 +296,17 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member countEdges (graph: DiGraph<'NodeKey, 'EdgeData>)  :int = 
+    static member countEdges (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  :int = 
         DiGraph.getAllEdges graph 
         |> Array.length 
 
-    static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) :DiGraph<'NodeKey,'EdgeData> =
-        let graph = DiGraph<'NodeKey, 'EdgeData>()
+    static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) :DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let graph = DiGraph<'NodeKey, 'NodeData, 'EdgeData>()
         edgelist
         |> Seq.iter (fun (sk,s,tk,t,ed) -> DiGraph.addElement sk s tk t ed graph |> ignore)
         graph
 
-    static member toSeq (graph:DiGraph<'NodeKey,'EdgeData>) :seq<'NodeKey * 'NodeKey * 'NodeKey * 'NodeKey * 'EdgeData> =
+    static member toSeq (graph:DiGraph<'NodeKey, 'NodeData, 'EdgeData>) :seq<'NodeKey * 'NodeKey * 'NodeKey * 'NodeKey * 'EdgeData> =
         graph.NodeKeys
         |> Seq.map(fun n ->
             n
@@ -305,9 +321,9 @@ module DiGraph =
     /// Creates an empty DiGraph
     /// </summary>
     /// <returns>Empty DiGraph</returns>
-    let empty<'NodeKey, 'EdgeData when 'NodeKey : comparison>
-        : DiGraph<'NodeKey, 'EdgeData> =
-        DiGraph<'NodeKey, 'EdgeData>()
+    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
+        : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        DiGraph<'NodeKey, 'NodeData, 'EdgeData>()
 
 
     type Node() =
@@ -317,7 +333,7 @@ module DiGraph =
         /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
         /// /// <param name="graph">The graph the node will be added to.</param> 
         /// /// <returns>Unit</returns>
-        static member addNode (graph: DiGraph<'NodeKey,'EdgeData>) (node: 'NodeKey) =
+        static member addNode (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) =
             DiGraph.addNode node graph
 
         /// <summary> 
@@ -326,7 +342,7 @@ module DiGraph =
         /// <param name="node">The node to be removed.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
         /// <returns>Unit</returns>
-        static member removeNode (graph: DiGraph<'NodeKey,'EdgeData>) (node: 'NodeKey) = 
+        static member removeNode (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) = 
             DiGraph.removeNode node graph
     
     type Edge() =
@@ -337,7 +353,7 @@ module DiGraph =
         /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
         /// <param name="graph">The graph the edge will be added to.</param> 
         /// <returns>Unit</returns>
-        static member addEdge (graph: DiGraph<'NodeKey,'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
+        static member addEdge (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
             DiGraph.addEdge edge graph
 
         /// <summary> 
@@ -346,5 +362,5 @@ module DiGraph =
         /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
         /// <returns>Unit</returns>
-        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey,'EdgeData>)  = 
+        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
             DiGraph.removeEdge edge graph
