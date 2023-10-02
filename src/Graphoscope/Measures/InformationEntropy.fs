@@ -55,7 +55,7 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member ofDiGraph (labelF:'NodeData -> 'Information) (graph: DiGraph<'NodeKey,'EdgeData>) (n:'NodeKey) =   
+    static member ofDiGraph (labelF:'NodeData -> 'Information) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (n:'NodeKey) =   
         System.NotImplementedException() |> raise
 
     /// <summary> 
@@ -68,7 +68,7 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member compute ((labelF:'NodeData -> 'Information),(graph: DiGraph<'NodeKey,'EdgeData>),(n:'NodeKey)) =
+    static member compute ((labelF:'NodeData -> 'Information),(graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>),(n:'NodeKey)) =
         InformationEntropy.ofDiGraph labelF graph n
 
     

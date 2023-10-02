@@ -29,7 +29,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
-    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.toArray
@@ -49,7 +49,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
-    static member sequence(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+    static member sequence(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         InDegree.sequenceOfDiGraph graph
 
 
@@ -77,7 +77,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> Seq.averageBy(fun x -> float x.Count)
    
@@ -87,7 +87,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member average(graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member average(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         InDegree.averageofDiGraph graph
 
     /// <summary> 
@@ -123,7 +123,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -142,7 +142,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximum (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member maximum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         InDegree.maximumOfDiGraph graph
     
     
@@ -169,7 +169,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -187,5 +187,5 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimum (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member minimum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         InDegree.minimumOfDiGraph graph

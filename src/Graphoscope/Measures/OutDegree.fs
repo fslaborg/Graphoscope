@@ -28,7 +28,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of out-degree values in descending order</returns>
-    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.toArray
@@ -48,7 +48,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of out-degree values in descending order</returns>
-    static member sequence(graph : DiGraph<'NodeKey, 'EdgeData>) = 
+    static member sequence(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         OutDegree.sequenceOfDiGraph graph
 
 
@@ -76,7 +76,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> Seq.averageBy(fun x -> float x.Count)
    
@@ -86,7 +86,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member average(graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member average(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         OutDegree.averageofDiGraph graph
 
     /// <summary> 
@@ -122,7 +122,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -140,7 +140,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximum (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member maximum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         OutDegree.maximumOfDiGraph graph
     
     
@@ -167,7 +167,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'EdgeData>) = 
+    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.OutEdges
         |> ResizeArray.minBy(fun x -> x.Count)
         |> ResizeArray.length
@@ -186,5 +186,5 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimum (graph : DiGraph<'NodeKey, 'EdgeData>) =
+    static member minimum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         OutDegree.minimumOfDiGraph graph

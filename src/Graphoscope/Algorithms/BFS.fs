@@ -74,6 +74,6 @@ type BFS() =
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
     /// <returns>Sequence of node key and node data</returns>    
-    static member Compute (starting : 'NodeKey, graph : DiGraph<'NodeKey, 'EdgeData>) = 
+    static member Compute (starting : 'NodeKey, graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         // in this overloads type conversion is OK
         System.NotImplementedException() |> raise

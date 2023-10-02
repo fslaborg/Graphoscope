@@ -81,7 +81,7 @@ type BarabasiAlbert() =
     /// <param name="fWeight"> is a funtion that takes two 'Vertices and returns a weight between them in form of an 'Edge type.</param>
     /// <param name="startingGraph"> is the original graph, that is used as the initial connected network. The rest of the calculations and growth of the network are performed on this graph.</param>
     /// <returns>A DiGraph</returns>
-    static member initDiGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> int) (fLabel: int -> int) (fWeight: int*int -> float) (startingGraph: DiGraph<'NodeKey, 'EdgeData>)  =    
+    static member initDiGraph (numberOfVertices: int) (numberOfEdgesPerIteration: int) (fVertexKey: int -> int) (fLabel: int -> int) (fWeight: int*int -> float) (startingGraph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  =    
         failwith"not implemented yet"
 
     /// <summary> 
@@ -107,7 +107,7 @@ type BarabasiAlbert() =
     /// <param name="fWeight"> is a funtion that takes two 'Vertices and returns a weight between them in form of an 'Edge type.</param>
     /// <param name="startingGraph"> is the original graph, that is used as the initial connected network. The rest of the calculations and growth of the network are performed on this graph.</param>
     /// <returns>A DiGraph</returns>
-    static member init ((numberOfVertices: int),(numberOfEdgesPerIteration: int),(fVertexKey: int -> int),(fLabel: int -> int),(fWeight: int*int -> float),(startingGraph: DiGraph<'NodeKey, 'EdgeData>)) =
+    static member init ((numberOfVertices: int),(numberOfEdgesPerIteration: int),(fVertexKey: int -> int),(fLabel: int -> int),(fWeight: int*int -> float),(startingGraph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)) =
         BarabasiAlbert.initDiGraph numberOfVertices numberOfEdgesPerIteration fVertexKey fLabel fWeight startingGraph
     
     /// <summary> 

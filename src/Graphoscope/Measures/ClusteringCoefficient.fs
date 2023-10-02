@@ -28,7 +28,7 @@ type ClusteringCoefficient() =
         |> FGraph.mapContexts (fun c -> ClusteringCoefficient.clusteringCoefficientOfFGraphVertex c g)
         |> Seq.sumBy snd
 
-    static member clusteringCoefficientOfDiGraph (g: DiGraph<'NodeKey,'EdgeData>) : float=
+    static member clusteringCoefficientOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
     static member clusteringCoefficientOfUndirectedGraph (g: Graph.UndirectedGraph<'NodeKey,'EdgeData>) : float=
@@ -37,7 +37,7 @@ type ClusteringCoefficient() =
     static member compute (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfFGraph g
     
-    static member compute (g: DiGraph<'NodeKey,'EdgeData>) =
+    static member compute (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfDiGraph g
     
     static member compute (g: Graph.UndirectedGraph<'NodeKey,'EdgeData>) =

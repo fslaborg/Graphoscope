@@ -25,7 +25,7 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of loop count</returns>
-    static member loopCountOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
+    static member loopCountOfDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.InEdges
         |> ResizeArray.mapi(fun i x ->
             match x |> ResizeArray.tryFind(fun (t,_) -> t = i) with
@@ -47,5 +47,5 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the mean degree</returns>
-    static member loopCount (graph: DiGraph<'NodeKey,'EdgeData>) = 
+    static member loopCount (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Loop.loopCountOfDiGraph graph

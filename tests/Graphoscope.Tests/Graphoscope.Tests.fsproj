@@ -12,7 +12,6 @@
     <Compile Include="FloydWarshall.fs" />
     <Compile Include="Degree.fs" />
     <Compile Include="FGraph.fs" />
-    <Compile Include="UndirectedGraph.fs" />
     <Compile Include="NetworkDensity.fs" />
     <Compile Include="Loop.fs" />
     <Compile Include="GraphGenerators.fs" />

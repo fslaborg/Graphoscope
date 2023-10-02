@@ -47,7 +47,7 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member ofDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) = 
+    static member ofDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         System.NotImplementedException() |> raise  
 
     /// <summary> 
@@ -69,6 +69,6 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member compute (graph: DiGraph<'NodeKey,'EdgeData>) = 
+    static member compute (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         GraphDensity.ofDiGraph graph
     

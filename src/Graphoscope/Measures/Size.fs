@@ -8,7 +8,7 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfDiGraph (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member sizeOfDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         DiGraph.countNodes graph
 
     /// <summary> 
@@ -32,5 +32,5 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph :DiGraph<'NodeKey,'EdgeData>) = 
+    static member compute (graph :DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Size.sizeOfDiGraph graph

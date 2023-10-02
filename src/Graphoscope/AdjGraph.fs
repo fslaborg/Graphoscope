@@ -4,6 +4,33 @@ open FSharpAux
 open System.Collections.Generic
 
 
+
+/// <summary> 
+/// A adjacency matrix storing additional node information 
+/// </summary>
+type AdjMatrix<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
+    (edgeData : 'EdgeData [,], nodeData : array<'NodeData>, nodekeyIndex : Dictionary<'NodeKey, int>) =
+
+    new (nodeCount : int) = 
+        let n = nodeCount - 1
+        let nodeData     = Array.zeroCreate n
+        let nodekeyIndex = Dictionary<'NodeKey, int>(n)
+        let adjMatrix    = Array2D.zeroCreate n n        
+        AdjMatrix(adjMatrix, nodeData, nodekeyIndex)
+
+    member this.Item(n:int, m:int) = 
+         edgeData.[n,m]
+
+    member this.Bykey(sourceKey:'NodeKey, targetKey:'NodeKey) =
+        edgeData.[nodekeyIndex.[sourceKey], nodekeyIndex.[targetKey]]    
+    
+    member this.Nodes = nodeData
+    
+    member this.NodesByKey(key:'NodeKey) = nodeData.[nodekeyIndex.[key]]
+
+    // member this.AddElement (sourceKey : 'NodeKey) (source : 'NodeData)  (targetKey : 'NodeKey) (target : 'NodeData) (data : 'EdgeData) =
+    //     nodekeyIndex
+
 /// <summary> 
 /// Basic Adjacency Graph representation
 /// </summary>
@@ -155,7 +182,7 @@ module AdjGraph =
 
 
         /// Builds a graph whose elements are the results of applying the given function to each of the node.
-        static member map (mapping : 'NodeKey -> 'NodeData -> Node<'NodeKey, 'NodeData>) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        static member map (mapping : 'NodeKey -> 'NodeData -> ('NodeKey*'NodeData)) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             let tmpGraph =  Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>(graph.Count)
             for kv in graph do
                 let node, adjComponent = kv.Value
