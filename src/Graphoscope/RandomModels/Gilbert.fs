@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.RandomModels
 
 open Graphoscope
+open Graphoscope.Graph
 
 // Adaptation of the gilbert random plane networks
  // Gilbert, E.N., 1961. Random plane networks. Journal of the society for industrial and applied mathematics, 9(4), pp.533-543.
@@ -55,3 +56,20 @@ type Gilbert() =
                 if rnd.NextDouble() < probability then
                     g |> FGraph.addElement i i ii ii probability |> ignore
         g       
+
+    /// <summary> 
+    /// Inits an undirectedGraph according to the gilbert random plane networks
+    /// </summary>
+    static member initUndirectedGraph (numberOfNodes: int) (probability: float) =
+        if probability > 1. || probability < 0. then failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
+
+        let rnd = new System.Random()
+        let g   :  UndirectedGraph<int, float> = UndirectedGraph.empty
+
+        for i=0 to (numberOfNodes-1) do          
+            for ii=i to (numberOfNodes-1) do
+                if rnd.NextDouble() < probability then
+                    g |> UndirectedGraph.addElement i i ii ii probability |> ignore
+        g       
+
+
