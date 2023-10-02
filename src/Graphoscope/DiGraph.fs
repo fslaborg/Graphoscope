@@ -41,7 +41,7 @@ type DiGraph() =
     /// /// <returns>Unit</returns>
     static member addNode (nodeKey: 'NodeKey) (nodeData: 'NodeData) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         if not (DiGraph.nodeExists nodeKey graph) then
-            graph.IdMap.Add(nodeKey, graph.NodeKeys.Count)
+            graph.IdMap.Add(nodeKey, graph.NodeKeys.Count * 1)
             graph.NodeKeys.Add nodeKey
             graph.NodeData.Add nodeData
             graph.OutEdges.Add (ResizeArray())
@@ -247,12 +247,13 @@ type DiGraph() =
         |> DiGraph.addEdges edges
 
     static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        if g |> DiGraph.nodeExists nk1 then
-            DiGraph.addNode nk1 g |> ignore
-        if not (g.IdMap.ContainsKey nk2) then
-            DiGraph.addNode nk2 g|>ignore
-        
-        DiGraph.addEdge (nk1,nk2,ed) g
+        if not (g |> DiGraph.nodeExists nk1) then
+            DiGraph.addNode nk1 nd1 g |>ignore
+
+        if not (g |> DiGraph.nodeExists nk2) then
+            DiGraph.addNode nk2 nd2 g |>ignore
+
+        DiGraph.addEdge (nk1,nk2,ed) g//gUpdated
 
     /// <summary> 
     /// Builds a graph from a list of nodes. 
