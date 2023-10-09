@@ -28,6 +28,14 @@ type InDegree() =
     /// Returns the in-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of in-degree values</returns>
+    static member sequenceOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.sequenceOfAdjGraph graph
+
+    /// <summary> 
+    /// Returns the in-degree sequence of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
     static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.InEdges
@@ -43,6 +51,14 @@ type InDegree() =
     /// <returns>A float seq of in-degree values</returns>
     static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         InDegree.sequenceOfFGraph graph
+
+    /// <summary> 
+    /// Returns the in-degree sequence of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of in-degree values</returns>
+    static member sequence(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.sequenceOfAdjGraph graph
 
     /// <summary> 
     /// Returns the in-degree sequence of the graph
@@ -70,7 +86,16 @@ type InDegree() =
         graph
         |> FGraph.mapContexts FContext.inwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
-    
+
+    /// <summary> 
+    /// Get the mean In-degree of the graph. 
+    /// This is an undirected measure so inbound links add to a nodes In-degree.
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the mean In-degree</returns>
+    static member averageofAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.averageofAdjGraph graph  
+
     /// <summary> 
     /// Get the mean In-degree of the graph. 
     /// This is an undirected measure so inbound links add to a nodes In-degree.
@@ -99,6 +124,15 @@ type InDegree() =
     static member average (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
         InDegree.averageofFGraph graph
 
+    /// <summary> 
+    /// Get the mean In-degree of the graph. 
+    /// This is an undirected measure so inbound links add to a nodes In-degree.
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the mean In-degree</returns>
+    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
+        InDegree.averageofAdjGraph graph
+
 
 
 
@@ -117,7 +151,14 @@ type InDegree() =
         |> FGraph.mapContexts FContext.inwardDegree
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
-
+    /// <summary> 
+    /// Get the max In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max In-degree</returns>
+    static member maximumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.maximumOfAdjGraph graph
+    
     /// <summary> 
     /// Get the max In-degree of the graph. 
     /// </summary>
@@ -136,6 +177,14 @@ type InDegree() =
     /// <returns>An int of the max In-degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         InDegree.maximumOfFGraph graph
+
+    /// <summary> 
+    /// Get the max In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max In-degree</returns>
+    static member maximum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.maximumOfAdjGraph graph
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -169,6 +218,14 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
+    static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.minimumOfAdjGraph graph
+
+    /// <summary> 
+    /// Get the min In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the min In-degree</returns>
     static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
@@ -181,6 +238,14 @@ type InDegree() =
     /// <returns>An int of the min In-degree</returns>
     static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         InDegree.minimumOfFGraph graph
+
+    /// <summary> 
+    /// Get the min In-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the min In-degree</returns>
+    static member minimum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.minimumOfAdjGraph graph
 
     /// <summary> 
     /// Get the min In-degree of the graph. 

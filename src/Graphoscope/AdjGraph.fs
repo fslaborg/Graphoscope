@@ -50,57 +50,92 @@ type AdjGraph() =
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         AdjGraph<'NodeKey, 'NodeData, 'EdgeData>()
 
-
     /// <summary> 
     /// Adds an edge and the corresponding nodes with data to the graph
     /// </summary>
-    static member addElement (sourceKey : 'NodeKey) (source : 'NodeData)  (targetKey : 'NodeKey) (target : 'NodeData) (data : 'EdgeData) 
-        (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =            
-        
-        match graph.ContainsKey(sourceKey) with
-        | true  -> 
-                match graph.ContainsKey(targetKey) with
+    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : AdjGraph<'NodeKey,'NodeData,'EdgeData> =
+        let mutable contextNk1 = (Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&contextNk1) with
+        | true  ->
+            if nk1 <> nk2 then
+                let mutable contextNk2 = (Unchecked.defaultof<'NodeData>,null)
+                match g.TryGetValue(nk2,&contextNk2) with            
                 | true  ->
-                    let _,adjComponent = graph.[sourceKey]
-                    Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
-                    graph.[sourceKey] <- (source,adjComponent)
-                    // potentially updata tagetData
-                    let _,adjComponentTarget = graph.[targetKey]
-                    graph.[targetKey] <- (target,adjComponentTarget)
+                    let nd1, s1 = contextNk1
+                    //let mutable s1_ = Unchecked.defaultof<'EdgeData>
+                    match s1.ContainsKey(nk2) with
+                    | true  -> ()//failwithf "An Edge between Source Node %O Target Node %O does already exist" nk1 nk2
+                    | false -> 
+                        // Potentially update edge data
+                        s1.Add(nk2,ed)                                        
+                        let (nd2, s2) = contextNk2
+                        s2.Add(nk1,ed)
+                | false -> 
+                    let nd1, s1 = contextNk1
+                    s1.Add(nk2,ed)                                        
+                    let s2 = Dictionary<_,_>()
+                    s2.Add(nk1,ed)
+                    g.Add(nk2,(nd2,s2))               
+            else
+                // inser self loop p
+                let nd1, s1 = contextNk1
+                match s1.ContainsKey(nk2) with
+                | true -> ()
                 | false ->
-                    let _,adjComponent = graph.[sourceKey]
-                    Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
-                    graph.[sourceKey] <- (source,adjComponent)
-                    // insert target node
-                    Dictionary.addOrUpdateInPlace targetKey (target,Dictionary<'NodeKey,_>()) graph |> ignore
-
-        | false -> 
-            let adjComponent = Dictionary<'NodeKey, 'EdgeData>()
-            adjComponent.Add(targetKey, data)
-            graph.Add(sourceKey,(source,adjComponent))
-            match graph.ContainsKey(targetKey) with
-            | true ->
-                // update target node
-                let _,adjComponent = graph.[targetKey]
-                Dictionary.addOrUpdateInPlace targetKey (target,adjComponent) graph |> ignore
-            | false ->
-                // insert target node
-                Dictionary.addOrUpdateInPlace targetKey (target,Dictionary<'NodeKey,_>()) graph |> ignore
+                    // Potentially update edge data
+                    s1.Add(nk2,ed)                
                 
-        graph
+        | false -> 
+            let mutable contextNk2 = (Unchecked.defaultof<'NodeData>,null)
+            match g.TryGetValue(nk2,&contextNk2) with
+            | true  ->   
+                let s1 = Dictionary<_,_>()                
+                s1.Add(nk2,ed)            
+                g.Add(nk1,(nd1,s1))                
+                let (nd2, s2) = contextNk2
+                s2.Add(nk1,ed)                                            
+            | false ->                 
+                if nk1 <> nk2 then
+                    let s1 = Dictionary<_,_>()                
+                    s1.Add(nk2,ed)            
+                    g.Add(nk1,(nd1,s1))     
+                    
+                    let s2 = Dictionary<_,_>()
+                    s2.Add(nk1,ed)
+                    g.Add(nk2,(nd2,s2))
+                else
+                    let s1 = Dictionary<_,_>()                
+                    s1.Add(nk2,ed)                 
+        g    
 
 
     /// <summary> 
     /// Returns the Adjacency graph conetent as a sequence of edges 
     /// </summary>
     static member toSeq  (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        seq {
-            for skv in graph do
-                let source, adjComponent = skv.Value
-                for tkv in adjComponent do
-                    let _,target = graph.[tkv.Key]                     
-                    yield (skv.Key,source,tkv.Key,target,tkv.Value)
-        }
+        // seq {
+        //     for skv in graph do
+        //         let source, adjComponent = skv.Value
+        //         for tkv in adjComponent do
+        //             let _,target = graph.[tkv.Key]                     
+        //             yield (skv.Key,source,tkv.Key,target,tkv.Value)
+        // }
+        graph.Keys
+        |> Seq.fold(fun foOuter node -> 
+            let source = node
+            let sourceData,_ = graph.Item source
+            let targets = AdjGraph.getNeighbours source graph
+            Seq.fold(fun fo (t,tv) ->
+                // let t = t
+                let td,_ = graph.Item t 
+                // let tv = targetData.Value
+                if Set.contains (source,sourceData,t,td,tv) fo || Set.contains (t,td,source,sourceData,tv) fo then
+                    fo
+                else
+                    (Set.add(source,sourceData,t,td,tv) fo)
+            ) foOuter targets
+        ) Set.empty
+        |> Set.toSeq
 
     
     /// <summary> 
@@ -110,7 +145,7 @@ type AdjGraph() =
         : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> = 
         let graph = AdjGraph.create()//new AdjGraph<'NodeKey, 'Nodedata,'EdgeData>()
         edgelist
-        |> Seq.iter (fun e -> AdjGraph.addElement e graph |> ignore)
+        |> Seq.iter (fun (sk,s ,tk,t,ed: 'EdgeData) -> AdjGraph.addElement sk s tk t ed graph |> ignore)
         graph
 
     
@@ -137,6 +172,233 @@ type AdjGraph() =
         AdjMatrix(adjMatrix, nodeData, nodekeyIndex)
 
 
+    ///Adds a labeled node to the graph.
+    static member  addNode (nk:'NodeKey) (nd : 'NodeData)  (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let mutable context = (Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk,&context) with
+        | true  -> context <- (nd,Dictionary<_,_>())
+        | false -> g.Add(nk,(nd,Dictionary<_,_>()))            
+        g
+
+    ///Adds labeled nodes to the graph.
+    static member addNodes (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        Seq.iter (fun (nk,nd) -> (AdjGraph.addNode nk nd g)|>ignore) nodeSeq |>ignore
+        g
+
+    ///Evaluates the number of nodes in the graph.
+    static member countNodes (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+        g.Count
+ 
+    ///Returns true, if the node v is contained in the graph. Otherwise, it returns false.
+    static member containsNode vk (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : bool =
+        Dictionary.containsKey vk g
+
+    ///Lookup a labeled vertex in the graph. Raising KeyNotFoundException if no binding exists in the graph.
+    static member findNode (n: 'NodeKey) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'NodeData) = 
+        Dictionary.item n g
+        |> fun (nd, _) -> n, nd
+
+    ///Set the NodeData of a given NodeKey to the given NodeData
+    static member setNodeData (n: 'NodeKey) (nd: 'NodeData) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        let _,s = g.Item n
+        g.Item n <- (nd,s)
+        g
+
+    ///Remove the Node and all edges connected to it
+    static member removeNode (nk:'NodeKey) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        match AdjGraph.containsNode nk g with
+        |true   -> 
+            let _,s = g.Item nk
+            for k2 in s do
+                g.Item k2.Key|> fun (nd,s) -> s.Remove nk |>ignore
+            g.Remove nk |>ignore
+            g 
+        |_ -> g
+
+    /// Applies the given function to each node of the graph
+    static member iterNodes (action : 'NodeKey -> 'NodeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        for kv in graph do
+            let node, _ = kv.Value
+            action kv.Key node
+            
+
+    /// Applies the given function to each node of the graph
+    static member iteriNodes (action : int -> 'NodeKey -> 'NodeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let mutable counter = -1
+        for kv in graph do
+            let node, _ = kv.Value
+            action (counter+1) kv.Key node
+
+
+    /// Builds a graph whose elements are the results of applying the given function to each of the node.
+    static member map (mapping : 'NodeKey -> 'NodeData -> ('NodeKey*'NodeData)) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let tmpGraph =  Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>(graph.Count)
+        for kv in graph do
+            let node, adjComponent = kv.Value
+            let tmpNodeKey, tmpNode = mapping kv.Key node
+            tmpGraph.Add(tmpNodeKey, (tmpNode,adjComponent))
+        tmpGraph
+
+    /// Converts nodes to nodeKey * nodeData array 
+    static member toNodeArray (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let tmp = Array.zeroCreate graph.Count 
+        AdjGraph.iteriNodes (fun i key node -> tmp.[i] <- key,node) graph
+        tmp
+
+
+    /// Counts all edges 
+    static member countEdges (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        graph
+        |> Seq.sumBy (fun kv -> 
+            let _, adjComponent = kv.Value
+            adjComponent.Count
+            )
+        
+
+    ///Returns true, if the edge from vertex v1 to vertex v2 is contained in the graph. Otherwise, it returns false.
+    static member containsEdge v1 v2 (g: AdjGraph<'NodeKey,'NodeData,'EdgeData>) : bool =
+        let mutable context = (Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(v1,&context) with
+        | true  -> 
+            let (_, s) = context
+            s.ContainsKey(v2)
+        | false -> false
+            
+    
+    /// Add edge
+    static member addEdge (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (data : 'EdgeData) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =                
+        if not <| graph.ContainsKey targetKey then
+            failwithf "The target node %O of the edge does not exist in this graph." targetKey        
+
+        match graph.ContainsKey(sourceKey) with
+        | true  -> 
+            let source,adjComponent = graph.[sourceKey]
+            Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
+            Dictionary.addOrUpdateInPlace sourceKey (source,adjComponent) graph |> ignore
+        | false -> 
+            failwithf "The source node %O of the edge does not exist in this graph." sourceKey
+        
+        graph
+
+    ///Adds a labeled edge to the graph.
+    static member tryAddEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : AdjGraph<'NodeKey,'NodeData,'EdgeData> option =
+        if (AdjGraph.containsNode nk1 g |> not) || (AdjGraph.containsNode nk2 g |> not) || AdjGraph.containsEdge nk1 nk2 g then
+            None
+        else 
+            let (nd1, s1) = Dictionary.item nk1 g
+            Dictionary.addOrUpdateInPlace nk2 ed s1 |> ignore
+            let (nd2, s2) = Dictionary.item nk2 g
+            Dictionary.addOrUpdateInPlace nk1 ed s2 |> ignore
+            g |> Some
+
+    ///Add labeled edges to the graph.
+    static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : AdjGraph<'NodeKey,'NodeData,'EdgeData> =
+        Seq.iter (fun (nk1,nk2,ed) -> AdjGraph.addEdge nk1 nk2 ed g|>ignore) edgeSeq|>ignore
+        g
+
+    ///Remove an edge
+    static member removeEdge (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : AdjGraph<'NodeKey,'NodeData,'EdgeData> =
+        match AdjGraph.containsEdge nkSource nkTarget g with
+        | true    -> 
+            g.Item nkSource|> fun (nd,s) -> s.Remove nkTarget |>ignore
+            g.Item nkTarget|> fun (nd,s) -> s.Remove nkSource |>ignore
+            g
+        | _         -> g 
+
+
+    ///Removes all edges according to the given removeF
+    static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->AdjGraph<'NodeKey,'NodeData,'EdgeData> -> AdjGraph<'NodeKey,'NodeData,'EdgeData>) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : AdjGraph<'NodeKey,'NodeData,'EdgeData> =
+        Seq.iter(fun (nk1,nk2) -> (removeF nk1 nk2 g )|>ignore) edgeSeq|>ignore
+        g
+
+    /// Applies the given function to each node of the graph
+    static member iterEdge (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        for skv in graph do
+            let source, adjComponent = skv.Value
+            for tkv in adjComponent do  
+                action skv.Key tkv.Key tkv.Value
+    
+    /// <summary> 
+    /// Tries to find an edge between the specified nodes. Raises Exception if no such edge exists in the graph.
+    /// </summary>
+    static member findEdge (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        match graph.ContainsKey(sourceKey) with
+        | true  -> 
+            let source,adjComponent = graph.[sourceKey]
+            match adjComponent.ContainsKey(targetKey) with
+            | true -> sourceKey,targetKey,adjComponent.[targetKey]
+            | false -> failwithf "Edge %O - %O does not exist in this graph." sourceKey targetKey 
+        | false -> 
+            failwithf "The source node %O of the edge does not exist in this graph." sourceKey
+
+    ///Lookup a labeled edge in the graph, returning a Some value if a binding exists and None if not.
+    static member tryFindEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) option =
+        let mutable context = (Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&context) with
+        | false -> None
+        | true  -> 
+            let (_, s) = context
+            match s.TryGetValue(nk1) with
+            | false,_  -> None
+            | true, e  ->                     
+                Some (nk1,nk2,e)
+
+
+    ///Returns the neighours of a node nk with their EdgeData
+    static member getNeighbours (nk:'NodeKey) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey*'EdgeData> =
+        let nd,s = g.Item nk    
+        seq{
+            for kvp in s do
+                kvp.Key,
+                kvp.Value
+        }
+
+    ///Returns the degree of a node nk 
+    static member getDegree (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) :int = 
+        let nd,s = g.Item nk
+        s|>Seq.length
+
+    ///Maps contexts of the graph.
+    static member mapContexts (mapping : 'NodeData*Dictionary<'NodeKey,'EdgeData> -> 'T) (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey * 'T> =
+        g
+        |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
+
+    /// <summary> 
+    /// Converts the FGraph to an array2d 
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An array2d</returns>
+    static member toArray2D (nodeIndexer : 'NodeKey -> int)  =
+        (fun (g : AdjGraph<'NodeKey,'NodeData,'EdgeData>) ->
+            let n = g.Count
+            let matrix = Array2D.zeroCreate n n
+            for skv in g do
+                let (_, s) = skv.Value
+                for tkv in s do  
+                    matrix.[nodeIndexer skv.Key,nodeIndexer tkv.Key] <- tkv.Value
+            
+            matrix
+            )
+
+    /// <summary> 
+    /// Returns the FGraph edges as a sequence of edges 
+    /// </summary>
+    static member toEdgeSeq (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        seq {
+             for skv in graph do
+                let (source, s) = skv.Value
+                for tkv in s do                      
+                    let sk = skv.Key
+                    
+                    let tk,tv = tkv.Key,tkv.Value
+                    if sk<=tk then
+                        yield (sk,tk,tv)
+                    else
+                        yield (tk,sk,tv)
+                    //yield (skv.Key,tkv.Key,tkv.Value)
+        }
+        |> Seq.distinct
+  
 module AdjGraph =
     
     /// <summary> 
@@ -157,44 +419,32 @@ module AdjGraph =
             graph.Count
 
         /// Adds node to graph [if node exists it is updated]
-        static member add (key:'NodeKey) (data:'NodeData) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)
-            : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
-            Dictionary.addOrUpdateInPlace key (data,Dictionary<'NodeKey,_>()) graph |> ignore
-            graph
+        static member addNode (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (key:'NodeKey) (data:'NodeData) :AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+            AdjGraph.addNode key data graph
 
+        static member removeNode (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey)  : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =     
+            AdjGraph.removeNode nk g
         /// 
         static member containsKey (key:'NodeKey) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             graph.ContainsKey key
 
-         /// Applies the given function to each node of the graph
+        /// Applies the given function to each node of the graph
         static member iter (action : 'NodeKey -> 'NodeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            for kv in graph do
-                let node, _ = kv.Value
-                action kv.Key node
+           AdjGraph.iterNodes action graph
                 
 
          /// Applies the given function to each node of the graph
         static member iteri (action : int -> 'NodeKey -> 'NodeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            let mutable counter = -1
-            for kv in graph do
-                let node, _ = kv.Value
-                action (counter+1) kv.Key node
+           AdjGraph.iteriNodes action graph
 
 
         /// Builds a graph whose elements are the results of applying the given function to each of the node.
         static member map (mapping : 'NodeKey -> 'NodeData -> ('NodeKey*'NodeData)) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            let tmpGraph =  Dictionary<'NodeKey, 'NodeData * Dictionary<'NodeKey, 'EdgeData>>(graph.Count)
-            for kv in graph do
-                let node, adjComponent = kv.Value
-                let tmpNodeKey, tmpNode = mapping kv.Key node
-                tmpGraph.Add(tmpNodeKey, (tmpNode,adjComponent))
-            tmpGraph
+            AdjGraph.map mapping graph
 
         /// Converts nodes to nodeKey * nodeData array 
         static member toArray (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            let tmp = Array.zeroCreate graph.Count 
-            Node.iteri (fun i key node -> tmp.[i] <- key,node) graph
-            tmp
+            AdjGraph.toNodeArray
 
     /// <summary> 
     /// Functions operating on directed edges
@@ -203,51 +453,23 @@ module AdjGraph =
         
         /// Counts all edges 
         static member count (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            graph
-            |> Seq.sumBy (fun kv -> 
-                let _, adjComponent = kv.Value
-                adjComponent.Count
-                )
+            AdjGraph.countEdges graph
 
 
         /// Add edge
         static member add (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (data : 'EdgeData) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =                
-            if not <| graph.ContainsKey targetKey then
-                failwithf "The target node %O of the edge does not exist in this graph." targetKey        
-
-            match graph.ContainsKey(sourceKey) with
-            | true  -> 
-                let source,adjComponent = graph.[sourceKey]
-                Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
-                Dictionary.addOrUpdateInPlace sourceKey (source,adjComponent) graph |> ignore
-            | false -> 
-                failwithf "The source node %O of the edge does not exist in this graph." sourceKey
-            
-            graph
-
-
+            AdjGraph.addEdge sourceKey targetKey data graph
 
         /// Applies the given function to each node of the graph
         static member iter (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            for skv in graph do
-                let source, adjComponent = skv.Value
-                for tkv in adjComponent do  
-                    action skv.Key tkv.Key tkv.Value
-        
+            AdjGraph.iterEdge action graph
+
         /// <summary> 
         /// Tries to find an edge between the specified nodes. Raises Exception if no such edge exists in the graph.
         /// </summary>
         static member find (sourceKey : 'NodeKey) (targetKey : 'NodeKey) (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            match graph.ContainsKey(sourceKey) with
-            | true  -> 
-                let source,adjComponent = graph.[sourceKey]
-                match adjComponent.ContainsKey(targetKey) with
-                | true -> sourceKey,targetKey,adjComponent.[targetKey]
-                | false -> failwithf "Edge %O - %O does not exist in this graph." sourceKey targetKey 
-            | false -> 
-                failwithf "The source node %O of the edge does not exist in this graph." sourceKey
+           AdjGraph.findEdge sourceKey targetKey graph
     
-
         //static member map (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
             
 

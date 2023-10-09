@@ -24,9 +24,25 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
+    static member sizeOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        AdjGraph.countNodes graph
+
+    /// <summary> 
+    /// Gets the total number of nodes of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total nodes</returns>
     static member compute (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         Size.sizeOfFGraph graph
-    
+        
+    /// <summary> 
+    /// Gets the total number of nodes of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total nodes</returns>
+    static member compute (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Size.sizeOfAdjGraph graph
+      
     /// <summary> 
     /// Gets the total number of nodes of the graph
     /// </summary>

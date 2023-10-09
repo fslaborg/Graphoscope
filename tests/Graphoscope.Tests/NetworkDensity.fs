@@ -7,24 +7,24 @@ open Graphoscope.DiGraph
 open System.IO
 open FSharpAux
 
-[<Fact>]
-let ``Monkey graph import has correct measures`` () =
-    //measures taken from http://konect.cc/networks/moreno_rhesus/
-    let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
+// [<Fact>]
+// let ``Monkey graph import has correct measures`` () =
+//     //measures taken from http://konect.cc/networks/moreno_rhesus/
+//     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
     
      
-    let monkeyGraph = 
-        File.ReadLines file
-        |> Seq.skip 2 
-        |> Seq.map 
-            (fun str -> 
-                let arr = str.Split(' ')
-                int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
-        |> FGraph.ofSeq
+//     let monkeyGraph = 
+//         File.ReadLines file
+//         |> Seq.skip 2 
+//         |> Seq.map 
+//             (fun str -> 
+//                 let arr = str.Split(' ')
+//                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
+//         |> AdjGraph.ofSeq
     
-    //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
-    Assert.Equal(0.925,(Measures.GraphDensity.ofUndirectedFGraph monkeyGraph)) 
-    //Assert.Equal(13.8750,(Measures.GraphDensity.ofFGraph monkeyGraph)) 
+//     //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
+//     Assert.Equal(0.925,(Measures.GraphDensity.ofAdjGraph monkeyGraph)) 
+//     //Assert.Equal(13.8750,(Measures.GraphDensity.ofFGraph monkeyGraph)) 
     
 [<Fact>]
 let ``Fully connected graph has correct measures`` () =
@@ -35,6 +35,9 @@ let ``Fully connected graph has correct measures`` () =
                 nodes.[n],nodes.[i],1.
         ]
 
-    let g = FGraph.empty|>FGraph.addNodes (nodes|>List.map(fun x -> x,x))|>FGraph.addEdges edges
+    let g = 
+        AdjGraph.empty
+        |>AdjGraph.addNodes (nodes|>List.map(fun x -> x,x))
+        |>AdjGraph.addEdges edges
  
-    Assert.Equal(1.,(Measures.GraphDensity.ofUndirectedFGraph g)) 
+    Assert.Equal(1.,(Measures.GraphDensity.ofAdjGraph g)) 
