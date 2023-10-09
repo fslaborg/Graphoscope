@@ -280,8 +280,6 @@ type FGraph() =
             matrix
             )
 
-
-
     ///Evaluates the number of edges in the graph.
     static member countEdges (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : int =
         g 

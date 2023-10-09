@@ -17,8 +17,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Graph.fs" />
-    <Compile Include="DiGraph.fs" />
     <Compile Include="AdjGraph.fs" />
+    <Compile Include="DiGraph.fs" />
     <Compile Include="FGraph.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />
@@ -27,6 +27,7 @@
     <Compile Include="Algorithms/Dijkstra.fs" />
     <Compile Include="Algorithms\Louvain.fs" />
     <Compile Include="Algorithms\WedgeCount.fs" />
+    <Compile Include="Algorithms\Components.fs" />
     <Compile Include="Measures\Degree.fs" />
     <Compile Include="Measures\OutDegree.fs" />
     <Compile Include="Measures\InDegree.fs" />
@@ -37,6 +38,11 @@
     <Compile Include="Measures\Volume.fs" />
     <Compile Include="Measures\Size.fs" />
     <Compile Include="Measures\ClusteringCoefficient.fs" />
+    <Compile Include="Measures/MatchingIndex.fs" />
+    <Compile Include="Measures/ClosenessCentrality.fs" />
+    <Compile Include="Measures/Eccentricity.fs" />
+    <Compile Include="Measures\Radius.fs" />
+    <Compile Include="Measures\Diameter.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="RandomModels\BollobasRiordan.fs" />
     <Compile Include="RandomModels\ErdosRenyi.fs" />
@@ -50,5 +56,10 @@
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
     <PackageReference Include="FSharpx.Collections" Version="3.1.0" />
     <PackageReference Include="FSharp.Data" Version="6.2.0" />
+    <PackageReference Include="FSharpAux" Version="2.0.0" />
+    <PackageReference Include="OptimizedPriorityQueue" Version="5.1.0">
+      <GeneratePathProperty>
+      </GeneratePathProperty>
+    </PackageReference>
   </ItemGroup>
 </Project>

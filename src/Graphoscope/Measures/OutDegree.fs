@@ -24,6 +24,13 @@ type OutDegree() =
         |> Seq.sortDescending
 
     /// <summary> 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of out-degree values</returns>
+    static member sequenceOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.sequenceOfAdjGraph graph
+
+    /// <summary> 
     /// Returns the out-degree sequence of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
@@ -42,6 +49,14 @@ type OutDegree() =
     /// <returns>A float seq of out-degree values</returns>
     static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         OutDegree.sequenceOfFGraph graph
+
+    /// <summary> 
+    /// Returns the out-degree sequence of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float seq of out-degree values</returns>
+    static member sequence(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.sequenceOfAdjGraph graph
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph
@@ -69,7 +84,16 @@ type OutDegree() =
         graph
         |> FGraph.mapContexts FContext.outwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
-    
+
+    /// <summary> 
+    /// Get the mean out-degree of the graph. 
+    /// This is an undirected measure so inbound links add to a nodes out-degree.
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the mean out-degree</returns>
+    static member averageofAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.averageofAdjGraph graph
+      
     /// <summary> 
     /// Get the mean out-degree of the graph. 
     /// This is an undirected measure so inbound links add to a nodes out-degree.
@@ -98,7 +122,14 @@ type OutDegree() =
     static member average (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
         OutDegree.averageofFGraph graph
 
-
+    /// <summary> 
+    /// Get the mean out-degree of the graph. 
+    /// This is an undirected measure so inbound links add to a nodes out-degree.
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the mean out-degree</returns>
+    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
+        OutDegree.averageofAdjGraph graph
 
 
     // Get Max Degree
@@ -122,6 +153,14 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
+    static member maximumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.maximumOfAdjGraph graph
+
+    /// <summary> 
+    /// Get the max out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max out-degree</returns>
     static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> ResizeArray.map(fun x -> x.Count)
@@ -134,6 +173,14 @@ type OutDegree() =
     /// <returns>An int of the max out-degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         OutDegree.maximumOfFGraph graph
+
+    /// <summary> 
+    /// Get the max out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max out-degree</returns>
+    static member maximum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.maximumOfAdjGraph graph
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -166,6 +213,14 @@ type OutDegree() =
     /// Get the min out-degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max out-degree</returns>
+    static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.minimumOfAdjGraph graph
+
+    /// <summary> 
+    /// Get the min out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
     static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.OutEdges
@@ -180,6 +235,14 @@ type OutDegree() =
     /// <returns>An int of the min out-degree</returns>
     static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         OutDegree.minimumOfFGraph graph
+
+    /// <summary> 
+    /// Get the min out-degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the min out-degree</returns>
+    static member minimum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.minimumOfAdjGraph graph
 
     /// <summary> 
     /// Get the min out-degree of the graph. 
