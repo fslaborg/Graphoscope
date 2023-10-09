@@ -83,7 +83,7 @@ type AdjGraph() =
                 | true -> ()
                 | false ->
                     // Potentially update edge data
-                    s1.Add(nk2,ed)                
+                    s1.Add(nk2,ed)
                 
         | false -> 
             let mutable contextNk2 = (Unchecked.defaultof<'NodeData>,null)
@@ -105,7 +105,8 @@ type AdjGraph() =
                     g.Add(nk2,(nd2,s2))
                 else
                     let s1 = Dictionary<_,_>()                
-                    s1.Add(nk2,ed)                 
+                    s1.Add(nk2,ed)  
+                    g.Add(nk1,(nd1,s1))
         g    
 
 
