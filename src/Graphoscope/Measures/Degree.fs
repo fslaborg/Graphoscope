@@ -171,15 +171,6 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        Degree.averageofAdjGraph graph
-
-    /// <summary> 
-    /// Get the mean degree of the graph. 
-    /// This is an undirected measure so inbound links add to a nodes degree.
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>A float of the mean degree</returns>
     static member average (graph : UndirectedGraph<'NodeKey,'EdgeData>) =
         Degree.averageofUndirected graph
 
@@ -239,14 +230,6 @@ type Degree() =
     /// <returns>An int of the max degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         Degree.maximumOfFGraph graph
-
-    /// <summary> 
-    /// Get the max degree of the graph. 
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An int of the max degree</returns>
-    static member maximum (graph : UndirectedGraph<'NodeKey, 'EdgeData>) =
-        Degree.maximumOfUndirected graph
 
     /// <summary> 
     /// Get the max degree of the graph. 
@@ -332,14 +315,6 @@ type Degree() =
     /// <returns>An int of the min degree</returns>
     static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         Degree.minimumOfFGraph graph
-
-    /// <summary> 
-    /// Get the min degree of the graph. 
-    /// </summary>
-    /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An int of the min degree</returns>
-    static member minimum (graph : UndirectedGraph<'NodeKey, 'EdgeData>) =
-        Degree.minimumOfUndirected graph
 
     /// <summary> 
     /// Get the min degree of the graph. 

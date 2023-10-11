@@ -209,25 +209,24 @@ type Dijkstra() =
         )
         
         let dijkstra (sourceIx: int) =
-            let que= ResizeArray()
-            let dist = allDists[sourceIx] |> Array.copy
+            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+            let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
-            for n in 0 .. graph.NodeKeys.Count - 1 do
-                que.Add(n)
+            que.Add((sourceIx, 0.)) |> ignore
 
             while que.Count > 0 do
-                let minDistNode = 
-                    que
-                    |> Seq.minBy( fun n -> dist[n])
+                let (currentNodeIx, currentDistance) = que.Min
+                que.Remove(que.Min) |> ignore
 
-                let minDistNodeIx =  que.IndexOf minDistNode
-                que.RemoveAt minDistNodeIx
+                let neighbors = graph.Edges[currentNodeIx]
 
-                for n in que do
-                    let newCost = dist[minDistNode] + allDists[minDistNode][n]
-                    if newCost < dist[n] then
-                        dist[n] <- newCost
+                for (ix, ed) in neighbors do
+                    let newCost = currentDistance + (getEdgeWeight ed)
+                    if newCost < dist[ix] then
+                        dist[ix] <- newCost
+                        que.Add((ix, newCost)) |> ignore
             dist
+            |> Array.map(fun x -> x)
 
         graph.NodeKeys |> Array.ofSeq,
         [|0 .. graph.NodeKeys.Count - 1|]
@@ -242,7 +241,7 @@ type Dijkstra() =
     /// The ordered array of nodes and 2D Array of distances where each
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
-    static member ofDiGraphAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =
+    static member ofDiGraphAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>): 'NodeKey [] * float [][] =
         let allDists = DiGraph.toAdjacencyMatrix getEdgeWeight graph
         allDists
         |> Array.iteri(fun ri r ->
@@ -299,7 +298,7 @@ type Dijkstra() =
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofFGraph starting getEdgeWeight graph 
 
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'EdgeData>) =
+    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, _, 'EdgeData>) =
         Dijkstra.ofDiGraph starting getEdgeWeight graph 
 
     static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =

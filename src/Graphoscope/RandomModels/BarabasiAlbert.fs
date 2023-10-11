@@ -1,7 +1,6 @@
 ﻿namespace Graphoscope.RandomModels
 
 open Graphoscope
-open Graphoscope.Graph
 
 // The Barabási-Albert (BA) model is a popular network growth model used to generate random scale-free networks.  It provides a valuable tool for generating synthetic networks that exhibit similar properties to many natural and man-made networks, mainly a scale-free character.
 type BarabasiAlbert() =

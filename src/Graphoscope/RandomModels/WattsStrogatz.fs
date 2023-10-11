@@ -1,7 +1,7 @@
 namespace Graphoscope.RandomModels
 
 
-open Graphoscope.Graph
+open Graphoscope
 
 type WattsStrogatz() =
 

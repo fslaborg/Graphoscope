@@ -173,12 +173,12 @@ type DiGraph() =
     // let getInEdges (dest: 'NodeKey) (g: DiGraph<'NodeKey>) =
     //     g.InEdges[g.IdMap[dest]]
 
-    static member internal getAllPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member internal getAllPossibleEdges (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
         graph.NodeKeys
         |> Seq.allPairs graph.NodeKeys
 
     /// Returns all possible edges in a digraph, excluding self-loops.
-    static member internal getNonLoopingPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
+    static member internal getNonLoopingPossibleEdges (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
         DiGraph.getAllPossibleEdges graph
         |> Seq.filter(fun (n1, n2) -> n1 <> n2)
 
@@ -331,7 +331,7 @@ type DiGraph() =
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An adjacency matrix</returns>
-    static member toAdjacencyMatrix (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'EdgeData>) =
+    static member toAdjacencyMatrix (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
         let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
         graph.OutEdges
         |> ResizeArray.iteri(fun ri r ->

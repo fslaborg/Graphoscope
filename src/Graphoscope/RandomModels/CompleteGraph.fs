@@ -1,8 +1,6 @@
 namespace Graphoscope.RandomModels
 
 open Graphoscope
-open Graphoscope.Graph
-
 
 type CompleteGraph() =
 

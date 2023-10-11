@@ -1,7 +1,7 @@
 namespace Graphoscope.RandomModels
 
 open System
-open Graphoscope.Graph
+open Graphoscope
 
 type ErdosRenyi() =
 
