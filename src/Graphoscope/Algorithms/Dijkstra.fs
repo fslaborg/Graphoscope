@@ -226,7 +226,6 @@ type Dijkstra() =
                         dist[ix] <- newCost
                         que.Add((ix, newCost)) |> ignore
             dist
-            |> Array.map(fun x -> x)
 
         graph.NodeKeys |> Array.ofSeq,
         [|0 .. graph.NodeKeys.Count - 1|]
@@ -255,24 +254,22 @@ type Dijkstra() =
         )
         
         let dijkstra (sourceIx: int) =
-            let que= ResizeArray()
-            let dist = allDists[sourceIx] |> Array.copy
+            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+            let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
-            for n in 0 .. graph.NodeKeys.Count - 1 do
-                que.Add(n)
+            que.Add((sourceIx, 0.)) |> ignore
 
             while que.Count > 0 do
-                let minDistNode = 
-                    que
-                    |> Seq.minBy( fun n -> dist[n])
+                let (currentNodeIx, currentDistance) = que.Min
+                que.Remove(que.Min) |> ignore
 
-                let minDistNodeIx =  que.IndexOf minDistNode
-                que.RemoveAt minDistNodeIx
+                let successors = graph.OutEdges[currentNodeIx]
 
-                for n in que do
-                    let newCost = dist[minDistNode] + allDists[minDistNode][n]
-                    if newCost < dist[n] then
-                        dist[n] <- newCost
+                for (ix, ed) in successors do
+                    let newCost = currentDistance + (getEdgeWeight ed)
+                    if newCost < dist[ix] then
+                        dist[ix] <- newCost
+                        que.Add((ix, newCost)) |> ignore
             dist
 
         graph.NodeKeys |> Array.ofSeq,
