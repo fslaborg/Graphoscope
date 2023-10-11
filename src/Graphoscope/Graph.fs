@@ -1,4 +1,4 @@
-﻿namespace Graphoscope.Graph
+﻿namespace Graphoscope
 
 open FSharpAux
 open System.Collections.Generic
@@ -155,6 +155,21 @@ type UndirectedGraph() =
         edges |> Array.iter (fun e -> (UndirectedGraph.addEdge e graph)|>ignore)
         graph
 
+    static member internal getAllPossibleEdges (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+        seq {
+            for i in 0 .. graph.NodeKeys.Count - 1 do
+                yield!
+                    seq{
+                        for j in i .. graph.NodeKeys.Count - 1 ->
+                            graph.NodeKeys[i],graph.NodeKeys[j]
+                    }
+        }
+
+    /// Returns all possible edges in a digraph, excluding self-loops.
+    static member internal getNonLoopingPossibleEdges (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+        UndirectedGraph.getAllPossibleEdges graph
+        |> Seq.filter(fun (n1, n2) -> n1 <> n2)
+
     /// <summary> 
     /// Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
     /// </summary>
@@ -228,6 +243,23 @@ type UndirectedGraph() =
             UndirectedGraph.addNode nk2 g|>ignore
         
         UndirectedGraph.addEdge (nk1,nk2,ed) g
+
+    /// <summary> 
+    /// Gets the total number of nodes of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total nodes</returns>
+    static member countNodes (graph: UndirectedGraph<'NodeKey, 'EdgeData>) : int = 
+        graph.NodeKeys |> ResizeArray.length
+        
+    /// <summary> 
+    /// Gets the total number of edges of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>A float of the total edges</returns>
+    static member countEdges (graph: UndirectedGraph<'NodeKey, 'EdgeData>)  :int = 
+        UndirectedGraph.getAllEdges graph 
+        |> Array.length 
     
     static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) :UndirectedGraph<'NodeKey,'EdgeData> =
         let graph = UndirectedGraph<'NodeKey, 'EdgeData>()
@@ -243,6 +275,25 @@ type UndirectedGraph() =
             |> Seq.map(fun (t, w) -> n, n, t, t,  w)
         )
         |> Seq.concat
+
+    /// <summary> 
+    /// Converts the Graph to an Adjacency Matrix
+    /// This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+    /// The operation assumes edge data types of float in the graph.
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An adjacency matrix</returns>
+    static member toAdjacencyMatrix (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>) =
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
+        graph.Edges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iter(fun (ci, v) ->
+                matrix[ri][ci] <- getEdgeWeight v
+                matrix[ci][ri] <- getEdgeWeight v
+            )
+        )
+        matrix
 
 
 module UndirectedGraph =

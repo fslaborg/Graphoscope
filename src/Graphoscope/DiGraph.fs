@@ -173,6 +173,15 @@ type DiGraph() =
     // let getInEdges (dest: 'NodeKey) (g: DiGraph<'NodeKey>) =
     //     g.InEdges[g.IdMap[dest]]
 
+    static member internal getAllPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
+        graph.NodeKeys
+        |> Seq.allPairs graph.NodeKeys
+
+    /// Returns all possible edges in a digraph, excluding self-loops.
+    static member internal getNonLoopingPossibleEdges (graph: DiGraph<'NodeKey,'EdgeData>) =
+        DiGraph.getAllPossibleEdges graph
+        |> Seq.filter(fun (n1, n2) -> n1 <> n2)
+
     /// <summary> 
     /// Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
     /// </summary>
@@ -314,6 +323,24 @@ type DiGraph() =
             |> Seq.map(fun (t, w) -> n, n, t, t,  w)
         )
         |> Seq.concat
+
+    /// <summary> 
+    /// Converts the Graph to an Adjacency Matrix
+    /// This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+    /// The operation assumes edge data types of float in the graph.
+    /// </summary>
+    /// <param name="graph">The graph to be converted</param> 
+    /// <returns>An adjacency matrix</returns>
+    static member toAdjacencyMatrix (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'EdgeData>) =
+        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
+        graph.OutEdges
+        |> ResizeArray.iteri(fun ri r ->
+            r
+            |> ResizeArray.iter(fun (ci, v) ->
+                matrix[ri][ci] <- getEdgeWeight v
+            )
+        )
+        matrix
 
 
 module DiGraph =    

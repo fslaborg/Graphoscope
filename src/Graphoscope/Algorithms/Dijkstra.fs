@@ -116,12 +116,19 @@ type Dijkstra() =
         distance
 
     /// Computes the shortest path
-    static member internal getAdjacencyArrayFor (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
-            let dist =
-                Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
-            graph.OutEdges[nodeIx]
-            |> ResizeArray.iter(fun (target, w) -> dist[target] <- getEdgeWeight w)
-            dist
+    static member internal getAdjacencyArrayForUndirected (graph: UndirectedGraph<'NodeKey, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+        let dist =
+            Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
+        graph.Edges[nodeIx]
+        |> ResizeArray.iter(fun (target, w) -> dist[target] <- getEdgeWeight w)
+        dist
+
+    static member internal getAdjacencyArrayForDirected (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+        let dist =
+            Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
+        graph.OutEdges[nodeIx]
+        |> ResizeArray.iter(fun (target, w) -> dist[target] <- getEdgeWeight w)
+        dist
 
     /// <summary> 
     /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
@@ -130,32 +137,149 @@ type Dijkstra() =
     /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
-    static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * float) [] =
-        let que= ResizeArray()
+    static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>) : ('NodeKey * float) [] =
+        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
         let sourceIx = graph.IdMap[source]
-        let dist = Dijkstra.getAdjacencyArrayFor graph getEdgeWeight sourceIx
+        let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
-        for n in 0 .. graph.NodeKeys.Count - 1 do
-            que.Add(n)
+        que.Add((sourceIx, 0.)) |> ignore
 
         while que.Count > 0 do
-            let minDistNode = 
-                que
-                |> ResizeArray.minBy( fun n -> dist[n])
+            let (currentNodeIx, currentDistance) = que.Min
+            que.Remove(que.Min) |> ignore
 
-            let minDistNodeIx =  que.IndexOf minDistNode
-            que.RemoveAt minDistNodeIx
+            let neighbors = graph.Edges[currentNodeIx]
 
-            let minDistAdjacency = Dijkstra.getAdjacencyArrayFor graph getEdgeWeight minDistNode
-
-            for n in que do
-                let newCost = dist[minDistNode] + minDistAdjacency[n]
-                if newCost < dist[n] then
-                    dist[n] <- newCost
+            for (ix, ed) in neighbors do
+                let newCost = currentDistance + (getEdgeWeight ed)
+                if newCost < dist[ix] then
+                    dist[ix] <- newCost
+                    que.Add((ix, newCost)) |> ignore
         dist
         |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
 
-    
+    /// <summary> 
+    /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+    /// </summary>
+    /// <param name="graph"> The graph for which to compute the shortest path.</param>
+    /// <param name="source"> Calculate the shortest paths from this node.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+    /// <returns>Tuples of target node and distance.</returns>
+    static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : ('NodeKey * float) [] =
+        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+        let sourceIx = graph.IdMap[source]
+        let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
+
+        que.Add((sourceIx, 0.)) |> ignore
+
+        while que.Count > 0 do
+            let (currentNodeIx, currentDistance) = que.Min
+            que.Remove(que.Min) |> ignore
+
+            let successors = graph.OutEdges[currentNodeIx]
+
+            for (ix, ed) in successors do
+                let newCost = currentDistance + (getEdgeWeight ed)
+                if newCost < dist[ix] then
+                    dist[ix] <- newCost
+                    que.Add((ix, newCost)) |> ignore
+        dist
+        |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
+
+    /// <summary> 
+    /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
+    /// </summary>
+    /// <param name="graph">The graph for which to compute the shortest paths.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+    /// <returns>
+    /// The ordered array of nodes and 2D Array of distances where each
+    /// row and column index corresponds to a node's index in the nodes array.
+    /// </returns>
+    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =
+        let allDists = UndirectedGraph.toAdjacencyMatrix getEdgeWeight graph
+        allDists
+        |> Array.iteri(fun ri r ->
+            r
+            |> Array.iteri(fun ci c ->
+                if c = 0. && ri <> ci then
+                    allDists[ri][ci] <- infinity
+                elif ri = ci then
+                    allDists[ri][ci] <- 0.
+            )
+        )
+        
+        let dijkstra (sourceIx: int) =
+            let que= ResizeArray()
+            let dist = allDists[sourceIx] |> Array.copy
+
+            for n in 0 .. graph.NodeKeys.Count - 1 do
+                que.Add(n)
+
+            while que.Count > 0 do
+                let minDistNode = 
+                    que
+                    |> Seq.minBy( fun n -> dist[n])
+
+                let minDistNodeIx =  que.IndexOf minDistNode
+                que.RemoveAt minDistNodeIx
+
+                for n in que do
+                    let newCost = dist[minDistNode] + allDists[minDistNode][n]
+                    if newCost < dist[n] then
+                        dist[n] <- newCost
+            dist
+
+        graph.NodeKeys |> Array.ofSeq,
+        [|0 .. graph.NodeKeys.Count - 1|]
+        |> Array.Parallel.map dijkstra
+
+    /// <summary> 
+    /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
+    /// </summary>
+    /// <param name="graph">The graph for which to compute the shortest paths.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
+    /// <returns>
+    /// The ordered array of nodes and 2D Array of distances where each
+    /// row and column index corresponds to a node's index in the nodes array.
+    /// </returns>
+    static member ofDiGraphAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =
+        let allDists = DiGraph.toAdjacencyMatrix getEdgeWeight graph
+        allDists
+        |> Array.iteri(fun ri r ->
+            r
+            |> Array.iteri(fun ci c ->
+                if c = 0. && ri <> ci then
+                    allDists[ri][ci] <- infinity
+                elif ri = ci then
+                    allDists[ri][ci] <- 0.
+            )
+        )
+        
+        let dijkstra (sourceIx: int) =
+            let que= ResizeArray()
+            let dist = allDists[sourceIx] |> Array.copy
+
+            for n in 0 .. graph.NodeKeys.Count - 1 do
+                que.Add(n)
+
+            while que.Count > 0 do
+                let minDistNode = 
+                    que
+                    |> Seq.minBy( fun n -> dist[n])
+
+                let minDistNodeIx =  que.IndexOf minDistNode
+                que.RemoveAt minDistNodeIx
+
+                for n in que do
+                    let newCost = dist[minDistNode] + allDists[minDistNode][n]
+                    if newCost < dist[n] then
+                        dist[n] <- newCost
+            dist
+
+        graph.NodeKeys |> Array.ofSeq,
+        [|0 .. graph.NodeKeys.Count - 1|]
+        |> Array.Parallel.map dijkstra 
+
     /// <summary> 
     /// Returns the distance in numebr of directed edges between two nodes.
     /// </summary>
@@ -172,15 +296,11 @@ type Dijkstra() =
             | None -> None
     
 
-
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofFGraph starting getEdgeWeight graph 
 
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, 'EdgeData>) =
         Dijkstra.ofDiGraph starting getEdgeWeight graph 
-
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofAdjGraph starting getEdgeWeight graph 
 
     static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
         //TODO: Implement Dijkstra.ofFGraphBetween
