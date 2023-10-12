@@ -138,7 +138,7 @@ type Dijkstra() =
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
     static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>) : ('NodeKey * float) [] =
-        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+        let que = SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let sourceIx = graph.IdMap[source]
         let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
@@ -146,15 +146,19 @@ type Dijkstra() =
 
         while que.Count > 0 do
             let (currentNodeIx, currentDistance) = que.Min
-            que.Remove(que.Min) |> ignore
+            que.Remove(que.Min)
+            |> fun x -> printfn $"Current {currentNodeIx} {currentDistance}"
 
             let neighbors = graph.Edges[currentNodeIx]
 
             for (ix, ed) in neighbors do
                 let newCost = currentDistance + (getEdgeWeight ed)
                 if newCost < dist[ix] then
+                    if que.Contains(ix,dist[ix]) then
+                        que.Remove(ix,dist[ix]) |> ignore
                     dist[ix] <- newCost
                     que.Add((ix, newCost)) |> ignore
+
         dist
         |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
 
@@ -166,7 +170,7 @@ type Dijkstra() =
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
     static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : ('NodeKey * float) [] =
-        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let sourceIx = graph.IdMap[source]
         let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
@@ -181,8 +185,10 @@ type Dijkstra() =
             for (ix, ed) in successors do
                 let newCost = currentDistance + (getEdgeWeight ed)
                 if newCost < dist[ix] then
-                    dist[ix] <- newCost
+                    if que.Contains(ix,dist[ix]) then
+                        que.Remove(ix,dist[ix]) |> ignore
                     que.Add((ix, newCost)) |> ignore
+                    dist[ix] <- newCost
         dist
         |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
 
@@ -209,7 +215,7 @@ type Dijkstra() =
         )
         
         let dijkstra (sourceIx: int) =
-            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
             que.Add((sourceIx, 0.)) |> ignore
@@ -223,13 +229,14 @@ type Dijkstra() =
                 for (ix, ed) in neighbors do
                     let newCost = currentDistance + (getEdgeWeight ed)
                     if newCost < dist[ix] then
-                        dist[ix] <- newCost
+                        if que.Contains(ix,dist[ix]) then
+                            que.Remove(ix,dist[ix]) |> ignore
                         que.Add((ix, newCost)) |> ignore
+                        dist[ix] <- newCost
             dist
 
         graph.NodeKeys |> Array.ofSeq,
-        [|0 .. graph.NodeKeys.Count - 1|]
-        |> Array.Parallel.map dijkstra
+        dijkstra |> Array.Parallel.init graph.NodeKeys.Count
 
     /// <summary> 
     /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
@@ -254,7 +261,7 @@ type Dijkstra() =
         )
         
         let dijkstra (sourceIx: int) =
-            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
+            let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
 
             que.Add((sourceIx, 0.)) |> ignore
@@ -268,13 +275,15 @@ type Dijkstra() =
                 for (ix, ed) in successors do
                     let newCost = currentDistance + (getEdgeWeight ed)
                     if newCost < dist[ix] then
-                        dist[ix] <- newCost
+                        if que.Contains(ix,dist[ix]) then
+                            que.Remove(ix,dist[ix]) |> ignore
                         que.Add((ix, newCost)) |> ignore
+                        dist[ix] <- newCost
             dist
 
         graph.NodeKeys |> Array.ofSeq,
-        [|0 .. graph.NodeKeys.Count - 1|]
-        |> Array.Parallel.map dijkstra 
+        dijkstra |> Array.Parallel.init graph.NodeKeys.Count
+
 
     /// <summary> 
     /// Returns the distance in numebr of directed edges between two nodes.
