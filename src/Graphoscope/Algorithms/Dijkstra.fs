@@ -146,8 +146,7 @@ type Dijkstra() =
 
         while que.Count > 0 do
             let (currentNodeIx, currentDistance) = que.Min
-            que.Remove(que.Min)
-            |> fun x -> printfn $"Current {currentNodeIx} {currentDistance}"
+            que.Remove(que.Min) |> ignore
 
             let neighbors = graph.Edges[currentNodeIx]
 
