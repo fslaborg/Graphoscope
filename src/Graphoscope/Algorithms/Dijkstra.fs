@@ -154,8 +154,6 @@ type Dijkstra() =
             for (ix, ed) in neighbors do
                 let newCost = currentDistance + (getEdgeWeight ed)
                 if newCost < dist[ix] then
-                    if que.Contains(ix,dist[ix]) then
-                        que.Remove(ix,dist[ix]) |> ignore
                     dist[ix] <- newCost
                     que.Add((ix, newCost)) |> ignore
 
@@ -185,8 +183,6 @@ type Dijkstra() =
             for (ix, ed) in successors do
                 let newCost = currentDistance + (getEdgeWeight ed)
                 if newCost < dist[ix] then
-                    if que.Contains(ix,dist[ix]) then
-                        que.Remove(ix,dist[ix]) |> ignore
                     que.Add((ix, newCost)) |> ignore
                     dist[ix] <- newCost
         dist
@@ -201,19 +197,7 @@ type Dijkstra() =
     /// The ordered array of nodes and 2D Array of distances where each
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
-    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =
-        let allDists = UndirectedGraph.toAdjacencyMatrix getEdgeWeight graph
-        allDists
-        |> Array.iteri(fun ri r ->
-            r
-            |> Array.iteri(fun ci c ->
-                if c = 0. && ri <> ci then
-                    allDists[ri][ci] <- infinity
-                elif ri = ci then
-                    allDists[ri][ci] <- 0.
-            )
-        )
-        
+    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =        
         let dijkstra (sourceIx: int) =
             let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -246,18 +230,6 @@ type Dijkstra() =
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
     static member ofDiGraphAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>): 'NodeKey [] * float [][] =
-        let allDists = DiGraph.toAdjacencyMatrix getEdgeWeight graph
-        allDists
-        |> Array.iteri(fun ri r ->
-            r
-            |> Array.iteri(fun ci c ->
-                if c = 0. && ri <> ci then
-                    allDists[ri][ci] <- infinity
-                elif ri = ci then
-                    allDists[ri][ci] <- 0.
-            )
-        )
-        
         let dijkstra (sourceIx: int) =
             let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -273,8 +245,6 @@ type Dijkstra() =
                 for (ix, ed) in successors do
                     let newCost = currentDistance + (getEdgeWeight ed)
                     if newCost < dist[ix] then
-                        if que.Contains(ix,dist[ix]) then
-                            que.Remove(ix,dist[ix]) |> ignore
                         que.Add((ix, newCost)) |> ignore
                         dist[ix] <- newCost
             dist
