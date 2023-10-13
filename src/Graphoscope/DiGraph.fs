@@ -273,24 +273,6 @@ type DiGraph() =
     static member createFromNodes<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison> (nodes: ('NodeKey * 'NodeData) []) : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
         DiGraph<'NodeKey, 'NodeData, 'EdgeData>()
         |>DiGraph.addNodes nodes
-        
-
-    /// <summary> 
-    /// Converts the DiGraph to an Adjacency Matrix 
-    /// The operation assumes edge data types of float in the graph.
-    /// </summary>
-    /// <param name="graph">The graph to be converted</param> 
-    /// <returns>An adjacency matrix</returns>
-    static member toMatrix (graph: DiGraph<'NodeKey, 'NodeData, float>) =
-        let matrix = Array.init graph.NodeKeys.Count (fun _ -> Array.init graph.NodeKeys.Count (fun _ -> 0.))
-        graph.OutEdges
-        |> ResizeArray.iteri(fun ri r ->
-            r
-            |> ResizeArray.iter(fun c ->
-                matrix[ri][fst c] <- snd c
-            )
-        )
-        matrix
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
@@ -351,43 +333,3 @@ module DiGraph =
     let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
         DiGraph<'NodeKey, 'NodeData, 'EdgeData>()
-
-
-    type Node() =
-        /// <summary> 
-        /// Adds a new node to the graph
-        /// </summary>
-        /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
-        /// /// <param name="graph">The graph the node will be added to.</param> 
-        /// /// <returns>Unit</returns>
-        static member addNode (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) =
-            DiGraph.addNode node graph
-
-        /// <summary> 
-        /// Removes a node from the graph
-        /// </summary>
-        /// <param name="node">The node to be removed.</param> 
-        /// <param name="graph">The graph the edge will be removed from.</param> 
-        /// <returns>Unit</returns>
-        static member removeNode (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) = 
-            DiGraph.removeNode node graph
-    
-    type Edge() =
-
-        /// <summary> 
-        /// Adds a new edge to the graph
-        /// </summary>
-        /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
-        /// <param name="graph">The graph the edge will be added to.</param> 
-        /// <returns>Unit</returns>
-        static member addEdge (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
-            DiGraph.addEdge edge graph
-
-        /// <summary> 
-        /// Removes an edge to the graph.
-        /// </summary>
-        /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
-        /// <param name="graph">The graph the edge will be removed from.</param> 
-        /// <returns>Unit</returns>
-        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
-            DiGraph.removeEdge edge graph
