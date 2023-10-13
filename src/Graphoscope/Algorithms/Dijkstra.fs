@@ -229,8 +229,6 @@ type Dijkstra() =
                 for (ix, ed) in neighbors do
                     let newCost = currentDistance + (getEdgeWeight ed)
                     if newCost < dist[ix] then
-                        if que.Contains(ix,dist[ix]) then
-                            que.Remove(ix,dist[ix]) |> ignore
                         que.Add((ix, newCost)) |> ignore
                         dist[ix] <- newCost
             dist
