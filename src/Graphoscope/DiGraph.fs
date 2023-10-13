@@ -1,11 +1,7 @@
 ﻿namespace Graphoscope
 
-//open FSharpx.Collections
 open FSharpAux
 open System.Collections.Generic
-open FSharp.Data
-open Graphoscope
-open System
 
 type DiGraph<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: equality and 'NodeKey: comparison>() = 
     let idMap = Dictionary<'NodeKey,int>()
@@ -40,15 +36,15 @@ type DiGraph() =
     /// /// <param name="graph">The graph the node will be added to.</param> 
     /// /// <returns>Unit</returns>
     static member addNode (nodeKey: 'NodeKey) (nodeData: 'NodeData) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        if not (DiGraph.nodeExists nodeKey graph) then
+        if DiGraph.nodeExists nodeKey graph then
+            failwith $"Node already exists, {nodeKey}."
+        else
             graph.IdMap.Add(nodeKey, graph.NodeKeys.Count * 1)
             graph.NodeKeys.Add nodeKey
             graph.NodeData.Add nodeData
             graph.OutEdges.Add (ResizeArray())
             graph.InEdges.Add (ResizeArray())
             graph
-        else
-            failwith $"Node already exists, {nodeKey}."
 
     static member addNodes (nodes: ('NodeKey * 'NodeData) []) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         nodes 
@@ -132,7 +128,7 @@ type DiGraph() =
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
     static member getOutEdges (origin: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.OutEdges[graph.IdMap[origin]]
-        |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
+        |> ResizeArray.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
 
     /// <summary> 
@@ -142,12 +138,11 @@ type DiGraph() =
     /// <returns>An array of origin, destination nodes and the corresponding 'EdgeData tuples.</returns>
     static member getAllEdges (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>): ('NodeKey * 'NodeKey * 'EdgeData) [] =
         DiGraph.getNodes graph
-        |> Array.map(fun n ->
+        |> Array.collect(fun n ->
             n
             |> (fun n -> DiGraph.getOutEdges n graph)
             |> Array.map(fun (t, w) -> n, t, w)
         )
-        |> Array.concat
 
     /// <summary> 
     /// Returns the outbound edges for given node
@@ -157,7 +152,7 @@ type DiGraph() =
     /// <returns>An array of target nodes and the corresponding 'EdgeData.</returns>
     static member getInEdges (destination: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'EdgeData) []=
         graph.InEdges[graph.IdMap[destination]]
-        |> Seq.map(fun (t, w) -> graph.NodeKeys[t], w)
+        |> ResizeArray.map(fun (t, w) -> graph.NodeKeys[t], w)
         |> Array.ofSeq
 
     /// <summary> 
