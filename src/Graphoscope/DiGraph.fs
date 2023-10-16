@@ -344,7 +344,16 @@ module DiGraph =
         /// <returns>Unit</returns>
         static member removeNode (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) = 
             DiGraph.removeNode node graph
-    
+
+        /// <summary> 
+        /// Returns Node Data for a given node from the graph
+        /// </summary>
+        /// <param name="node">The key of the node node to be returned</param> 
+        /// <param name="graph">The graph the node will be returned from.</param> 
+        /// <returns>Unit</returns>
+        static member getNodeData(node: 'NodeKey)  (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+            graph.NodeData[graph.IdMap[node]]
+           
     type Edge() =
 
         /// <summary> 
