@@ -1,9 +1,9 @@
 (**
 ---
-title: Louvain-Algorithm
+title: Components
 category: Algorithms
 categoryindex: 3
-index: 3
+index: 4
 ---
 *)
 
@@ -22,53 +22,50 @@ index: 3
 #endif // IPYNB
 
 (**
-# The Louvain-Algorithm for Community Detection and Modularity Optimization
-The Louvain algorithm is a popular and efficient method for community detection and modularity optimization in complex networks. 
-Community detection is the task of partitioning a network into groups of nodes, known as communities or clusters, where nodes within a community are densely connected to each other while having fewer connections to nodes in other communities. 
-Modularity is a measure used to quantify the quality of a given network partition.
+# Graph components
+In graph theory, a graph component refers to a subset of vertices in a graph, where each vertex is connected to every other vertex in the subset through a path of edges. 
 Let´s open an example graph and show the community detection per color:
 *)
 open Graphoscope
 open Cytoscape.NET
 
-let louvainExampleGraph =
+let componentExampleGraph =
     let edgeSeq =
         seq{
             0,1,1
+            0,2,1
             0,3,1
-            0,4,1
-            1,2,1
-            1,4,1
-            2,3,1
-            3,4,1
-            2,5,1
-            5,6,1
-            5,7,1
-            5,8,1
-            6,7,1
-            7,8,1
+            4,5,1
+            4,6,1
+            4,7,1
+            8,9,1
+            6,10,1
+            8,11,1
         }
         |> Seq.map(fun (s,t,w) ->
             s,s,t,t,(float w)
         )
     AdjGraph.ofSeq edgeSeq
+
 (**
-This graph is an adaptation of an example graph in the [networksciencebook](http://networksciencebook.com/chapter/9#modularity). 
-Next we use a pre-generated color-pallet and Cytoscape.NET to visualise the graph and its communites:
+This graph is seperated into 3 distinct components.
+Next we use a pre-generated color-pallet and Cytoscape.NET to visualise the graph and its components:
 *)
 
 let colors =    
     [
         "#3F51B5"
+        "#3F51B5"
+        "#3F51B5"
+        "#3F51B5"
+        "#FFC107"        
+        "#FFC107"        
+        "#FFC107"        
         "#FFC107"
-        "#F44336"
-        "##E91E63"
-        "#2196F3"
-        "#00BCD4"
-        "#C8E6C9"
-        "#9C27B0"
         "#FFEB3B"
-
+        "#FFEB3B"
+        "#FFEB3B"
+        "#FFEB3B"
     ]
 
 let renderCyGraph (nodeLabelF) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
@@ -99,18 +96,17 @@ let renderCyGraph (nodeLabelF) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
     |> Cytoscape.NET.HTML.toGraphHTML() 
 
 
-renderCyGraph (fun x -> [CyParam.label x;CyParam.color colors.[x]]) louvainExampleGraph
+renderCyGraph (fun x -> [CyParam.label x;CyParam.color colors.[x]]) componentExampleGraph
 (*** include-it-raw ***)
 
 
 (**
-Now lets apply our Louvain Algorithm and color the nodes in accordance to their optimised community:
+We can use Algorithms.Components to seperate the components from each other, where each components gets its own subgraph:
 *)
 
+let components = 
+    Algorithms.Components.getGraphComponentsOfAdjGraph componentExampleGraph
 
-let louvainGraph =
-    Algorithms.Louvain.louvain 0.0001 id louvainExampleGraph
 
-
-renderCyGraph (fun (a,x) -> [CyParam.label x;CyParam.color colors.[x]]) louvainGraph
+renderCyGraph (fun (x) -> [CyParam.label x;CyParam.color colors.[x]]) (components|>Seq.head) 
 (*** include-it-raw ***)

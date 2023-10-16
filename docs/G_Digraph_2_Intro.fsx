@@ -44,15 +44,15 @@ or by creating an empty graph and adding the nodes and edges one by one.
 The int and float after the "create" define the type of the nodes and edges.
 *)
 
-let emptyGraph :DiGraph<int, float> = DiGraph.empty
+let emptyGraph :DiGraph<int, int, float> = DiGraph.empty
 
 let edge = (1,3, 1.0)
 
 let filledGraph =
   emptyGraph
-  |> DiGraph.addNode 1
-  |> DiGraph.addNode 2
-  |> DiGraph.addNode 3
+  |> DiGraph.addNode 1 1
+  |> DiGraph.addNode 2 2
+  |> DiGraph.addNode 3 3
   |> DiGraph.addEdge edge
 
 (***hide***)
@@ -98,7 +98,7 @@ We can also import undirected graphs using the [Graph](reference/graphoscope-gra
 
 let karateFile= __SOURCE_DIRECTORY__ + "/../tests/Graphoscope.Tests/ReferenceGraphs/zachary.txt"
 let karateGraph = 
-  let g = DiGraph.empty<int, float>
+  let g = DiGraph.empty<int,int,float>
   getElementOfFile karateFile " " 2 false
   |> Seq.iter(fun (s1,s2,t1,t2,w: float) -> DiGraph.addElement s1 s2 t1 t2 w g|>ignore)
   g

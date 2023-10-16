@@ -44,13 +44,13 @@ let centralityEdges =
         2,2,3,3,1.
     }
 
-let centralityGraph = FGraph.ofSeq centralityEdges
+let centralityGraph = AdjGraph.ofSeq centralityEdges
 
 let renderCyGraph (nodeLabelF:int -> CyParam.CyStyleParam ) =
 
     CyGraph.initEmpty ()
     |> CyGraph.withElements [
-            for (sk,s,tk,t,el) in (FGraph.toSeq centralityGraph) do
+            for (sk,s,tk,t,el) in (AdjGraph.toSeq centralityGraph) do
                 let sk, tk = (string sk), (string tk)
                 yield Elements.node sk [ nodeLabelF s ]
                 yield Elements.node tk [ nodeLabelF t ]
@@ -83,7 +83,7 @@ Nodes with high closeness centrality are considered central because they are clo
 *)
 
 let closenessCentrality =
-    Measures.ClosenessCentrality.ofFGraphNormalised (Algorithms.Dijkstra.ofUndirectedFGraph) id centralityGraph
+    Measures.ClosenessCentrality.ofAdjGraph id centralityGraph
 
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Closeness: {((closenessCentrality.Item x)|>Math.round 3)}"))
@@ -96,9 +96,9 @@ Nodes with high betweenness centrality act as bridges or intermediaries in the n
 *)
 
 let betweenness = 
-    Measures.BetweennessCentrality.returnPaths (Algorithms.Dijkstra.ofUndirectedFGraphIncludingPath) id id centralityGraph
+    Measures.BetweennessCentrality.ofAdjGraph id centralityGraph
 
-renderCyGraph (fun x -> CyParam.label ($"Node: {x};Betweenness: {Measures.BetweennessCentrality.getBetweennessOfPathsAndNode betweenness id x}"))
+renderCyGraph (fun x -> CyParam.label ($"Node: {x};Betweenness: {betweenness.Item x}"))
 (*** include-it-raw ***)
 
 (**
@@ -109,7 +109,7 @@ In other words, it represents the maximum distance between a node and any other 
 *)
 
 let eccentricity (node:'NodeKey) =
-    Measures.Eccentricity.ofFGraphNode (Algorithms.Dijkstra.ofUndirectedFGraph) id centralityGraph node
+    Measures.Eccentricity.ofAdjGraphNode id centralityGraph node
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Eccentricity: {eccentricity x}"))
 (*** include-it-raw ***)
@@ -123,20 +123,13 @@ As these metrics rely on information from all the shortest paths within a graph,
 Therefore it is wise to calculate this once and reuse it for the calulations.
 *)
 
-let shortestPaths = 
-    centralityGraph
-    |> FGraph.toArray2DUndirected (fun x -> x-1)
-    |> Algorithms.FloydWarshall.fromArray2D 
 
 let diameter =
-    Measures.Distance.maxOfFloydWarshall shortestPaths
+    Measures.Diameter.ofAdjGraph id centralityGraph
 
 let radius =
-    Measures.Distance.minOfFloydWarshall shortestPaths
-
-let averageShortestPath =
-    Measures.Distance.averageOfFloydWarshall shortestPaths
+    Measures.Radius.ofAdjGraph id  centralityGraph
 
 (***hide***)
-$"The given graph has a diameter of {diameter} and a radius of {radius} with an average shortest path lenght of {averageShortestPath}"
+$"The given graph has a diameter of {diameter} and a radius of {radius}."
 (*** include-it***)
