@@ -35,7 +35,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -158,7 +158,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L16-16" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L43-43" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -202,9 +202,9 @@
             <div>
               <code onmouseout="hideTip(event, '45', 45)" onmouseover="showTip(event, '45', 45)">
                 <p>
-                  <a id="addElement">
-                    <a href="#addElement">
-                      <code><span>AdjGraph.addElement&#32;<span>sourceKey&#32;source&#32;targetKey&#32;target&#32;data&#32;graph</span></span></code>
+                  <a id="addEdge">
+                    <a href="#addEdge">
+                      <code><span>AdjGraph.addEdge&#32;<span>sourceKey&#32;targetKey&#32;data&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
@@ -212,7 +212,7 @@
               <div class="fsdocs-tip" id="45">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>AdjGraph.addElement&#32;<span>sourceKey&#32;source&#32;targetKey&#32;target&#32;data&#32;graph</span></span></code>
+                  <code><span>AdjGraph.addEdge&#32;<span>sourceKey&#32;targetKey&#32;data&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -227,26 +227,10 @@
                     <br/>
                     <span>
                       <b>
-                        source
-                      </b>
-                      :
-                      <code>'NodeData</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
                         targetKey
                       </b>
                       :
                       <code>'NodeKey</code>
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        target
-                      </b>
-                      :
-                      <code>'NodeData</code>
                     </span>
                     <br/>
                     <span>
@@ -278,22 +262,22 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addElement``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addEdge``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addElement``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addEdge``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L30-30" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L270-270" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
-                 
- Adds an edge and the corresponding nodes with data to the graph
- 
+                
+ Add edge
+
               </p>
             </div>
             <dl class="fsdocs-params">
@@ -307,26 +291,10 @@
               <dd class="fsdocs-param-docs"></dd>
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  source
-                </span>
-                :
-                <code>'NodeData</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
                   targetKey
                 </span>
                 :
                 <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs"></dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  target
-                </span>
-                :
-                <code>'NodeData</code>
               </dt>
               <dd class="fsdocs-param-docs"></dd>
               <dt class="fsdocs-param">
@@ -362,6 +330,838 @@
             <div>
               <code onmouseout="hideTip(event, '46', 46)" onmouseover="showTip(event, '46', 46)">
                 <p>
+                  <a id="addEdges">
+                    <a href="#addEdges">
+                      <code><span>AdjGraph.addEdges&#32;<span>edgeSeq&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="46">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.addEdges&#32;<span>edgeSeq&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        edgeSeq
+                      </b>
+                      :
+                      <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addEdges``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addEdges``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L296-296" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Add labeled edges to the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edgeSeq
+                </span>
+                :
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
+                <p>
+                  <a id="addElement">
+                    <a href="#addElement">
+                      <code><span>AdjGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="47">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk1
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd1
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nk2
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd2
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ed
+                      </b>
+                      :
+                      <code>'EdgeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addElement``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addElement``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L56-56" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Adds an edge and the corresponding nodes with data to the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk1
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd1
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk2
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd2
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ed
+                </span>
+                :
+                <code>'EdgeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
+                <p>
+                  <a id="addNode">
+                    <a href="#addNode">
+                      <code><span>AdjGraph.addNode&#32;<span>nk&#32;nd&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="48">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.addNode&#32;<span>nk&#32;nd&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L177-177" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Adds a labeled node to the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
+                <p>
+                  <a id="addNodes">
+                    <a href="#addNodes">
+                      <code><span>AdjGraph.addNodes&#32;<span>nodeSeq&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="49">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.addNodes&#32;<span>nodeSeq&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nodeSeq
+                      </b>
+                      :
+                      <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.addNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.addNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L185-185" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Adds labeled nodes to the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nodeSeq
+                </span>
+                :
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '50', 50)" onmouseover="showTip(event, '50', 50)">
+                <p>
+                  <a id="containsEdge">
+                    <a href="#containsEdge">
+                      <code><span>AdjGraph.containsEdge&#32;<span>v1&#32;v2&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="50">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.containsEdge&#32;<span>v1&#32;v2&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        v1
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        v2
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>bool</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.containsEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.containsEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L260-260" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Returns true, if the edge from vertex v1 to vertex v2 is contained in the graph. Otherwise, it returns false.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  v1
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  v2
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>bool</code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '51', 51)" onmouseover="showTip(event, '51', 51)">
+                <p>
+                  <a id="containsNode">
+                    <a href="#containsNode">
+                      <code><span>AdjGraph.containsNode&#32;<span>vk&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="51">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.containsNode&#32;<span>vk&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        vk
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>bool</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.containsNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.containsNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L194-194" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Returns true, if the node v is contained in the graph. Otherwise, it returns false.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  vk
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>bool</code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '52', 52)" onmouseover="showTip(event, '52', 52)">
+                <p>
+                  <a id="countEdges">
+                    <a href="#countEdges">
+                      <code><span>AdjGraph.countEdges&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="52">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.countEdges&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.countEdges``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.countEdges``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L251-251" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Counts all edges 
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '53', 53)" onmouseover="showTip(event, '53', 53)">
+                <p>
+                  <a id="countNodes">
+                    <a href="#countNodes">
+                      <code><span>AdjGraph.countNodes&#32;<span>g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="53">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.countNodes&#32;<span>g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.countNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.countNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L190-190" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Evaluates the number of nodes in the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '54', 54)" onmouseover="showTip(event, '54', 54)">
+                <p>
                   <a id="create">
                     <a href="#create">
                       <code><span>AdjGraph.create&#32;<span>()</span></span></code>
@@ -369,7 +1169,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="46">
+              <div class="fsdocs-tip" id="54">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>AdjGraph.create&#32;<span>()</span></span></code>
@@ -395,7 +1195,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L22-22" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L49-49" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -423,7 +1223,845 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '47', 47)" onmouseover="showTip(event, '47', 47)">
+              <code onmouseout="hideTip(event, '55', 55)" onmouseover="showTip(event, '55', 55)">
+                <p>
+                  <a id="findEdge">
+                    <a href="#findEdge">
+                      <code><span>AdjGraph.findEdge&#32;<span>sourceKey&#32;targetKey&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="55">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.findEdge&#32;<span>sourceKey&#32;targetKey&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        sourceKey
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        targetKey
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.findEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.findEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L325-325" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Tries to find an edge between the specified nodes. Raises Exception if no such edge exists in the graph.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  sourceKey
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  targetKey
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '56', 56)" onmouseover="showTip(event, '56', 56)">
+                <p>
+                  <a id="findNode">
+                    <a href="#findNode">
+                      <code><span>AdjGraph.findNode&#32;<span>n&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="56">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.findNode&#32;<span>n&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        n
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>'NodeKey&#32;*&#32;'NodeData</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.findNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.findNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L198-198" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Lookup a labeled vertex in the graph. Raising KeyNotFoundException if no binding exists in the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  n
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>'NodeKey&#32;*&#32;'NodeData</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '57', 57)" onmouseover="showTip(event, '57', 57)">
+                <p>
+                  <a id="getDegree">
+                    <a href="#getDegree">
+                      <code><span>AdjGraph.getDegree&#32;<span>g&#32;nk</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="57">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.getDegree&#32;<span>g&#32;nk</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nk
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.getDegree``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.getDegree``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L358-358" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Returns the degree of a node nk 
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '58', 58)" onmouseover="showTip(event, '58', 58)">
+                <p>
+                  <a id="getNeighbours">
+                    <a href="#getNeighbours">
+                      <code><span>AdjGraph.getNeighbours&#32;<span>nk&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="58">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.getNeighbours&#32;<span>nk&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.getNeighbours``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.getNeighbours``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L349-349" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Returns the neighours of a node nk with their EdgeData
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '59', 59)" onmouseover="showTip(event, '59', 59)">
+                <p>
+                  <a id="iterEdge">
+                    <a href="#iterEdge">
+                      <code><span>AdjGraph.iterEdge&#32;<span>action&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="59">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.iterEdge&#32;<span>action&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        action
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;->&#32;'NodeKey&#32;->&#32;'EdgeData&#32;->&#32;unit</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.iterEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.iterEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L316-316" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Applies the given function to each node of the graph
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  action
+                </span>
+                :
+                <code><span>'NodeKey&#32;->&#32;'NodeKey&#32;->&#32;'EdgeData&#32;->&#32;unit</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '60', 60)" onmouseover="showTip(event, '60', 60)">
+                <p>
+                  <a id="iterNodes">
+                    <a href="#iterNodes">
+                      <code><span>AdjGraph.iterNodes&#32;<span>action&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="60">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.iterNodes&#32;<span>action&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        action
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;->&#32;'NodeData&#32;->&#32;unit</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.iterNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.iterNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L220-220" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Applies the given function to each node of the graph
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  action
+                </span>
+                :
+                <code><span>'NodeKey&#32;->&#32;'NodeData&#32;->&#32;unit</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '61', 61)" onmouseover="showTip(event, '61', 61)">
+                <p>
+                  <a id="iteriNodes">
+                    <a href="#iteriNodes">
+                      <code><span>AdjGraph.iteriNodes&#32;<span>action&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="61">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.iteriNodes&#32;<span>action&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        action
+                      </b>
+                      :
+                      <code><span>int&#32;->&#32;'NodeKey&#32;->&#32;'NodeData&#32;->&#32;unit</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.iteriNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.iteriNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L227-227" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Applies the given function to each node of the graph
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  action
+                </span>
+                :
+                <code><span>int&#32;->&#32;'NodeKey&#32;->&#32;'NodeData&#32;->&#32;unit</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '62', 62)" onmouseover="showTip(event, '62', 62)">
+                <p>
+                  <a id="map">
+                    <a href="#map">
+                      <code><span>AdjGraph.map&#32;<span>mapping&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="62">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.map&#32;<span>mapping&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        mapping
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;->&#32;'NodeData&#32;->&#32;<span>'NodeKey&#32;*&#32;'NodeData</span></span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;<span>(<span>'NodeData&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></span>)</span></span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.map``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.map``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L235-235" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Builds a graph whose elements are the results of applying the given function to each of the node.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  mapping
+                </span>
+                :
+                <code><span>'NodeKey&#32;->&#32;'NodeData&#32;->&#32;<span>'NodeKey&#32;*&#32;'NodeData</span></span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;<span>(<span>'NodeData&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></span>)</span></span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '63', 63)" onmouseover="showTip(event, '63', 63)">
+                <p>
+                  <a id="mapContexts">
+                    <a href="#mapContexts">
+                      <code><span>AdjGraph.mapContexts&#32;<span>mapping&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="63">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.mapContexts&#32;<span>mapping&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        mapping
+                      </b>
+                      :
+                      <code><span><span>'NodeData&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></span>&#32;->&#32;'T</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'T</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.mapContexts``4```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.mapContexts``4\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L363-363" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Maps contexts of the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  mapping
+                </span>
+                :
+                <code><span><span>'NodeData&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></span>&#32;->&#32;'T</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'T</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '64', 64)" onmouseover="showTip(event, '64', 64)">
                 <p>
                   <a id="ofSeq">
                     <a href="#ofSeq">
@@ -432,7 +2070,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="47">
+              <div class="fsdocs-tip" id="64">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>AdjGraph.ofSeq&#32;<span>edgelist</span></span></code>
@@ -469,7 +2107,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L82-82" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L145-145" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -503,7 +2141,439 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '48', 48)" onmouseover="showTip(event, '48', 48)">
+              <code onmouseout="hideTip(event, '65', 65)" onmouseover="showTip(event, '65', 65)">
+                <p>
+                  <a id="removeEdge">
+                    <a href="#removeEdge">
+                      <code><span>AdjGraph.removeEdge&#32;<span>nkSource&#32;nkTarget&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="65">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.removeEdge&#32;<span>nkSource&#32;nkTarget&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nkSource
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nkTarget
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.removeEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.removeEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L301-301" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Remove an edge
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nkSource
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nkTarget
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '66', 66)" onmouseover="showTip(event, '66', 66)">
+                <p>
+                  <a id="removeMany">
+                    <a href="#removeMany">
+                      <code><span>AdjGraph.removeMany&#32;<span>edgeSeq&#32;removeF&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="66">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.removeMany&#32;<span>edgeSeq&#32;removeF&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        edgeSeq
+                      </b>
+                      :
+                      <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        removeF
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;->&#32;'NodeKey&#32;->&#32;<span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;->&#32;<span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.removeMany``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.removeMany``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L311-311" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Removes all edges according to the given removeF
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edgeSeq
+                </span>
+                :
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  removeF
+                </span>
+                :
+                <code><span>'NodeKey&#32;->&#32;'NodeKey&#32;->&#32;<span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;->&#32;<span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '67', 67)" onmouseover="showTip(event, '67', 67)">
+                <p>
+                  <a id="removeNode">
+                    <a href="#removeNode">
+                      <code><span>AdjGraph.removeNode&#32;<span>nk&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="67">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.removeNode&#32;<span>nk&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.removeNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.removeNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L209-209" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Remove the Node and all edges connected to it
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '68', 68)" onmouseover="showTip(event, '68', 68)">
+                <p>
+                  <a id="setNodeData">
+                    <a href="#setNodeData">
+                      <code><span>AdjGraph.setNodeData&#32;<span>n&#32;nd&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="68">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.setNodeData&#32;<span>n&#32;nd&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        n
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.setNodeData``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.setNodeData``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L203-203" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Set the NodeData of a given NodeKey to the given NodeData
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  n
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '69', 69)" onmouseover="showTip(event, '69', 69)">
                 <p>
                   <a id="toAdjMatrix">
                     <a href="#toAdjMatrix">
@@ -512,7 +2582,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="48">
+              <div class="fsdocs-tip" id="69">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>AdjGraph.toAdjMatrix&#32;<span>graph</span></span></code>
@@ -549,7 +2619,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L93-93" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L156-156" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -583,7 +2653,252 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '49', 49)" onmouseover="showTip(event, '49', 49)">
+              <code onmouseout="hideTip(event, '70', 70)" onmouseover="showTip(event, '70', 70)">
+                <p>
+                  <a id="toArray2D">
+                    <a href="#toArray2D">
+                      <code><span>AdjGraph.toArray2D&#32;<span>nodeIndexer</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="70">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.toArray2D&#32;<span>nodeIndexer</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nodeIndexer
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;->&#32;int</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;->&#32;<span>'EdgeData[,]</span></span></code>
+                  </span>
+                  An array2d
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.toArray2D``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.toArray2D``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L372-372" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Converts the FGraph to an array2d 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nodeIndexer
+                </span>
+                :
+                <code><span>'NodeKey&#32;->&#32;int</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;->&#32;<span>'EdgeData[,]</span></span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An array2d
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '71', 71)" onmouseover="showTip(event, '71', 71)">
+                <p>
+                  <a id="toEdgeSeq">
+                    <a href="#toEdgeSeq">
+                      <code><span>AdjGraph.toEdgeSeq&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="71">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.toEdgeSeq&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.toEdgeSeq``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.toEdgeSeq``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L387-387" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the FGraph edges as a sequence of edges 
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '72', 72)" onmouseover="showTip(event, '72', 72)">
+                <p>
+                  <a id="toNodeArray">
+                    <a href="#toNodeArray">
+                      <code><span>AdjGraph.toNodeArray&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="72">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.toNodeArray&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.toNodeArray``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.toNodeArray``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L244-244" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+ Converts nodes to nodeKey * nodeData array 
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '73', 73)" onmouseover="showTip(event, '73', 73)">
                 <p>
                   <a id="toSeq">
                     <a href="#toSeq">
@@ -592,7 +2907,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="49">
+              <div class="fsdocs-tip" id="73">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>AdjGraph.toSeq&#32;<span>graph</span></span></code>
@@ -612,7 +2927,7 @@
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span>&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
                   </span>
                   <br/>
                 </div>
@@ -629,7 +2944,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L69-69" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L116-116" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -654,7 +2969,247 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;<span><a href="https://docs.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span>&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '74', 74)" onmouseover="showTip(event, '74', 74)">
+                <p>
+                  <a id="tryAddEdge">
+                    <a href="#tryAddEdge">
+                      <code><span>AdjGraph.tryAddEdge&#32;<span>nk1&#32;nk2&#32;ed&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="74">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.tryAddEdge&#32;<span>nk1&#32;nk2&#32;ed&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk1
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nk2
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ed
+                      </b>
+                      :
+                      <code>'EdgeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;option</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.tryAddEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.tryAddEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L285-285" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Adds a labeled edge to the graph.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk1
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk2
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ed
+                </span>
+                :
+                <code>'EdgeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span>&#32;option</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '75', 75)" onmouseover="showTip(event, '75', 75)">
+                <p>
+                  <a id="tryFindEdge">
+                    <a href="#tryFindEdge">
+                      <code><span>AdjGraph.tryFindEdge&#32;<span>nk1&#32;nk2&#32;g</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="75">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>AdjGraph.tryFindEdge&#32;<span>nk1&#32;nk2&#32;g</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nk1
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nk2
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>&#32;option</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.AdjGraph.tryFindEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.AdjGraph.tryFindEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/AdjGraph.fs#L336-336" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+Lookup a labeled edge in the graph, returning a Some value if a binding exists and None if not.
+
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk1
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk2
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>&#32;option</span></code>
               </dt>
               <dd class="fsdocs-return-docs"></dd>
             </dl>

@@ -44,7 +44,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -78,6 +78,11 @@
     FGraph
   </a>
 </li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/G_AdjGraph_4_Intro.html">
+    AdjGraph
+  </a>
+</li>             
 <li class="nav-header">
   Measures
 </li>             
@@ -96,6 +101,11 @@
     Loops
   </a>
 </li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_4_CentralityMeasures.html">
+    Centrality
+  </a>
+</li>             
 <li class="nav-header">
   Algorithms
 </li>             
@@ -107,6 +117,16 @@
 <li class="nav-item">
   <a class="nav-link" href="https://fslab.org/Graphoscope/A_FloydWarshall.html">
     Floyd-Warshall
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Louvain.html">
+    Louvain-Algorithm
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Component.html">
+    Components
   </a>
 </li>             
 <li class="nav-header">
@@ -238,11 +258,7 @@ that the rhesus macaque A groomed rhesus macaque B. The integer edge weights ind
             <span onmouseout="hideTip(event, 'fs59', 153)" onmouseover="showTip(event, 'fs59', 153)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs64', 154)" onmouseover="showTip(event, 'fs64', 154)" class="id">color</span> <span class="s">&quot;#A00975&quot;</span>
         <span class="pn">]</span>
 </code></pre>
-<div id="e70cdcfacc3" style="width:600px; height:600px"><!-- Cytoscape graph will be drawn inside this DIV --></div><script type="text/javascript">
-    var graphdata = {"container":document.getElementById('e70cdcfacc3'),"elements":[{"data":{"id":"0","label":"A"}},{"data":{"id":"1","label":"B"}},{"data":{"id":"0_1","source":"0","target":"1","label":7.0}},{"data":{"id":"0","label":"A"}},{"data":{"id":"2","label":"C"}},{"data":{"id":"0_2","source":"0","target":"2","label":12.0}},{"data":{"id":"1","label":"B"}},{"data":{"id":"2","label":"C"}},{"data":{"id":"1_2","source":"1","target":"2","label":2.0}},{"data":{"id":"1","label":"B"}},{"data":{"id":"3","label":"D"}},{"data":{"id":"1_3","source":"1","target":"3","label":9.0}},{"data":{"id":"2","label":"C"}},{"data":{"id":"4","label":"E"}},{"data":{"id":"2_4","source":"2","target":"4","label":10.0}},{"data":{"id":"3","label":"D"}},{"data":{"id":"5","label":"F"}},{"data":{"id":"3_5","source":"3","target":"5","label":1.0}},{"data":{"id":"4","label":"E"}},{"data":{"id":"3","label":"D"}},{"data":{"id":"4_3","source":"4","target":"3","label":4.0}},{"data":{"id":"4","label":"E"}},{"data":{"id":"5","label":"F"}},{"data":{"id":"4_5","source":"4","target":"5","label":5.0}}],"style":[{"selector":"node","style":{"content":"data(label)","color":"#A00975"}},{"selector":"edge","style":{"content":"data(label)","curve-style":"bezier","target-arrow-shape":"triangle","source-arrow-shape":"circle","color":"#438AFE"}}],"layout":{"name":"cose","componentSpacing":40},"zoom":{"level":null,"zoomingEnabled":false}}
-    var cy = cytoscape( graphdata );
-    cy.userZoomingEnabled( false );
-    </script>
+<table class="pre"><tr><td><pre><code>No value returned by any evaluator</code></pre></td></tr></table>
 
                 </div>
             </div>
@@ -257,10 +273,10 @@ from Graphoscope<br /><br />--------------------<br />type FGraph =
   static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member clone: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member containsEdge: v1: &#39;NodeKey -&gt; v2: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
   static member containsNode: vk: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
   static member countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
-  static member countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
   ...<br /><br />--------------------<br />type FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; = System.Collections.Generic.Dictionary&lt;&#39;NodeKey,FContext&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt;&gt;<br /><br />--------------------<br />new: unit -&gt; FGraph</div>
 <div class="fsdocs-tip" id="fs3">val graphToFill: FGraph&lt;int,string,float&gt;</div>
 <div class="fsdocs-tip" id="fs4">val empty&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; : FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)<br /><em>&lt;summary&gt; 

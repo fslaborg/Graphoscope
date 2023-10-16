@@ -35,7 +35,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -122,7 +122,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '258', 258)" onmouseover="showTip(event, '258', 258)">
+              <code onmouseout="hideTip(event, '369', 369)" onmouseover="showTip(event, '369', 369)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
@@ -131,7 +131,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="258">
+              <div class="fsdocs-tip" id="369">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Volume<span>()</span></span></code>
@@ -198,7 +198,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '259', 259)" onmouseover="showTip(event, '259', 259)">
+              <code onmouseout="hideTip(event, '370', 370)" onmouseover="showTip(event, '370', 370)">
                 <p>
                   <a id="compute">
                     <a href="#compute">
@@ -207,7 +207,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="259">
+              <div class="fsdocs-tip" id="370">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Volume.compute&#32;<span>graph</span></span></code>
@@ -220,7 +220,7 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
                       The graph to be analysed
                     </span>
@@ -239,15 +239,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.compute``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.compute``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.compute``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.compute``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L35-35" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L51-51" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -263,7 +263,7 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -289,7 +289,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '260', 260)" onmouseover="showTip(event, '260', 260)">
+              <code onmouseout="hideTip(event, '371', 371)" onmouseover="showTip(event, '371', 371)">
                 <p>
                   <a id="compute">
                     <a href="#compute">
@@ -298,7 +298,98 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="260">
+              <div class="fsdocs-tip" id="371">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Volume.compute&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  A float of the total edges
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.compute``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.compute``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L43-43" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Gets the total number of edges of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the total edges
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '372', 372)" onmouseover="showTip(event, '372', 372)">
+                <p>
+                  <a id="compute">
+                    <a href="#compute">
+                      <code><span>Volume.compute&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="372">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Volume.compute&#32;<span>graph</span></span></code>
@@ -338,7 +429,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L27-27" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L35-35" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -380,19 +471,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '261', 261)" onmouseover="showTip(event, '261', 261)">
+              <code onmouseout="hideTip(event, '373', 373)" onmouseover="showTip(event, '373', 373)">
                 <p>
-                  <a id="volumeOfDiGraph">
-                    <a href="#volumeOfDiGraph">
-                      <code><span>Volume.volumeOfDiGraph&#32;<span>graph</span></span></code>
+                  <a id="volumeOfAdjGraph">
+                    <a href="#volumeOfAdjGraph">
+                      <code><span>Volume.volumeOfAdjGraph&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="261">
+              <div class="fsdocs-tip" id="373">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>Volume.volumeOfDiGraph&#32;<span>graph</span></span></code>
+                  <code><span>Volume.volumeOfAdjGraph&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -402,7 +493,7 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
                       The graph to be analysed
                     </span>
@@ -421,15 +512,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.volumeOfDiGraph``2```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.volumeOfAdjGraph``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.volumeOfDiGraph``2\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.volumeOfAdjGraph``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L11-11" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L27-27" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -445,7 +536,7 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -471,7 +562,98 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '262', 262)" onmouseover="showTip(event, '262', 262)">
+              <code onmouseout="hideTip(event, '374', 374)" onmouseover="showTip(event, '374', 374)">
+                <p>
+                  <a id="volumeOfDiGraph">
+                    <a href="#volumeOfDiGraph">
+                      <code><span>Volume.volumeOfDiGraph&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="374">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>Volume.volumeOfDiGraph&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code>int</code>
+                  </span>
+                  A float of the total edges
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Volume.volumeOfDiGraph``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Volume.volumeOfDiGraph``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Volume.fs#L11-11" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Gets the total number of edges of the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be analysed
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code>int</code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A float of the total edges
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '375', 375)" onmouseover="showTip(event, '375', 375)">
                 <p>
                   <a id="volumeOfFGraph">
                     <a href="#volumeOfFGraph">
@@ -480,7 +662,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="262">
+              <div class="fsdocs-tip" id="375">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>Volume.volumeOfFGraph&#32;<span>graph</span></span></code>

@@ -44,7 +44,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -78,6 +78,11 @@
     FGraph
   </a>
 </li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/G_AdjGraph_4_Intro.html">
+    AdjGraph
+  </a>
+</li>             
 <li class="nav-header">
   Measures
 </li>             
@@ -96,6 +101,11 @@
     Loops
   </a>
 </li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_4_CentralityMeasures.html">
+    Centrality
+  </a>
+</li>             
 <li class="nav-header">
   Algorithms
 </li>             
@@ -107,6 +117,16 @@
 <li class="nav-item">
   <a class="nav-link" href="https://fslab.org/Graphoscope/A_FloydWarshall.html">
     Floyd-Warshall
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Louvain.html">
+    Louvain-Algorithm
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Component.html">
+    Components
   </a>
 </li>             
 <li class="nav-header">
@@ -159,7 +179,7 @@ p denotes the probality, that edge between two vertices exists or not.</p>
 
 <span class="k">let</span> <span onmouseout="hideTip(event, 'fs5', 6)" onmouseover="showTip(event, 'fs5', 6)" class="id">myGilbertGraph</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs6', 7)" onmouseover="showTip(event, 'fs6', 7)" class="rt">Gilbert</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs7', 8)" onmouseover="showTip(event, 'fs7', 8)" class="id">initDirectedFGraph</span> <span onmouseout="hideTip(event, 'fs3', 9)" onmouseover="showTip(event, 'fs3', 9)" class="id">N</span> <span onmouseout="hideTip(event, 'fs4', 10)" onmouseover="showTip(event, 'fs4', 10)" class="id">p</span>
 </code></pre>
-<table class="pre"><tr><td><pre><code>"You have created a graph with 50 nodes and 1275 edges"</code></pre></td></tr></table>
+<table class="pre"><tr><td><pre><code>"You have created a graph with 50 nodes and 1208 edges"</code></pre></td></tr></table>
 
                 </div>
             </div>
@@ -173,7 +193,8 @@ p denotes the probality, that edge between two vertices exists or not.</p>
   new: unit -&gt; Gilbert
   static member initDirectedAdjGraph: numberOfNodes: int -&gt; probability: float -&gt; AdjGraph&lt;int,int,int&gt;
   static member initDirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;
-  static member initUndirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;<br /><em>&lt;summary&gt;
+  static member initUndirectedFGraph: numberOfNodes: int -&gt; probability: float -&gt; FGraph&lt;int,int,float&gt;
+  static member initUndirectedGraph: numberOfNodes: int -&gt; probability: float -&gt; UndirectedGraph&lt;int,float&gt;<br /><em>&lt;summary&gt;
  Returns an ArrayAdjacencyGraph that is generated randomly with the given parameters.
 
  numberOfNodes indicates the number of vertices the final graph will have. 
@@ -191,10 +212,10 @@ from Graphoscope<br /><br />--------------------<br />type FGraph =
   static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member clone: graph: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
   static member containsEdge: v1: &#39;NodeKey -&gt; v2: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
   static member containsNode: vk: &#39;NodeKey -&gt; g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
   static member countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
-  static member countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
   ...<br /><br />--------------------<br />type FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; = System.Collections.Generic.Dictionary&lt;&#39;NodeKey,FContext&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt;&gt;<br /><br />--------------------<br />new: unit -&gt; FGraph</div>
 <div class="fsdocs-tip" id="fs11">static member FGraph.countNodes: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
 <div class="fsdocs-tip" id="fs12">static member FGraph.countEdges: g: FGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>

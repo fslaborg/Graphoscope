@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>AdjGraph</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="FsLab open source contributors">
+
+    <!--Opengraph properties (https://ogp.me/)-->
+    <meta property="og:title" content="AdjGraph" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plotly.NET" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://fslab.org/Graphoscope//img/favicon.ico">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.21.0.min.js"></script>
+    <script>MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };</script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.0/es5/tex-svg.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.24.0/cytoscape.min.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="https://fslab.org/Graphoscope/content/fsdocs-default.css" />
+    <link type="text/css" rel="stylesheet" href="https://fslab.org/Graphoscope/content/fsdocs-custom.css" />
+    <script type="text/javascript" src="https://fslab.org/Graphoscope/content/fsdocs-tips.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <!-- END SEARCH BOX: this adds support for the search box -->
+    
+</head> 
+
+<body>
+    <div class="columns is-fullheight m-0">
+        <div id="fsdocs-menu" class="column is-2 is-paddingless">
+            <aside class="menu">
+                <div class="container is-paddingless is-marginless has-background-dark">
+                    <a href="https://fslab.org/Graphoscope/">
+                        <figure class="image is-128x128 container">
+                            <img src="https://fslab.org/Graphoscope/img/logo.png">
+                        </figure>
+                    </a>
+                    <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
+                </div>
+                <div class="content">
+                    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+                    <div id="header">
+                        <div class="searchbox" id="fsdocs-searchbox">
+                            <label for="search-by">
+                                <i class="fas fa-search"></i>
+                            </label>
+                            <input data-search-input="" id="search-by" type="search" placeholder="Search..." class="input"/>
+                            <span data-search-clear="">
+                                <i class="fas fa-times"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <!-- END SEARCH BOX: this adds support for the search box -->
+                    <ul class="navbar-nav">
+                        <li class="nav-header">Links</li>
+                        <li class="nav-item" id="fsdocs-license-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/LICENSE">License (MIT)</a></li>
+                        <li class="nav-item" id="fsdocs-release-notes-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/blob/main/RELEASE_NOTES.md">Release Notes</a></li>
+                        <li class="nav-item" id="fsdocs-repository-link"><a class="nav-link" href="https://github.com/fslaborg/Graphoscope/">Source Repository</a></li>
+                        <li class="nav-header">
+  Graphoscope
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/G_Digraph_2_Intro.html">
+    DiGraph
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/G_FGraph_3_Intro.html">
+    FGraph
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/G_AdjGraph_4_Intro.html">
+    AdjGraph
+  </a>
+</li>             
+<li class="nav-header">
+  Measures
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_1_Degree.html">
+    Degree
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_2_NetworkDensity.html">
+    Network Density
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_3_Loops.html">
+    Loops
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/M_4_CentralityMeasures.html">
+    Centrality
+  </a>
+</li>             
+<li class="nav-header">
+  Algorithms
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Dijkstra.html">
+    Dijkstra
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_FloydWarshall.html">
+    Floyd-Warshall
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Louvain.html">
+    Louvain-Algorithm
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/A_Component.html">
+    Components
+  </a>
+</li>             
+<li class="nav-header">
+  Random Graph
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/R_RandomGraphs.html">
+    Random Graph generation
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/R_Gilbert.html">
+    Gilbert
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/R_BollobasRiordan.html">
+    Bollobas-Riordan
+  </a>
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/R_BarabasiAlbert.html">
+    Barab&#225;si-Albert
+  </a>
+</li>
+                        <li class="nav-header">
+  API Reference
+</li>             
+<li class="nav-item">
+  <a class="nav-link" href="https://fslab.org/Graphoscope/reference/index.html">
+    All Namespaces
+  </a>
+</li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+        <div class="column is-10 is-paddingless">
+            <div class="section pt-4">
+                <div class="container" id="fsdocs-content">
+                    
+<h1><a name="What-is-AdjGraph" class="anchor" href="#What-is-AdjGraph">What is AdjGraph</a></h1>
+<p>The AdjGraph is an undirected adaptation of the FGraph.
+It combines the predecessors and successors into just one element called neighbours.</p>
+<p><a href="https://mermaid.live/edit#pako:eNpdjssOgjAQRX-FzAoT-AEWJgjIjo3urIuxHR7yKCltDCH8u7VijM5qcs7NzF2AS0EQQdnJB69Rae-cssGzE19icc8VjvXVC8O9d_ALG21p3m3e0cRRm-Q08I9KnEqdSlHjD878gpqqvkmjpk1kThz_Hrxp7mei-l6BAHpSPTbCll5ehIGuqScGkV0FqpYBG1abQ6PlaR44RFoZCsCMAjWlDVYKe4hK7CZan7YATRE"><img src="https://mermaid.ink/img/pako:eNpdjssOgjAQRX-FzAoT-AEWJgjIjo3urIuxHR7yKCltDCH8u7VijM5qcs7NzF2AS0EQQdnJB69Rae-cssGzE19icc8VjvXVC8O9d_ALG21p3m3e0cRRm-Q08I9KnEqdSlHjD878gpqqvkmjpk1kThz_Hrxp7mei-l6BAHpSPTbCll5ehIGuqScGkV0FqpYBG1abQ6PlaR44RFoZCsCMAjWlDVYKe4hK7CZan7YATRE?type=png" alt="" /></a></p>
+<h1><a name="Quickstart" class="anchor" href="#Quickstart">Quickstart</a></h1>
+<h2><a name="Creating-an-empty-graph-and-filling-it-with-single-elements" class="anchor" href="#Creating-an-empty-graph-and-filling-it-with-single-elements">Creating an empty graph and filling it with single elements</a></h2>
+<p>Begin by creating an empty graph,meaning a data structure with no nodes or edges.
+Then populate the graph with single elements, individual nodes are added one by one, and edges can be introduced to establish connections between them.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs1', 1)" onmouseover="showTip(event, 'fs1', 1)" class="id">Graphoscope</span>
+<span class="k">open</span> <span onmouseout="hideTip(event, 'fs2', 2)" onmouseover="showTip(event, 'fs2', 2)" class="m">AdjGraph</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs3', 3)" onmouseover="showTip(event, 'fs3', 3)" class="id">graphToFillAdjGraph</span> <span class="o">=</span>
+
+    <span onmouseout="hideTip(event, 'fs2', 4)" onmouseover="showTip(event, 'fs2', 4)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 5)" onmouseover="showTip(event, 'fs4', 5)" class="id">empty</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 6)" onmouseover="showTip(event, 'fs2', 6)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 7)" onmouseover="showTip(event, 'fs5', 7)" class="id">addNode</span> <span class="n">1</span> <span class="s">&quot;1&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 8)" onmouseover="showTip(event, 'fs2', 8)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs5', 9)" onmouseover="showTip(event, 'fs5', 9)" class="id">addNode</span> <span class="n">2</span> <span class="s">&quot;2&quot;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 10)" onmouseover="showTip(event, 'fs2', 10)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs6', 11)" onmouseover="showTip(event, 'fs6', 11)" class="id">addEdge</span> <span class="n">1</span> <span class="n">2</span> <span class="n">1.</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"You have created a graph with 2 nodes and 1 edges"</code></pre></td></tr></table>
+<h1><a name="Working-with-Graphs" class="anchor" href="#Working-with-Graphs">Working with Graphs</a></h1>
+<h2><a name="Creating-a-Graph-using-AdjGraph" class="anchor" href="#Creating-a-Graph-using-AdjGraph">Creating a Graph using AdjGraph</a></h2>
+<h3><a name="Creating-an-empty-graph-and-add-collections-of-elements" class="anchor" href="#Creating-an-empty-graph-and-add-collections-of-elements">Creating an empty graph and add collections of elements</a></h3>
+<p>Another way of creating a graph is by filling it with collections of nodes and edges as seen below:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs11', 20)" onmouseover="showTip(event, 'fs11', 20)" class="id">graphToFillAdjGraph&#39;</span> <span class="o">=</span>
+    
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs12', 21)" onmouseover="showTip(event, 'fs12', 21)" class="fn">nodes</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 22)" onmouseover="showTip(event, 'fs13', 22)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 23)" onmouseover="showTip(event, 'fs14', 23)" class="id">init</span> <span class="n">100</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 24)" onmouseover="showTip(event, 'fs15', 24)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 25)" onmouseover="showTip(event, 'fs15', 25)" class="fn">x</span><span class="pn">,</span><span class="s">$&quot;{</span><span onmouseout="hideTip(event, 'fs15', 26)" onmouseover="showTip(event, 'fs15', 26)" class="fn">x</span><span class="s">}&quot;</span><span class="pn">)</span>
+
+    <span class="k">let</span> <span onmouseout="hideTip(event, 'fs16', 27)" onmouseover="showTip(event, 'fs16', 27)" class="fn">edges</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs13', 28)" onmouseover="showTip(event, 'fs13', 28)" class="m">List</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs14', 29)" onmouseover="showTip(event, 'fs14', 29)" class="id">init</span> <span class="n">45</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs15', 30)" onmouseover="showTip(event, 'fs15', 30)" class="fn">x</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs15', 31)" onmouseover="showTip(event, 'fs15', 31)" class="fn">x</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs15', 32)" onmouseover="showTip(event, 'fs15', 32)" class="fn">x</span><span class="o">*</span><span class="n">2</span><span class="pn">,</span><span class="n">1.</span><span class="pn">)</span>
+
+    <span onmouseout="hideTip(event, 'fs2', 33)" onmouseover="showTip(event, 'fs2', 33)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 34)" onmouseover="showTip(event, 'fs4', 34)" class="id">empty</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 35)" onmouseover="showTip(event, 'fs2', 35)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs17', 36)" onmouseover="showTip(event, 'fs17', 36)" class="id">addNodes</span> <span onmouseout="hideTip(event, 'fs12', 37)" onmouseover="showTip(event, 'fs12', 37)" class="fn">nodes</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 38)" onmouseover="showTip(event, 'fs2', 38)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs18', 39)" onmouseover="showTip(event, 'fs18', 39)" class="id">addEdges</span> <span onmouseout="hideTip(event, 'fs16', 40)" onmouseover="showTip(event, 'fs16', 40)" class="fn">edges</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"You have created a graph with 100 nodes and 45 edges"</code></pre></td></tr></table>
+<h3><a name="Removing-Nodes-and-Edges" class="anchor" href="#Removing-Nodes-and-Edges">Removing Nodes and Edges</a></h3>
+<p>To remove Nodes or Edges you can just use the remove functions provided:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">let</span> <span onmouseout="hideTip(event, 'fs20', 49)" onmouseover="showTip(event, 'fs20', 49)" class="id">graphWithRemovedElementsAdjGraph</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs11', 50)" onmouseover="showTip(event, 'fs11', 50)" class="id">graphToFillAdjGraph&#39;</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 51)" onmouseover="showTip(event, 'fs2', 51)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs21', 52)" onmouseover="showTip(event, 'fs21', 52)" class="id">removeEdge</span> <span class="n">1</span> <span class="n">2</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs2', 53)" onmouseover="showTip(event, 'fs2', 53)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs22', 54)" onmouseover="showTip(event, 'fs22', 54)" class="id">removeNode</span> <span class="n">0</span>
+</code></pre>
+<table class="pre"><tr><td><pre><code>"You have reduced the graph to 99 nodes and 43 edges"</code></pre></td></tr></table>
+<h2><a name="header" class="anchor" href="#header"></a></h2>
+<h1><a name="From-Data" class="anchor" href="#From-Data">From Data</a></h1>
+<h2><a name="Import-a-graph" class="anchor" href="#Import-a-graph">Import a graph</a></h2>
+<p>This is the well-known and much-used Zachary karate club network. The data was collected from the members of a university karate club by Wayne Zachary in 1977.
+Each node represents a member of the club, and each edge represents a tie between two members of the club.
+The network is undirected.</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs24', 63)" onmouseover="showTip(event, 'fs24', 63)" class="id">FSharp</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs25', 64)" onmouseover="showTip(event, 'fs25', 64)" class="id">Data</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs26', 65)" onmouseover="showTip(event, 'fs26', 65)" class="fn">getElementOfFile</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs27', 66)" onmouseover="showTip(event, 'fs27', 66)" class="fn">fullpath</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs28', 67)" onmouseover="showTip(event, 'fs28', 67)" class="rt">string</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs29', 68)" onmouseover="showTip(event, 'fs29', 68)" class="fn">delimiter</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs28', 69)" onmouseover="showTip(event, 'fs28', 69)" class="rt">string</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs30', 70)" onmouseover="showTip(event, 'fs30', 70)" class="fn">headerRows</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs31', 71)" onmouseover="showTip(event, 'fs31', 71)" class="vt">int</span><span class="pn">)</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs32', 72)" onmouseover="showTip(event, 'fs32', 72)" class="fn">weightsIncluded</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs33', 73)" onmouseover="showTip(event, 'fs33', 73)" class="vt">bool</span><span class="pn">)</span>  <span class="o">=</span> 
+        <span class="k">let</span> <span onmouseout="hideTip(event, 'fs34', 74)" onmouseover="showTip(event, 'fs34', 74)" class="fn">rows</span>  <span class="o">=</span> <span onmouseout="hideTip(event, 'fs35', 75)" onmouseover="showTip(event, 'fs35', 75)" class="d">CsvFile</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs36', 76)" onmouseover="showTip(event, 'fs36', 76)" class="id">Load</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs27', 77)" onmouseover="showTip(event, 'fs27', 77)" class="fn">fullpath</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs29', 78)" onmouseover="showTip(event, 'fs29', 78)" class="fn">delimiter</span><span class="pn">,</span> <span class="fn">skipRows</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs30', 79)" onmouseover="showTip(event, 'fs30', 79)" class="fn">headerRows</span><span class="pn">,</span> <span class="fn">hasHeaders</span> <span class="o">=</span> <span class="k">false</span><span class="pn">)</span><span class="pn">.</span><span class="id">Rows</span>
+        <span onmouseout="hideTip(event, 'fs34', 80)" onmouseover="showTip(event, 'fs34', 80)" class="fn">rows</span>
+        <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs37', 81)" onmouseover="showTip(event, 'fs37', 81)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs38', 82)" onmouseover="showTip(event, 'fs38', 82)" class="id">map</span> <span class="pn">(</span><span class="k">fun</span> <span onmouseout="hideTip(event, 'fs39', 83)" onmouseover="showTip(event, 'fs39', 83)" class="fn">row</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs31', 84)" onmouseover="showTip(event, 'fs31', 84)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs39', 85)" onmouseover="showTip(event, 'fs39', 85)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs31', 86)" onmouseover="showTip(event, 'fs31', 86)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs39', 87)" onmouseover="showTip(event, 'fs39', 87)" class="fn">row</span><span class="pn">[</span><span class="n">0</span><span class="pn">]</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs31', 88)" onmouseover="showTip(event, 'fs31', 88)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs39', 89)" onmouseover="showTip(event, 'fs39', 89)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs31', 90)" onmouseover="showTip(event, 'fs31', 90)" class="fn">int</span> <span onmouseout="hideTip(event, 'fs39', 91)" onmouseover="showTip(event, 'fs39', 91)" class="fn">row</span><span class="pn">[</span><span class="n">1</span><span class="pn">]</span><span class="pn">,</span> <span class="k">if</span> <span onmouseout="hideTip(event, 'fs32', 92)" onmouseover="showTip(event, 'fs32', 92)" class="fn">weightsIncluded</span> <span class="k">then</span> <span onmouseout="hideTip(event, 'fs40', 93)" onmouseover="showTip(event, 'fs40', 93)" class="fn">float</span> <span onmouseout="hideTip(event, 'fs39', 94)" onmouseover="showTip(event, 'fs39', 94)" class="fn">row</span><span class="pn">[</span><span class="n">2</span><span class="pn">]</span> <span class="k">else</span> <span class="n">1.0</span><span class="pn">)</span>
+
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs41', 95)" onmouseover="showTip(event, 'fs41', 95)" class="id">karateFileAdj</span><span class="o">=</span> <span class="k">__SOURCE_DIRECTORY__</span> <span class="o">+</span> <span class="s">&quot;/../tests/Graphoscope.Tests/ReferenceGraphs/zachary.txt&quot;</span>
+
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs42', 96)" onmouseover="showTip(event, 'fs42', 96)" class="id">karateGraphAdj</span> <span class="o">=</span> 
+  <span class="k">let</span> <span onmouseout="hideTip(event, 'fs43', 97)" onmouseover="showTip(event, 'fs43', 97)" class="fn">g</span> <span class="o">=</span> <span onmouseout="hideTip(event, 'fs2', 98)" onmouseover="showTip(event, 'fs2', 98)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs4', 99)" onmouseover="showTip(event, 'fs4', 99)" class="id">empty</span><span class="pn">&lt;</span><span onmouseout="hideTip(event, 'fs31', 100)" onmouseover="showTip(event, 'fs31', 100)" class="vt">int</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs31', 101)" onmouseover="showTip(event, 'fs31', 101)" class="vt">int</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs40', 102)" onmouseover="showTip(event, 'fs40', 102)" class="vt">float</span><span class="pn">&gt;</span>
+  <span onmouseout="hideTip(event, 'fs26', 103)" onmouseover="showTip(event, 'fs26', 103)" class="fn">getElementOfFile</span> <span onmouseout="hideTip(event, 'fs41', 104)" onmouseover="showTip(event, 'fs41', 104)" class="id">karateFileAdj</span> <span class="s">&quot; &quot;</span> <span class="n">2</span> <span class="k">false</span>
+  <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs37', 105)" onmouseover="showTip(event, 'fs37', 105)" class="m">Seq</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs44', 106)" onmouseover="showTip(event, 'fs44', 106)" class="id">iter</span><span class="pn">(</span><span class="k">fun</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs45', 107)" onmouseover="showTip(event, 'fs45', 107)" class="fn">s1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs46', 108)" onmouseover="showTip(event, 'fs46', 108)" class="fn">s2</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs47', 109)" onmouseover="showTip(event, 'fs47', 109)" class="fn">t1</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs48', 110)" onmouseover="showTip(event, 'fs48', 110)" class="fn">t2</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs49', 111)" onmouseover="showTip(event, 'fs49', 111)" class="fn">w</span><span class="pn">:</span> <span onmouseout="hideTip(event, 'fs40', 112)" onmouseover="showTip(event, 'fs40', 112)" class="vt">float</span><span class="pn">)</span> <span class="k">-&gt;</span> <span onmouseout="hideTip(event, 'fs2', 113)" onmouseover="showTip(event, 'fs2', 113)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs50', 114)" onmouseover="showTip(event, 'fs50', 114)" class="id">addElement</span> <span onmouseout="hideTip(event, 'fs45', 115)" onmouseover="showTip(event, 'fs45', 115)" class="fn">s1</span> <span onmouseout="hideTip(event, 'fs46', 116)" onmouseover="showTip(event, 'fs46', 116)" class="fn">s2</span> <span onmouseout="hideTip(event, 'fs47', 117)" onmouseover="showTip(event, 'fs47', 117)" class="fn">t1</span> <span onmouseout="hideTip(event, 'fs48', 118)" onmouseover="showTip(event, 'fs48', 118)" class="fn">t2</span> <span onmouseout="hideTip(event, 'fs49', 119)" onmouseover="showTip(event, 'fs49', 119)" class="fn">w</span> <span onmouseout="hideTip(event, 'fs43', 120)" onmouseover="showTip(event, 'fs43', 120)" class="fn">g</span><span class="o">|&gt;</span><span onmouseout="hideTip(event, 'fs51', 121)" onmouseover="showTip(event, 'fs51', 121)" class="fn">ignore</span><span class="pn">)</span>
+  <span onmouseout="hideTip(event, 'fs43', 122)" onmouseover="showTip(event, 'fs43', 122)" class="fn">g</span>
+</code></pre>
+<p>let's use Cytoscape.NET for visualization:</p>
+<pre class="fssnip highlighted"><code lang="fsharp"><span class="k">open</span> <span onmouseout="hideTip(event, 'fs52', 123)" onmouseover="showTip(event, 'fs52', 123)" class="id">Cytoscape</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 124)" onmouseover="showTip(event, 'fs53', 124)" class="id">NET</span>
+<span class="k">let</span> <span onmouseout="hideTip(event, 'fs54', 125)" onmouseover="showTip(event, 'fs54', 125)" class="id">vizGraph</span> <span class="o">=</span>
+    <span onmouseout="hideTip(event, 'fs55', 126)" onmouseover="showTip(event, 'fs55', 126)" class="m">CyGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs56', 127)" onmouseover="showTip(event, 'fs56', 127)" class="id">initEmpty</span> <span class="pn">(</span><span class="pn">)</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs55', 128)" onmouseover="showTip(event, 'fs55', 128)" class="m">CyGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs57', 129)" onmouseover="showTip(event, 'fs57', 129)" class="id">withElements</span> <span class="pn">[</span>
+            <span class="k">for</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs58', 130)" onmouseover="showTip(event, 'fs58', 130)" class="fn">sk</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs59', 131)" onmouseover="showTip(event, 'fs59', 131)" class="fn">s</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs60', 132)" onmouseover="showTip(event, 'fs60', 132)" class="fn">tk</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs61', 133)" onmouseover="showTip(event, 'fs61', 133)" class="fn">t</span><span class="pn">,</span><span onmouseout="hideTip(event, 'fs62', 134)" onmouseover="showTip(event, 'fs62', 134)" class="fn">el</span><span class="pn">)</span> <span class="k">in</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs2', 135)" onmouseover="showTip(event, 'fs2', 135)" class="m">AdjGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs63', 136)" onmouseover="showTip(event, 'fs63', 136)" class="id">toSeq</span> <span onmouseout="hideTip(event, 'fs42', 137)" onmouseover="showTip(event, 'fs42', 137)" class="id">karateGraphAdj</span><span class="pn">)</span> <span class="k">do</span>
+                <span class="k">let</span> <span onmouseout="hideTip(event, 'fs64', 138)" onmouseover="showTip(event, 'fs64', 138)" class="fn">sk</span><span class="pn">,</span> <span onmouseout="hideTip(event, 'fs65', 139)" onmouseover="showTip(event, 'fs65', 139)" class="fn">tk</span> <span class="o">=</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs28', 140)" onmouseover="showTip(event, 'fs28', 140)" class="fn">string</span> <span onmouseout="hideTip(event, 'fs58', 141)" onmouseover="showTip(event, 'fs58', 141)" class="fn">sk</span><span class="pn">)</span><span class="pn">,</span> <span class="pn">(</span><span onmouseout="hideTip(event, 'fs28', 142)" onmouseover="showTip(event, 'fs28', 142)" class="fn">string</span> <span onmouseout="hideTip(event, 'fs65', 143)" onmouseover="showTip(event, 'fs65', 143)" class="fn">tk</span><span class="pn">)</span>
+                <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs66', 144)" onmouseover="showTip(event, 'fs66', 144)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 145)" onmouseover="showTip(event, 'fs67', 145)" class="id">node</span> <span onmouseout="hideTip(event, 'fs64', 146)" onmouseover="showTip(event, 'fs64', 146)" class="fn">sk</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs68', 147)" onmouseover="showTip(event, 'fs68', 147)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 148)" onmouseover="showTip(event, 'fs69', 148)" class="id">label</span> <span onmouseout="hideTip(event, 'fs59', 149)" onmouseover="showTip(event, 'fs59', 149)" class="fn">s</span> <span class="pn">]</span>
+                <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs66', 150)" onmouseover="showTip(event, 'fs66', 150)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs67', 151)" onmouseover="showTip(event, 'fs67', 151)" class="id">node</span> <span onmouseout="hideTip(event, 'fs65', 152)" onmouseover="showTip(event, 'fs65', 152)" class="fn">tk</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs68', 153)" onmouseover="showTip(event, 'fs68', 153)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 154)" onmouseover="showTip(event, 'fs69', 154)" class="id">label</span> <span onmouseout="hideTip(event, 'fs61', 155)" onmouseover="showTip(event, 'fs61', 155)" class="fn">t</span> <span class="pn">]</span>
+                <span class="k">yield</span> <span onmouseout="hideTip(event, 'fs66', 156)" onmouseover="showTip(event, 'fs66', 156)" class="m">Elements</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs70', 157)" onmouseover="showTip(event, 'fs70', 157)" class="id">edge</span>  <span class="pn">(</span><span onmouseout="hideTip(event, 'fs8', 158)" onmouseover="showTip(event, 'fs8', 158)" class="fn">sprintf</span> <span class="s">&quot;</span><span class="pf">%s</span><span class="s">_</span><span class="pf">%s</span><span class="s">&quot;</span> <span onmouseout="hideTip(event, 'fs64', 159)" onmouseover="showTip(event, 'fs64', 159)" class="fn">sk</span> <span onmouseout="hideTip(event, 'fs65', 160)" onmouseover="showTip(event, 'fs65', 160)" class="fn">tk</span><span class="pn">)</span> <span onmouseout="hideTip(event, 'fs64', 161)" onmouseover="showTip(event, 'fs64', 161)" class="fn">sk</span> <span onmouseout="hideTip(event, 'fs65', 162)" onmouseover="showTip(event, 'fs65', 162)" class="fn">tk</span> <span class="pn">[</span> <span onmouseout="hideTip(event, 'fs68', 163)" onmouseover="showTip(event, 'fs68', 163)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 164)" onmouseover="showTip(event, 'fs69', 164)" class="id">label</span> <span onmouseout="hideTip(event, 'fs62', 165)" onmouseover="showTip(event, 'fs62', 165)" class="fn">el</span> <span class="pn">]</span>
+        <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs55', 166)" onmouseover="showTip(event, 'fs55', 166)" class="m">CyGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs71', 167)" onmouseover="showTip(event, 'fs71', 167)" class="id">withStyle</span> <span class="s">&quot;node&quot;</span>     
+        <span class="pn">[</span>
+            <span onmouseout="hideTip(event, 'fs68', 168)" onmouseover="showTip(event, 'fs68', 168)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs72', 169)" onmouseover="showTip(event, 'fs72', 169)" class="id">content</span> <span class="o">=.</span> <span onmouseout="hideTip(event, 'fs68', 170)" onmouseover="showTip(event, 'fs68', 170)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs69', 171)" onmouseover="showTip(event, 'fs69', 171)" class="id">label</span>
+            <span onmouseout="hideTip(event, 'fs68', 172)" onmouseover="showTip(event, 'fs68', 172)" class="m">CyParam</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs73', 173)" onmouseover="showTip(event, 'fs73', 173)" class="id">color</span> <span class="s">&quot;#A00975&quot;</span>
+        <span class="pn">]</span>
+    <span class="o">|&gt;</span> <span onmouseout="hideTip(event, 'fs55', 174)" onmouseover="showTip(event, 'fs55', 174)" class="m">CyGraph</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs74', 175)" onmouseover="showTip(event, 'fs74', 175)" class="id">withLayout</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs52', 176)" onmouseover="showTip(event, 'fs52', 176)" class="id">Cytoscape</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs53', 177)" onmouseover="showTip(event, 'fs53', 177)" class="id">NET</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs75', 178)" onmouseover="showTip(event, 'fs75', 178)" class="m">Layout</span><span class="pn">.</span><span onmouseout="hideTip(event, 'fs76', 179)" onmouseover="showTip(event, 'fs76', 179)" class="id">initBreadthfirst</span><span class="pn">(</span><span onmouseout="hideTip(event, 'fs77', 180)" onmouseover="showTip(event, 'fs77', 180)" class="fn">id</span><span class="pn">)</span><span class="pn">)</span>
+</code></pre>
+<div id="eb34389a127" style="width:600px; height:600px"><!-- Cytoscape graph will be drawn inside this DIV --></div><script type="text/javascript">
+    var graphdata = {"container":document.getElementById('eb34389a127'),"elements":[{"data":{"id":"1","label":1}},{"data":{"id":"2","label":2}},{"data":{"id":"1_2","source":"1","target":"2","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"3","label":3}},{"data":{"id":"1_3","source":"1","target":"3","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"4","label":4}},{"data":{"id":"1_4","source":"1","target":"4","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"5","label":5}},{"data":{"id":"1_5","source":"1","target":"5","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"6","label":6}},{"data":{"id":"1_6","source":"1","target":"6","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"7","label":7}},{"data":{"id":"1_7","source":"1","target":"7","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"8","label":8}},{"data":{"id":"1_8","source":"1","target":"8","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"9","label":9}},{"data":{"id":"1_9","source":"1","target":"9","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"11","label":11}},{"data":{"id":"1_11","source":"1","target":"11","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"12","label":12}},{"data":{"id":"1_12","source":"1","target":"12","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"13","label":13}},{"data":{"id":"1_13","source":"1","target":"13","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"14","label":14}},{"data":{"id":"1_14","source":"1","target":"14","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"18","label":18}},{"data":{"id":"1_18","source":"1","target":"18","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"20","label":20}},{"data":{"id":"1_20","source":"1","target":"20","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"22","label":22}},{"data":{"id":"1_22","source":"1","target":"22","label":1.0}},{"data":{"id":"1","label":1}},{"data":{"id":"32","label":32}},{"data":{"id":"1_32","source":"1","target":"32","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"3","label":3}},{"data":{"id":"2_3","source":"2","target":"3","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"4","label":4}},{"data":{"id":"2_4","source":"2","target":"4","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"8","label":8}},{"data":{"id":"2_8","source":"2","target":"8","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"14","label":14}},{"data":{"id":"2_14","source":"2","target":"14","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"18","label":18}},{"data":{"id":"2_18","source":"2","target":"18","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"20","label":20}},{"data":{"id":"2_20","source":"2","target":"20","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"22","label":22}},{"data":{"id":"2_22","source":"2","target":"22","label":1.0}},{"data":{"id":"2","label":2}},{"data":{"id":"31","label":31}},{"data":{"id":"2_31","source":"2","target":"31","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"4","label":4}},{"data":{"id":"3_4","source":"3","target":"4","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"8","label":8}},{"data":{"id":"3_8","source":"3","target":"8","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"9","label":9}},{"data":{"id":"3_9","source":"3","target":"9","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"10","label":10}},{"data":{"id":"3_10","source":"3","target":"10","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"14","label":14}},{"data":{"id":"3_14","source":"3","target":"14","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"28","label":28}},{"data":{"id":"3_28","source":"3","target":"28","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"29","label":29}},{"data":{"id":"3_29","source":"3","target":"29","label":1.0}},{"data":{"id":"3","label":3}},{"data":{"id":"33","label":33}},{"data":{"id":"3_33","source":"3","target":"33","label":1.0}},{"data":{"id":"4","label":4}},{"data":{"id":"8","label":8}},{"data":{"id":"4_8","source":"4","target":"8","label":1.0}},{"data":{"id":"4","label":4}},{"data":{"id":"13","label":13}},{"data":{"id":"4_13","source":"4","target":"13","label":1.0}},{"data":{"id":"4","label":4}},{"data":{"id":"14","label":14}},{"data":{"id":"4_14","source":"4","target":"14","label":1.0}},{"data":{"id":"5","label":5}},{"data":{"id":"7","label":7}},{"data":{"id":"5_7","source":"5","target":"7","label":1.0}},{"data":{"id":"5","label":5}},{"data":{"id":"11","label":11}},{"data":{"id":"5_11","source":"5","target":"11","label":1.0}},{"data":{"id":"6","label":6}},{"data":{"id":"7","label":7}},{"data":{"id":"6_7","source":"6","target":"7","label":1.0}},{"data":{"id":"6","label":6}},{"data":{"id":"11","label":11}},{"data":{"id":"6_11","source":"6","target":"11","label":1.0}},{"data":{"id":"6","label":6}},{"data":{"id":"17","label":17}},{"data":{"id":"6_17","source":"6","target":"17","label":1.0}},{"data":{"id":"7","label":7}},{"data":{"id":"17","label":17}},{"data":{"id":"7_17","source":"7","target":"17","label":1.0}},{"data":{"id":"9","label":9}},{"data":{"id":"31","label":31}},{"data":{"id":"9_31","source":"9","target":"31","label":1.0}},{"data":{"id":"9","label":9}},{"data":{"id":"33","label":33}},{"data":{"id":"9_33","source":"9","target":"33","label":1.0}},{"data":{"id":"9","label":9}},{"data":{"id":"34","label":34}},{"data":{"id":"9_34","source":"9","target":"34","label":1.0}},{"data":{"id":"10","label":10}},{"data":{"id":"34","label":34}},{"data":{"id":"10_34","source":"10","target":"34","label":1.0}},{"data":{"id":"14","label":14}},{"data":{"id":"34","label":34}},{"data":{"id":"14_34","source":"14","target":"34","label":1.0}},{"data":{"id":"15","label":15}},{"data":{"id":"34","label":34}},{"data":{"id":"15_34","source":"15","target":"34","label":1.0}},{"data":{"id":"16","label":16}},{"data":{"id":"34","label":34}},{"data":{"id":"16_34","source":"16","target":"34","label":1.0}},{"data":{"id":"19","label":19}},{"data":{"id":"34","label":34}},{"data":{"id":"19_34","source":"19","target":"34","label":1.0}},{"data":{"id":"20","label":20}},{"data":{"id":"34","label":34}},{"data":{"id":"20_34","source":"20","target":"34","label":1.0}},{"data":{"id":"21","label":21}},{"data":{"id":"34","label":34}},{"data":{"id":"21_34","source":"21","target":"34","label":1.0}},{"data":{"id":"23","label":23}},{"data":{"id":"34","label":34}},{"data":{"id":"23_34","source":"23","target":"34","label":1.0}},{"data":{"id":"24","label":24}},{"data":{"id":"26","label":26}},{"data":{"id":"24_26","source":"24","target":"26","label":1.0}},{"data":{"id":"24","label":24}},{"data":{"id":"28","label":28}},{"data":{"id":"24_28","source":"24","target":"28","label":1.0}},{"data":{"id":"24","label":24}},{"data":{"id":"30","label":30}},{"data":{"id":"24_30","source":"24","target":"30","label":1.0}},{"data":{"id":"24","label":24}},{"data":{"id":"33","label":33}},{"data":{"id":"24_33","source":"24","target":"33","label":1.0}},{"data":{"id":"24","label":24}},{"data":{"id":"34","label":34}},{"data":{"id":"24_34","source":"24","target":"34","label":1.0}},{"data":{"id":"25","label":25}},{"data":{"id":"28","label":28}},{"data":{"id":"25_28","source":"25","target":"28","label":1.0}},{"data":{"id":"25","label":25}},{"data":{"id":"32","label":32}},{"data":{"id":"25_32","source":"25","target":"32","label":1.0}},{"data":{"id":"26","label":26}},{"data":{"id":"25","label":25}},{"data":{"id":"26_25","source":"26","target":"25","label":1.0}},{"data":{"id":"26","label":26}},{"data":{"id":"32","label":32}},{"data":{"id":"26_32","source":"26","target":"32","label":1.0}},{"data":{"id":"27","label":27}},{"data":{"id":"34","label":34}},{"data":{"id":"27_34","source":"27","target":"34","label":1.0}},{"data":{"id":"28","label":28}},{"data":{"id":"34","label":34}},{"data":{"id":"28_34","source":"28","target":"34","label":1.0}},{"data":{"id":"29","label":29}},{"data":{"id":"32","label":32}},{"data":{"id":"29_32","source":"29","target":"32","label":1.0}},{"data":{"id":"29","label":29}},{"data":{"id":"34","label":34}},{"data":{"id":"29_34","source":"29","target":"34","label":1.0}},{"data":{"id":"30","label":30}},{"data":{"id":"27","label":27}},{"data":{"id":"30_27","source":"30","target":"27","label":1.0}},{"data":{"id":"30","label":30}},{"data":{"id":"33","label":33}},{"data":{"id":"30_33","source":"30","target":"33","label":1.0}},{"data":{"id":"30","label":30}},{"data":{"id":"34","label":34}},{"data":{"id":"30_34","source":"30","target":"34","label":1.0}},{"data":{"id":"31","label":31}},{"data":{"id":"33","label":33}},{"data":{"id":"31_33","source":"31","target":"33","label":1.0}},{"data":{"id":"31","label":31}},{"data":{"id":"34","label":34}},{"data":{"id":"31_34","source":"31","target":"34","label":1.0}},{"data":{"id":"32","label":32}},{"data":{"id":"33","label":33}},{"data":{"id":"32_33","source":"32","target":"33","label":1.0}},{"data":{"id":"32","label":32}},{"data":{"id":"34","label":34}},{"data":{"id":"32_34","source":"32","target":"34","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"15","label":15}},{"data":{"id":"33_15","source":"33","target":"15","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"16","label":16}},{"data":{"id":"33_16","source":"33","target":"16","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"19","label":19}},{"data":{"id":"33_19","source":"33","target":"19","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"21","label":21}},{"data":{"id":"33_21","source":"33","target":"21","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"23","label":23}},{"data":{"id":"33_23","source":"33","target":"23","label":1.0}},{"data":{"id":"33","label":33}},{"data":{"id":"34","label":34}},{"data":{"id":"33_34","source":"33","target":"34","label":1.0}}],"style":[{"selector":"node","style":{"content":"data(label)","color":"#A00975"}}],"layout":{"name":"breadthfirst"},"zoom":{"level":null,"zoomingEnabled":false}}
+    var cy = cytoscape( graphdata );
+    cy.userZoomingEnabled( false );
+    </script>
+
+                </div>
+            </div>
+        </div>
+        <div class="fsdocs-tip" id="fs1">namespace Graphoscope</div>
+<div class="fsdocs-tip" id="fs2">Multiple items<br />module AdjGraph
+
+from Graphoscope<br /><br />--------------------<br />type AdjGraph =
+  new: unit -&gt; AdjGraph
+  static member addEdge: sourceKey: &#39;NodeKey -&gt; targetKey: &#39;NodeKey -&gt; data: &#39;EdgeData -&gt; graph: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addEdges: edgeSeq: seq&lt;&#39;NodeKey * &#39;NodeKey * &#39;EdgeData&gt; -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)
+  static member containsEdge: v1: &#39;NodeKey -&gt; v2: &#39;NodeKey -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member containsNode: vk: &#39;NodeKey -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; bool (requires comparison)
+  static member countEdges: graph: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  static member countNodes: g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)
+  ...<br /><em>&lt;summary&gt; 
+ Functions to operate on the AdjGraph representation
+ &lt;/summary&gt;</em><br /><br />--------------------<br />type AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; = System.Collections.Generic.Dictionary&lt;&#39;NodeKey,(&#39;NodeData * System.Collections.Generic.Dictionary&lt;&#39;NodeKey,&#39;EdgeData&gt;)&gt;<br /><em>&lt;summary&gt; 
+ Basic Adjacency Graph representation
+ &lt;/summary&gt;</em><br /><br />--------------------<br />new: unit -&gt; AdjGraph</div>
+<div class="fsdocs-tip" id="fs3">val graphToFillAdjGraph: AdjGraph&lt;int,string,float&gt;</div>
+<div class="fsdocs-tip" id="fs4">val empty&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData (requires comparison)&gt; : AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)<br /><em>&lt;summary&gt; 
+ Creates an empty Adjacency Graph
+ &lt;/summary&gt;<br />&lt;returns&gt;Empty AdjGraph&lt;/returns&gt;</em></div>
+<div class="fsdocs-tip" id="fs5">static member AdjGraph.addNode: nk: &#39;NodeKey -&gt; nd: &#39;NodeData -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs6">static member AdjGraph.addEdge: sourceKey: &#39;NodeKey -&gt; targetKey: &#39;NodeKey -&gt; data: &#39;EdgeData -&gt; graph: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs7">val graphToFillOutput: string</div>
+<div class="fsdocs-tip" id="fs8">val sprintf: format: Printf.StringFormat&lt;&#39;T&gt; -&gt; &#39;T<br /><em>&lt;summary&gt;Print to a string using the given format.&lt;/summary&gt;<br />&lt;param name=&quot;format&quot;&gt;The formatter.&lt;/param&gt;<br />&lt;returns&gt;The formatted result.&lt;/returns&gt;<br />&lt;example&gt;See &lt;c&gt;Printf.sprintf&lt;/c&gt; (link: &lt;see cref=&quot;M:Microsoft.FSharp.Core.PrintfModule.PrintFormatToStringThen``1&quot; /&gt;) for examples.&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs9">static member AdjGraph.countNodes: g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+<div class="fsdocs-tip" id="fs10">static member AdjGraph.countEdges: graph: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; int (requires comparison)</div>
+<div class="fsdocs-tip" id="fs11">val graphToFillAdjGraph&#39;: AdjGraph&lt;int,string,float&gt;</div>
+<div class="fsdocs-tip" id="fs12">val nodes: (int * string) list</div>
+<div class="fsdocs-tip" id="fs13">Multiple items<br />module List
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.list`1&quot; /&gt;.&lt;/summary&gt;<br />&lt;namespacedoc&gt;&lt;summary&gt;Operations for collections such as lists, arrays, sets, maps and sequences. See also 
+    &lt;a href=&quot;https://docs.microsoft.com/dotnet/fsharp/language-reference/fsharp-collection-types&quot;&gt;F# Collection Types&lt;/a&gt; in the F# Language Guide.
+ &lt;/summary&gt;&lt;/namespacedoc&gt;</em><br /><br />--------------------<br />type List&lt;&#39;T&gt; =
+  | op_Nil
+  | op_ColonColon of Head: &#39;T * Tail: &#39;T list
+  interface IReadOnlyList&lt;&#39;T&gt;
+  interface IReadOnlyCollection&lt;&#39;T&gt;
+  interface IEnumerable
+  interface IEnumerable&lt;&#39;T&gt;
+  member GetReverseIndex: rank: int * offset: int -&gt; int
+  member GetSlice: startIndex: int option * endIndex: int option -&gt; &#39;T list
+  static member Cons: head: &#39;T * tail: &#39;T list -&gt; &#39;T list
+  member Head: &#39;T
+  member IsEmpty: bool
+  member Item: index: int -&gt; &#39;T with get
+  ...<br /><em>&lt;summary&gt;The type of immutable singly-linked lists.&lt;/summary&gt;<br />&lt;remarks&gt;Use the constructors &lt;c&gt;[]&lt;/c&gt; and &lt;c&gt;::&lt;/c&gt; (infix) to create values of this type, or
+ the notation &lt;c&gt;[1;2;3]&lt;/c&gt;. Use the values in the &lt;c&gt;List&lt;/c&gt; module to manipulate 
+ values of this type, or pattern match against the values directly.
+ &lt;/remarks&gt;<br />&lt;exclude /&gt;</em></div>
+<div class="fsdocs-tip" id="fs14">val init: length: int -&gt; initializer: (int -&gt; &#39;T) -&gt; &#39;T list<br /><em>&lt;summary&gt;Creates a list by calling the given generator on each index.&lt;/summary&gt;<br />&lt;param name=&quot;length&quot;&gt;The length of the list to generate.&lt;/param&gt;<br />&lt;param name=&quot;initializer&quot;&gt;The function to generate an element from an index.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentException&quot;&gt;Thrown when the input length is negative.&lt;/exception&gt;<br />&lt;returns&gt;The list of generated elements.&lt;/returns&gt;<br />&lt;example id=&quot;init-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ List.init 4 (fun v -&amp;gt; v + 5)
+ &lt;/code&gt;
+ Evaluates to &lt;c&gt;[5; 6; 7; 8]&lt;/c&gt;&lt;/example&gt;<br />&lt;example id=&quot;init-2&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ List.init -5 (fun v -&amp;gt; v + 5)
+ &lt;/code&gt;
+ Throws &lt;c&gt;ArgumentException&lt;/c&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs15">val x: int</div>
+<div class="fsdocs-tip" id="fs16">val edges: (int * int * float) list</div>
+<div class="fsdocs-tip" id="fs17">static member AdjGraph.addNodes: nodeSeq: seq&lt;&#39;NodeKey * &#39;NodeData&gt; -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs18">static member AdjGraph.addEdges: edgeSeq: seq&lt;&#39;NodeKey * &#39;NodeKey * &#39;EdgeData&gt; -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs19">val graphToFill2Output: string</div>
+<div class="fsdocs-tip" id="fs20">val graphWithRemovedElementsAdjGraph: AdjGraph&lt;int,string,float&gt;</div>
+<div class="fsdocs-tip" id="fs21">static member AdjGraph.removeEdge: nkSource: &#39;NodeKey -&gt; nkTarget: &#39;NodeKey -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs22">static member AdjGraph.removeNode: nk: &#39;NodeKey -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs23">val removing: string</div>
+<div class="fsdocs-tip" id="fs24">Multiple items<br />namespace FSharp<br /><br />--------------------<br />namespace Microsoft.FSharp</div>
+<div class="fsdocs-tip" id="fs25">Multiple items<br />namespace FSharp.Data<br /><br />--------------------<br />namespace Microsoft.FSharp.Data</div>
+<div class="fsdocs-tip" id="fs26">val getElementOfFile: fullpath: string -&gt; delimiter: string -&gt; headerRows: int -&gt; weightsIncluded: bool -&gt; seq&lt;int * int * int * int * float&gt;</div>
+<div class="fsdocs-tip" id="fs27">val fullpath: string</div>
+<div class="fsdocs-tip" id="fs28">Multiple items<br />val string: value: &#39;T -&gt; string<br /><em>&lt;summary&gt;Converts the argument to a string using &lt;c&gt;ToString&lt;/c&gt;.&lt;/summary&gt;<br />&lt;remarks&gt;For standard integer and floating point values the and any type that implements &lt;c&gt;IFormattable&lt;/c&gt;&lt;c&gt;ToString&lt;/c&gt; conversion uses &lt;c&gt;CultureInfo.InvariantCulture&lt;/c&gt;. &lt;/remarks&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted string.&lt;/returns&gt;<br />&lt;example id=&quot;string-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />type string = System.String<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.String&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs29">val delimiter: string</div>
+<div class="fsdocs-tip" id="fs30">val headerRows: int</div>
+<div class="fsdocs-tip" id="fs31">Multiple items<br />val int: value: &#39;T -&gt; int (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to signed 32-bit integer. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Int32.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted int&lt;/returns&gt;<br />&lt;example id=&quot;int-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type int = int32<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type int&lt;&#39;Measure&gt; =
+  int<br /><em>&lt;summary&gt;The type of 32-bit signed integer numbers, annotated with a unit of measure. The unit
+ of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to
+ &lt;see cref=&quot;T:System.Int32&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs32">val weightsIncluded: bool</div>
+<div class="fsdocs-tip" id="fs33">[&lt;Struct&gt;]
+type bool = System.Boolean<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Boolean&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs34">val rows: seq&lt;CsvRow&gt;</div>
+<div class="fsdocs-tip" id="fs35">type CsvFile =
+  inherit CsvFile&lt;CsvRow&gt;
+  member GetColumnIndex: columnName: string -&gt; int
+  member TryGetColumnIndex: columnName: string -&gt; int option
+  static member AsyncLoad: uri: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int * ?encoding: Encoding -&gt; Async&lt;CsvFile&gt;
+  static member Load: stream: Stream * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile + 2 overloads
+  static member Parse: text: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br /><em>&lt;summary&gt;
+ Represents a CSV file. The lines are read on demand from &lt;c&gt;reader&lt;/c&gt;.
+ Columns are delimited by one of the chars passed by &lt;c&gt;separators&lt;/c&gt; (defaults to just &lt;c&gt;,&lt;/c&gt;), and
+ to escape the separator chars, the &lt;c&gt;quote&lt;/c&gt; character will be used (defaults to &lt;c&gt;&quot;&lt;/c&gt;).
+ If &lt;c&gt;hasHeaders&lt;/c&gt; is true (the default), the first line read by &lt;c&gt;reader&lt;/c&gt; will not be considered part of data.
+ If &lt;c&gt;ignoreErrors&lt;/c&gt; is true (the default is false), rows with a different number of columns from the header row
+ (or the first row if headers are not present) will be ignored.
+ The first &lt;c&gt;skipRows&lt;/c&gt; lines will be skipped.
+ &lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs36">static member CsvFile.Load: reader: System.IO.TextReader * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br />static member CsvFile.Load: stream: System.IO.Stream * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int -&gt; CsvFile<br />static member CsvFile.Load: uri: string * ?separators: string * ?quote: char * ?hasHeaders: bool * ?ignoreErrors: bool * ?skipRows: int * ?encoding: System.Text.Encoding -&gt; CsvFile</div>
+<div class="fsdocs-tip" id="fs37">module Seq
+
+from Microsoft.FSharp.Collections<br /><em>&lt;summary&gt;Contains operations for working with values of type &lt;see cref=&quot;T:Microsoft.FSharp.Collections.seq`1&quot; /&gt;.&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs38">val map: mapping: (&#39;T -&gt; &#39;U) -&gt; source: seq&lt;&#39;T&gt; -&gt; seq&lt;&#39;U&gt;<br /><em>&lt;summary&gt;Builds a new collection whose elements are the results of applying the given function
+ to each of the elements of the collection.  The given function will be applied
+ as elements are demanded using the &lt;c&gt;MoveNext&lt;/c&gt; method on enumerators retrieved from the
+ object.&lt;/summary&gt;<br />&lt;remarks&gt;The returned sequence may be passed between threads safely. However,
+ individual IEnumerator values generated from the returned sequence should not be accessed concurrently.&lt;/remarks&gt;<br />&lt;param name=&quot;mapping&quot;&gt;A function to transform items from the input sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;returns&gt;The result sequence.&lt;/returns&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;example id=&quot;item-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ let inputs = [&quot;a&quot;; &quot;bbb&quot;; &quot;cc&quot;]
+
+ inputs |&amp;gt; Seq.map (fun x -&amp;gt; x.Length)
+ &lt;/code&gt;
+ Evaluates to a sequence yielding the same results as &lt;c&gt;seq { 1; 3; 2 }&lt;/c&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs39">val row: CsvRow</div>
+<div class="fsdocs-tip" id="fs40">Multiple items<br />val float: value: &#39;T -&gt; float (requires member op_Explicit)<br /><em>&lt;summary&gt;Converts the argument to 64-bit float. This is a direct conversion for all 
+ primitive numeric types. For strings, the input is converted using &lt;c&gt;Double.Parse()&lt;/c&gt;  
+ with InvariantCulture settings. Otherwise the operation requires an appropriate
+ static conversion method on the input type.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The converted float&lt;/returns&gt;<br />&lt;example id=&quot;float-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;&lt;/code&gt;&lt;/example&gt;</em><br /><br />--------------------<br />[&lt;Struct&gt;]
+type float = System.Double<br /><em>&lt;summary&gt;An abbreviation for the CLI type &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category&gt;Basic Types&lt;/category&gt;</em><br /><br />--------------------<br />type float&lt;&#39;Measure&gt; =
+  float<br /><em>&lt;summary&gt;The type of double-precision floating point numbers, annotated with a unit of measure.
+ The unit of measure is erased in compiled code and when values of this type
+ are analyzed using reflection. The type is representationally equivalent to
+ &lt;see cref=&quot;T:System.Double&quot; /&gt;.&lt;/summary&gt;<br />&lt;category index=&quot;6&quot;&gt;Basic Types with Units of Measure&lt;/category&gt;</em></div>
+<div class="fsdocs-tip" id="fs41">val karateFileAdj: string</div>
+<div class="fsdocs-tip" id="fs42">val karateGraphAdj: AdjGraph&lt;int,int,float&gt;</div>
+<div class="fsdocs-tip" id="fs43">val g: AdjGraph&lt;int,int,float&gt;</div>
+<div class="fsdocs-tip" id="fs44">val iter: action: (&#39;T -&gt; unit) -&gt; source: seq&lt;&#39;T&gt; -&gt; unit<br /><em>&lt;summary&gt;Applies the given function to each element of the collection.&lt;/summary&gt;<br />&lt;param name=&quot;action&quot;&gt;A function to apply to each element of the sequence.&lt;/param&gt;<br />&lt;param name=&quot;source&quot;&gt;The input sequence.&lt;/param&gt;<br />&lt;exception cref=&quot;T:System.ArgumentNullException&quot;&gt;Thrown when the input sequence is null.&lt;/exception&gt;<br />&lt;example id=&quot;iter-1&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ [&quot;a&quot;; &quot;b&quot;; &quot;c&quot;] |&amp;gt; Seq.iter (printfn &quot;%s&quot;)
+ &lt;/code&gt;
+ Evaluates to &lt;c&gt;unit&lt;/c&gt; and prints
+ &lt;code&gt;
+ a
+ b
+ c
+ &lt;/code&gt;
+ in the console.
+ &lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs45">val s1: int</div>
+<div class="fsdocs-tip" id="fs46">val s2: int</div>
+<div class="fsdocs-tip" id="fs47">val t1: int</div>
+<div class="fsdocs-tip" id="fs48">val t2: int</div>
+<div class="fsdocs-tip" id="fs49">val w: float</div>
+<div class="fsdocs-tip" id="fs50">static member AdjGraph.addElement: nk1: &#39;NodeKey -&gt; nd1: &#39;NodeData -&gt; nk2: &#39;NodeKey -&gt; nd2: &#39;NodeData -&gt; ed: &#39;EdgeData -&gt; g: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; (requires comparison)</div>
+<div class="fsdocs-tip" id="fs51">val ignore: value: &#39;T -&gt; unit<br /><em>&lt;summary&gt;Ignore the passed value. This is often used to throw away results of a computation.&lt;/summary&gt;<br />&lt;param name=&quot;value&quot;&gt;The value to ignore.&lt;/param&gt;<br />&lt;example id=&quot;min-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+  ignore 55555   //  Evaluates to ()
+ &lt;/code&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs52">namespace Cytoscape</div>
+<div class="fsdocs-tip" id="fs53">namespace Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs54">val vizGraph: CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs55">module CyGraph
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs56">val initEmpty: unit -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs57">val withElements: elems: seq&lt;CytoscapeModel.Element&gt; -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs58">val sk: int</div>
+<div class="fsdocs-tip" id="fs59">val s: int</div>
+<div class="fsdocs-tip" id="fs60">val tk: int</div>
+<div class="fsdocs-tip" id="fs61">val t: int</div>
+<div class="fsdocs-tip" id="fs62">val el: float</div>
+<div class="fsdocs-tip" id="fs63">static member AdjGraph.toSeq: graph: AdjGraph&lt;&#39;NodeKey,&#39;NodeData,&#39;EdgeData&gt; -&gt; seq&lt;&#39;NodeKey * &#39;NodeData * &#39;NodeKey * &#39;NodeData * &#39;EdgeData&gt; (requires comparison and comparison and comparison)</div>
+<div class="fsdocs-tip" id="fs64">val sk: string</div>
+<div class="fsdocs-tip" id="fs65">val tk: string</div>
+<div class="fsdocs-tip" id="fs66">module Elements
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs67">val node: id: string -&gt; dataAttributes: CyParam.CyStyleParam list -&gt; Elements.Node</div>
+<div class="fsdocs-tip" id="fs68">module CyParam
+
+from Cytoscape.NET</div>
+<div class="fsdocs-tip" id="fs69">val label: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs70">val edge: id: string -&gt; sourceId: string -&gt; targetId: string -&gt; dataAttributes: CyParam.CyStyleParam list -&gt; Elements.Edge</div>
+<div class="fsdocs-tip" id="fs71">val withStyle: selector: string -&gt; cyStyles: seq&lt;CyParam.CyStyleParam&gt; -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs72">val content: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs73">val color: v: &#39;a -&gt; CyParam.CyStyleParam</div>
+<div class="fsdocs-tip" id="fs74">val withLayout: ly: Layout -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs75">Multiple items<br />module Layout
+
+from Cytoscape.NET<br /><br />--------------------<br />type Layout =
+  inherit DynamicObj
+  new: name: string -&gt; Layout
+  member name: string<br /><em>&lt;summary&gt;
+ Layout type inherits from dynamic object
+&lt;/summary&gt;</em><br /><br />--------------------<br />new: name: string -&gt; Layout</div>
+<div class="fsdocs-tip" id="fs76">val initBreadthfirst: applyOption: (Layout -&gt; Layout) -&gt; Layout<br /><em>&lt;summary&gt;
+ initializes a layout of type &quot;breadthfirst&quot; applying the givin layout option function.
+ The &quot;breadthfirst&quot; layout puts nodes in a hierarchy, based on a breadthfirst traversal of the graph. It is best suited to trees
+ and forests in its default top-down mode, and it is best suited to DAGs in its circle mode.
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs77">val id: x: &#39;T -&gt; &#39;T<br /><em>&lt;summary&gt;The identity function&lt;/summary&gt;<br />&lt;param name=&quot;x&quot;&gt;The input value.&lt;/param&gt;<br />&lt;returns&gt;The same value.&lt;/returns&gt;<br />&lt;example id=&quot;id-example&quot;&gt;&lt;code lang=&quot;fsharp&quot;&gt;
+ id 12     //  Evaulates to 12
+ id &quot;abc&quot;  //  Evaulates to &quot;abc&quot;
+ &lt;/code&gt;&lt;/example&gt;</em></div>
+<div class="fsdocs-tip" id="fs78">val withZoom: zoom: CytoscapeModel.Zoom -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs79">namespace Cytoscape.NET.CytoscapeModel</div>
+<div class="fsdocs-tip" id="fs80">Multiple items<br />type Zoom =
+  inherit DynamicObj
+  new: unit -&gt; Zoom
+  static member Init: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; Zoom
+  static member Update: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; (Zoom -&gt; Zoom)<br /><br />--------------------<br />new: unit -&gt; CytoscapeModel.Zoom</div>
+<div class="fsdocs-tip" id="fs81">static member CytoscapeModel.Zoom.Init: ?Level: float * ?Position: (int * int) * ?RenderedPosition: (int * int) * ?ZoomingEnabled: bool -&gt; CytoscapeModel.Zoom</div>
+<div class="fsdocs-tip" id="fs82">val withSize: width: int * height: int -&gt; cy: CyGraph.CyGraph -&gt; CyGraph.CyGraph</div>
+<div class="fsdocs-tip" id="fs83">type HTML =
+  static member CreateGraphHTML: graphData: string * zooming: string * divId: string * cytoscapeReference: CytoscapeJSReference * ?Width: int * ?Height: int -&gt; XmlNode list
+  static member CreateGraphScript: graphData: string * zooming: string * cytoscapeReference: CytoscapeJSReference -&gt; XmlNode
+  static member Doc: graphHTML: XmlNode list * cytoscapeReference: CytoscapeJSReference * ?AdditionalHeadTags: XmlNode list -&gt; XmlNode
+  static member show: cy: Cytoscape * ?DisplayOpts: DisplayOptions -&gt; unit
+  static member toEmbeddedHTML: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; string)
+  static member toGraphHTML: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; string)
+  static member toGraphHTMLNodes: ?DisplayOpts: DisplayOptions -&gt; (Cytoscape -&gt; XmlNode list)<br /><em>&lt;summary&gt;
+ HTML template for Cytoscape
+&lt;/summary&gt;</em></div>
+<div class="fsdocs-tip" id="fs84">static member HTML.toGraphHTML: ?DisplayOpts: DisplayOptions -&gt; (CytoscapeModel.Cytoscape -&gt; string)</div>
+
+    </div>
+
+    <!-- BEGIN SEARCH BOX: this adds support for the search box -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.css" />
+    <script type="text/javascript">var fsdocs_search_baseurl = 'https://fslab.org/Graphoscope/'</script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.8/lunr.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/JavaScript-autoComplete/1.0.4/auto-complete.min.js"></script>
+    <script type="text/javascript" src="https://fslab.org/Graphoscope/content/fsdocs-search.js"></script>
+    <!-- END SEARCH BOX: this adds support for the search box -->
+</body>
+
+</html>

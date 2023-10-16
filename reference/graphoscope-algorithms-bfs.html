@@ -35,7 +35,7 @@
                         </figure>
                     </a>
                     <h2 class="title has-text-centered has-text-white">Graphoscope</h2>
-                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.2.0</h5>
+                    <h5 class="has-text-centered has-text-white pb-4">Documentation for 0.3.0</h5>
                 </div>
                 <div class="content">
                     <!-- BEGIN SEARCH BOX: this adds support for the search box -->
@@ -124,7 +124,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '120', 120)" onmouseover="showTip(event, '120', 120)">
+              <code onmouseout="hideTip(event, '142', 142)" onmouseover="showTip(event, '142', 142)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
@@ -133,7 +133,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="120">
+              <div class="fsdocs-tip" id="142">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>BFS<span>()</span></span></code>
@@ -200,7 +200,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '121', 121)" onmouseover="showTip(event, '121', 121)">
+              <code onmouseout="hideTip(event, '143', 143)" onmouseover="showTip(event, '143', 143)">
                 <p>
                   <a id="Compute">
                     <a href="#Compute">
@@ -209,7 +209,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="121">
+              <div class="fsdocs-tip" id="143">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
@@ -232,7 +232,7 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
                       The graph to traverse.
                     </span>
@@ -251,15 +251,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``4```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``4\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L77-77" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L108-108" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -287,7 +287,7 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-2.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -313,7 +313,7 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '122', 122)" onmouseover="showTip(event, '122', 122)">
+              <code onmouseout="hideTip(event, '144', 144)" onmouseover="showTip(event, '144', 144)">
                 <p>
                   <a id="Compute">
                     <a href="#Compute">
@@ -322,7 +322,120 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="122">
+              <div class="fsdocs-tip" id="144">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        starting
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      Nodekey for starting the BFS traversal.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to traverse.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                  </span>
+                  Sequence of node key and node data
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L97-97" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  starting
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  Nodekey for starting the BFS traversal.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to traverse.
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  Sequence of node key and node data
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '145', 145)" onmouseover="showTip(event, '145', 145)">
+                <p>
+                  <a id="Compute">
+                    <a href="#Compute">
+                      <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="145">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
@@ -372,7 +485,7 @@
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L65-65" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L87-87" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -426,7 +539,120 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '123', 123)" onmouseover="showTip(event, '123', 123)">
+              <code onmouseout="hideTip(event, '146', 146)" onmouseover="showTip(event, '146', 146)">
+                <p>
+                  <a id="ofAdjGraph">
+                    <a href="#ofAdjGraph">
+                      <code><span>BFS.ofAdjGraph&#32;<span>starting&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="146">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>BFS.ofAdjGraph&#32;<span>starting&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        starting
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      Nodekey for starting the BFS traversal.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to traverse.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                  </span>
+                  Sequence of node key and node data
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.ofAdjGraph``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.ofAdjGraph``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L41-41" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  starting
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  Nodekey for starting the BFS traversal.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to traverse.
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  Sequence of node key and node data
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '147', 147)" onmouseover="showTip(event, '147', 147)">
                 <p>
                   <a id="ofFGraph">
                     <a href="#ofFGraph">
@@ -435,7 +661,7 @@
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="123">
+              <div class="fsdocs-tip" id="147">
                 <div class="member-tooltip">
                   Full Usage: 
                   <code><span>BFS.ofFGraph&#32;<span>starting&#32;graph</span></span></code>
