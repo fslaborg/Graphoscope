@@ -60,14 +60,18 @@ type DiGraph() =
     static member removeNode (node: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         let nodeIx = graph.IdMap[node]
 
-        graph.OutEdges
-        |> ResizeArray.iteri(fun ri r ->
-            r
-            |> ResizeArray.mapi(fun ci (target, _) -> if target = nodeIx then Some ci else None)
-            |> ResizeArray.choose id
-            |> ResizeArray.rev
-            |> ResizeArray.iter(fun x -> graph.OutEdges[ri].RemoveAt x)
-        )
+        let removeEdges (edges: ResizeArray<ResizeArray<'EdgeData>) =
+            edges
+            |> ResizeArray.iteri(fun ri r ->
+                r
+                |> ResizeArray.mapi(fun ci (target, _) -> if target = nodeIx then Some ci else None)
+                |> ResizeArray.choose id
+                |> ResizeArray.rev
+                |> ResizeArray.iter(fun x -> edges[ri].RemoveAt x)
+            )
+
+        removeEdges graph.OutEdges
+        removeEdges graph.InEdges
 
         // Update IdMap
         graph.IdMap.Remove node |> ignore
@@ -236,18 +240,17 @@ type DiGraph() =
 
     /// <summary> 
     /// Builds a graph from a list of edges. 
+    /// This is a shorthand graph generation method
+    /// where NodeData is assumed to be of the same type as NodeKey.
     /// </summary>
     /// <param name="edges">An array of edges. Each edge is  a three part tuple of origin node, the destination node, and any edge label such as the weight</param> 
     /// <returns>A graph containing the nodes</returns>
     static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : DiGraph<'NodeKey, 'NodeKey, 'EdgeData> =
         let g = DiGraph<'NodeKey, 'NodeKey, 'EdgeData>()
         edges
-        |> Array.map(fun (n1, n2, _) -> n1, n2)
-        |> Array.unzip
-        |> fun (a1, a2) -> Array.append a1 a2
+        |> Array.collect(fun (n1,n2,_)-> [|n1, n1; n2, n2|])
         |> Array.distinct
-        |> Array.sort
-        |> fun x ->  DiGraph.addNodes (x|>Array.map(fun nk -> nk, nk )) g
+        |> fun x -> DiGraph.addNodes x g
         |> DiGraph.addEdges edges
 
     static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : DiGraph<'NodeKey, 'NodeData, 'EdgeData> =
