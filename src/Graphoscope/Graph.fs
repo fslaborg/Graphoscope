@@ -231,8 +231,13 @@ type UndirectedGraph() =
         let g = UndirectedGraph<'NodeKey,_,'EdgeData>()
         UndirectedGraph.addNodes nodes g
         
+    /// <summary> 
+    /// Builds a graph from a list of edges. 
     /// This is a shorthand graph generation method
-    /// where NodeData is assumed to be of the same type as NodeKey.
+    /// where NodeData is assumed to be the same as NodeKey.
+    /// </summary>
+    /// <param name="edges">An array of edges. Each edge is a triple of origin node, the destination node, and any edge data such as the weight</param> 
+    /// <returns>A graph containing the nodes</returns>
     static member createFromEdges (edges: ('NodeKey * 'NodeKey * 'EdgeData)[]) : UndirectedGraph<'NodeKey, 'NodeKey, 'EdgeData> =
         let g = UndirectedGraph<'NodeKey, 'NodeKey, 'EdgeData>()
         let nodes =
