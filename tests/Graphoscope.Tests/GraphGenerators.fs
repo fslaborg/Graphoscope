@@ -3,7 +3,6 @@ module GraphGenerators
 
 open Xunit
 open Graphoscope
-open Graphoscope.Graph
 open Graphoscope.RandomModels
 
 [<Fact>]

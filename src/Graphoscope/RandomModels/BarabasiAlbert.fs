@@ -1,7 +1,6 @@
 ﻿namespace Graphoscope.RandomModels
 
 open Graphoscope
-open Graphoscope.Graph
 
 // The Barabási-Albert (BA) model is a popular network growth model used to generate random scale-free networks.  It provides a valuable tool for generating synthetic networks that exhibit similar properties to many natural and man-made networks, mainly a scale-free character.
 type BarabasiAlbert() =
@@ -138,7 +137,7 @@ type BarabasiAlbert() =
             |> cumulativeSum
             |> Array.findIndex(fun x -> chance <= x)
 
-        let chooseRandomNodeWeightedByDegree (graph: UndirectedGraph<int, float>) =
+        let chooseRandomNodeWeightedByDegree (graph: UndirectedGraph<int, 'NodeData, float>) =
             let chance = rng.NextDouble()
             let nodes =  graph |> UndirectedGraph.getNodes
 
@@ -153,7 +152,7 @@ type BarabasiAlbert() =
             |> Array.findIndex(fun x -> chance <= x)
             |> fun ix -> nodes[ix]
 
-        let addEdgesForNode m newNodeId (graph: UndirectedGraph<int, float>) =
+        let addEdgesForNode m newNodeId (graph: UndirectedGraph<int, 'NodeData, float>) =
             UndirectedGraph.addNode newNodeId graph |> ignore
             
             Seq.initInfinite( fun _ -> chooseRandomNodeWeightedByDegree graph)
@@ -163,7 +162,7 @@ type BarabasiAlbert() =
             |> Seq.toArray
             |> fun newEdges -> UndirectedGraph.addEdges newEdges graph
             
-        let rec addNodesandedges m nodes counter  (graph: UndirectedGraph<int, float>) = 
+        let rec addNodesandedges m nodes counter  (graph: UndirectedGraph<int, 'NodeData, float>) = 
             let maxId = UndirectedGraph.getNodes graph |> Array.max
             addEdgesForNode m (maxId+1) graph |> ignore
             let newCounter = counter + 1

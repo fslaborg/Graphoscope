@@ -46,7 +46,24 @@ type Degree() =
         Array.init graph.NodeKeys.Count (fun i -> graph.InEdges[i].Count + graph.OutEdges[i].Count)
         |> Array.sortDescending
 
-    
+    /// <summary> 
+    /// Returns the degree sequence of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An array of degree values in descending order</returns>
+    static member sequenceOfUndirected(graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Array.init graph.NodeKeys.Count (fun i -> graph.Edges[i].Count)
+        |> Array.sortDescending
+
+    /// <summary> 
+    /// Returns the degree sequence of the graph
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An array of degree values in descending order</returns>
+    static member sequence(graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+        Degree.sequenceOfUndirected graph
+
+
     /// <summary> 
     /// Returns the degree sequence of the graph
     /// </summary>
@@ -114,15 +131,12 @@ type Degree() =
 
     /// <summary> 
     /// Get the mean degree of the graph. 
-    /// This is an undirected measure so inbound links add to a nodes degree.
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member averageofUndirectedGraph(graph : Graph.UndirectedGraph<'NodeKey, 'EdgeData>) =
-        graph.Edges
-        |> ResizeArray.map(fun n -> (n |> ResizeArray.length) * 2 |> float)
-        |> ResizeArray.toArray
-        |> Array.average
+    static member averageofUndirected(graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.sequenceOfUndirected graph
+        |> Array.averageBy float
    
     /// <summary> 
     /// Get the mean degree of the graph. 
@@ -157,8 +171,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member average (graph : Graph.UndirectedGraph<'NodeKey,'EdgeData>) =
-        Degree.averageofUndirectedGraph graph
+    static member average (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.averageofUndirected graph
 
 
     // Get Max Degree
@@ -176,6 +190,15 @@ type Degree() =
         |> FGraph.mapContexts FContext.degree
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
+
+    /// <summary> 
+    /// Get the max degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max degree</returns>
+    static member maximumOfUndirected (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.sequenceOfUndirected graph
+        |> Array.head
 
     /// <summary> 
     /// Get the max degree of the graph. 
@@ -207,6 +230,14 @@ type Degree() =
     /// <returns>An int of the max degree</returns>
     static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         Degree.maximumOfFGraph graph
+
+    /// <summary> 
+    /// Get the max degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the max degree</returns>
+    static member maximum (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.maximumOfUndirected graph
 
     /// <summary> 
     /// Get the max degree of the graph. 
@@ -248,6 +279,16 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min degree</returns>
+    static member minimumOfUndirected (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.sequenceOfUndirected graph
+        |> Array.last
+
+
+    /// <summary> 
+    /// Get the min degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the min degree</returns>
     static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
         graph.Keys
         |> Seq.map(fun k -> 
@@ -274,6 +315,14 @@ type Degree() =
     /// <returns>An int of the min degree</returns>
     static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
         Degree.minimumOfFGraph graph
+
+    /// <summary> 
+    /// Get the min degree of the graph. 
+    /// </summary>
+    /// <param name="graph">The graph to be analysed</param> 
+    /// <returns>An int of the min degree</returns>
+    static member minimum (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Degree.minimumOfUndirected graph
 
     /// <summary> 
     /// Get the min degree of the graph. 
