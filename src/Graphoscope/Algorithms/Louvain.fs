@@ -2,7 +2,7 @@
 
 open Graphoscope
 open System.Collections.Generic
-
+open FSharpAux
 
 ///Louvain method for community detection
 //Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008
@@ -436,5 +436,7 @@ type Louvain() =
     /// <returns>A new FGraph whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
     static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>)=
         Louvain.louvainResolution true weightF modularityIncreaseThreshold 1. graph 
-        
-    
+
+
+
+

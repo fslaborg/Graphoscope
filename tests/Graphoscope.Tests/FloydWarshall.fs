@@ -36,11 +36,12 @@ let expected =
 let ``All Pairs Floyd Warshall for DiGraph works correctly`` () =
 
     let actual = 
-        DiGraph.createFromEdges edges
-        |> DiGraph.toMatrix
+        DiGraph.createFromNodes (Array.init 10 (fun i -> i, i))
+        |> DiGraph.addEdges edges
+        |> DiGraph.toAdjacencyMatrix id
         |> Algorithms.FloydWarshall.fromJaggedArray 
 
-    Assert.Equal<float[]>(expected, actual)
+    Assert.Equal<float[][]>(expected, actual)
 
 [<Fact>]
 let ``All Pairs Floyd Warshall for FGraph works correctly`` () =
