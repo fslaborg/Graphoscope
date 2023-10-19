@@ -18,7 +18,7 @@ type ErdosRenyi() =
         let  rng = System.Random()
         let g = 
             UndirectedGraph.empty
-            |> UndirectedGraph.addNodes (Array.init nodes id)
+            |> UndirectedGraph.addNodes (Array.init nodes (fun i -> i, i))
             
         let createRandomEdge (nodeCount: int)=
                 let f = rng.Next(nodeCount)

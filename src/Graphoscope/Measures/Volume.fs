@@ -8,7 +8,7 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfUndirected (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+    static member volumeOfUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         UndirectedGraph.countEdges graph
 
     /// <summary> 
@@ -48,7 +48,7 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph :UndirectedGraph<'NodeKey,'EdgeData>) = 
+    static member compute (graph :UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Volume.volumeOfUndirected graph
     
     /// <summary> 

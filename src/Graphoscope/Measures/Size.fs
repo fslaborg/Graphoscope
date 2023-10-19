@@ -8,7 +8,7 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfUndirected (graph: UndirectedGraph<'NodeKey,'EdgeData>) =
+    static member sizeOfUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         UndirectedGraph.countNodes graph
 
     /// <summary> 
@@ -48,7 +48,7 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph : UndirectedGraph<'NodeKey,'EdgeData>) = 
+    static member compute (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Size.sizeOfUndirected graph
     
     /// <summary> 

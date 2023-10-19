@@ -321,3 +321,52 @@ module UndirectedGraph =
     let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData> =
         UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>()
+
+    type Node() =
+        /// <summary> 
+        /// Adds a new node to the graph
+        /// </summary>
+        /// <param name="node">The node to be created. The type must match the node type of the graph.</param> 
+        /// /// <param name="graph">The graph the node will be added to.</param> 
+        /// /// <returns>Unit</returns>
+        static member addNode (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) =
+            UndirectedGraph.addNode node graph
+
+        /// <summary> 
+        /// Removes a node from the graph
+        /// </summary>
+        /// <param name="node">The node to be removed.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        static member removeNode (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) (node: 'NodeKey) = 
+            UndirectedGraph.removeNode node graph
+
+        /// <summary> 
+        /// Returns Node Data for a given node from the graph
+        /// </summary>
+        /// <param name="node">The key of the node node to be returned</param> 
+        /// <param name="graph">The graph the node will be returned from.</param> 
+        /// <returns>Unit</returns>
+        static member getNodeData (node: 'NodeKey)  (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+            graph.NodeData[graph.IdMap[node]]
+           
+    
+    type Edge() =
+
+        /// <summary> 
+        /// Adds a new edge to the graph
+        /// </summary>
+        /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
+        /// <param name="graph">The graph the edge will be added to.</param> 
+        /// <returns>Unit</returns>
+        static member addEdge (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
+            UndirectedGraph.addEdge edge graph
+
+        /// <summary> 
+        /// Removes an edge to the graph.
+        /// </summary>
+        /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        /// <returns>Unit</returns>
+        static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
+            UndirectedGraph.removeEdge edge graph

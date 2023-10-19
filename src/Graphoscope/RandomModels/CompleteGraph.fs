@@ -14,7 +14,7 @@ type CompleteGraph() =
         let nodeIds = Array.init nodesToCreate id
         let g = 
             UndirectedGraph.empty   
-            |> UndirectedGraph.addNodes (nodeIds |> Array.map(fun i -> i))
+            |> UndirectedGraph.addNodes (nodeIds |> Array.map(fun i -> i, i))
 
         nodeIds |> Seq.allPairs nodeIds
         |> Seq.filter(fun (o,t) -> o<>t)

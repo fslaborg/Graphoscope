@@ -63,7 +63,7 @@ type Gilbert() =
         if probability > 1. || probability < 0. then
             failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
 
-        let g = UndirectedGraph.createFromNodes [|0 .. numberOfNodes - 1|]
+        let g = UndirectedGraph.createFromNodes (Array.init numberOfNodes (fun i -> i, i))
         UndirectedGraph.getNonLoopingPossibleEdges g
         |> Seq.iter( fun (o, d) ->
             if rng.NextDouble() <= probability then

@@ -60,7 +60,7 @@ type DiGraph() =
     static member removeNode (node: 'NodeKey) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         let nodeIx = graph.IdMap[node]
 
-        let removeEdges (edges: ResizeArray<ResizeArray<'EdgeData>) =
+        let removeEdges (edges: ResizeArray<ResizeArray<int * 'EdgeData>>) =
             edges
             |> ResizeArray.iteri(fun ri r ->
                 r

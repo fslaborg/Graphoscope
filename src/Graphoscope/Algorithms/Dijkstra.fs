@@ -116,7 +116,7 @@ type Dijkstra() =
         distance
 
     /// Computes the shortest path
-    static member internal getAdjacencyArrayForUndirected (graph: UndirectedGraph<'NodeKey, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+    static member internal getAdjacencyArrayForUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
         let dist =
             Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
         graph.Edges[nodeIx]
@@ -137,7 +137,7 @@ type Dijkstra() =
     /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
-    static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>) : ('NodeKey * float) [] =
+    static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * float) [] =
         let que = SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let sourceIx = graph.IdMap[source]
         let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -196,7 +196,7 @@ type Dijkstra() =
     /// The ordered array of nodes and 2D Array of distances where each
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
-    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'EdgeData>): 'NodeKey [] * float [][] =        
+    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>): 'NodeKey [] * float [][] =        
         let dijkstra (sourceIx: int) =
             let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)

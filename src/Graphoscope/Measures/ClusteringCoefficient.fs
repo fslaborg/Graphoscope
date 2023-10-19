@@ -31,7 +31,7 @@ type ClusteringCoefficient() =
     static member clusteringCoefficientOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
-    static member clusteringCoefficientOfUndirectedGraph (g: UndirectedGraph<'NodeKey,'EdgeData>) : float=
+    static member clusteringCoefficientOfUndirectedGraph (g: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
     static member compute (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
@@ -40,6 +40,6 @@ type ClusteringCoefficient() =
     static member compute (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfDiGraph g
     
-    static member compute (g: UndirectedGraph<'NodeKey,'EdgeData>) =
+    static member compute (g: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfUndirectedGraph g
     
