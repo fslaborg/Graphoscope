@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>InDegree (Graphoscope)</title>
+    <title>UndirectedGraph (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://fslab.org/Graphoscope//img/favicon.ico">
@@ -73,13 +73,13 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    InDegree Type
+    UndirectedGraph Type
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://fslab.org/Graphoscope/reference/graphoscope-measures.html">
-        Graphoscope.Measures
+      <a href="https://fslab.org/Graphoscope/reference/graphoscope.html">
+        Graphoscope
       </a>
     </dt>
     <dt>
@@ -122,24 +122,24 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '297', 297)" onmouseover="showTip(event, '297', 297)">
+              <code onmouseout="hideTip(event, '150', 150)" onmouseover="showTip(event, '150', 150)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
-                      <code><span>InDegree<span>()</span></span></code>
+                      <code><span>UndirectedGraph<span>()</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="297">
+              <div class="fsdocs-tip" id="150">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree<span>()</span></span></code>
+                  <code><span>UndirectedGraph<span>()</span></span></code>
                   <br/>
                   <br/>
                   <span>
                     Returns: 
-                    <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-measures-indegree.html">InDegree</a></code>
+                    <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph.html">UndirectedGraph</a></code>
                   </span>
                   <br/>
                 </div>
@@ -148,15 +148,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Measures.InDegree.#ctor`')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.UndirectedGraph.#ctor`')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.#ctor\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.#ctor\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L6-6" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L18-18" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -169,7 +169,7 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-measures-indegree.html">InDegree</a></code>
+                <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph.html">UndirectedGraph</a></code>
               </dt>
               <dd class="fsdocs-return-docs"></dd>
             </dl>
@@ -198,40 +198,50 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '298', 298)" onmouseover="showTip(event, '298', 298)">
+              <code onmouseout="hideTip(event, '151', 151)" onmouseover="showTip(event, '151', 151)">
                 <p>
-                  <a id="average">
-                    <a href="#average">
-                      <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <a id="addEdge">
+                    <a href="#addEdge">
+                      <code><span>UndirectedGraph.addEdge&#32;<span>edge&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="298">
+              <div class="fsdocs-tip" id="151">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.addEdge&#32;<span>edge&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
+                        edge
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
+                       - 
+                      The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to be analysed
+                      The graph the edge will be added to.
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>float</code>
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
                   </span>
-                  A float of the mean In-degree
+                  Unit
                   <br/>
                 </div>
               </div>
@@ -239,36 +249,47 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.average``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.addEdge``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.average``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.addEdge``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L133-133" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L108-108" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
+ Adds a new edge to the graph
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  graph
+                  edge
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to be analysed
+                  The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph the edge will be added to.
                 </p>
               </dd>
             </dl>
@@ -277,11 +298,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>float</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  A float of the mean In-degree
+                  Unit
                 </p>
               </dd>
             </dl>
@@ -290,40 +311,50 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '299', 299)" onmouseover="showTip(event, '299', 299)">
+              <code onmouseout="hideTip(event, '152', 152)" onmouseover="showTip(event, '152', 152)">
                 <p>
-                  <a id="average">
-                    <a href="#average">
-                      <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <a id="addEdges">
+                    <a href="#addEdges">
+                      <code><span>UndirectedGraph.addEdges&#32;<span>edges&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="299">
+              <div class="fsdocs-tip" id="152">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.addEdges&#32;<span>edges&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
+                        edges
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+                       - 
+                      The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to be analysed
+                      The graph to add the edge to
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>float</code>
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
                   </span>
-                  A float of the mean In-degree
+                  Unit
                   <br/>
                 </div>
               </div>
@@ -331,36 +362,47 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.average``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.addEdges``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.average``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.addEdges``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L124-124" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L160-160" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
+ Adds many edges to a graph at once
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  graph
+                  edges
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to be analysed
+                  The array of edges. Each edge is a three part tuple containing the origin node, the destination node, and any edge label such as the weight.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to add the edge to
                 </p>
               </dd>
             </dl>
@@ -369,11 +411,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>float</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  A float of the mean In-degree
+                  Unit
                 </p>
               </dd>
             </dl>
@@ -382,40 +424,77 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '300', 300)" onmouseover="showTip(event, '300', 300)">
+              <code onmouseout="hideTip(event, '153', 153)" onmouseover="showTip(event, '153', 153)">
                 <p>
-                  <a id="average">
-                    <a href="#average">
-                      <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <a id="addElement">
+                    <a href="#addElement">
+                      <code><span>UndirectedGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="300">
+              <div class="fsdocs-tip" id="153">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.average&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.addElement&#32;<span>nk1&#32;nd1&#32;nk2&#32;nd2&#32;ed&#32;g</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        graph
+                        nk1
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd1
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nk2
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nd2
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ed
+                      </b>
+                      :
+                      <code>'EdgeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        g
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>float</code>
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                   </span>
-                  A float of the mean In-degree
                   <br/>
                 </div>
               </div>
@@ -423,36 +502,188 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.average``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.addElement``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.average``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.addElement``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L115-115" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L256-256" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk1
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd1
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nk2
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nd2
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ed
+                </span>
+                :
+                <code>'EdgeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  g
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '154', 154)" onmouseover="showTip(event, '154', 154)">
+                <p>
+                  <a id="addNode">
+                    <a href="#addNode">
+                      <code><span>UndirectedGraph.addNode&#32;<span>nodeKey&#32;nodeData&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="154">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.addNode&#32;<span>nodeKey&#32;nodeData&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nodeKey
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        nodeData
+                      </b>
+                      :
+                      <code>'NodeData</code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph the node will be added to.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  Unit
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.addNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.addNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L51-51" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
+ Adds a new node to the graph
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
+                  nodeKey
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nodeData
+                </span>
+                :
+                <code>'NodeData</code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to be analysed
+                  The graph the node will be added to.
                 </p>
               </dd>
             </dl>
@@ -461,11 +692,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>float</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  A float of the mean In-degree
+                  Unit
                 </p>
               </dd>
             </dl>
@@ -474,40 +705,45 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '301', 301)" onmouseover="showTip(event, '301', 301)">
+              <code onmouseout="hideTip(event, '155', 155)" onmouseover="showTip(event, '155', 155)">
                 <p>
-                  <a id="averageofAdjGraph">
-                    <a href="#averageofAdjGraph">
-                      <code><span>InDegree.averageofAdjGraph&#32;<span>graph</span></span></code>
+                  <a id="addNodes">
+                    <a href="#addNodes">
+                      <code><span>UndirectedGraph.addNodes&#32;<span>nodes&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="301">
+              <div class="fsdocs-tip" id="155">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.averageofAdjGraph&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.addNodes&#32;<span>nodes&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
+                        nodes
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>float</code>
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                   </span>
-                  A float of the mean In-degree
                   <br/>
                 </div>
               </div>
@@ -515,70 +751,67 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.averageofAdjGraph``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.addNodes``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.averageofAdjGraph``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.addNodes``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L96-96" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L59-59" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
-                 
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
- 
+                
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
+                  nodes
+                </span>
+                :
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
+              <dd class="fsdocs-param-docs"></dd>
             </dl>
             <dl class="fsdocs-returns">
               <dt>
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>float</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float of the mean In-degree
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '302', 302)" onmouseover="showTip(event, '302', 302)">
+              <code onmouseout="hideTip(event, '156', 156)" onmouseover="showTip(event, '156', 156)">
                 <p>
-                  <a id="averageofDiGraph">
-                    <a href="#averageofDiGraph">
-                      <code><span>InDegree.averageofDiGraph&#32;<span>graph</span></span></code>
+                  <a id="countEdges">
+                    <a href="#countEdges">
+                      <code><span>UndirectedGraph.countEdges&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="302">
+              <div class="fsdocs-tip" id="156">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.averageofDiGraph&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.countEdges&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -588,191 +821,7 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>float</code>
-                  </span>
-                  A float of the mean In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.averageofDiGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.averageofDiGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L105-105" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>float</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float of the mean In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '303', 303)" onmouseover="showTip(event, '303', 303)">
-                <p>
-                  <a id="averageofFGraph">
-                    <a href="#averageofFGraph">
-                      <code><span>InDegree.averageofFGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="303">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.averageofFGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>float</code>
-                  </span>
-                  A float of the mean In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.averageofFGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.averageofFGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L85-85" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the mean In-degree of the graph. 
- This is an undirected measure so inbound links add to a nodes In-degree.
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>float</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float of the mean In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '304', 304)" onmouseover="showTip(event, '304', 304)">
-                <p>
-                  <a id="maximum">
-                    <a href="#maximum">
-                      <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="304">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'b,&#32;'EdgeData</span>&gt;</span></code>
                        - 
                       The graph to be analysed
                     </span>
@@ -783,7 +832,7 @@
                     Returns: 
                     <code>int</code>
                   </span>
-                  An int of the max In-degree
+                  A float of the total edges
                   <br/>
                 </div>
               </div>
@@ -791,21 +840,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximum``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.countEdges``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximum``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.countEdges``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L194-194" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L277-277" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the max In-degree of the graph. 
+ Gets the total number of edges of the graph
  
               </p>
             </div>
@@ -815,7 +864,7 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'b,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -832,7 +881,7 @@
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  An int of the max In-degree
+                  A float of the total edges
                 </p>
               </dd>
             </dl>
@@ -841,19 +890,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '305', 305)" onmouseover="showTip(event, '305', 305)">
+              <code onmouseout="hideTip(event, '157', 157)" onmouseover="showTip(event, '157', 157)">
                 <p>
-                  <a id="maximum">
-                    <a href="#maximum">
-                      <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
+                  <a id="countNodes">
+                    <a href="#countNodes">
+                      <code><span>UndirectedGraph.countNodes&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="305">
+              <div class="fsdocs-tip" id="157">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.countNodes&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -863,7 +912,7 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'b,&#32;'c</span>&gt;</span></code>
                        - 
                       The graph to be analysed
                     </span>
@@ -874,7 +923,7 @@
                     Returns: 
                     <code>int</code>
                   </span>
-                  An int of the max In-degree
+                  A float of the total nodes
                   <br/>
                 </div>
               </div>
@@ -882,21 +931,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximum``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.countNodes``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximum``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.countNodes``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L186-186" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L269-269" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the max In-degree of the graph. 
+ Gets the total number of nodes of the graph
  
               </p>
             </div>
@@ -906,7 +955,7 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'b,&#32;'c</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -923,7 +972,7 @@
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  An int of the max In-degree
+                  A float of the total nodes
                 </p>
               </dd>
             </dl>
@@ -932,19 +981,419 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '306', 306)" onmouseover="showTip(event, '306', 306)">
+              <code onmouseout="hideTip(event, '158', 158)" onmouseover="showTip(event, '158', 158)">
                 <p>
-                  <a id="maximum">
-                    <a href="#maximum">
-                      <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
+                  <a id="create">
+                    <a href="#create">
+                      <code><span>UndirectedGraph.create&#32;<span><span>(<span>nodes,&#32;edges</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="306">
+              <div class="fsdocs-tip" id="158">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.maximum&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.create&#32;<span><span>(<span>nodes,&#32;edges</span>)</span></span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nodes
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        edges
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.create``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.create``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L251-251" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nodes
+                </span>
+                :
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edges
+                </span>
+                :
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '159', 159)" onmouseover="showTip(event, '159', 159)">
+                <p>
+                  <a id="createFromEdges">
+                    <a href="#createFromEdges">
+                      <code><span>UndirectedGraph.createFromEdges&#32;<span>edges</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="159">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.createFromEdges&#32;<span>edges</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        edges
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+                       - 
+                      An array of edges. Each edge is a triple of origin node, the destination node, and any edge data such as the weight
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  A graph containing the nodes
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.createFromEdges``2```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.createFromEdges``2\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L241-241" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Builds a graph from a list of edges. 
+ This is a shorthand graph generation method
+ where NodeData is assumed to be the same as NodeKey.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edges
+                </span>
+                :
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  An array of edges. Each edge is a triple of origin node, the destination node, and any edge data such as the weight
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeKey,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A graph containing the nodes
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '160', 160)" onmouseover="showTip(event, '160', 160)">
+                <p>
+                  <a id="createFromNodes">
+                    <a href="#createFromNodes">
+                      <code><span>UndirectedGraph.createFromNodes&#32;<span>nodes</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="160">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.createFromNodes&#32;<span>nodes</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        nodes
+                      </b>
+                      :
+                      <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.createFromNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.createFromNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L230-230" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  nodes
+                </span>
+                :
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '161', 161)" onmouseover="showTip(event, '161', 161)">
+                <p>
+                  <a id="find">
+                    <a href="#find">
+                      <code><span>UndirectedGraph.find&#32;<span>origin&#32;destination&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="161">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.find&#32;<span>origin&#32;destination&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        origin
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      The starting node of the edge
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        destination
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      The target node of the edge
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to find the edge in
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
+                  </span>
+                  A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.find``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.find``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L186-186" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Tries to find an edge between the specified nodes. Raises KeyNotFoundException if no such edge exists in the graph.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  origin
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The starting node of the edge
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  destination
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The target node of the edge
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to find the edge in
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '162', 162)" onmouseover="showTip(event, '162', 162)">
+                <p>
+                  <a id="getAllEdges">
+                    <a href="#getAllEdges">
+                      <code><span>UndirectedGraph.getAllEdges&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="162">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.getAllEdges&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -954,18 +1403,18 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to be analysed
+                      The graph the edges are present in
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
                   </span>
-                  An int of the max In-degree
+                  An array of origin, destination nodes and the corresponding 'EdgeData tuples.
                   <br/>
                 </div>
               </div>
@@ -973,21 +1422,21 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximum``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.getAllEdges``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximum``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.getAllEdges``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L178-178" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L141-141" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the max In-degree of the graph. 
+ Returns the all edges in the graph
  
               </p>
             </div>
@@ -997,7 +1446,211 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph the edges are present in
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An array of origin, destination nodes and the corresponding 'EdgeData tuples.
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '163', 163)" onmouseover="showTip(event, '163', 163)">
+                <p>
+                  <a id="getEdges">
+                    <a href="#getEdges">
+                      <code><span>UndirectedGraph.getEdges&#32;<span>origin&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="163">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.getEdges&#32;<span>origin&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        origin
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      The node from which the edges start
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph the node is present in
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+                  </span>
+                  An array of target nodes and the corresponding 'EdgeData.
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.getEdges``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.getEdges``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L131-131" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns the edges for given node
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  origin
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The node from which the edges start
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph the node is present in
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span>(<span>'NodeKey&#32;*&#32;'EdgeData</span>)</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An array of target nodes and the corresponding 'EdgeData.
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '164', 164)" onmouseover="showTip(event, '164', 164)">
+                <p>
+                  <a id="getNodes">
+                    <a href="#getNodes">
+                      <code><span>UndirectedGraph.getNodes&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="164">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.getNodes&#32;<span>graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'d</span>&gt;</span></code>
+                       - 
+                      The graph to be analysed
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span>'NodeKey[]</span></code>
+                  </span>
+                  An array of nodes
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.getNodes``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.getNodes``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L41-41" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Returns all nodes in te graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'d</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
@@ -1010,11 +1663,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>int</code>
+                <code><span>'NodeKey[]</span></code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  An int of the max In-degree
+                  An array of nodes
                 </p>
               </dd>
             </dl>
@@ -1023,19 +1676,19 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '307', 307)" onmouseover="showTip(event, '307', 307)">
+              <code onmouseout="hideTip(event, '165', 165)" onmouseover="showTip(event, '165', 165)">
                 <p>
-                  <a id="maximumOfAdjGraph">
-                    <a href="#maximumOfAdjGraph">
-                      <code><span>InDegree.maximumOfAdjGraph&#32;<span>graph</span></span></code>
+                  <a id="normalizeEdges">
+                    <a href="#normalizeEdges">
+                      <code><span>UndirectedGraph.normalizeEdges&#32;<span>graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="307">
+              <div class="fsdocs-tip" id="165">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.maximumOfAdjGraph&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.normalizeEdges&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -1045,18 +1698,18 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;float</span>&gt;</span></code>
                        - 
-                      The graph to be analysed
+                      The graph to perform the operation on
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;float</span>&gt;</span></code>
                   </span>
-                  An int of the max In-degree
+                  Unit
                   <br/>
                 </div>
               </div>
@@ -1064,21 +1717,22 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximumOfAdjGraph``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.normalizeEdges``2```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximumOfAdjGraph``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.normalizeEdges``2\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L159-159" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L198-198" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Get the max In-degree of the graph. 
+ Normalises the weights of edges for each node in a graph.
+ The function assumes that the edge data type of the graph will be float. 
  
               </p>
             </div>
@@ -1088,11 +1742,11 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;float</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to be analysed
+                  The graph to perform the operation on
                 </p>
               </dd>
             </dl>
@@ -1101,11 +1755,11 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>int</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;float</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-return-docs">
                 <p>
-                  An int of the max In-degree
+                  Unit
                 </p>
               </dd>
             </dl>
@@ -1114,19 +1768,432 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '308', 308)" onmouseover="showTip(event, '308', 308)">
+              <code onmouseout="hideTip(event, '166', 166)" onmouseover="showTip(event, '166', 166)">
                 <p>
-                  <a id="maximumOfDiGraph">
-                    <a href="#maximumOfDiGraph">
-                      <code><span>InDegree.maximumOfDiGraph&#32;<span>graph</span></span></code>
+                  <a id="ofSeq">
+                    <a href="#ofSeq">
+                      <code><span>UndirectedGraph.ofSeq&#32;<span>edgelist</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="308">
+              <div class="fsdocs-tip" id="166">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>InDegree.maximumOfDiGraph&#32;<span>graph</span></span></code>
+                  <code><span>UndirectedGraph.ofSeq&#32;<span>edgelist</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        edgelist
+                      </b>
+                      :
+                      <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.ofSeq``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.ofSeq``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L281-281" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edgelist
+                </span>
+                :
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs"></dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '167', 167)" onmouseover="showTip(event, '167', 167)">
+                <p>
+                  <a id="removeEdge">
+                    <a href="#removeEdge">
+                      <code><span>UndirectedGraph.removeEdge&#32;<span>edge&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="167">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.removeEdge&#32;<span>edge&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        edge
+                      </b>
+                      :
+                      <code><span>'NodeKey&#32;*&#32;'NodeKey</span></code>
+                       - 
+                      The edge to be removed. A two part tuple containing the origin node, the destination node.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph the edge will be removed from.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  Unit
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.removeEdge``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.removeEdge``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L217-217" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Removes an edge to the graph.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  edge
+                </span>
+                :
+                <code><span>'NodeKey&#32;*&#32;'NodeKey</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The edge to be removed. A two part tuple containing the origin node, the destination node.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph the edge will be removed from.
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  Unit
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '168', 168)" onmouseover="showTip(event, '168', 168)">
+                <p>
+                  <a id="removeNode">
+                    <a href="#removeNode">
+                      <code><span>UndirectedGraph.removeNode&#32;<span>node&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="168">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.removeNode&#32;<span>node&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        node
+                      </b>
+                      :
+                      <code>'NodeKey</code>
+                       - 
+                      The node to be removed.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph the edge will be removed from.
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+                  </span>
+                  Unit
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.removeNode``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.removeNode``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L70-70" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Removes a node from the graph
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  node
+                </span>
+                :
+                <code>'NodeKey</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The node to be removed.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph the edge will be removed from.
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'a,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  Unit
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '169', 169)" onmouseover="showTip(event, '169', 169)">
+                <p>
+                  <a id="toAdjacencyMatrix">
+                    <a href="#toAdjacencyMatrix">
+                      <code><span>UndirectedGraph.toAdjacencyMatrix&#32;<span>getEdgeWeight&#32;graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="169">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.toAdjacencyMatrix&#32;<span>getEdgeWeight&#32;graph</span></span></code>
+                  <br/>
+                  <br/>
+                  Parameters: 
+                  <ul>
+                    <span>
+                      <b>
+                        getEdgeWeight
+                      </b>
+                      :
+                      <code><span>'EdgeData&#32;->&#32;float</span></code>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        graph
+                      </b>
+                      :
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'a,&#32;'b,&#32;'EdgeData</span>&gt;</span></code>
+                       - 
+                      The graph to be converted
+                    </span>
+                    <br/>
+                  </ul>
+                  <br/>
+                  <span>
+                    Returns: 
+                    <code><span><span>float[]</span>[]</span></code>
+                  </span>
+                  An adjacency matrix
+                  <br/>
+                </div>
+              </div>
+            </div>
+          </td>
+          <td class="fsdocs-member-xmldoc">
+            <div class="fsdocs-summary">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.toAdjacencyMatrix``3```')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
+              </div>
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.toAdjacencyMatrix``3\'/>')">
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
+              </div>
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L302-302" class="fsdocs-source-link" title="Source on GitHub">
+                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
+                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
+              </a>
+              <p class="fsdocs-summary">
+                 
+ Converts the Graph to an Adjacency Matrix
+ This is preliminary step in many graph algorithms such as Floyd-Warshall. 
+ The operation assumes edge data types of float in the graph.
+ 
+              </p>
+            </div>
+            <dl class="fsdocs-params">
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  getEdgeWeight
+                </span>
+                :
+                <code><span>'EdgeData&#32;->&#32;float</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs"></dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  graph
+                </span>
+                :
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'a,&#32;'b,&#32;'EdgeData</span>&gt;</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  The graph to be converted
+                </p>
+              </dd>
+            </dl>
+            <dl class="fsdocs-returns">
+              <dt>
+                <span class="fsdocs-return-name">
+                  Returns: 
+                </span>
+                <code><span><span>float[]</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-return-docs">
+                <p>
+                  An adjacency matrix
+                </p>
+              </dd>
+            </dl>
+          </td>
+        </tr>
+        <tr>
+          <td class="fsdocs-member-usage">
+            <div>
+              <code onmouseout="hideTip(event, '170', 170)" onmouseover="showTip(event, '170', 170)">
+                <p>
+                  <a id="toSeq">
+                    <a href="#toSeq">
+                      <code><span>UndirectedGraph.toSeq&#32;<span>graph</span></span></code>
+                    </a>
+                  </a>
+                </p>
+              </code>
+              <div class="fsdocs-tip" id="170">
+                <div class="member-tooltip">
+                  Full Usage: 
+                  <code><span>UndirectedGraph.toSeq&#32;<span>graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
@@ -1136,18 +2203,15 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>int</code>
+                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
                   </span>
-                  An int of the max In-degree
                   <br/>
                 </div>
               </div>
@@ -1155,22 +2219,20 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximumOfDiGraph``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.UndirectedGraph.toSeq``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximumOfDiGraph``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.UndirectedGraph.toSeq``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L167-167" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Graph.fs#L287-287" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
-                 
- Get the max In-degree of the graph. 
- 
+                
               </p>
             </div>
             <dl class="fsdocs-params">
@@ -1179,1209 +2241,18 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
+              <dd class="fsdocs-param-docs"></dd>
             </dl>
             <dl class="fsdocs-returns">
               <dt>
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>int</code>
+                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'NodeKey&#32;*&#32;'NodeData&#32;*&#32;'EdgeData</span>&gt;</span></code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the max In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '309', 309)" onmouseover="showTip(event, '309', 309)">
-                <p>
-                  <a id="maximumOfFGraph">
-                    <a href="#maximumOfFGraph">
-                      <code><span>InDegree.maximumOfFGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="309">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.maximumOfFGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the max In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.maximumOfFGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.maximumOfFGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L149-149" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the max In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the max In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '310', 310)" onmouseover="showTip(event, '310', 310)">
-                <p>
-                  <a id="minimum">
-                    <a href="#minimum">
-                      <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="310">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimum``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimum``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L255-255" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '311', 311)" onmouseover="showTip(event, '311', 311)">
-                <p>
-                  <a id="minimum">
-                    <a href="#minimum">
-                      <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="311">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimum``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimum``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L247-247" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '312', 312)" onmouseover="showTip(event, '312', 312)">
-                <p>
-                  <a id="minimum">
-                    <a href="#minimum">
-                      <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="312">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimum&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimum``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimum``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L239-239" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '313', 313)" onmouseover="showTip(event, '313', 313)">
-                <p>
-                  <a id="minimumOfAdjGraph">
-                    <a href="#minimumOfAdjGraph">
-                      <code><span>InDegree.minimumOfAdjGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="313">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimumOfAdjGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimumOfAdjGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimumOfAdjGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L221-221" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '314', 314)" onmouseover="showTip(event, '314', 314)">
-                <p>
-                  <a id="minimumOfDiGraph">
-                    <a href="#minimumOfDiGraph">
-                      <code><span>InDegree.minimumOfDiGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="314">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimumOfDiGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimumOfDiGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimumOfDiGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L229-229" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '315', 315)" onmouseover="showTip(event, '315', 315)">
-                <p>
-                  <a id="minimumOfFGraph">
-                    <a href="#minimumOfFGraph">
-                      <code><span>InDegree.minimumOfFGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="315">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.minimumOfFGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code>int</code>
-                  </span>
-                  An int of the min In-degree
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.minimumOfFGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.minimumOfFGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L210-210" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Get the min In-degree of the graph. 
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code>int</code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An int of the min In-degree
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '316', 316)" onmouseover="showTip(event, '316', 316)">
-                <p>
-                  <a id="sequence">
-                    <a href="#sequence">
-                      <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="316">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>int[]</span></code>
-                  </span>
-                  An array of in-degree values in descending order
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequence``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequence``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L68-68" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>int[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An array of in-degree values in descending order
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '317', 317)" onmouseover="showTip(event, '317', 317)">
-                <p>
-                  <a id="sequence">
-                    <a href="#sequence">
-                      <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="317">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>seq&lt;float&gt;</span></code>
-                  </span>
-                  A float seq of in-degree values
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequence``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequence``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L60-60" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>seq&lt;float&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float seq of in-degree values
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '318', 318)" onmouseover="showTip(event, '318', 318)">
-                <p>
-                  <a id="sequence">
-                    <a href="#sequence">
-                      <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="318">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequence&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>seq&lt;float&gt;</span></code>
-                  </span>
-                  A float seq of in-degree values
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequence``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequence``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L52-52" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>seq&lt;float&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float seq of in-degree values
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '319', 319)" onmouseover="showTip(event, '319', 319)">
-                <p>
-                  <a id="sequenceOfAdjGraph">
-                    <a href="#sequenceOfAdjGraph">
-                      <code><span>InDegree.sequenceOfAdjGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="319">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequenceOfAdjGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>seq&lt;float&gt;</span></code>
-                  </span>
-                  A float seq of in-degree values
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequenceOfAdjGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequenceOfAdjGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L32-32" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>seq&lt;float&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float seq of in-degree values
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '320', 320)" onmouseover="showTip(event, '320', 320)">
-                <p>
-                  <a id="sequenceOfDiGraph">
-                    <a href="#sequenceOfDiGraph">
-                      <code><span>InDegree.sequenceOfDiGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="320">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequenceOfDiGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>int[]</span></code>
-                  </span>
-                  An array of in-degree values in descending order
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequenceOfDiGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequenceOfDiGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L40-40" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>int[]</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  An array of in-degree values in descending order
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '321', 321)" onmouseover="showTip(event, '321', 321)">
-                <p>
-                  <a id="sequenceOfFGraph">
-                    <a href="#sequenceOfFGraph">
-                      <code><span>InDegree.sequenceOfFGraph&#32;<span>graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="321">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>InDegree.sequenceOfFGraph&#32;<span>graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to be analysed
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>seq&lt;float&gt;</span></code>
-                  </span>
-                  A float seq of in-degree values
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.InDegree.sequenceOfFGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.InDegree.sequenceOfFGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/InDegree.fs#L21-21" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Returns the in-degree sequence of the graph
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to be analysed
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>seq&lt;float&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  A float seq of in-degree values
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
