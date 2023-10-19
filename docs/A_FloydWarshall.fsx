@@ -37,7 +37,7 @@ open Graphoscope
 open Cytoscape.NET
 
 let dwgDiGraph =
-    let nodes = [|0;1;2;3;4;5|]
+    let nodes = [|0;1;2;3;4;5|]|>Array.map(fun x -> x,x)
     let edges = [|0,1,7.;0,2,12.;1,2,2.;1,3,9.;2,4,10.;4,3,4.;3,5,1.;4,5,5.|]
     DiGraph.createFromNodes nodes
     |>DiGraph.addEdges edges 
