@@ -48,45 +48,47 @@ type Components() =
 
     /// DiGraph
 
-
-    /// Return true if all nodes in the graph are connect into one component.
+    /// <summary> 
+    /// Returns true if all nodes in the graph are weakly connected into one component.
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>Returns true or false</returns>
-    static member hasGiantComponentOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =  
+    static member isWeakComponentOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =  
         if  (DFS.ofDiGraphUndirected (g.NodeKeys |> Seq.head) g
             |> Seq.length) = g.NodeKeys .Count then true
                 else false
 
-    /// Finds seperate components of the graph and returns sets of nodes
+
+    /// <summary> 
+    /// Finds seperate weakly connected components of the graph and returns sets of nodes
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns set of sets of nodes making up each component.</returns>
-    static member getComponentsDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member getWeakComponentsOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         g.NodeKeys
         |> Seq.map(fun k -> DFS.ofDiGraphUndirected  k g |> Set.ofSeq)
         |> Set.ofSeq
 
-
-    /// Finds the largest component and returns it's size. Whih may be the giant component.
+    /// <summary> 
+    /// Finds the largest weakly connected component and returns it's size.
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns an int indicating numner of nodes</returns>
-    static member getLargestComponentSizeDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
+    static member getLargestWeakComponentSizeOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
         g
-        |> Components.getComponentsDiGraph
+        |> Components.getWeakComponentsOfDiGraph
         |> Set.map(fun s -> s.Count)
         |> Set.toSeq
         |> Seq.max
 
-
-    /// Finds the largest component and returns it as a new graph
+    /// <summary> 
+    /// Finds the largest weakly connected component and returns it as a new graph
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns a new graph</returns>
-    static member getLargestComponentDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
+    static member getLargestWeakComponentOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
         g
-        |> Components.getComponentsDiGraph
+        |> Components.getWeakComponentsOfDiGraph
         |> Seq.sortByDescending(fun c -> c |> Set.count)
         |> Seq.head
         |> fun c -> 

@@ -41,20 +41,20 @@ let testGraphGiant =
 [<Fact>]
 let ``Can detect no giant compenent`` () =
     testGraph
-    |> Algorithms.Components.hasGiantComponentOfDiGraph
+    |> Algorithms.Components.isWeakComponentOfDiGraph
     |> Assert.False
 
 [<Fact>]
 let ``Can detect giant compenent`` () =
     testGraphGiant
-    |> Algorithms.Components.hasGiantComponentOfDiGraph
+    |> Algorithms.Components.isWeakComponentOfDiGraph
     |> Assert.True
 
 [<Fact>]
 let ``Can get components`` () =
     let components = 
         testGraph
-        |> Algorithms.Components.getComponentsDiGraph
+        |> Algorithms.Components.getWeakComponentsOfDiGraph
         |> Set.count
     
     Assert.True (2 = components)
@@ -63,6 +63,6 @@ let ``Can get components`` () =
 let ``Can get new graph of largest component`` () =
     let newGraph = 
         testGraph
-        |> Algorithms.Components.getLargestComponentDiGraph
+        |> Algorithms.Components.getLargestWeakComponentOfDiGraph
       
     Assert.True (3 = (DiGraph.countEdges newGraph) )
