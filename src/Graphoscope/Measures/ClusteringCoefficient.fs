@@ -28,6 +28,28 @@ type ClusteringCoefficient() =
         |> FGraph.mapContexts (fun c -> ClusteringCoefficient.clusteringCoefficientOfFGraphVertex c g)
         |> Seq.sumBy snd
 
+     static member clusteringCoefficientOfAdjGraphNode (n:'NodeKey) (g: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=  
+         if (AdjGraph.getDegree g n) < 2 then 0.
+         else        
+             let add1IfInSeq acc x set = 
+                 if Seq.contains x set then acc + 1
+                 else acc
+             let neighbours = AdjGraph.getNeighbours n g|>Seq.map fst
+             let neighbourEdges = 
+                 Seq.fold (fun edgeAmount v' -> 
+                     (AdjGraph.getNeighbours v' g
+                     |> fun (p) -> 
+                         (p|>Seq.map fst
+                         |> Seq.fold (fun acc (x) -> add1IfInSeq acc x neighbours) 0))
+                     + edgeAmount
+                 ) 0 neighbours
+             let degree = Seq.length neighbours
+             ((float neighbourEdges) / (float (degree * (degree - 1)))) / 2.
+
+     static member clusteringCoefficientOfAdjGraph (g: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
+         g.Keys
+         |> Seq.map (fun c -> ClusteringCoefficient.clusteringCoefficientOfAdjGraphNode c g)
+         |> Seq.sum
     static member clusteringCoefficientOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
