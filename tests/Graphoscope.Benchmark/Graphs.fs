@@ -11,152 +11,152 @@ let rnd = new System.Random()
 
 
 
-// [<MemoryDiagnoser>]
-// type Graphs () =
-//     let mutable edgesArr : (int*int*float) [] = [||]
-//     let mutable adjGraph     = AdjGraph.empty<int,int,float>
-//     let mutable diGraph      = DiGraph.empty<int,float>
-//     // let mutable diNodeGraph  = DiGraph.empty<DiNode<int>,float>
-//     let mutable fGraph       = FGraph.empty<int,int,float>
+[<MemoryDiagnoser>]
+type Graphs () =
+    let mutable edgesArr : (int*int*float) [] = [||]
+    let mutable adjGraph     = AdjGraph.empty<int,int,float>
+    let mutable diGraph      = DiGraph.empty<int,int,float>
+    let mutable diNodeGraph  = UndirectedGraph.empty<int,int,float>
+    let mutable fGraph       = FGraph.empty<int,int,float>
 
-//     [<Params (100, 10000)>] 
-//     member val public NumberNodes = 0 with get, set
+    [<Params (100, 10000)>] 
+    member val public NumberNodes = 0 with get, set
 
-//     [<Params (500, 50000)>] 
-//     member val public NumberEdges = 0 with get, set
+    [<Params (500, 50000)>] 
+    member val public NumberEdges = 0 with get, set
 
-//     [<GlobalSetup>]
-//     member this.GlobalSetupData() =
-//         // prepare edges
-//         let edges = 
-//             [|
-//             for i=0 to this.NumberEdges-1 do
-//                 let node1 = rnd.Next(0,this.NumberNodes-1)
-//                 let node2 = rnd.Next(0,this.NumberNodes-1)
-//                 yield (node1,node2,float i)
-//             |]
-//         edgesArr <- edges
-//         //prepare AdjGraph
-//         let gAdj= AdjGraph.create<int,int,float>()
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             AdjGraph.addElement node1 node1 node2 node2 data gAdj |> ignore
-//         adjGraph <- gAdj
-//         //prepare DiGraph
-//         let gDi = DiGraph.empty<int,float>
-//         for i=0 to this.NumberNodes-1 do
-//             DiGraph.addNode i gDi
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             DiGraph.addEdge (node1, node2, data) gDi
-//         diGraph <- gDi
-//         //prepare DiNodeGraph
-//         let gDiNo = DiGraph.empty<DiNode<int>,float>
-//         for i=0 to this.NumberNodes-1 do
-//             DiGraph.addNode ({Id=i;Data=i}) gDiNo
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) gDiNo
-//         diNodeGraph <- gDiNo
-//         //prepare FGraph
-//         let gF = FGraph.create<int,int,float>()
-//         for i=0 to this.NumberNodes-1 do
-//             FGraph.addNode i i gF |> ignore
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             FGraph.addEdge node1 node2 data gF |> ignore
-//         fGraph <- gF
+    [<GlobalSetup>]
+    member this.GlobalSetupData() =
+        // prepare edges
+        let edges = 
+            [|
+            for i=0 to this.NumberEdges-1 do
+                let node1 = rnd.Next(0,this.NumberNodes-1)
+                let node2 = rnd.Next(0,this.NumberNodes-1)
+                yield (node1,node2,float i)
+            |]
+        edgesArr <- edges
+        //prepare AdjGraph
+        let gAdj= AdjGraph.create<int,int,float>()
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            AdjGraph.addElement node1 node1 node2 node2 data gAdj |> ignore
+        adjGraph <- gAdj
+        //prepare DiGraph
+        let gDi = DiGraph.empty<int,int,float>
+        for i=0 to this.NumberNodes-1 do
+            DiGraph.addNode i i gDi|> ignore
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            DiGraph.addEdge (node1, node2, data) gDi|> ignore
+        diGraph <- gDi
+        //prepare DiNodeGraph
+        let gDiNo = UndirectedGraph.empty<int,int,float>
+        for i=0 to this.NumberNodes-1 do
+            UndirectedGraph.addNode i i gDiNo|> ignore
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            UndirectedGraph.addEdge (node1, node2, data) gDiNo|> ignore
+        diNodeGraph <- gDiNo
+        //prepare FGraph
+        let gF = FGraph.create<int,int,float>()
+        for i=0 to this.NumberNodes-1 do
+            FGraph.addNode i i gF |> ignore
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            FGraph.addEdge node1 node2 data gF |> ignore
+        fGraph <- gF
 
 
-//     [<Benchmark>]
-//     member this.AdjGraph () = 
-//         let g = AdjGraph.create<int,int,float>()
-//         // Add nodes
-//         for i=0 to this.NumberNodes-1 do
-//             AdjGraph.Node.add i i g |> ignore
-//         // Add edges
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             AdjGraph.Edge.add node1 node2 data g |> ignore
+    [<Benchmark>]
+    member this.AdjGraph () = 
+        let g = AdjGraph.create<int,int,float>()
+        // Add nodes
+        for i=0 to this.NumberNodes-1 do
+            AdjGraph.addNode i i g |> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            AdjGraph.Edge.add node1 node2 data g |> ignore
     
-//     [<Benchmark>]
-//     member this.DiGraph () =
-//         let g = DiGraph.empty<int,float>
-//          // Add nodes
-//         for i=0 to this.NumberNodes-1 do
-//             DiGraph.addNode (i) g
-//         // Add edges
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             DiGraph.addEdge ((node1), (node2), float i) g 
+    [<Benchmark>]
+    member this.DiGraph () =
+        let g = DiGraph.empty<int,int,float>
+         // Add nodes
+        for i=0 to this.NumberNodes-1 do
+            DiGraph.addNode i i g|> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            DiGraph.addEdge ((node1), (node2), float i) g |> ignore
 
 
-//     [<Benchmark>]
-//     member this.DiNodeGraph () =
-//         let g = DiGraph.empty<DiNode<int>,float>
-//          // Add nodes
-//         for i=0 to this.NumberNodes-1 do
-//             DiGraph.addNode ({Id=i;Data=i}) g
-//         // Add edges
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             DiGraph.addEdge ({Id=node1;Data=node1}, {Id=node2;Data=node2}, data) g 
+    [<Benchmark>]
+    member this.UndirectedGraph () =
+        let g = UndirectedGraph.empty<int,int,float>
+         // Add nodes
+        for i=0 to this.NumberNodes-1 do
+            UndirectedGraph.addNode i i g |> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            UndirectedGraph.addEdge (node1, node2, data) g|> ignore
 
 
-//     [<Benchmark>]
-//     member this.FGraph () =
-//         let g = FGraph.create<int,int,float>()
-//         for i=0 to this.NumberEdges-1 do
-//             let (node1,node2,data) = edgesArr.[i]
-//             FGraph.addElement node1 node1 node2 node2 data g |> ignore
-//         //// Add nodes
-//         //for i=0 to this.NumberNodes-1 do
-//         //    FGraph.Node.add i i g |> ignore
-//         //// Add edges
-//         //for i=0 to this.NumberEdges-1 do
-//         //    let (node1,node2,data) = edgesArr.[i]
-//         //    FGraph.Edge.add node1 node2 data g |> ignore
+    [<Benchmark>]
+    member this.FGraph () =
+        let g = FGraph.create<int,int,float>()
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            FGraph.addElement node1 node1 node2 node2 data g |> ignore
+        // Add nodes
+        for i=0 to this.NumberNodes-1 do
+           FGraph.addNode i i g |> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+           let (node1,node2,data) = edgesArr.[i]
+           FGraph.addEdge node1 node2 data g |> ignore
         
 
 
-//     // ##############################################
-//     // Access 
+    // ##############################################
+    // Access 
 
-//     //[<Benchmark>]
-//     //member this.Access_Adj () =     
-//     //    [|
-//     //    for i=0 to this.NumberEdges-1 do
-//     //        let (node1,node2,_) = edgesArr.[i]
-//     //        let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
-//     //        yield d
-//     //    |] 
+    [<Benchmark>]
+    member this.Access_Adj () =     
+       [|
+       for i=0 to this.NumberEdges-1 do
+           let (node1,node2,_) = edgesArr.[i]
+           let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
+           yield d
+       |] 
 
-//     //[<Benchmark>]
-//     //member this.Access_Di () =  
-//     //    [|
-//     //    for i=0 to this.NumberEdges-1 do
-//     //        let (node1,node2,_) = edgesArr.[i]
-//     //        let _,_,d = DiGraph.Edge.find node1 node2 diGraph
-//     //        yield d
-//     //    |] 
+    [<Benchmark>]
+    member this.Access_Di () =  
+       [|
+       for i=0 to this.NumberEdges-1 do
+           let (node1,node2,_) = edgesArr.[i]
+           let _,_,d = DiGraph.find node1 node2 diGraph
+           yield d
+       |] 
 
-//     //[<Benchmark>]
-//     //member this.Access_DiNode () =  
-//     //     [|
-//     //    for i=0 to this.NumberEdges-1 do
-//     //        let (node1,node2,_) = edgesArr.[i]
-//     //        let _,_,d = DiGraph.Edge.find {Id=node1;Data=node1} {Id=node2;Data=node2} diNodeGraph
-//     //        yield d
-//     //    |] 
+    [<Benchmark>]
+    member this.Access_UndirectedGraph () =  
+        [|
+       for i=0 to this.NumberEdges-1 do
+           let (node1,node2,_) = edgesArr.[i]
+           let _,_,d = UndirectedGraph.find node1 node2 diNodeGraph
+           yield d
+       |] 
 
-//     //[<Benchmark>]
-//     //member this.Access_FGraph () =  
-//     //    [|
-//     //    for i=0 to this.NumberEdges-1 do
-//     //        let (node1,node2,_) = edgesArr.[i]
-//     //        let _,_,d = FGraph.Edge.find node1 node2 fGraph
-//     //        yield d
-//     //    |] |> ignore
+    [<Benchmark>]
+    member this.Access_FGraph () =  
+       [|
+       for i=0 to this.NumberEdges-1 do
+           let (node1,node2,_) = edgesArr.[i]
+           let _,_,d = FGraph.findEdge node1 node2 fGraph
+           yield d
+       |] |> ignore
 
 
 
