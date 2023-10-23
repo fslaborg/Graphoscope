@@ -4,6 +4,133 @@ open Graphoscope
 open System.Collections.Generic
 open FSharpAux
 
+module Helpers =
+    module DiGraph =
+        let getNeighborWeights (graph: DiGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) (nIx: int) =
+            let weights: Dictionary<int, float> = Dictionary()
+
+            let update (edges: ResizeArray<int * 'EdgeData>) =
+                edges
+                |> ResizeArray.iter(fun (nbr, w) ->
+                    if nIx <> nbr then
+                        let nbrCom = node2Community[nbr]
+                        let weight = getWeight w
+                        let mutable nbrWeight = 0.
+                        match weights.TryGetValue(nbrCom, &nbrWeight) with
+                        | true -> weights[nbrCom] <- nbrWeight + weight
+                        | false -> weights.Add(nbrCom, weight)
+                )
+            
+            update graph.OutEdges[nIx]
+            update graph.InEdges[nIx]
+
+            weights
+      
+
+        // https://hal.science/hal-01231784
+        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int array array option) (graph: DiGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
+            let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
+            let node2community = Array.init graph.NodeKeys.Count id
+
+            let inDegrees = graph.InEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
+            let outDegrees = graph.OutEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
+            let sigmaTotIn = inDegrees |> Array.ofSeq
+            let sigmaTotOut = outDegrees |> Array.ofSeq
+            
+            let mutable improvement = false
+
+            let rec loop (iterationCounter: int) =   
+                printfn $"Iteration: {iterationCounter}"
+                let mutable moveCounter = 0
+                nodeIdxs
+                |> Array.iter(fun nIx ->
+                    let neighborCommunities = getNeighborWeights graph getWeight node2community nIx
+
+                    let inDegree = inDegrees[nIx]
+                    let outDegree = outDegrees[nIx]
+                    let bestCommunity  = node2community[nIx]
+                    sigmaTotIn[bestCommunity] <- sigmaTotIn[bestCommunity] - inDegree
+                    sigmaTotOut[bestCommunity] <- sigmaTotOut[bestCommunity] - outDegree
+                    
+                    let diC =
+                        let mutable tmp = 0.
+                        neighborCommunities.TryGetValue(bestCommunity, &tmp) |> ignore
+                        tmp
+             
+                    let removalCost = 
+                        -diC / m
+                        + resolution
+                        * (outDegree * sigmaTotIn[bestCommunity] + inDegree * sigmaTotOut[bestCommunity])
+                        / m**2
+                    
+                    neighborCommunities
+                    |> Seq.map(fun (KeyValue(nc, w)) ->
+                        let gain =
+                            removalCost
+                            + w / m
+                            - resolution
+                            * (outDegree * sigmaTotIn[nc]  + inDegree * sigmaTotOut[nc])
+                            / m**2
+                        nc, gain
+                    )
+                    |> fun s ->
+                        if s|>Seq.length > 0 then
+                            s
+                            |>Seq.maxBy snd
+                            |> fun (nc, _) ->
+                                sigmaTotIn[nc] <- sigmaTotIn[nc] + inDegree
+                                sigmaTotOut[nc] <- sigmaTotOut[nc] + outDegree
+                                if nc <> node2community[nIx] then
+                                    moveCounter <- moveCounter + 1
+                                    improvement <- true
+
+                                    node2community[nIx] <- nc
+                )
+
+                if moveCounter > 0 then loop (iterationCounter + 1)
+
+            loop 1
+
+            let partition =
+                match prevPartition with
+                | Some p ->
+                    node2community
+                    |> Array.indexed
+                    |> Array.groupBy snd
+                    |> Array.map (fun (_,community) ->
+                        community
+                        |>Array.collect(fun (ix,_) ->p[ix])
+                    )
+                | None ->
+                    node2community
+                    |> Array.indexed
+                    |> Array.groupBy snd
+                    |> Array.map (fun (_,community) ->
+                        community
+                        |>Array.map fst
+                    )
+
+            node2community, partition, improvement
+
+        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : DiGraph<int,_,float> =
+            let communities = node2Community |> Array.distinct
+
+            let g = DiGraph.createFromNodes (Array.zip communities communities)
+            let edges = 
+                graph.InEdges
+                |> Seq.mapi(fun i x -> x|>Seq.map(fun (dest,w) -> i, dest, w))
+                |> Seq.concat
+                |> Seq.groupBy(fun (origin, destination, _) ->
+                    node2Community[origin], node2Community[destination]
+                )
+                |> Seq.map(fun ((origin, destination), edges) ->
+                    origin, destination, edges|> Seq.sumBy(fun (_,_,ed) -> getWeight ed)
+                )
+                |> Array.ofSeq
+            g
+            |>DiGraph.addEdges edges
+
+
 ///Louvain method for community detection
 //Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008
 type Louvain() =                   
@@ -437,6 +564,69 @@ type Louvain() =
     static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>)=
         Louvain.louvainResolution true weightF modularityIncreaseThreshold 1. graph 
 
+    static member louvainPartitionsDiGraph (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
+        
+        let node2Communities = ResizeArray()
+        let partitions = ResizeArray()
 
+        let m = 
+            (0., graph.InEdges)
+            ||> ResizeArray.fold(fun acc1 edges ->
+                (0., edges)
+                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
+                |> fun x -> acc1 + x
+            )
 
+        // Initial
+        let node2Community, partition, _ = Helpers.DiGraph.oneLevel getWeight m resolution None graph rng
+        let innerPartition =
+            node2Community
+            |> Array.indexed
+            |> Array.groupBy snd
+            |> Array.map (fun (_,community) ->
+                community
+                |>Array.map(fun (ix,_) -> graph.NodeKeys[ix])
+            )
+        let initialMod = Measures.Modularity.ofDiGraph getWeight resolution innerPartition graph
+        node2Communities.Add(node2Community)
+        partitions.Add(partition)
+        let rec loop (graph: DiGraph<int, _, float>) (partition) (modularity: float ) =
+            let node2Community, newPartition, improvement = Helpers.DiGraph.oneLevel id m resolution (Some partition) graph rng
+            let innerPartition =
+                node2Community
+                |> Array.indexed
+                |> Array.groupBy snd
+                |> Array.map (fun (_,community) ->
+                    community
+                    |>Array.map(fun (ix,_) -> graph.NodeKeys[ix])
+                )
+            let newModularity = Measures.Modularity.ofDiGraph id resolution innerPartition graph
+            if improvement && newModularity - modularity > threshold then
+                node2Communities.Add(node2Community)
+                partitions.Add(partition)
 
+                let newGraph: DiGraph<int,_,float> = Helpers.DiGraph.genSuperNodeGraph id node2Community graph
+                loop newGraph newPartition newModularity
+            
+        let newGraph = Helpers.DiGraph.genSuperNodeGraph getWeight node2Community graph
+        loop newGraph partition initialMod
+        partitions
+        |> ResizeArray.map(fun partition ->
+            partition
+            |> Array.map (fun ar -> ar|>Array.map(fun ix -> graph.NodeKeys[ix]))
+        )
+
+    static member louvainPartitions (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+        let rng = defaultArg rng (System.Random()).NextDouble
+        let threshold = defaultArg threshold 1e-7
+        let resolution = defaultArg resolution 1.
+        let getWeight = defaultArg getWeight (fun _ -> 1.)
+        Louvain.louvainPartitionsDiGraph getWeight rng resolution threshold graph
+
+    static member louvainCommunities (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+        let rng = defaultArg rng (System.Random()).NextDouble
+        let threshold = defaultArg threshold 1e-7
+        let resolution = defaultArg resolution 1.
+        let getWeight = defaultArg getWeight (fun _ -> 1.)
+        let partitions = Louvain.louvainPartitions(graph, getWeight, resolution, threshold, rng)
+        partitions[partitions.Count-1]
