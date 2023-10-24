@@ -4,31 +4,130 @@ open Graphoscope
 open System.Collections.Generic
 open FSharpAux
 
-module Helpers =
-    module DiGraph =
-        let getNeighborWeights (graph: DiGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) (nIx: int) =
+module private Helpers =
+    let updateCommunityWeights (nIx: int) (getWeight: 'EdgeData -> float) (weights: Dictionary<int, float>) (node2Community: int []) (edges: ResizeArray<ResizeArray<int * 'EdgeData>>) =
+        edges[nIx]
+        |> ResizeArray.iter(fun (nbr, w) ->
+            if nIx <> nbr then
+                let nbrCom = node2Community[nbr]
+                let weight = getWeight w
+                let mutable nbrWeight = 0.
+                match weights.TryGetValue(nbrCom, &nbrWeight) with
+                | true -> weights[nbrCom] <- nbrWeight + weight
+                | false -> weights.Add(nbrCom, weight)
+        )
+    module UndirectedGraph =
+        let getNeighborWeights (graph: UndirectedGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) (nIx: int) =
             let weights: Dictionary<int, float> = Dictionary()
-
-            let update (edges: ResizeArray<int * 'EdgeData>) =
-                edges
-                |> ResizeArray.iter(fun (nbr, w) ->
-                    if nIx <> nbr then
-                        let nbrCom = node2Community[nbr]
-                        let weight = getWeight w
-                        let mutable nbrWeight = 0.
-                        match weights.TryGetValue(nbrCom, &nbrWeight) with
-                        | true -> weights[nbrCom] <- nbrWeight + weight
-                        | false -> weights.Add(nbrCom, weight)
-                )
-            
-            update graph.OutEdges[nIx]
-            update graph.InEdges[nIx]
-
+            updateCommunityWeights nIx getWeight weights node2Community graph.Edges
             weights
       
 
         // https://hal.science/hal-01231784
-        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int array array option) (graph: DiGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
+        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
+            let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
+            let node2community = Array.init graph.NodeKeys.Count id
+
+            let degrees = graph.Edges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
+            let sigmaTot = degrees |> Array.ofSeq
+            
+            let mutable improvement = false
+
+            let rec loop (iterationCounter: int) =   
+                printfn $"Iteration: {iterationCounter}"
+                let mutable moveCounter = 0
+                nodeIdxs
+                |> Array.iter(fun nIx ->
+                    let neighborCommunities = getNeighborWeights graph getWeight node2community nIx
+
+                    let degree = degrees[nIx]
+                    let bestCommunity  = node2community[nIx]
+                    sigmaTot[bestCommunity] <- sigmaTot[bestCommunity] - degree
+                    
+                    let diC =
+                        let mutable tmp = 0.
+                        neighborCommunities.TryGetValue(bestCommunity, &tmp) |> ignore
+                        tmp
+             
+                    let removalCost = 
+                        -diC / m
+                        + resolution
+                        * (degree * sigmaTot[bestCommunity])
+                        / 2. * m**2
+                    
+                    neighborCommunities
+                    |> Seq.map(fun (KeyValue(nc, w)) ->
+                        let gain =
+                            removalCost
+                            + w / m
+                            - resolution
+                            * (degree * sigmaTot[nc])
+                            / m**2
+                        nc, gain
+                    )
+                    |> fun s ->
+                        if s|>Seq.length > 0 then
+                            s
+                            |>Seq.maxBy snd
+                            |> fun (nc, _) ->
+                                sigmaTot[nc] <- sigmaTot[nc] + degree
+                                if nc <> node2community[nIx] then
+                                    moveCounter <- moveCounter + 1
+                                    improvement <- true
+
+                                    node2community[nIx] <- nc
+                )
+
+                if moveCounter > 0 then loop (iterationCounter + 1)
+
+            loop 1
+
+            let partition =
+                node2community
+                |> Seq.indexed
+                |> Seq.groupBy snd
+                |> Seq.map (fun (_,community) ->
+                    prevPartition
+                    |> Option.map(fun p -> community |>Seq.collect(fun (ix,_) ->p[ix]))
+                    |> Option.defaultValue (community|>Seq.map fst)
+                    |> Set.ofSeq
+                )
+                |> Array.ofSeq
+
+
+            node2community, partition, improvement
+
+        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) : UndirectedGraph<int,_,float> =
+            let communities = node2Community |> Array.distinct
+
+            let g = UndirectedGraph.createFromNodes (Array.zip communities communities)
+            let edges = 
+                graph.Edges
+                |> Seq.mapi(fun i x -> x|>Seq.map(fun (dest,w) -> i, dest, w))
+                |> Seq.concat
+                |> Seq.groupBy(fun (origin, destination, _) ->
+                    node2Community[origin], node2Community[destination]
+                )
+                |> Seq.map(fun ((origin, destination), edges) ->
+                    origin, destination, edges|> Seq.sumBy(fun (_,_,ed) -> getWeight ed)
+                )
+                |> Array.ofSeq
+            g
+            |>UndirectedGraph.addEdges edges
+
+    module DiGraph =
+        let getNeighborWeights (graph: DiGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) (nIx: int) =
+            let weights: Dictionary<int, float> = Dictionary()
+            let updateWeights =
+                updateCommunityWeights nIx getWeight weights node2Community 
+            
+            updateWeights graph.OutEdges
+            updateWeights graph.InEdges
+
+            weights
+
+        // https://hal.science/hal-01231784
+        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: DiGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
             let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
             let node2community = Array.init graph.NodeKeys.Count id
 
@@ -92,23 +191,17 @@ module Helpers =
             loop 1
 
             let partition =
-                match prevPartition with
-                | Some p ->
-                    node2community
-                    |> Array.indexed
-                    |> Array.groupBy snd
-                    |> Array.map (fun (_,community) ->
-                        community
-                        |>Array.collect(fun (ix,_) ->p[ix])
-                    )
-                | None ->
-                    node2community
-                    |> Array.indexed
-                    |> Array.groupBy snd
-                    |> Array.map (fun (_,community) ->
-                        community
-                        |>Array.map fst
-                    )
+                node2community
+                |> Seq.indexed
+                |> Seq.groupBy snd
+                |> Seq.map (fun (_,community) ->
+                    prevPartition
+                    |> Option.map(fun p -> community |>Seq.collect(fun (ix,_) ->p[ix]))
+                    |> Option.defaultValue (community|>Seq.map fst)
+                    |> Set.ofSeq
+                )
+                |> Array.ofSeq
+
 
             node2community, partition, improvement
 
@@ -564,6 +657,62 @@ type Louvain() =
     static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>)=
         Louvain.louvainResolution true weightF modularityIncreaseThreshold 1. graph 
 
+    static member louvainPartitionsUndirected (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) =
+        
+        let node2Communities = ResizeArray()
+        let partitions = ResizeArray()
+
+        let m = 
+            (0., graph.Edges)
+            ||> ResizeArray.fold(fun acc1 edges ->
+                (0., edges)
+                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
+                |> fun x -> acc1 + x
+            )
+
+        // Initial
+        let node2Community, partition, _ = Helpers.UndirectedGraph.oneLevel getWeight m resolution None graph rng
+        let innerPartition =
+            node2Community
+            |> Seq.indexed
+            |> Seq.groupBy snd
+            |> Seq.map (fun (_,community) ->
+                community
+                |> Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
+                |> Set
+            )
+            |> Array.ofSeq
+        let initialMod = Measures.Modularity.ofUndirectedGraph getWeight resolution innerPartition graph
+        node2Communities.Add(node2Community)
+        partitions.Add(partition)
+        let rec loop (graph: UndirectedGraph<int, _, float>) (partition: int Set []) (modularity: float ) =
+            let node2Community, newPartition, improvement = Helpers.UndirectedGraph.oneLevel id m resolution (Some partition) graph rng
+            let innerPartition =
+                node2Community
+                |> Seq.indexed
+                |> Seq.groupBy snd
+                |> Seq.map (fun (_,community) ->
+                    community
+                    |>Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
+                    |> Set
+                )
+                |> Array.ofSeq
+            let newModularity = Measures.Modularity.ofUndirectedGraph id resolution innerPartition graph
+            if improvement && newModularity - modularity > threshold then
+                node2Communities.Add(node2Community)
+                partitions.Add(partition)
+
+                let newGraph: UndirectedGraph<int,_,float> = Helpers.UndirectedGraph.genSuperNodeGraph id node2Community graph
+                loop newGraph newPartition newModularity
+            
+        let newGraph = Helpers.UndirectedGraph.genSuperNodeGraph getWeight node2Community graph
+        loop newGraph partition initialMod
+        partitions
+        |> ResizeArray.map(fun partition ->
+            partition
+            |> Array.map (fun ar -> ar|>Set.map(fun ix -> graph.NodeKeys[ix]))
+        )
+
     static member louvainPartitionsDiGraph (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
         
         let node2Communities = ResizeArray()
@@ -581,25 +730,29 @@ type Louvain() =
         let node2Community, partition, _ = Helpers.DiGraph.oneLevel getWeight m resolution None graph rng
         let innerPartition =
             node2Community
-            |> Array.indexed
-            |> Array.groupBy snd
-            |> Array.map (fun (_,community) ->
+            |> Seq.indexed
+            |> Seq.groupBy snd
+            |> Seq.map (fun (_,community) ->
                 community
-                |>Array.map(fun (ix,_) -> graph.NodeKeys[ix])
+                |> Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
+                |> Set
             )
+            |> Array.ofSeq
         let initialMod = Measures.Modularity.ofDiGraph getWeight resolution innerPartition graph
         node2Communities.Add(node2Community)
         partitions.Add(partition)
-        let rec loop (graph: DiGraph<int, _, float>) (partition) (modularity: float ) =
+        let rec loop (graph: DiGraph<int, _, float>) (partition: int Set []) (modularity: float ) =
             let node2Community, newPartition, improvement = Helpers.DiGraph.oneLevel id m resolution (Some partition) graph rng
             let innerPartition =
                 node2Community
-                |> Array.indexed
-                |> Array.groupBy snd
-                |> Array.map (fun (_,community) ->
+                |> Seq.indexed
+                |> Seq.groupBy snd
+                |> Seq.map (fun (_,community) ->
                     community
-                    |>Array.map(fun (ix,_) -> graph.NodeKeys[ix])
+                    |>Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
+                    |> Set
                 )
+                |> Array.ofSeq
             let newModularity = Measures.Modularity.ofDiGraph id resolution innerPartition graph
             if improvement && newModularity - modularity > threshold then
                 node2Communities.Add(node2Community)
@@ -613,8 +766,9 @@ type Louvain() =
         partitions
         |> ResizeArray.map(fun partition ->
             partition
-            |> Array.map (fun ar -> ar|>Array.map(fun ix -> graph.NodeKeys[ix]))
+            |> Array.map (fun ar -> ar|>Set.map(fun ix -> graph.NodeKeys[ix]))
         )
+    
 
     static member louvainPartitions (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
@@ -624,6 +778,21 @@ type Louvain() =
         Louvain.louvainPartitionsDiGraph getWeight rng resolution threshold graph
 
     static member louvainCommunities (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+        let rng = defaultArg rng (System.Random()).NextDouble
+        let threshold = defaultArg threshold 1e-7
+        let resolution = defaultArg resolution 1.
+        let getWeight = defaultArg getWeight (fun _ -> 1.)
+        let partitions = Louvain.louvainPartitions(graph, getWeight, resolution, threshold, rng)
+        partitions[partitions.Count-1]
+
+    static member louvainPartitions (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+        let rng = defaultArg rng (System.Random()).NextDouble
+        let threshold = defaultArg threshold 1e-7
+        let resolution = defaultArg resolution 1.
+        let getWeight = defaultArg getWeight (fun _ -> 1.)
+        Louvain.louvainPartitionsUndirected getWeight rng resolution threshold graph
+
+    static member louvainCommunities (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
         let resolution = defaultArg resolution 1.
