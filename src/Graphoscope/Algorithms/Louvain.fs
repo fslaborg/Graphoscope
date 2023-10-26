@@ -763,7 +763,7 @@ type Louvain() =
         )
     
     /// <summary> 
-    /// Returns all partitions foun d at each level of Louvain method.
+    /// Returns all partitions found at each level of Louvain method.
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <param name="getWeight">Function to get the edge weight from 'EdgeData.
