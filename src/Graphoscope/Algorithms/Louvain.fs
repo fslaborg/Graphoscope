@@ -9,21 +9,17 @@ module private Helpers =
         edges[nIx]
         |> ResizeArray.iter(fun (nbr, w) ->
             if nIx <> nbr then
-                let nbrCom = node2Community[nbr]
-                let weight = getWeight w
-                let mutable nbrWeight = 0.
-                match weights.TryGetValue(nbrCom, &nbrWeight) with
-                | true -> weights[nbrCom] <- nbrWeight + weight
-                | false -> weights.Add(nbrCom, weight)
+                weights
+                |> Dictionary.addOrUpdateInPlaceBy ((+)) node2Community[nbr] (getWeight w)
+                |> ignore
         )
+
     module UndirectedGraph =
         let getNeighborWeights (graph: UndirectedGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) (nIx: int) =
             let weights: Dictionary<int, float> = Dictionary()
             updateCommunityWeights nIx getWeight weights node2Community graph.Edges
             weights
       
-
-        // https://hal.science/hal-01231784
         let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
             let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
             let node2community = Array.init graph.NodeKeys.Count id
@@ -34,20 +30,21 @@ module private Helpers =
             let mutable improvement = false
 
             let rec loop (iterationCounter: int) =   
-                printfn $"Iteration: {iterationCounter}"
                 let mutable moveCounter = 0
                 nodeIdxs
                 |> Array.iter(fun nIx ->
                     let neighborCommunities = getNeighborWeights graph getWeight node2community nIx
 
                     let degree = degrees[nIx]
-                    let bestCommunity  = node2community[nIx]
+                    let mutable bestCommunity  = node2community[nIx]
+                    let mutable bestModularity  = 0.
+
                     sigmaTot[bestCommunity] <- sigmaTot[bestCommunity] - degree
                     
                     let diC =
-                        let mutable tmp = 0.
-                        neighborCommunities.TryGetValue(bestCommunity, &tmp) |> ignore
-                        tmp
+                        neighborCommunities
+                        |> Dictionary.tryFind bestCommunity
+                        |> Option.defaultValue 0
              
                     let removalCost = 
                         -diC / m
@@ -56,26 +53,24 @@ module private Helpers =
                         / 2. * m**2
                     
                     neighborCommunities
-                    |> Seq.map(fun (KeyValue(nc, w)) ->
+                    |> Seq.iter(fun (KeyValue(nc, w)) ->
                         let gain =
                             removalCost
                             + w / m
                             - resolution
                             * (degree * sigmaTot[nc])
                             / m**2
-                        nc, gain
+                        if gain > bestModularity then
+                            bestModularity <- gain
+                            bestCommunity <- nc
                     )
-                    |> fun s ->
-                        if s|>Seq.length > 0 then
-                            s
-                            |>Seq.maxBy snd
-                            |> fun (nc, _) ->
-                                sigmaTot[nc] <- sigmaTot[nc] + degree
-                                if nc <> node2community[nIx] then
-                                    moveCounter <- moveCounter + 1
-                                    improvement <- true
 
-                                    node2community[nIx] <- nc
+                    sigmaTot[bestCommunity] <- sigmaTot[bestCommunity] + degree
+                    if bestCommunity <> node2community[nIx] then
+                        moveCounter <- moveCounter + 1
+                        improvement <- true
+
+                        node2community[nIx] <- bestCommunity
                 )
 
                 if moveCounter > 0 then loop (iterationCounter + 1)
@@ -138,8 +133,7 @@ module private Helpers =
             
             let mutable improvement = false
 
-            let rec loop (iterationCounter: int) =   
-                printfn $"Iteration: {iterationCounter}"
+            let rec loop () =   
                 let mutable moveCounter = 0
                 nodeIdxs
                 |> Array.iter(fun nIx ->
@@ -147,7 +141,8 @@ module private Helpers =
 
                     let inDegree = inDegrees[nIx]
                     let outDegree = outDegrees[nIx]
-                    let bestCommunity  = node2community[nIx]
+                    let mutable bestCommunity  = node2community[nIx]
+                    let mutable bestModularity  = 0.
                     sigmaTotIn[bestCommunity] <- sigmaTotIn[bestCommunity] - inDegree
                     sigmaTotOut[bestCommunity] <- sigmaTotOut[bestCommunity] - outDegree
                     
@@ -163,32 +158,30 @@ module private Helpers =
                         / m**2
                     
                     neighborCommunities
-                    |> Seq.map(fun (KeyValue(nc, w)) ->
+                    |> Seq.iter(fun (KeyValue(nc, w)) ->
                         let gain =
                             removalCost
                             + w / m
                             - resolution
                             * (outDegree * sigmaTotIn[nc]  + inDegree * sigmaTotOut[nc])
                             / m**2
-                        nc, gain
+                        if gain > bestModularity then
+                            bestModularity <- gain
+                            bestCommunity <- nc
                     )
-                    |> fun s ->
-                        if s|>Seq.length > 0 then
-                            s
-                            |>Seq.maxBy snd
-                            |> fun (nc, _) ->
-                                sigmaTotIn[nc] <- sigmaTotIn[nc] + inDegree
-                                sigmaTotOut[nc] <- sigmaTotOut[nc] + outDegree
-                                if nc <> node2community[nIx] then
-                                    moveCounter <- moveCounter + 1
-                                    improvement <- true
 
-                                    node2community[nIx] <- nc
+                    sigmaTotIn[bestCommunity] <- sigmaTotIn[bestCommunity] + inDegree
+                    sigmaTotOut[bestCommunity] <- sigmaTotOut[bestCommunity] + outDegree
+                    if bestCommunity <> node2community[nIx] then
+                        moveCounter <- moveCounter + 1
+                        improvement <- true
+
+                        node2community[nIx] <- bestCommunity
                 )
 
-                if moveCounter > 0 then loop (iterationCounter + 1)
+                if moveCounter > 0 then loop ()
 
-            loop 1
+            loop ()
 
             let partition =
                 node2community
@@ -700,7 +693,7 @@ type Louvain() =
             let newModularity = Measures.Modularity.ofUndirectedGraph id resolution innerPartition graph
             if improvement && newModularity - modularity > threshold then
                 node2Communities.Add(node2Community)
-                partitions.Add(partition)
+                partitions.Add(newPartition)
 
                 let newGraph: UndirectedGraph<int,_,float> = Helpers.UndirectedGraph.genSuperNodeGraph id node2Community graph
                 loop newGraph newPartition newModularity
@@ -749,14 +742,14 @@ type Louvain() =
                 |> Seq.groupBy snd
                 |> Seq.map (fun (_,community) ->
                     community
-                    |>Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
+                    |> Seq.map(fun (ix,_) -> graph.NodeKeys[ix])
                     |> Set
                 )
                 |> Array.ofSeq
             let newModularity = Measures.Modularity.ofDiGraph id resolution innerPartition graph
             if improvement && newModularity - modularity > threshold then
                 node2Communities.Add(node2Community)
-                partitions.Add(partition)
+                partitions.Add(newPartition)
 
                 let newGraph: DiGraph<int,_,float> = Helpers.DiGraph.genSuperNodeGraph id node2Community graph
                 loop newGraph newPartition newModularity
@@ -769,7 +762,24 @@ type Louvain() =
             |> Array.map (fun ar -> ar|>Set.map(fun ix -> graph.NodeKeys[ix]))
         )
     
-
+    /// <summary> 
+    /// Returns all partitions foun d at each level of Louvain method.
+    /// </summary>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.
+    /// Optional; defaults to each edge weight being equal to 1.0.
+    /// </param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.
+    /// Optional; default = 1.0</param>
+    /// <param name="threshold">
+    /// The desired minimum modularity gain for each level of the algorithm
+    /// Optional; default = 0.0000001
+    /// </param>
+    /// <param name="rng">
+    /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
+    /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
+    /// </param>
     static member louvainPartitions (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
@@ -777,6 +787,49 @@ type Louvain() =
         let getWeight = defaultArg getWeight (fun _ -> 1.)
         Louvain.louvainPartitionsDiGraph getWeight rng resolution threshold graph
 
+    /// <summary> 
+    /// Returns all partitions found at each level of Louvain method.
+    /// </summary>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.
+    /// Optional; defaults to each edge weight being equal to 1.0.
+    /// </param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.
+    /// Optional; default = 1.0</param>
+    /// <param name="threshold">
+    /// The desired minimum modularity gain for each level of the algorithm
+    /// Optional; default = 0.0000001
+    /// </param>
+    /// <param name="rng">
+    /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
+    /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
+    /// </param>
+    static member louvainPartitions (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+        let rng = defaultArg rng (System.Random()).NextDouble
+        let threshold = defaultArg threshold 1e-7
+        let resolution = defaultArg resolution 1.
+        let getWeight = defaultArg getWeight (fun _ -> 1.)
+        Louvain.louvainPartitionsUndirected getWeight rng resolution threshold graph
+
+    /// <summary> 
+    /// Finds optimal partition of <paramref name="graph"/> nodes into communities using Louvain method.
+    /// </summary>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.
+    /// Optional; defaults to each edge weight being equal to 1.0.
+    /// </param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.
+    /// Optional; default = 1.0</param>
+    /// <param name="threshold">
+    /// The desired minimum modularity gain for each level of the algorithm
+    /// Optional; default = 0.0000001
+    /// </param>
+    /// <param name="rng">
+    /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
+    /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
+    /// </param>
     static member louvainCommunities (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
@@ -785,13 +838,24 @@ type Louvain() =
         let partitions = Louvain.louvainPartitions(graph, getWeight, resolution, threshold, rng)
         partitions[partitions.Count-1]
 
-    static member louvainPartitions (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
-        let rng = defaultArg rng (System.Random()).NextDouble
-        let threshold = defaultArg threshold 1e-7
-        let resolution = defaultArg resolution 1.
-        let getWeight = defaultArg getWeight (fun _ -> 1.)
-        Louvain.louvainPartitionsUndirected getWeight rng resolution threshold graph
-
+    /// <summary> 
+    /// Finds optimal partition of <paramref name="graph"/> nodes into communities using Louvain method.
+    /// </summary>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.
+    /// Optional; defaults to each edge weight being equal to 1.0.
+    /// </param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.
+    /// Optional; default = 1.0</param>
+    /// <param name="threshold">
+    /// The desired minimum modularity gain for each level of the algorithm
+    /// Optional; default = 0.0000001
+    /// </param>
+    /// <param name="rng">
+    /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
+    /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
+    /// </param>
     static member louvainCommunities (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7

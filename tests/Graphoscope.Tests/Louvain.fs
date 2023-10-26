@@ -5,7 +5,34 @@ open Graphoscope
 open FSharpAux
 
 [<Fact>]
-let ``Louvain UndirectedGraph works corectly with `string` node keys`` () =
+let ``Louvain UndirectedGraph works correctly on `KarateClub` `` () =
+    // Adapted from Networkx with 1-indexed node keys.
+    // https://github.com/networkx/networkx/blob/1c5272054f71f9484347f7e4246ae3d5da367f7b/networkx/algorithms/community/tests/test_louvain.py#L27
+
+    let rng = System.Random(42)
+    let karateFile= __SOURCE_DIRECTORY__ + "/ReferenceGraphs/zachary.txt"
+    let karateGraph = 
+        System.IO.File.ReadAllLines (karateFile)
+        |> Array.skip 2
+        |> Array.map(fun x ->
+          let cols = x.Split " "
+          int cols[0], int cols[1], 1.0
+        )
+        |> UndirectedGraph.createFromEdges
+
+    let actual = Algorithms.Louvain.louvainCommunities (karateGraph,  rng = rng.NextDouble)
+    let expected =
+        [|
+            set [1; 2; 3; 4; 8; 10; 12; 13; 14; 18; 20; 22]
+            set [5; 6; 7; 11; 17]
+            set [9; 15; 16; 19; 21; 23; 27; 30; 31; 33; 34]
+            set [24; 25; 26; 28; 29; 32]
+        |]
+
+    Assert.Equal<int Set []>(expected, actual)
+
+[<Fact>]
+let ``Louvain UndirectedGraph works corectly with `string` node`` () =
     let rng = System.Random(123)
     let t3Edges =
         [|
@@ -81,5 +108,3 @@ let ``Louvain DiGraph works corectly`` () =
 
     Assert.Equal<int Set []>(expectedT1, actualT1)
     Assert.Equal<int Set []>(expectedT2, actualT2)
-
-

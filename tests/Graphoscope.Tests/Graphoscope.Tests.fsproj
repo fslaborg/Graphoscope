@@ -14,6 +14,7 @@
     <Compile Include="FGraph.fs" />
     <Compile Include="NetworkDensity.fs" />
     <Compile Include="Loop.fs" />
+    <Compile Include="Modularity.fs" />
     <Compile Include="Louvain.fs" />
     <Compile Include="GraphGenerators.fs" />
     <Compile Include="WedgeCount.fs" />
