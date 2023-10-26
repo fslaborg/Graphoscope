@@ -10,6 +10,16 @@ type Modularity() =
     static member private isValidPartitionUndirected (partition: 'NodeKey Set []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) =
         Set graph.NodeKeys = Set.unionMany partition
 
+    /// <summary> 
+    /// Finds the modularity of a given <paramref name="partition"/> of the <paramref name="graph"/>,
+    /// where <paramref name="partition"/> is a sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/>.
+    /// </summary>
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.</param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.</param>
+    /// <param name="partition">A sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/></param>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
     static member ofUndirectedGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>)=
         if Modularity.isValidPartitionUndirected partition graph |> not then
             failwith "`partition` is not a valid partition of DiGraph."
@@ -38,6 +48,16 @@ type Modularity() =
             lc / m - resolution * degreeSum * degreeSum * normalizer
         )
 
+    /// <summary> 
+    /// Finds the modularity of a given <paramref name="partition"/> of the <paramref name="graph"/>,
+    /// where <paramref name="partition"/> is a sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/>.
+    /// </summary>
+    /// <param name="getWeight">Function to get the edge weight from 'EdgeData.</param>
+    /// <param name="resolution">If resolution is less than 1, modularity favors
+    /// larger communities. Greater than 1 favors smaller communities.</param>
+    /// <param name="partition">A sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/></param>
+    /// <param name="graph">The graph to analyse</param> 
+    /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
     static member ofDiGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: DiGraph<'NodeKey, _, 'EdgeData>)=
         if Modularity.isValidPartitionDiGraph partition graph |> not then
             failwith "`partition` is not a valid partition of DiGraph."
