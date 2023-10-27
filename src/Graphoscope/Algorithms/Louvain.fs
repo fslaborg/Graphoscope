@@ -29,7 +29,7 @@ module private Helpers =
             
             let mutable improvement = false
 
-            let rec loop (iterationCounter: int) =   
+            let rec loop () = 
                 let mutable moveCounter = 0
                 nodeIdxs
                 |> Array.iter(fun nIx ->
@@ -44,13 +44,13 @@ module private Helpers =
                     let diC =
                         neighborCommunities
                         |> Dictionary.tryFind bestCommunity
-                        |> Option.defaultValue 0
+                        |> Option.defaultValue 0.
              
                     let removalCost = 
                         -diC / m
                         + resolution
                         * (degree * sigmaTot[bestCommunity])
-                        / 2. * m**2
+                        / (2. * m**2)
                     
                     neighborCommunities
                     |> Seq.iter(fun (KeyValue(nc, w)) ->
@@ -59,7 +59,7 @@ module private Helpers =
                             + w / m
                             - resolution
                             * (degree * sigmaTot[nc])
-                            / m**2
+                            / (2. * m**2)
                         if gain > bestModularity then
                             bestModularity <- gain
                             bestCommunity <- nc
@@ -73,9 +73,9 @@ module private Helpers =
                         node2community[nIx] <- bestCommunity
                 )
 
-                if moveCounter > 0 then loop (iterationCounter + 1)
+                if moveCounter > 0 then loop ()
 
-            loop 1
+            loop ()
 
             let partition =
                 node2community
@@ -88,7 +88,6 @@ module private Helpers =
                     |> Set.ofSeq
                 )
                 |> Array.ofSeq
-
 
             node2community, partition, improvement
 
@@ -133,7 +132,7 @@ module private Helpers =
             
             let mutable improvement = false
 
-            let rec loop () =   
+            let rec loop () = 
                 let mutable moveCounter = 0
                 nodeIdxs
                 |> Array.iter(fun nIx ->
@@ -147,9 +146,9 @@ module private Helpers =
                     sigmaTotOut[bestCommunity] <- sigmaTotOut[bestCommunity] - outDegree
                     
                     let diC =
-                        let mutable tmp = 0.
-                        neighborCommunities.TryGetValue(bestCommunity, &tmp) |> ignore
-                        tmp
+                        neighborCommunities
+                        |> Dictionary.tryFind bestCommunity
+                        |> Option.defaultValue 0.
              
                     let removalCost = 
                         -diC / m
@@ -194,7 +193,6 @@ module private Helpers =
                     |> Set.ofSeq
                 )
                 |> Array.ofSeq
-
 
             node2community, partition, improvement
 
@@ -662,6 +660,7 @@ type Louvain() =
                 ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
                 |> fun x -> acc1 + x
             )
+            |> fun x -> x / 2.
 
         // Initial
         let node2Community, partition, _ = Helpers.UndirectedGraph.oneLevel getWeight m resolution None graph rng
