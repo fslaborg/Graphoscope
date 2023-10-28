@@ -36,8 +36,8 @@ type Modularity() =
                 commIdxs
                 |> Seq.sumBy(fun nIx ->
                     (0., graph.Edges[nIx])
-                    ||> ResizeArray.fold(fun acc (n,w) ->
-                        if community|>Set.contains graph.NodeKeys[n] then
+                    ||> ResizeArray.fold(fun acc (nbrIx,w) ->
+                        if commIdxs |> Set.contains nbrIx then
                             acc + getWeight w
                         else acc
                     )
@@ -61,15 +61,10 @@ type Modularity() =
     static member ofDiGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: DiGraph<'NodeKey, _, 'EdgeData>)=
         if Modularity.isValidPartitionDiGraph partition graph |> not then
             failwith "`partition` is not a valid partition of DiGraph."
+
         let inDegrees = graph.InEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
         let outDegrees = graph.OutEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
-        let m = 
-            (0., graph.InEdges)
-            ||> ResizeArray.fold(fun acc1 edges ->
-                (0., edges)
-                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
-                |> fun x -> acc1 + x
-            )
+        let m = (0.,inDegrees) ||> ResizeArray.fold(fun acc c -> acc + c)
         
         let normalizer = 1. / m**2
         
@@ -80,8 +75,8 @@ type Modularity() =
                 commIdxs
                 |> Seq.sumBy(fun nIx ->
                     (0., graph.InEdges[nIx])
-                    ||> ResizeArray.fold(fun acc (n,w) ->
-                        if community|>Set.contains graph.NodeKeys[n] then
+                    ||> ResizeArray.fold(fun acc (nbrIx,w) ->
+                        if commIdxs|>Set.contains nbrIx then
                             acc + getWeight w
                         else acc
                     )

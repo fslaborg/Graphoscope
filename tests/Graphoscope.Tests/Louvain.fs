@@ -20,7 +20,7 @@ let ``Louvain UndirectedGraph works correctly on `KarateClub` `` () =
         )
         |> UndirectedGraph.createFromEdges
 
-    let actual = Algorithms.Louvain.louvainCommunities (karateGraph,  rng = rng.NextDouble)
+    let actual = Algorithms.Louvain.louvainPartitions (karateGraph,  rng = rng.NextDouble)
     let expected =
         [|
             set [1; 2; 3; 4; 8; 10; 12; 13; 14; 18; 20; 22]
@@ -29,7 +29,7 @@ let ``Louvain UndirectedGraph works correctly on `KarateClub` `` () =
             set [24; 25; 26; 28; 29; 32]
         |]
 
-    Assert.Equal<int Set []>(expected, actual)
+    Assert.Equal<int Set []>(expected, actual |> Array.last)
 
 [<Fact>]
 let ``Louvain UndirectedGraph works corectly with `string` node`` () =
