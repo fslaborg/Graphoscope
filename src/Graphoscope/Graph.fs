@@ -370,3 +370,12 @@ module UndirectedGraph =
         /// <returns>Unit</returns>
         static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
             UndirectedGraph.removeEdge edge graph
+
+        static member sumBy (getWeight: 'EdgeData -> float) (graph: UndirectedGraph<_, _, 'EdgeData>) =
+            (0., graph.Edges)
+            ||> ResizeArray.fold(fun acc1 edges ->
+                (0., edges)
+                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
+                |> fun x -> acc1 + x
+            )
+            |> fun x -> x / 2.

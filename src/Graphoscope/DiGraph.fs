@@ -380,3 +380,11 @@ module DiGraph =
         /// <returns>Unit</returns>
         static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
             DiGraph.removeEdge edge graph
+
+        static member sumBy (getWeight: 'EdgeData -> float) (graph: DiGraph<_, _, 'EdgeData>) =
+            (0., graph.InEdges)
+            ||> ResizeArray.fold(fun acc1 edges ->
+                (0., edges)
+                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
+                |> fun x -> acc1 + x
+            )
