@@ -20,6 +20,7 @@
     <Compile Include="AdjGraph.fs" />
     <Compile Include="DiGraph.fs" />
     <Compile Include="FGraph.fs" />
+    <Compile Include="Measures/Modularity.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />
     <Compile Include="Algorithms\BFS.fs" />
