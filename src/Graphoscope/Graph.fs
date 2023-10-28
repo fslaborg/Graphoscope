@@ -358,19 +358,22 @@ module UndirectedGraph =
         /// </summary>
         /// <param name="edge">The edge to be created. A three part tuple containing the origin node, the destination node, and any edge label such as the weight.</param> 
         /// <param name="graph">The graph the edge will be added to.</param> 
-        /// <returns>Unit</returns>
         static member addEdge (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>)  (edge: ('NodeKey * 'NodeKey * 'EdgeData)) =
             UndirectedGraph.addEdge edge graph
 
         /// <summary> 
-        /// Removes an edge to the graph.
+        /// Removes an edge from the graph.
         /// </summary>
         /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
-        /// <returns>Unit</returns>
         static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
             UndirectedGraph.removeEdge edge graph
 
+        /// <summary> 
+        /// Sums all Edges according to <paramref name = "getWeight"/>.
+        /// </summary>
+        /// <param name="getWeight">Function that maps EdgeData to float.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
         static member sumBy (getWeight: 'EdgeData -> float) (graph: UndirectedGraph<_, _, 'EdgeData>) =
             (0., graph.Edges)
             ||> ResizeArray.fold(fun acc1 edges ->
