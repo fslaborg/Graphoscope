@@ -64,21 +64,9 @@ type Graphs () =
             FGraph.addNode i i gF |> ignore
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            FGraph.addEdge node1 node2 data gF |> ignore
+            FGraph.addElement node1 node1 node2 node2 data gF |> ignore
         fGraph <- gF
 
-
-    [<Benchmark>]
-    member this.AdjGraph () = 
-        let g = AdjGraph.create<int,int,float>()
-        // Add nodes
-        for i=0 to this.NumberNodes-1 do
-            AdjGraph.addNode i i g |> ignore
-        // Add edges
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            AdjGraph.Edge.add node1 node2 data g |> ignore
-    
     [<Benchmark>]
     member this.DiGraph () =
         let g = DiGraph.empty<int,int,float>
@@ -88,8 +76,8 @@ type Graphs () =
         // Add edges
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
-            DiGraph.addEdge ((node1), (node2), float i) g |> ignore
-
+            DiGraph.addEdge ((node1), (node2), data) g |> ignore
+        g
 
     [<Benchmark>]
     member this.UndirectedGraph () =
@@ -101,35 +89,35 @@ type Graphs () =
         for i=0 to this.NumberEdges-1 do
             let (node1,node2,data) = edgesArr.[i]
             UndirectedGraph.addEdge (node1, node2, data) g|> ignore
-
+        g
 
     [<Benchmark>]
     member this.FGraph () =
         let g = FGraph.create<int,int,float>()
-        for i=0 to this.NumberEdges-1 do
-            let (node1,node2,data) = edgesArr.[i]
-            FGraph.addElement node1 node1 node2 node2 data g |> ignore
         // Add nodes
         for i=0 to this.NumberNodes-1 do
            FGraph.addNode i i g |> ignore
         // Add edges
         for i=0 to this.NumberEdges-1 do
-           let (node1,node2,data) = edgesArr.[i]
-           FGraph.addEdge node1 node2 data g |> ignore
-        
+            let (node1,node2,data) = edgesArr.[i]
+            FGraph.addElement node1 node1 node2 node2 data g |> ignore
+        g
+
+    [<Benchmark>]
+    member this.AdjGraph () = 
+        let g = AdjGraph.create<int,int,float>()
+        // Add nodes
+        for i=0 to this.NumberNodes-1 do
+            AdjGraph.addNode i i g |> ignore
+        // Add edges
+        for i=0 to this.NumberEdges-1 do
+            let (node1,node2,data) = edgesArr.[i]
+            AdjGraph.Edge.add node1 node2 data g |> ignore
+        g
 
 
     // ##############################################
     // Access 
-
-    [<Benchmark>]
-    member this.Access_Adj () =     
-       [|
-       for i=0 to this.NumberEdges-1 do
-           let (node1,node2,_) = edgesArr.[i]
-           let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
-           yield d
-       |] 
 
     [<Benchmark>]
     member this.Access_Di () =  
@@ -156,8 +144,16 @@ type Graphs () =
            let (node1,node2,_) = edgesArr.[i]
            let _,_,d = FGraph.findEdge node1 node2 fGraph
            yield d
-       |] |> ignore
+       |] 
 
+    [<Benchmark>]
+    member this.Access_Adj () =     
+       [|
+       for i=0 to this.NumberEdges-1 do
+           let (node1,node2,_) = edgesArr.[i]
+           let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
+           yield d
+       |] 
 
 
 
