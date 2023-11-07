@@ -184,7 +184,7 @@ type UndirectedGraph() =
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
     static member find (origin: 'NodeKey) (destination: 'NodeKey) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
-        let k2 = graph.IdMap[origin]
+        let k2 = graph.IdMap[destination]
         graph.Edges[graph.IdMap[origin]]
         |> ResizeArray.find (fun (k,_) -> k=k2)
         |> fun (_, ed) -> origin, destination, ed
