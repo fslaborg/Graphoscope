@@ -9,7 +9,6 @@ type Eccentricity() =
     /// <summary> 
     /// Get the Eccentricity of a node in an FGraph
     /// </summary>
-    /// <param name="dijkstraF">Function to calculate the shortest Path via Dijksta Algorithm</param> 
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
@@ -23,7 +22,6 @@ type Eccentricity() =
     /// <summary> 
     /// Get the Eccentricity of a node in an FGraph
     /// </summary>
-    /// <param name="dijkstraF">Function to calculate the shortest Path via Dijksta Algorithm</param> 
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
@@ -88,3 +86,40 @@ type Eccentricity() =
             dict
         getDict shortestPaths
 
+    static member compute (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Eccentricity.ofFGraph (fun x -> 1.) graph
+
+    static member computeWithEdgeData (graph :  FGraph<'NodeKey, 'NodeData, float>) =
+        Eccentricity.ofFGraph id graph
+
+    static member computeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>)) =
+        Eccentricity.ofFGraph getEdgeWeightF graph
+
+
+    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Eccentricity.ofAdjGraph (fun x -> 1.) graph
+
+    static member computeWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =
+        Eccentricity.ofAdjGraph id graph
+
+    static member computeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)) =
+        Eccentricity.ofAdjGraph getEdgeWeightF graph
+    
+
+    static member computeOfNode ((graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofFGraphNode (fun x -> 1.) graph nodeKey
+
+    static member computeOfNodeWithEdgeData ((graph :  FGraph<'NodeKey, 'NodeData, float>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofFGraphNode id graph nodeKey
+
+    static member computeOfNodeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofFGraphNode getEdgeWeightF graph nodeKey
+
+    static member computeOfNode ((graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofAdjGraphNode (fun x -> 1.) graph nodeKey
+
+    static member computeOfNodeWithEdgeData ((graph :  AdjGraph<'NodeKey, 'NodeData, float>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofAdjGraphNode id graph nodeKey
+
+    static member computeOfNodeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.ofAdjGraphNode getEdgeWeightF graph nodeKey

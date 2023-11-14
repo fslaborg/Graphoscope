@@ -268,7 +268,11 @@ type Dijkstra() =
             | None -> None
     
 
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member compute (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Dijkstra.ofFGraph starting (fun x -> 1.) graph 
+    static member computeWithEdgeData (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
+        Dijkstra.ofFGraph starting id graph 
+    static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofFGraph starting getEdgeWeight graph 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, _, 'EdgeData>) =
