@@ -240,6 +240,14 @@ type AdjGraph() =
             tmpGraph.Add(tmpNodeKey, (tmpNode,adjComponent))
         tmpGraph
 
+    ///Returns all the nodes as a seq of 'NodeKey * 'NodeData Tuple
+    static member getNodes (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey* 'NodeData> = 
+        g
+        |> Seq.map(fun kvp ->
+            let (nd,s) = kvp.Value
+            kvp.Key,nd
+        )
+
     /// Converts nodes to nodeKey * nodeData array 
     static member toNodeArray (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         let tmp = Array.zeroCreate graph.Count 
