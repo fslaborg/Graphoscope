@@ -407,7 +407,22 @@ type AdjGraph() =
                     //yield (skv.Key,tkv.Key,tkv.Value)
         }
         |> Seq.distinct
-  
+    
+
+    ///Returns the nodeOverlap of two graphs
+    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+        let nodeKeySet1 = graph1.Keys|>Set.ofSeq 
+        let nodeKeySet2 = graph2.Keys|>Set.ofSeq 
+        
+        Set.intersect nodeKeySet1 nodeKeySet2
+
+    ///Returns the edgeOverlap of two graphs
+    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+        let edgeSet1 = graph1|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t;t,s})|>Seq.concat|>Set.ofSeq
+        let edgeSet2 = graph2|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t})    |>Seq.concat|>Set.ofSeq
+        
+        Set.intersect edgeSeq1 edgeSeq2
+
 module AdjGraph =
     
     /// <summary> 
