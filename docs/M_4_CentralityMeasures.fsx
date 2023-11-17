@@ -83,7 +83,7 @@ Nodes with high closeness centrality are considered central because they are clo
 *)
 
 let closenessCentrality =
-    Measures.ClosenessCentrality.ofAdjGraph id centralityGraph
+    Measures.ClosenessCentrality.computeWithEdgeData centralityGraph
 
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Closeness: {((closenessCentrality.Item x)|>Math.round 3)}"))
@@ -96,7 +96,7 @@ Nodes with high betweenness centrality act as bridges or intermediaries in the n
 *)
 
 let betweenness = 
-    Measures.BetweennessCentrality.ofAdjGraph id centralityGraph
+    Measures.BetweennessCentrality.computeWithEdgeData centralityGraph
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Betweenness: {betweenness.Item x}"))
 (*** include-it-raw ***)
@@ -109,7 +109,7 @@ In other words, it represents the maximum distance between a node and any other 
 *)
 
 let eccentricity (node:'NodeKey) =
-    Measures.Eccentricity.ofAdjGraphNode id centralityGraph node
+    Measures.Eccentricity.computeOfNodeWithEdgeData centralityGraph node
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Eccentricity: {eccentricity x}"))
 (*** include-it-raw ***)
