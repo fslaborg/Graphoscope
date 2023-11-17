@@ -58,6 +58,9 @@ type ClusteringCoefficient() =
     
     static member compute (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfFGraph g
+        
+    static member compute (g: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        ClusteringCoefficient.clusteringCoefficientOfAdjGraph g
     
     static member compute (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfDiGraph g
