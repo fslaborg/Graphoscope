@@ -423,6 +423,41 @@ type AdjGraph() =
         
         Set.intersect edgeSeq1 edgeSeq2
 
+
+    static member getSubGraphOfNodeSeq (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) (nodeSeq:seq<'NodeKey>) =
+        let set = nodeSeq|> Set.ofSeq
+        graph
+        |> AdjGraph.toSeq
+        |> Seq.choose(fun (nk1,nd1,nk2,nd2,w) ->
+            if set.Contains nk1 && set.Contains nk2 then
+                Some (nk1,nd1,nk2,nd2,w)
+            else
+                None
+        ) 
+        |> AdjGraph.ofSeq
+
+    static member getNeighourhoodSubgraphByHops (startingNode:'NodeKey) (hopCount:int) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
+
+        let rec loop (visited:Set<'NodeKey>) (toVisit:Set<'NodeKey>) (hops:int) =
+            if hops = hopCount then
+                visited
+            else
+                let newVisited,newToVisit = 
+                    toVisit
+                    |>Seq.fold(fun ((v:Set<'NodeKey>),(tV:Set<'NodeKey>)) x -> 
+                        let nd,neighbours = graph.Item x
+                        v.Add x,
+                        neighbours
+                        |>Seq.fold(fun a x -> a.Add(x.Key)) tV
+
+                    ) (visited,Set.empty) 
+                    
+                loop newVisited newToVisit (hops+1)
+
+        let subNodes = loop ((Set.empty).Add startingNode) (AdjGraph.getNeighbours startingNode graph|>Seq.map fst|>Set) 0
+        AdjGraph.getSubGraphOfNodeSeq graph subNodes
+
+
 module AdjGraph =
     
     /// <summary> 
