@@ -409,19 +409,30 @@ type AdjGraph() =
         |> Seq.distinct
     
 
-    ///Returns the nodeOverlap of two graphs
-    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+    ///Returns the overlapping nodes of two graphs
+    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
         let nodeKeySet1 = graph1.Keys|>Set.ofSeq 
         let nodeKeySet2 = graph2.Keys|>Set.ofSeq 
         
-        Set.intersect nodeKeySet1 nodeKeySet2
+        Set.intersect nodeKeySet1 nodeKeySet2 
 
-    ///Returns the edgeOverlap of two graphs
-    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+    ///Returns the overlapping edges of two graphs
+    static member getEdgeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
         let edgeSet1 = graph1|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t;t,s})|>Seq.concat|>Set.ofSeq
         let edgeSet2 = graph2|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t})    |>Seq.concat|>Set.ofSeq
         
-        Set.intersect edgeSeq1 edgeSeq2
+        Set.intersect edgeSet1 edgeSet2
+
+    ///Returns the amount of overlapping nodes of two graphs
+    static member getNodeOverlapCount (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) :int = 
+        AdjGraph.getNodeOverlap graph1 graph2
+        |>Set.count
+
+    ///Returns the amount of overlapping edges of two graphs
+    static member getEdgeOverlapCount (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) :int  = 
+        AdjGraph.getNodeOverlap graph1 graph2
+        |>Set.count
+
 
 
     static member getSubGraphOfNodeSeq (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) (nodeSeq:seq<'NodeKey>) =
