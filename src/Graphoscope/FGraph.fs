@@ -198,6 +198,16 @@ type FGraph() =
         g.Item n <- (p,nd,s)
         g
 
+    ///Returns all the nodes as a seq of 'NodeKey * 'NodeData Tuple
+    static member getNodes (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey* 'NodeData> = 
+        g
+        |> Seq.map(fun kvp ->
+            let (p,nd,s) = kvp.Value
+            kvp.Key,nd
+        )
+
+
+
     ///Maps contexts of the graph.
     static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
         g

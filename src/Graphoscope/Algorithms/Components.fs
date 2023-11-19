@@ -39,11 +39,6 @@ type Components() =
             )
             |> AdjGraph.ofSeq 
         )
-        
-    static member getBiggestComponentOfAdjGraph (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        graph
-        |> Components.getGraphComponentsOfAdjGraph 
-        |> Seq.maxBy (fun x -> AdjGraph.countNodes x)     
     
 
     /// DiGraph
@@ -101,4 +96,5 @@ type Components() =
                         )
 
 
-    
+    static member compute (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) :seq<AdjGraph<'NodeKey,'NodeData,'EdgeData>>=
+        Components.getGraphComponentsOfAdjGraph graph

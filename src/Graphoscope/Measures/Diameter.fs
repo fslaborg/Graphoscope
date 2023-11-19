@@ -38,10 +38,43 @@ type Diameter() =
     /// <summary> 
     /// Get the diameter of graph calculated by their minimum Eccentricity
     /// </summary>
+    /// <param name="graph">The graph to calculate the diameter for</param> 
+    /// <returns>A float of the longest shortest Path of a graph</returns>
+    static member compute((graph:FGraph<'NodeKey,'NodeData,'EdgeData>)) =
+        Diameter.ofFGraph (fun x -> 1.) graph
+
+    /// <summary> 
+    /// Get the diameter of graph calculated by their minimum Eccentricity
+    /// </summary>
+    /// <param name="graph">The graph to calculate the diameter for</param> 
+    /// <returns>A float of the longest shortest Path of a graph</returns>
+    static member compute((graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
+        Diameter.ofAdjGraph (fun x -> 1.) graph
+
+    /// <summary> 
+    /// Get the diameter of graph calculated by their minimum Eccentricity
+    /// </summary>
+    /// <param name="graph">The graph to calculate the diameter for</param> 
+    /// <returns>A float of the longest shortest Path of a graph</returns>
+    static member computeWithEdgeData((graph:FGraph<'NodeKey,'NodeData,float>)) =
+        Diameter.ofFGraph id graph
+
+    /// <summary> 
+    /// Get the diameter of graph calculated by their minimum Eccentricity
+    /// </summary>
+    /// <param name="graph">The graph to calculate the diameter for</param> 
+    /// <returns>A float of the longest shortest Path of a graph</returns>
+    static member computeWithEdgeData((graph:AdjGraph<'NodeKey,'NodeData,float>)) =
+        Diameter.ofAdjGraph id graph
+
+
+    /// <summary> 
+    /// Get the diameter of graph calculated by their minimum Eccentricity
+    /// </summary>
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((weigthF:'EdgeData->float),(graph:FGraph<'NodeKey,'NodeData,'EdgeData>)) =
+    static member computeWithEdgeDataBy((weigthF:'EdgeData->float),(graph:FGraph<'NodeKey,'NodeData,'EdgeData>)) =
         Diameter.ofFGraph weigthF graph
 
     /// <summary> 
@@ -50,5 +83,5 @@ type Diameter() =
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((weigthF:'EdgeData->float),(graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
+    static member computeWithEdgeDataBy((weigthF:'EdgeData->float),(graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
         Diameter.ofAdjGraph weigthF graph

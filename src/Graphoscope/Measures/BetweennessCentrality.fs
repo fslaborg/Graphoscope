@@ -136,15 +136,15 @@ type BetweennessCentrality() =
 
 
 
-
-
-
-
-
-
-
-
-
+    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+        BetweennessCentrality.ofAdjGraph (fun x -> 1.) graph
+    
+    static member computeWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float> ) =
+        BetweennessCentrality.ofAdjGraph id graph
+    
+    static member computeWithEdgeDataBy ((getEdgeWeight : 'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> )) =
+        BetweennessCentrality.ofAdjGraph getEdgeWeight graph
+    
 
 //     /// <summary> 
 //     /// Get all of the shortest paths of a FGraph
