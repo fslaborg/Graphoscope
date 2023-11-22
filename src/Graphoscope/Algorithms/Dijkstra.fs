@@ -4,6 +4,25 @@ open FSharpAux
 open Graphoscope
 open System.Collections.Generic
 
+module private Helpers =
+    let getUserOutputWithPath (sourceIx: int) (prev: int option []) (nodeKeys: ResizeArray<'NodeKey>) (distances: float []) =
+        let rec loop (target: int) (acc: 'NodeKey []) =
+            let previous = prev[target]
+            match previous with
+            | None -> None
+            | Some p -> 
+                if p = sourceIx then
+                    Some acc
+                else
+                    loop p (Array.append [|nodeKeys[p]|] acc)
+
+        distances
+        |> Array.mapi(fun i x ->
+            nodeKeys[i],
+            x,
+            loop i [||]
+        )
+
 /// <summary> 
 /// Computes Dijkstra's shortest path
 /// </summary>
@@ -164,6 +183,37 @@ type Dijkstra() =
     /// </summary>
     /// <param name="graph"> The graph for which to compute the shortest path.</param>
     /// <param name="source"> Calculate the shortest paths from this node.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`. Path only contains intermediate steps.</remarks>
+    /// <returns>Array of tuples of target NodeKey, distance, and path option.</returns>
+    static member ofUndirectedWithPath (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>): ('NodeKey * float * 'NodeKey [] option) [] =
+        let que = SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
+        let sourceIx = graph.IdMap[source]
+        let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
+        let prev = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then Some sourceIx else  None)
+
+        que.Add((sourceIx, 0.)) |> ignore
+
+        while que.Count > 0 do
+            let (currentNodeIx, currentDistance) = que.Min
+            que.Remove(que.Min) |> ignore
+
+            let neighbors = graph.Edges[currentNodeIx]
+
+            for (ix, ed) in neighbors do
+                let newCost = currentDistance + (getEdgeWeight ed)
+                if newCost < dist[ix] then
+                    dist[ix] <- newCost
+                    prev[ix] <- Some currentNodeIx
+                    que.Add((ix, newCost)) |> ignore
+
+        dist
+        |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
+
+    /// <summary> 
+    /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+    /// </summary>
+    /// <param name="graph"> The graph for which to compute the shortest path.</param>
+    /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
     static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : ('NodeKey * float) [] =
@@ -186,6 +236,37 @@ type Dijkstra() =
                     dist[ix] <- newCost
         dist
         |> Array.mapi(fun i x -> graph.NodeKeys[i], x)
+
+    /// <summary> 
+    /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+    /// </summary>
+    /// <param name="graph"> The graph for which to compute the shortest path.</param>
+    /// <param name="source"> Calculate the shortest paths from this node.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`. Path only contains intermediate steps.</remarks>
+    /// <returns>Array of tuples of target NodeKey, distance, and path option.</returns>
+    static member ofDiGraphWithPath (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : ('NodeKey * float * 'NodeKey [] option) [] =
+        let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
+        let sourceIx = graph.IdMap[source]
+        let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
+        let prev = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then Some sourceIx else  None)
+
+        que.Add((sourceIx, 0.)) |> ignore
+
+        while que.Count > 0 do
+            let (currentNodeIx, currentDistance) = que.Min
+            que.Remove(que.Min) |> ignore
+
+            let successors = graph.OutEdges[currentNodeIx]
+
+            for (ix, ed) in successors do
+                let newCost = currentDistance + (getEdgeWeight ed)
+                if newCost < dist[ix] then
+                    dist[ix] <- newCost
+                    prev[ix] <- Some currentNodeIx
+                    que.Add((ix, newCost)) |> ignore
+
+        dist
+        |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
 
     /// <summary> 
     /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
@@ -219,6 +300,54 @@ type Dijkstra() =
         graph.NodeKeys |> Array.ofSeq,
         dijkstra |> Array.Parallel.init graph.NodeKeys.Count
 
+    /// <summary> 
+    /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
+    /// </summary>
+    /// <param name="graph"> The graph for which to compute the shortest path.</param>
+    /// <param name="source"> Calculate the shortest paths from this node.</param>
+    /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`. Path only contains intermediate steps.</remarks>
+    /// <returns>Array of tuples of target NodeKey, distance, and path option.</returns>
+    static member ofUndirectedAllPairsWithPath (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let dijkstra (sourceIx: int) =
+            let que = SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
+            let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
+            let prev = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then Some sourceIx else  None)
+
+            que.Add((sourceIx, 0.)) |> ignore
+
+            while que.Count > 0 do
+                let (currentNodeIx, currentDistance) = que.Min
+                que.Remove(que.Min) |> ignore
+
+                let neighbors = graph.Edges[currentNodeIx]
+
+                for (ix, ed) in neighbors do
+                    let newCost = currentDistance + (getEdgeWeight ed)
+                    if newCost < dist[ix] then
+                        dist[ix] <- newCost
+                        prev[ix] <- Some currentNodeIx
+                        que.Add((ix, newCost)) |> ignore
+
+            dist
+            |> Array.mapi(fun i x ->
+                let rec loop (target: int) (acc: 'NodeKey []) =
+                    let previous = prev[target]
+                    match previous with
+                    | None -> None
+                    | Some p -> 
+                        if p = sourceIx then
+                            Some acc
+                        else
+                            loop p (Array.append [|graph.NodeKeys[p]|] acc)
+                graph.NodeKeys[sourceIx],    
+                graph.NodeKeys[i],
+                x,
+                loop i [||]
+            )
+
+        dijkstra
+        |> Array.Parallel.init graph.NodeKeys.Count
+    
     /// <summary> 
     /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
     /// </summary>
