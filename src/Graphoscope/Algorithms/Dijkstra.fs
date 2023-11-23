@@ -4,7 +4,7 @@ open FSharpAux
 open Graphoscope
 open System.Collections.Generic
 
-module private Helpers =
+module private DijkstraHelpers =
     let getUserOutputWithPath (sourceIx: int) (prev: int option []) (nodeKeys: ResizeArray<'NodeKey>) (distances: float []) =
         let rec loop (target: int) (acc: 'NodeKey []) =
             let previous = prev[target]
@@ -208,7 +208,7 @@ type Dijkstra() =
                     que.Add((ix, newCost)) |> ignore
 
         dist
-        |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
+        |> DijkstraHelpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
 
     /// <summary> 
     /// Computes shortest paths from <paramref name="source"/> for <paramref name="graph"/> using Dijkstra's algorithm in parallel.
@@ -267,7 +267,7 @@ type Dijkstra() =
                     que.Add((ix, newCost)) |> ignore
 
         dist
-        |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
+        |> DijkstraHelpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
 
     /// <summary> 
     /// Computes all-pairs shortest paths for <paramref name="graph"/> using Dijkstra algorithm in parallel.
@@ -330,7 +330,7 @@ type Dijkstra() =
                         que.Add((ix, newCost)) |> ignore
 
             dist
-            |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
+            |> DijkstraHelpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
 
         dijkstra
         |> Array.Parallel.init graph.NodeKeys.Count
@@ -394,7 +394,7 @@ type Dijkstra() =
                         prev[ix] <- Some currentNodeIx
                         que.Add((ix, newCost)) |> ignore
             dist
-            |> Helpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
+            |> DijkstraHelpers.getUserOutputWithPath sourceIx prev graph.NodeKeys
 
         dijkstra
         |> Array.Parallel.init graph.NodeKeys.Count

@@ -385,7 +385,7 @@ module DiGraph =
         /// </summary>
         /// <param name="getWeight">Function that maps EdgeData to float.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
-        static member sumBy (getWeight: 'EdgeData -> 'R) (graph: DiGraph<_, _, 'EdgeData>) =
+        static member sumBy (getWeight: 'EdgeData -> float) (graph: DiGraph<_, _, 'EdgeData>) =
             (0., graph.InEdges)
             ||> ResizeArray.fold(fun acc1 edges ->
                 (0., edges)

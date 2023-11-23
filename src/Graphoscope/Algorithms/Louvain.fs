@@ -4,7 +4,7 @@ open Graphoscope
 open System.Collections.Generic
 open FSharpAux
 
-module private Helpers =
+module private LouvainHelpers =
     let updateNeighborWeights (nIx: int) (getWeight: 'EdgeData -> float) (weights: Dictionary<int, float>) (node2Community: int []) (edges: ResizeArray<ResizeArray<int * 'EdgeData>>) =
         edges[nIx]
         |> ResizeArray.iter(fun (nbr, ed) ->
@@ -715,11 +715,11 @@ type Louvain() =
 
         let rec loop (g: UndirectedGraph<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
             let partition = partitions |> Array.last
-            let node2Community, innerPartition, newPartition, improvement = Helpers.UndirectedGraph.oneLevel id m resolution (Some partition) g rng
+            let node2Community, innerPartition, newPartition, improvement = LouvainHelpers.UndirectedGraph.oneLevel id m resolution (Some partition) g rng
 
             let newModularity = Measures.Modularity.ofUndirectedGraph id resolution innerPartition g
             if improvement && newModularity - modularity > threshold then
-                let newGraph: UndirectedGraph<int,_,float> = Helpers.UndirectedGraph.genSuperNodeGraph id node2Community g
+                let newGraph: UndirectedGraph<int,_,float> = LouvainHelpers.UndirectedGraph.genSuperNodeGraph id node2Community g
                 loop newGraph (Array.append partitions [|newPartition|]) newModularity
             else
                 partitions
@@ -729,9 +729,9 @@ type Louvain() =
                 )
         
         // Initial
-        let node2Community, innerPartition, partition, _ = Helpers.UndirectedGraph.oneLevel getWeight m resolution None graph rng
+        let node2Community, innerPartition, partition, _ = LouvainHelpers.UndirectedGraph.oneLevel getWeight m resolution None graph rng
         let initialMod = Measures.Modularity.ofUndirectedGraph getWeight resolution innerPartition graph
-        let newGraph = Helpers.UndirectedGraph.genSuperNodeGraph getWeight node2Community graph
+        let newGraph = LouvainHelpers.UndirectedGraph.genSuperNodeGraph getWeight node2Community graph
 
         loop newGraph [|partition|] initialMod
         
@@ -759,10 +759,10 @@ type Louvain() =
         let rec loop (g: DiGraph<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
             let partition = partitions |> Array.last
             let node2Community, innerPartition, newPartition, improvement =
-                Helpers.DiGraph.oneLevel id m resolution (Some partition) g rng
+                LouvainHelpers.DiGraph.oneLevel id m resolution (Some partition) g rng
             let newModularity = Measures.Modularity.ofDiGraph id resolution innerPartition g
             if improvement && newModularity - modularity > threshold then
-                let newGraph: DiGraph<int,_,float> = Helpers.DiGraph.genSuperNodeGraph id node2Community g
+                let newGraph: DiGraph<int,_,float> = LouvainHelpers.DiGraph.genSuperNodeGraph id node2Community g
                 loop newGraph (Array.append partitions [|newPartition|]) newModularity 
             else
                 partitions
@@ -772,9 +772,9 @@ type Louvain() =
                 )
         
         // Initial
-        let node2Community, innerPartition, partition, _ = Helpers.DiGraph.oneLevel getWeight m resolution None graph rng
+        let node2Community, innerPartition, partition, _ = LouvainHelpers.DiGraph.oneLevel getWeight m resolution None graph rng
         let initialMod = Measures.Modularity.ofDiGraph getWeight resolution innerPartition graph
-        let newGraph = Helpers.DiGraph.genSuperNodeGraph getWeight node2Community graph
+        let newGraph = LouvainHelpers.DiGraph.genSuperNodeGraph getWeight node2Community graph
 
         loop newGraph [|partition|] initialMod
         
