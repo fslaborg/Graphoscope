@@ -23,7 +23,7 @@ type Gilbert() =
          for i=0 to (numberOfNodes-1) do          
              for ii=0 to (numberOfNodes-1) do
                  if rnd.NextDouble() < probability then
-                     g |> AdjGraph.addElement i i ii ii (i+ii)  |> ignore
+                     g |> AdjGraph.addElement i i ii ii probability  |> ignore
          g
 
     /// <summary> 

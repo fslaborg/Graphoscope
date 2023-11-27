@@ -240,6 +240,14 @@ type AdjGraph() =
             tmpGraph.Add(tmpNodeKey, (tmpNode,adjComponent))
         tmpGraph
 
+    ///Returns all the nodes as a seq of 'NodeKey * 'NodeData Tuple
+    static member getNodes (g : AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey* 'NodeData> = 
+        g
+        |> Seq.map(fun kvp ->
+            let (nd,s) = kvp.Value
+            kvp.Key,nd
+        )
+
     /// Converts nodes to nodeKey * nodeData array 
     static member toNodeArray (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         let tmp = Array.zeroCreate graph.Count 
@@ -399,7 +407,68 @@ type AdjGraph() =
                     //yield (skv.Key,tkv.Key,tkv.Value)
         }
         |> Seq.distinct
-  
+    
+
+    ///Returns the overlapping nodes of two graphs
+    static member getNodeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
+        let nodeKeySet1 = graph1.Keys|>Set.ofSeq 
+        let nodeKeySet2 = graph2.Keys|>Set.ofSeq 
+        
+        Set.intersect nodeKeySet1 nodeKeySet2 
+
+    ///Returns the overlapping edges of two graphs
+    static member getEdgeOverlap (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
+        let edgeSet1 = graph1|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t;t,s})|>Seq.concat|>Set.ofSeq
+        let edgeSet2 = graph2|>AdjGraph.toEdgeSeq|> Seq.map(fun (s,t,w) -> seq{s,t})    |>Seq.concat|>Set.ofSeq
+        
+        Set.intersect edgeSet1 edgeSet2
+
+    ///Returns the amount of overlapping nodes of two graphs
+    static member getNodeOverlapCount (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) :int = 
+        AdjGraph.getNodeOverlap graph1 graph2
+        |>Set.count
+
+    ///Returns the amount of overlapping edges of two graphs
+    static member getEdgeOverlapCount (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) :int  = 
+        AdjGraph.getEdgeOverlap graph1 graph2
+        |>Set.count
+
+
+
+    static member getSubGraphOfNodeSeq (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) (nodeSeq:seq<'NodeKey>) =
+        let set = nodeSeq|> Set.ofSeq
+        graph
+        |> AdjGraph.toSeq
+        |> Seq.choose(fun (nk1,nd1,nk2,nd2,w) ->
+            if set.Contains nk1 && set.Contains nk2 then
+                Some (nk1,nd1,nk2,nd2,w)
+            else
+                None
+        ) 
+        |> AdjGraph.ofSeq
+
+    static member getNeighourhoodSubgraphByHops (startingNode:'NodeKey) (hopCount:int) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
+
+        let rec loop (visited:Set<'NodeKey>) (toVisit:Set<'NodeKey>) (hops:int) =
+            if hops = hopCount then
+                visited
+            else
+                let newVisited,newToVisit = 
+                    toVisit
+                    |>Seq.fold(fun ((v:Set<'NodeKey>),(tV:Set<'NodeKey>)) x -> 
+                        let nd,neighbours = graph.Item x
+                        v.Add x,
+                        neighbours
+                        |>Seq.fold(fun a x -> a.Add(x.Key)) tV
+
+                    ) (visited,Set.empty) 
+                    
+                loop newVisited newToVisit (hops+1)
+
+        let subNodes = loop ((Set.empty).Add startingNode) (AdjGraph.getNeighbours startingNode graph|>Seq.map fst|>Set) 0
+        AdjGraph.getSubGraphOfNodeSeq graph subNodes
+
+
 module AdjGraph =
     
     /// <summary> 

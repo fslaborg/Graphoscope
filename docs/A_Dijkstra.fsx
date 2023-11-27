@@ -80,7 +80,7 @@ vizGraph
 And now, let´s compute the shortest paths via Dijkstra :
 
 *)
-let dij = Algorithms.Dijkstra.compute(0,id,dwg)
+let dij = Algorithms.Dijkstra.compute(0,dwg)
 
 
 (**

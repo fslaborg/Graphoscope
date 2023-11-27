@@ -25,7 +25,7 @@ type Volume() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
     static member volumeOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        FGraph.countEdges graph
+        FGraph.countEdges graph 
 
     /// <summary> 
     /// Gets the total number of edges of the graph
@@ -33,7 +33,7 @@ type Volume() =
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
     static member volumeOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        AdjGraph.countEdges graph
+        AdjGraph.countEdges graph / 2
        
     /// <summary> 
     /// Gets the total number of edges of the graph

@@ -189,10 +189,10 @@ type DiGraph() =
     /// <param name="graph">The graph to find the edge in</param> 
     /// <returns>A edge as a three part tuple of origin node, the destination node, and any edge label such as the weight.</returns>
     static member find (origin:'NodeKey) (destination:'NodeKey) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
-            let k2 = graph.IdMap[origin]
-            graph.OutEdges[graph.IdMap[origin]]
-            |> ResizeArray.find (fun (k,l) -> k=k2)
-            |> fun (_,l) -> origin, destination, l
+        let destIx = graph.IdMap[destination]
+        graph.OutEdges[graph.IdMap[origin]]
+        |> ResizeArray.find (fun (k, _) -> k = destIx)
+        |> fun (_, ed) -> origin, destination, ed
     
     /// <summary> 
     /// Normalises the weights of outbound edges from each node in a graph.
@@ -373,10 +373,22 @@ module DiGraph =
             DiGraph.addEdge edge graph
 
         /// <summary> 
-        /// Removes an edge to the graph.
+        /// Removes an edge from the graph.
         /// </summary>
         /// <param name="edge">The edge to be removed. A two part tuple containing the origin node, the destination node.</param> 
         /// <param name="graph">The graph the edge will be removed from.</param> 
-        /// <returns>Unit</returns>
         static member removeEdge (edge: ('NodeKey * 'NodeKey)) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)  = 
             DiGraph.removeEdge edge graph
+
+        /// <summary> 
+        /// Sums all Edges according to <paramref name = "getWeight"/>.
+        /// </summary>
+        /// <param name="getWeight">Function that maps EdgeData to float.</param> 
+        /// <param name="graph">The graph the edge will be removed from.</param> 
+        static member sumBy (getWeight: 'EdgeData -> 'R) (graph: DiGraph<_, _, 'EdgeData>) =
+            (0., graph.InEdges)
+            ||> ResizeArray.fold(fun acc1 edges ->
+                (0., edges)
+                ||> ResizeArray.fold(fun acc2 (_, ed) -> acc2 + getWeight ed)
+                |> fun x -> acc1 + x
+            )
