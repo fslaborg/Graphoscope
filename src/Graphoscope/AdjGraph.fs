@@ -430,7 +430,7 @@ type AdjGraph() =
 
     ///Returns the amount of overlapping edges of two graphs
     static member getEdgeOverlapCount (graph1: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (graph2: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) :int  = 
-        AdjGraph.getNodeOverlap graph1 graph2
+        AdjGraph.getEdgeOverlap graph1 graph2
         |>Set.count
 
 
