@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>BFS (Graphoscope)</title>
+    <title>Modularity (Graphoscope)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="FsLab open source contributors">
     <link rel="shortcut icon" type="image/x-icon" href="https://fslab.org/Graphoscope//img/favicon.ico">
@@ -73,13 +73,13 @@
                 <div class="container" id="fsdocs-content">
                     <div>
   <h2>
-    BFS Type
+    Modularity Type
   </h2>
   <dl class="fsdocs-metadata">
     <dt>
       Namespace: 
-      <a href="https://fslab.org/Graphoscope/reference/graphoscope-algorithms.html">
-        Graphoscope.Algorithms
+      <a href="https://fslab.org/Graphoscope/reference/graphoscope-measures.html">
+        Graphoscope.Measures
       </a>
     </dt>
     <dt>
@@ -93,9 +93,7 @@
   <div class="fsdocs-xmldoc">
     <div>
       <p class="fsdocs-summary">
-         
- Breadth-First Traversal (or Search)
- 
+        
       </p>
     </div>
   </div>
@@ -124,24 +122,24 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '181', 181)" onmouseover="showTip(event, '181', 181)">
+              <code onmouseout="hideTip(event, '404', 404)" onmouseover="showTip(event, '404', 404)">
                 <p>
                   <a id="``.ctor``">
                     <a href="#``.ctor``">
-                      <code><span>BFS<span>()</span></span></code>
+                      <code><span>Modularity<span>()</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="181">
+              <div class="fsdocs-tip" id="404">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>BFS<span>()</span></span></code>
+                  <code><span>Modularity<span>()</span></span></code>
                   <br/>
                   <br/>
                   <span>
                     Returns: 
-                    <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-algorithms-bfs.html">BFS</a></code>
+                    <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-measures-modularity.html">Modularity</a></code>
                   </span>
                   <br/>
                 </div>
@@ -150,15 +148,15 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Algorithms.BFS.#ctor`')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('`cref:M:Graphoscope.Measures.Modularity.#ctor`')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.#ctor\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Modularity.#ctor\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L10-10" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Modularity.fs#L6-6" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
@@ -171,7 +169,7 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-algorithms-bfs.html">BFS</a></code>
+                <code><a href="https://fslab.org/Graphoscope/reference/graphoscope-measures-modularity.html">Modularity</a></code>
               </dt>
               <dd class="fsdocs-return-docs"></dd>
             </dl>
@@ -200,33 +198,23 @@
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '182', 182)" onmouseover="showTip(event, '182', 182)">
+              <code onmouseout="hideTip(event, '405', 405)" onmouseover="showTip(event, '405', 405)">
                 <p>
-                  <a id="Compute">
-                    <a href="#Compute">
-                      <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <a id="compute">
+                    <a href="#compute">
+                      <code><span>Modularity.compute&#32;<span><span>(<span>graph,&#32;partition,&#32;?getWeight,&#32;?resolution</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="182">
+              <div class="fsdocs-tip" id="405">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <code><span>Modularity.compute&#32;<span><span>(<span>graph,&#32;partition,&#32;?getWeight,&#32;?resolution</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
-                    <span>
-                      <b>
-                        starting
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      Nodekey for starting the BFS traversal.
-                    </span>
-                    <br/>
                     <span>
                       <b>
                         graph
@@ -234,16 +222,49 @@
                       :
                       <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to traverse.
+                      The graph to analyse
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        partition
+                      </b>
+                      :
+                      <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+                       - 
+                      A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ?getWeight
+                      </b>
+                      :
+                      <code><span>'EdgeData&#32;->&#32;float</span></code>
+                       - 
+                      Function to get the edge weight from 'EdgeData.
+ Optional; defaults to each edge weight being equal to 1.0.
+ 
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ?resolution
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+ Optional; default = 1.0
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code>'a</code>
+                    <code>float</code>
                   </span>
-                  Sequence of node key and node data
                   <br/>
                 </div>
               </div>
@@ -251,37 +272,26 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``4```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Modularity.compute``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``4\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Modularity.compute``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L108-108" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Modularity.fs#L120-120" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ Finds the modularity of a given <span class="fsdocs-param-name">partition</span> of the <span class="fsdocs-param-name">graph</span>,
+ where <span class="fsdocs-param-name">partition</span> is a sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>.
  
               </p>
             </div>
             <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  starting
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  Nodekey for starting the BFS traversal.
-                </p>
-              </dd>
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
                   graph
@@ -291,7 +301,47 @@
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to traverse.
+                  The graph to analyse
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  partition
+                </span>
+                :
+                <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ?getWeight
+                </span>
+                :
+                <code><span>'EdgeData&#32;->&#32;float</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  Function to get the edge weight from 'EdgeData.
+ Optional; defaults to each edge weight being equal to 1.0.
+ 
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ?resolution
+                </span>
+                :
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+ Optional; default = 1.0
                 </p>
               </dd>
             </dl>
@@ -300,63 +350,82 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code>'a</code>
+                <code>float</code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Sequence of node key and node data
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '183', 183)" onmouseover="showTip(event, '183', 183)">
+              <code onmouseout="hideTip(event, '406', 406)" onmouseover="showTip(event, '406', 406)">
                 <p>
-                  <a id="Compute">
-                    <a href="#Compute">
-                      <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <a id="compute">
+                    <a href="#compute">
+                      <code><span>Modularity.compute&#32;<span><span>(<span>graph,&#32;partition,&#32;?getWeight,&#32;?resolution</span>)</span></span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="183">
+              <div class="fsdocs-tip" id="406">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <code><span>Modularity.compute&#32;<span><span>(<span>graph,&#32;partition,&#32;?getWeight,&#32;?resolution</span>)</span></span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        starting
+                        graph
                       </b>
                       :
-                      <code>'NodeKey</code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      Nodekey for starting the BFS traversal.
+                      The graph to analyse
                     </span>
                     <br/>
                     <span>
                       <b>
-                        graph
+                        partition
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
                        - 
-                      The graph to traverse.
+                      A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ?getWeight
+                      </b>
+                      :
+                      <code><span>'EdgeData&#32;->&#32;float</span></code>
+                       - 
+                      Function to get the edge weight from 'EdgeData.
+ Optional; defaults to each edge weight being equal to 1.0.
+ 
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        ?resolution
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+ Optional; default = 1.0
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
-                  Sequence of node key and node data
                   <br/>
                 </div>
               </div>
@@ -364,47 +433,76 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Modularity.compute``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Modularity.compute``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L97-97" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Modularity.fs#L102-102" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ Finds the modularity of a given <span class="fsdocs-param-name">partition</span> of the <span class="fsdocs-param-name">graph</span>,
+ where <span class="fsdocs-param-name">partition</span> is a sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>.
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  starting
+                  graph
                 </span>
                 :
-                <code>'NodeKey</code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  Nodekey for starting the BFS traversal.
+                  The graph to analyse
                 </p>
               </dd>
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  graph
+                  partition
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to traverse.
+                  A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ?getWeight
+                </span>
+                :
+                <code><span>'EdgeData&#32;->&#32;float</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  Function to get the edge weight from 'EdgeData.
+ Optional; defaults to each edge weight being equal to 1.0.
+ 
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  ?resolution
+                </span>
+                :
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+ Optional; default = 1.0
                 </p>
               </dd>
             </dl>
@@ -413,44 +511,61 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Sequence of node key and node data
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '184', 184)" onmouseover="showTip(event, '184', 184)">
+              <code onmouseout="hideTip(event, '407', 407)" onmouseover="showTip(event, '407', 407)">
                 <p>
-                  <a id="Compute">
-                    <a href="#Compute">
-                      <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <a id="ofDiGraph">
+                    <a href="#ofDiGraph">
+                      <code><span>Modularity.ofDiGraph&#32;<span>getWeight&#32;resolution&#32;partition&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="184">
+              <div class="fsdocs-tip" id="407">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>BFS.Compute<span><span>(<span>starting,&#32;graph</span>)</span></span></span></code>
+                  <code><span>Modularity.ofDiGraph&#32;<span>getWeight&#32;resolution&#32;partition&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        starting
+                        getWeight
                       </b>
                       :
-                      <code>'NodeKey</code>
+                      <code><span>'EdgeData&#32;->&#32;float</span></code>
                        - 
-                      Nodekey for starting the BFS traversal.
+                      Function to get the edge weight from 'EdgeData.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        resolution
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        partition
+                      </b>
+                      :
+                      <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+                       - 
+                      A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
                     </span>
                     <br/>
                     <span>
@@ -458,18 +573,17 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to traverse.
+                      The graph to analyse
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
-                  Sequence of node key and node data
                   <br/>
                 </div>
               </div>
@@ -477,35 +591,61 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.Compute``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Modularity.ofDiGraph``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.Compute``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Modularity.ofDiGraph``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L87-87" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Modularity.fs#L61-61" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ Finds the modularity of a given <span class="fsdocs-param-name">partition</span> of the <span class="fsdocs-param-name">graph</span>,
+ where <span class="fsdocs-param-name">partition</span> is a sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>.
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  starting
+                  getWeight
                 </span>
                 :
-                <code>'NodeKey</code>
+                <code><span>'EdgeData&#32;->&#32;float</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  Nodekey for starting the BFS traversal.
+                  Function to get the edge weight from 'EdgeData.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  resolution
+                </span>
+                :
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  partition
+                </span>
+                :
+                <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
                 </p>
               </dd>
               <dt class="fsdocs-param">
@@ -513,11 +653,11 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-digraph-3.html">DiGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to traverse.
+                  The graph to analyse
                 </p>
               </dd>
             </dl>
@@ -526,44 +666,61 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Sequence of node key and node data
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
         <tr>
           <td class="fsdocs-member-usage">
             <div>
-              <code onmouseout="hideTip(event, '185', 185)" onmouseover="showTip(event, '185', 185)">
+              <code onmouseout="hideTip(event, '408', 408)" onmouseover="showTip(event, '408', 408)">
                 <p>
-                  <a id="ofAdjGraph">
-                    <a href="#ofAdjGraph">
-                      <code><span>BFS.ofAdjGraph&#32;<span>starting&#32;graph</span></span></code>
+                  <a id="ofUndirectedGraph">
+                    <a href="#ofUndirectedGraph">
+                      <code><span>Modularity.ofUndirectedGraph&#32;<span>getWeight&#32;resolution&#32;partition&#32;graph</span></span></code>
                     </a>
                   </a>
                 </p>
               </code>
-              <div class="fsdocs-tip" id="185">
+              <div class="fsdocs-tip" id="408">
                 <div class="member-tooltip">
                   Full Usage: 
-                  <code><span>BFS.ofAdjGraph&#32;<span>starting&#32;graph</span></span></code>
+                  <code><span>Modularity.ofUndirectedGraph&#32;<span>getWeight&#32;resolution&#32;partition&#32;graph</span></span></code>
                   <br/>
                   <br/>
                   Parameters: 
                   <ul>
                     <span>
                       <b>
-                        starting
+                        getWeight
                       </b>
                       :
-                      <code>'NodeKey</code>
+                      <code><span>'EdgeData&#32;->&#32;float</span></code>
                        - 
-                      Nodekey for starting the BFS traversal.
+                      Function to get the edge weight from 'EdgeData.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        resolution
+                      </b>
+                      :
+                      <code>float</code>
+                       - 
+                      If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+                    </span>
+                    <br/>
+                    <span>
+                      <b>
+                        partition
+                      </b>
+                      :
+                      <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+                       - 
+                      A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
                     </span>
                     <br/>
                     <span>
@@ -571,18 +728,17 @@
                         graph
                       </b>
                       :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
                        - 
-                      The graph to traverse.
+                      The graph to analyse
                     </span>
                     <br/>
                   </ul>
                   <br/>
                   <span>
                     Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                    <code>float</code>
                   </span>
-                  Sequence of node key and node data
                   <br/>
                 </div>
               </div>
@@ -590,35 +746,61 @@
           </td>
           <td class="fsdocs-member-xmldoc">
             <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.ofAdjGraph``3```')">
+              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Measures.Modularity.ofUndirectedGraph``3```')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
               </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.ofAdjGraph``3\'/>')">
+              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Measures.Modularity.ofUndirectedGraph``3\'/>')">
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
               </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L41-41" class="fsdocs-source-link" title="Source on GitHub">
+              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Measures/Modularity.fs#L23-23" class="fsdocs-source-link" title="Source on GitHub">
                 <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
                 <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
               </a>
               <p class="fsdocs-summary">
                  
- Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+ Finds the modularity of a given <span class="fsdocs-param-name">partition</span> of the <span class="fsdocs-param-name">graph</span>,
+ where <span class="fsdocs-param-name">partition</span> is a sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>.
  
               </p>
             </div>
             <dl class="fsdocs-params">
               <dt class="fsdocs-param">
                 <span class="fsdocs-param-name">
-                  starting
+                  getWeight
                 </span>
                 :
-                <code>'NodeKey</code>
+                <code><span>'EdgeData&#32;->&#32;float</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  Nodekey for starting the BFS traversal.
+                  Function to get the edge weight from 'EdgeData.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  resolution
+                </span>
+                :
+                <code>float</code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  If resolution is less than 1, modularity favors
+ larger communities. Greater than 1 favors smaller communities.
+                </p>
+              </dd>
+              <dt class="fsdocs-param">
+                <span class="fsdocs-param-name">
+                  partition
+                </span>
+                :
+                <code><span><span><a href="https://fsharp.github.io/fsharp-core-docs/reference/fsharp-collections-fsharpset-1">Set</a>&lt;'NodeKey&gt;</span>[]</span></code>
+              </dt>
+              <dd class="fsdocs-param-docs">
+                <p>
+                  A sequence of Set of nodes that collectively exhaust all the nodes in the<span class="fsdocs-param-name">graph</span>
                 </p>
               </dd>
               <dt class="fsdocs-param">
@@ -626,11 +808,11 @@
                   graph
                 </span>
                 :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-adjgraph-3.html">AdjGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
+                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-undirectedgraph-3.html">UndirectedGraph</a>&lt;<span>'NodeKey,&#32;'c,&#32;'EdgeData</span>&gt;</span></code>
               </dt>
               <dd class="fsdocs-param-docs">
                 <p>
-                  The graph to traverse.
+                  The graph to analyse
                 </p>
               </dd>
             </dl>
@@ -639,126 +821,9 @@
                 <span class="fsdocs-return-name">
                   Returns: 
                 </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
+                <code>float</code>
               </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Sequence of node key and node data
-                </p>
-              </dd>
-            </dl>
-          </td>
-        </tr>
-        <tr>
-          <td class="fsdocs-member-usage">
-            <div>
-              <code onmouseout="hideTip(event, '186', 186)" onmouseover="showTip(event, '186', 186)">
-                <p>
-                  <a id="ofFGraph">
-                    <a href="#ofFGraph">
-                      <code><span>BFS.ofFGraph&#32;<span>starting&#32;graph</span></span></code>
-                    </a>
-                  </a>
-                </p>
-              </code>
-              <div class="fsdocs-tip" id="186">
-                <div class="member-tooltip">
-                  Full Usage: 
-                  <code><span>BFS.ofFGraph&#32;<span>starting&#32;graph</span></span></code>
-                  <br/>
-                  <br/>
-                  Parameters: 
-                  <ul>
-                    <span>
-                      <b>
-                        starting
-                      </b>
-                      :
-                      <code>'NodeKey</code>
-                       - 
-                      Nodekey for starting the BFS traversal.
-                    </span>
-                    <br/>
-                    <span>
-                      <b>
-                        graph
-                      </b>
-                      :
-                      <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-                       - 
-                      The graph to traverse.
-                    </span>
-                    <br/>
-                  </ul>
-                  <br/>
-                  <span>
-                    Returns: 
-                    <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
-                  </span>
-                  Sequence of node key and node data
-                  <br/>
-                </div>
-              </div>
-            </div>
-          </td>
-          <td class="fsdocs-member-xmldoc">
-            <div class="fsdocs-summary">
-              <div class="fsdocs-source-link" title="Copy signature (Markdown)" onclick="Clipboard_CopyTo('```cref:M:Graphoscope.Algorithms.BFS.ofFGraph``3```')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-md-hover.png" class="hover"/>
-              </div>
-              <div class="fsdocs-source-link" title="Copy signature (XML)" onclick="Clipboard_CopyTo('<see cref=\'M:Graphoscope.Algorithms.BFS.ofFGraph``3\'/>')">
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/copy-xml-hover.png" class="hover"/>
-              </div>
-              <a href="https://github.com/fslaborg/Graphoscope/tree/master/src/Graphoscope/Algorithms/BFS.fs#L18-18" class="fsdocs-source-link" title="Source on GitHub">
-                <img src="https://fslab.org/Graphoscope/content/img/github.png" class="normal"/>
-                <img src="https://fslab.org/Graphoscope/content/img/github-hover.png" class="hover"/>
-              </a>
-              <p class="fsdocs-summary">
-                 
- Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
- 
-              </p>
-            </div>
-            <dl class="fsdocs-params">
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  starting
-                </span>
-                :
-                <code>'NodeKey</code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  Nodekey for starting the BFS traversal.
-                </p>
-              </dd>
-              <dt class="fsdocs-param">
-                <span class="fsdocs-param-name">
-                  graph
-                </span>
-                :
-                <code><span><a href="https://fslab.org/Graphoscope/reference/graphoscope-fgraph-3.html">FGraph</a>&lt;<span>'NodeKey,&#32;'NodeData,&#32;'EdgeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-param-docs">
-                <p>
-                  The graph to traverse.
-                </p>
-              </dd>
-            </dl>
-            <dl class="fsdocs-returns">
-              <dt>
-                <span class="fsdocs-return-name">
-                  Returns: 
-                </span>
-                <code><span>seq&lt;<span>'NodeKey&#32;*&#32;'NodeData</span>&gt;</span></code>
-              </dt>
-              <dd class="fsdocs-return-docs">
-                <p>
-                  Sequence of node key and node data
-                </p>
-              </dd>
+              <dd class="fsdocs-return-docs"></dd>
             </dl>
           </td>
         </tr>
