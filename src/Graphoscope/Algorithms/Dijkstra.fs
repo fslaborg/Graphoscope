@@ -14,7 +14,8 @@ type Dijkstra() =
     static member ofFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         //let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
-        let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+        //let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+        let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let infinity = System.Double.MaxValue
 
         // Initialize distances to infinity for all nodes except the starting node
@@ -25,31 +26,39 @@ type Dijkstra() =
             else
                 distance.[nodeKey] <- infinity
 
-        priorityQueue.Enqueue((starting, 0.)) |> ignore
+        //priorityQueue.Enqueue((starting, 0.)) |> ignore
+        
+        priorityQueue.Add((starting, 0.)) |> ignore
 
         while priorityQueue.Count > 0 do
-            let (currentNode, currentDistance) = priorityQueue.Dequeue()
+            //let (currentNode, currentDistance) = priorityQueue.Dequeue()
             //priorityQueue.Remove(priorityQueue.Min) |> ignore
-        
+            let (currentNode, currentDistance) = priorityQueue.Min
+            priorityQueue.Remove((currentNode, currentDistance)) |> ignore
+
+
+
             let (_, _, predecessors) = graph.[currentNode]
 
             for kv in predecessors do
-                let kvValue = kv.Value |> getEdgeWeight
-                if kvValue < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
-                let totalDistance = (currentDistance + kvValue) // Assuming edgeWeight is always 1 in this example
-                // Impove getValue
-                if totalDistance < distance.[kv.Key] then
-                    distance.[kv.Key] <- totalDistance
-                    priorityQueue.Enqueue(kv.Key,totalDistance) |> ignore
-                    Seq.sortBy snd priorityQueue |>ignore
-
+                if kv.Key <> currentNode then
+                    let kvValue = kv.Value |> getEdgeWeight
+                    if kvValue < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
+                    let totalDistance = (currentDistance + kvValue) // Assuming edgeWeight is always 1 in this example
+                    // Impove getValue
+                    if totalDistance < distance.[kv.Key] then
+                        distance.[kv.Key] <- totalDistance
+                        //priorityQueue.Enqueue(kv.Key,totalDistance) |> ignore
+                        priorityQueue.Add(kv.Key,totalDistance) |> ignore
+                        //Seq.sortBy snd priorityQueue |>ignore
 
         distance
 
     // Function to perform Dijkstra's shortest path algorithm
     static member ofAdjGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
-        let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+        //let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+        let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let infinity = System.Double.MaxValue
 
         // Initialize distances to infinity for all nodes except the starting node
@@ -60,23 +69,28 @@ type Dijkstra() =
             else
                 distance.[nodeKey] <- infinity
 
-        priorityQueue.Enqueue((starting, 0.)) |> ignore
+        //priorityQueue.Enqueue((starting, 0.)) |> ignore
+        priorityQueue.Add((starting, 0.)) |> ignore
 
         while priorityQueue.Count > 0 do
-            let ((currentNode), currentDistance) = priorityQueue.Dequeue()
-            //priorityQueue.Remove(priorityQueue.Min) |> ignore
+            
+            //let ((currentNode), currentDistance) = priorityQueue.Dequeue()
+            let (currentNode, currentDistance) = priorityQueue.Min
+            priorityQueue.Remove((currentNode, currentDistance)) |> ignore
         
             let neighbours = AdjGraph.getNeighbours currentNode graph
 
             for node,rawDistance in neighbours do
-                let weightedDistance = rawDistance |> getEdgeWeight
-                if weightedDistance < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
-                let totalDistance = (currentDistance + weightedDistance) // Assuming edgeWeight is always 1 in this example
-                // Impove getValue
-                if totalDistance < distance.[node] then
-                    distance.[node] <- totalDistance
-                    priorityQueue.Enqueue(node,totalDistance) |> ignore
-                    Seq.sortBy snd priorityQueue |>ignore
+                if node <> currentNode then
+                    let weightedDistance = rawDistance |> getEdgeWeight
+                    if weightedDistance < 0. then failwithf "Dijkstra does not handle neg. edge weigth"
+                    let totalDistance = (currentDistance + weightedDistance) // Assuming edgeWeight is always 1 in this example
+                    // Impove getValue
+                    if totalDistance < distance.[node] then
+                        distance.[node] <- totalDistance
+                        //priorityQueue.Enqueue(node,totalDistance) |> ignore
+                        //Seq.sortBy snd priorityQueue |>ignore
+                        priorityQueue.Add(node,totalDistance) |> ignore
 
         distance
 
