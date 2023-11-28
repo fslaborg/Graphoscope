@@ -104,7 +104,6 @@ type FGraph() =
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
-
     /// <returns>FGraph with new element</returns>
     static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
@@ -368,7 +367,7 @@ type FGraph() =
                     p1.Add(nk1,ed)
                     
         g
-        
+
     ///Add labeled, directed edges to the graph.
     static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
         Seq.iter (fun (nk1,nk2,ed) -> FGraph.addEdge nk1 nk2 ed g|>ignore) edgeSeq|>ignore
@@ -395,7 +394,19 @@ type FGraph() =
             let (_, _, s) = skv.Value
             for tkv in s do  
                 action skv.Key tkv.Key tkv.Value
-        
+
+    /// Maps the given function on each egdge of the graph
+    static member mapEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        graph
+        |>Seq.map(fun skv ->
+            skv.Value
+            |> fun (_,_,s) -> s
+            |> Seq.map(fun tkv ->
+                action skv.Key tkv.Key tkv.Value
+            )
+        )
+        |> Seq.concat
+
     /// Applies the given function on every edge of the graph, which also receives an ascending integer index.
     static member iteriEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         let mutable index = -1
@@ -404,6 +415,53 @@ type FGraph() =
             for tkv in s do  
                 index <- index + 1
                 action index skv.Key tkv.Key tkv.Value
+
+    /// Maps the given function on each egdge of the graph
+    static member mapiEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let mutable index = -1
+        graph
+        |>Seq.map(fun skv ->
+            skv.Value
+            |> fun (_,_,s) -> s
+            |> Seq.map(fun tkv ->
+                index <- index + 1
+                action index skv.Key tkv.Key tkv.Value
+            )
+        )
+        |> Seq.concat
+
+    ///Set the EdgeData of a given Edge between nk1 and nk2 to the given EdgeData
+    static member setEdgeData (nk1: 'NodeKey) (nk2: 'NodeKey)(ed: 'EdgeData) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+        let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
+        match g.TryGetValue(nk1,&contextNk1) with
+        | false -> failwithf "Source Node %O does not exist" nk1 
+        | true  ->
+            if nk1 <> nk2 then
+                let mutable contextNk2 = (null,Unchecked.defaultof<'NodeData>,null)
+                match g.TryGetValue(nk2,&contextNk2) with
+                | false -> failwithf "Edge to Target Node %O does not exist" nk2
+                | true  ->   
+                    let p1, nd1, s1 = contextNk1
+                    //let mutable s1_ = Unchecked.defaultof<'EdgeData>
+                    match s1.ContainsKey(nk2) with                    
+                    | true  -> 
+                        s1.Item nk2 <- (ed)
+                        let (p2, nd2, s2) = contextNk2
+                        p2.Item nk1 <- (ed)
+
+                    | false -> 
+                        failwithf "An Edge between Source Node %O Target Node %O does not exist" nk1 nk2
+
+            else
+                let p1, nd1, s1 = contextNk1
+                match s1.ContainsKey(nk1) with 
+                | true -> 
+                    s1.Item nk2 <- (ed)
+                    p1.Item nk1 <- (ed)
+                | false ->
+                    failwithf "An Edge between Source Node %O Target Node %O does not exist" nk1 nk2
+                    
+        g
 
     /// <summary> 
     /// Returns the FGraph edges as a sequence of edges 
@@ -448,7 +506,53 @@ type FGraph() =
         // static member filter (predicate)
         // ///Removes an edge from the graph.
         // static member remove 
-        
+    
+    ///Returns if the given graph features loops
+    static member hasLoops (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        graph
+        |> Seq.countIf (fun (kv: KeyValuePair<'NodeKey,FContext<'NodeKey,'NodeData,'EdgeData>>) -> 
+            let p,d,s = kv.Value
+            p|>Dictionary.containsKey kv.Key
+        )
+        |> fun x -> x<>0
+
+    ///Returns if the given graph does not feature loops
+    static member isSimple (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        graph
+        |> Seq.countIf (fun (kv: KeyValuePair<'NodeKey,FContext<'NodeKey,'NodeData,'EdgeData>>) -> 
+            let p,d,s = kv.Value
+            p|>Dictionary.containsKey kv.Key
+        )
+        |> fun x -> x=0
+
+    static member getNodeLabel (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) :'NodeData =
+        graph.Item nk
+        |> fun (p,d,s) -> d
+
+    static member getSubgraphOfNodeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nkSeq:seq<'NodeKey>) =
+        let nkSet = Set.ofSeq nkSeq
+        graph
+        |> FGraph.toSeq
+        |> Seq.filter(fun (s,sd,t,td,w) ->
+            nkSet.Contains s && nkSet.Contains t)
+        |> FGraph.ofSeq
+
+    static member getSubgraphOfNodeLabelFilter (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeDataFilter:'NodeData -> bool) =
+        graph
+        |> FGraph.toSeq
+        |> Seq.filter(fun (s,sd,t,td,w) ->
+            nodeDataFilter sd && nodeDataFilter td)
+        |> FGraph.ofSeq
+
+    static member getSubgraphOfNodeFilter (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey -> bool) =
+        graph
+        |> FGraph.toSeq
+        |> Seq.filter(fun (s,sd,t,td,w) ->
+            nodeFilter s && nodeFilter t)
+        |> FGraph.ofSeq
+
+
+
 
 module FGraph =
 
