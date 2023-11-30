@@ -528,7 +528,9 @@ type FGraph() =
     static member getNodeLabel (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) :'NodeData =
         graph.Item nk
         |> fun (p,d,s) -> d
-
+    
+  
+  //TODO
     static member getSubgraphOfNodeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nkSeq:seq<'NodeKey>) =
         let nkSet = Set.ofSeq nkSeq
         graph
@@ -537,21 +539,248 @@ type FGraph() =
             nkSet.Contains s && nkSet.Contains t)
         |> FGraph.ofSeq
 
-    static member getSubgraphOfNodeLabelFilter (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeDataFilter:'NodeData -> bool) =
+    static member filterGraphByNodeKey (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
         graph
-        |> FGraph.toSeq
-        |> Seq.filter(fun (s,sd,t,td,w) ->
-            nodeDataFilter sd && nodeDataFilter td)
-        |> FGraph.ofSeq
+        |> Seq.iter(fun kvp ->
+            if nodeFilter (kvp.Key) then
+                let p,d,s = kvp.Value
+                
+                let sNew:Dictionary<'NodeKey,'EdgeData> =  
+                    let dicS :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                    s|>Seq.iter(fun tsv -> if nodeFilter tsv.Key then dicS.Add(tsv.Key,tsv.Value))
+                    dicS
+                let pNew:Dictionary<'NodeKey,'EdgeData> =  
+                    let dicP :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                    p|>Seq.iter(fun tsv -> if nodeFilter tsv.Key then dicP.Add(tsv.Key,tsv.Value))
+                    dicP
 
-    static member getSubgraphOfNodeFilter (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey -> bool) =
+                newGraph.Add (kvp.Key,(pNew,d,sNew))
+        )
+        newGraph
+
+    static member filterGraphByNodeKeyInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
         graph
-        |> FGraph.toSeq
-        |> Seq.filter(fun (s,sd,t,td,w) ->
-            nodeFilter s && nodeFilter t)
-        |> FGraph.ofSeq
+        |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
+            if nodeFilter (kvp.Key) |> not then
+                graph.Remove kvp.Key |> ignore              
+            else
+                let p,d,s = kvp.Value
+                p|>Seq.iter(fun tsv -> if nodeFilter tsv.Key |>not then p.Remove tsv.Key|>ignore)
+                s|>Seq.iter(fun tsv -> if nodeFilter tsv.Key |>not then s.Remove tsv.Key|>ignore)
+        )
+        graph
 
+    static member filterGraphByEdge (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
 
+        graph
+        |> Seq.iter(fun (kvp) -> 
+            let (p,d,s) = kvp.Value
+            let pNew:Dictionary<'NodeKey,'EdgeData> =  
+                let dicP :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                p|>Seq.iter(fun tvp -> if edgeFilter tvp.Key kvp.Key then dicP.Add(tvp.Key,tvp.Value))
+                dicP
+            let sNew:Dictionary<'NodeKey,'EdgeData> =  
+                let dicS :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                s|>Seq.iter(fun tvp -> if edgeFilter kvp.Key tvp.Key then dicS.Add(tvp.Key,tvp.Value))
+                dicS
+            newGraph.Add(kvp.Key,(pNew,d,sNew))
+        )
+
+        newGraph
+
+    static member filterGraphByEdgeInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun (kvp) -> 
+            let (p,d,s) = kvp.Value        
+            (p|>Seq.iter(fun tvp -> if edgeFilter tvp.Key kvp.Key |>not then p.Remove tvp.Key|>ignore))
+            (s|>Seq.iter(fun tvp -> if edgeFilter kvp.Key tvp.Key |>not then s.Remove tvp.Key|>ignore))     
+        )
+
+        graph
+    
+    static member filterGraphByContext (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+        graph
+        |> Seq.iter(fun kvp ->
+            if contextFilter (kvp.Value) then
+                let p,d,s = kvp.Value
+                
+                let sNew:Dictionary<'NodeKey,'EdgeData> =  
+                    let dicS :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                    s|>Seq.iter(fun tsv -> if contextFilter graph.[tsv.Key] then dicS.Add(tsv.Key,tsv.Value))
+                    dicS
+                let pNew:Dictionary<'NodeKey,'EdgeData> =  
+                    let dicP :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                    p|>Seq.iter(fun tsv -> if contextFilter graph.[tsv.Key] then dicP.Add(tsv.Key,tsv.Value))
+                    dicP
+
+                newGraph.Add (kvp.Key,(pNew,d,sNew))
+        )
+        newGraph
+
+    static member filterGraphByContextInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
+            if contextFilter (kvp.Value) |> not then
+                graph.Remove kvp.Key |> ignore              
+            else
+                let p,d,s = kvp.Value
+                p|>Seq.iter(fun tsv -> if contextFilter graph.[tsv.Key] |>not then p.Remove tsv.Key|>ignore)
+                s|>Seq.iter(fun tsv -> if contextFilter graph.[tsv.Key] |>not then s.Remove tsv.Key|>ignore)
+        )
+        graph
+
+    static member mapNodeData (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData_) : FGraph<'NodeKey, 'NodeData_, 'EdgeData> =
+        let newGraph :FGraph<'NodeKey, 'NodeData_, 'EdgeData> = Dictionary<_,_>() 
+        graph
+        |> Seq.iter(fun kvp ->
+            
+            let p,d,s = kvp.Value
+            let mappedNodeData = mapping d   
+            let pCloned = new Dictionary<'NodeKey,'EdgeData>(p)
+            let sCloned = new Dictionary<'NodeKey,'EdgeData>(s)
+
+            newGraph.Add (kvp.Key,(pCloned,mappedNodeData,sCloned))
+        )
+        newGraph
+
+    static member mapNodeDataInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
+            let p,d,s = kvp.Value
+            let mappedNodeData = mapping d   
+            graph.Item kvp.Key <- (p,mappedNodeData,s)
+            )
+        graph
+
+    static member mapNodeKey (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey_) : FGraph<'NodeKey_, 'NodeData, 'EdgeData> =
+        let newGraph :FGraph<'NodeKey_, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+        graph
+        |> Seq.iter(fun kvp ->
+            let newKey = mapping kvp.Key
+            let p,d,s = kvp.Value
+
+            let pNew:Dictionary<'NodeKey_,'EdgeData> =  
+                let dicP :Dictionary<'NodeKey_,'EdgeData> = new Dictionary<_,_>() 
+                p
+                |>Seq.iter(fun tvp -> 
+                    let mappedNode = mapping tvp.Key
+                    dicP.Add(mappedNode,tvp.Value)
+                )
+                dicP
+
+            let sNew:Dictionary<'NodeKey_,'EdgeData> =  
+                let dicS :Dictionary<'NodeKey_,'EdgeData> = new Dictionary<_,_>() 
+                s
+                |>Seq.iter(fun tvp -> 
+                    let mappedNode = mapping tvp.Key
+                    dicS.Add(mappedNode,tvp.Value)
+                )
+                dicS
+
+            newGraph.Add (newKey,(pNew,d,sNew))
+        )
+        newGraph
+
+    static member mapNodeKeyInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
+            let newKey = mapping kvp.Key
+            let p,d,s = kvp.Value
+
+            let pNew:Dictionary<'NodeKey,'EdgeData> =  
+                let dicP :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                p
+                |>Seq.iter(fun tvp -> 
+                    let mappedNode = mapping tvp.Key
+                    dicP.Add(mappedNode,tvp.Value)
+                )
+                dicP
+
+            let sNew:Dictionary<'NodeKey,'EdgeData> =  
+                let dicS :Dictionary<'NodeKey,'EdgeData> = new Dictionary<_,_>() 
+                s
+                |>Seq.iter(fun tvp -> 
+                    let mappedNode = mapping tvp.Key
+                    dicS.Add(mappedNode,tvp.Value)
+                )
+                dicS
+
+            graph.Add (newKey,(pNew,d,sNew))
+            graph.Remove kvp.Key |> ignore
+        )
+        graph
+
+    static member mapEdgeData (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData_) : FGraph<'NodeKey, 'NodeData, 'EdgeData_> =
+        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData_> = Dictionary<_,_>() 
+        graph
+        |> Seq.iter(fun kvp ->
+            let (p,d,s) = kvp.Value
+
+            let pNew:Dictionary<'NodeKey,'EdgeData_> =  
+                let dicP :Dictionary<'NodeKey,'EdgeData_> = new Dictionary<_,_>() 
+                p
+                |>Seq.iter(fun tvp -> 
+                    let mappedEdgeData = mapping tvp.Key kvp.Key tvp.Value
+                    dicP.Add(tvp.Key,mappedEdgeData)
+                )
+                dicP
+
+            let sNew:Dictionary<'NodeKey,'EdgeData_> =  
+                let dicS :Dictionary<'NodeKey,'EdgeData_> = new Dictionary<_,_>() 
+                s
+                |>Seq.iter(fun tvp -> 
+                    let mappedEdgeData = mapping kvp.Key tvp.Key tvp.Value 
+                    dicS.Add(tvp.Key,mappedEdgeData)
+                )
+                dicS
+
+            newGraph.Add(kvp.Key,(pNew,d,sNew))
+        )
+
+        newGraph
+
+    static member mapEdgeDataInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>)  (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun kvp ->
+            let (p,d,s) = kvp.Value
+
+            p
+            |>Seq.iter(fun (tvp:KeyValuePair<'NodeKey,'EdgeData>) ->
+                let newEdgeData :'EdgeData = mapping (tvp.Key) (kvp.Key) (tvp.Value)
+                p.Item tvp.Key <- (newEdgeData)
+            )
+
+            s
+            |>Seq.iter(fun (tvp:KeyValuePair<'NodeKey,'EdgeData>) ->
+                let newEdgeData :'EdgeData = mapping (kvp.Key) (tvp.Key) (tvp.Value)
+                s.Item tvp.Key <- (newEdgeData)
+            )
+        )
+        graph
+
+    static member mapContext (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData_, 'EdgeData_>) : FGraph<'NodeKey, 'NodeData_, 'EdgeData_> =
+        let newGraph :FGraph<'NodeKey, 'NodeData_, 'EdgeData_> = Dictionary<_,_>() 
+        graph
+        |> Seq.iter(fun kvp ->
+            let (p,d,s) = kvp.Value
+            let mappedContext = contextMapping kvp.Value
+
+            newGraph.Add(kvp.Key,(mappedContext))
+        )
+
+        newGraph
+
+    static member mapContextInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+        graph
+        |> Seq.iter(fun kvp ->
+            let (p,d,s) = kvp.Value
+            let mappedContext = contextMapping kvp.Value
+            graph.Item kvp.Key <- mappedContext
+        )
+        graph
 
 
 module FGraph =
