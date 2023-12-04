@@ -76,6 +76,58 @@ type LongestPath() =
 
         reconstructPath [mostDistantNode] , (longestPath|>fun x -> x*(-1.))
 
+
+    static member checkForCycleToNodeofFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let visited = HashSet<'NodeKey>()
+        //let stack = Stack<'NodeKey>()
+        let priorityQueue: Queue<('NodeKey)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+
+        //stack.Push(starting)
+        priorityQueue.Enqueue(starting)
+        visited.Add(starting) |> ignore
+
+
+        let rec outerLoop counter =
+            if priorityQueue.Count>0 then
+            //if stack.Count > 0 then 
+                let nodeKey = priorityQueue.Dequeue() //et nodeKey = (stack.Pop())
+                let (_, nd, s) = graph.[nodeKey]
+
+                printfn $"{nodeKey}"
+                let rec innerLoops counter =
+                    if counter=s.Count then
+                        outerLoop (counter+1)
+                    else
+                        let node = s.Keys|>Seq.item counter
+                        if node=starting then 
+                            true  
+                        elif not(visited.Contains(node)) then
+                            //stack.Push(node)
+                            priorityQueue.Enqueue(node)
+                            visited.Add(node) |> ignore
+                            innerLoops (counter+1)
+                        else
+                            innerLoops (counter+1)
+                innerLoops 0
+            else
+                false
+        outerLoop 0
+
+    static member checkForCycleInFGraph (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+
+        let nodes = graph|>Seq.map(fun kvp -> kvp.Key)
+
+        let rec isCyclic (counter:int) = 
+            if counter = (nodes|>Seq.length) then
+                false
+            else
+                let node  = nodes |>Seq.item counter
+                if LongestPath.checkForCycleToNodeofFGraph node graph then
+                    true
+                else
+                    isCyclic (counter+1)
+        isCyclic 0
+
     /// <summary> 
     /// Computes longest paths from <paramref name="starting"/> for <paramref name="graph"/> using an inverse Dijkstra's algorithm.
     /// </summary>
