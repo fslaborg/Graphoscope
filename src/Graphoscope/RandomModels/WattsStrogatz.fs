@@ -2,6 +2,7 @@ namespace Graphoscope.RandomModels
 
 
 open Graphoscope
+open Graphoscope.Graphs
 
 type WattsStrogatz() =
 
@@ -13,7 +14,7 @@ type WattsStrogatz() =
     /// <param name="n">Specifies the number of nodes</param>
     /// <param name="k">Specifies the degree of the nodes</param>
     /// <param name="p">Specifies the rewiring probability</param>
-    /// <returns>An UndirectedGraph</returns>
+    /// <returns>An Undirected.UndirectedGraph</returns>
     /// 
     static member initWattsStrogatz (n: int) (k: int) (p:float) =
 
@@ -31,13 +32,13 @@ type WattsStrogatz() =
 
         // rewire
         g
-        |> UndirectedGraph.getAllEdges
+        |> Undirected.UndirectedGraph.getAllEdges
         |> Array.map(fun (f,t, _) -> 
             if rng.NextDouble() < p then 
-                UndirectedGraph.removeEdge (f,t) g |> ignore
-                let existingTargets = UndirectedGraph.getEdges f g |> Array.map(fun (tar , _)-> tar)
+                Undirected.UndirectedGraph.removeEdge (f,t) g |> ignore
+                let existingTargets = Undirected.UndirectedGraph.getEdges f g |> Array.map(fun (tar , _)-> tar)
                 let excl = existingTargets |> Array.append [|f;t|]
-                UndirectedGraph.addEdge (f , (rndExclude n excl), 1.0) g |> ignore
+                Undirected.UndirectedGraph.addEdge (f , (rndExclude n excl), 1.0) g |> ignore
         ) |> ignore
 
         g   

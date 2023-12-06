@@ -3,12 +3,12 @@
 open System
 open Xunit
 open Graphoscope
-open Graphoscope.DiGraph
+open Graphoscope.Graphs
 open System.IO
 open FSharpAux
 
 [<Fact>]
-let ``Monkey FGraph has correct measures`` () =
+let ``Monkey FContextMap has correct measures`` () =
     
     //measures taken from http://konect.cc/networks/moreno_rhesus/
     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
@@ -20,7 +20,7 @@ let ``Monkey FGraph has correct measures`` () =
             (fun str -> 
                 let arr = str.Split(' ')
                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
-        |> FGraph.ofSeq
+        |> Directed.FContextMap.ofSeq
 
     let degreeAverage = 13.8750
     let degreeMax = 20
@@ -57,7 +57,7 @@ let ``Monkey FGraph has correct measures`` () =
     Assert.Equal(10,(Measures.OutDegree.maximum monkeyGraph)) 
 
 [<Fact>]
-let ``Monkey DiGraph has correct measures`` () =
+let ``Monkey LilMatrix has correct measures`` () =
     
     //measures taken from http://konect.cc/networks/moreno_rhesus/
     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
@@ -69,7 +69,7 @@ let ``Monkey DiGraph has correct measures`` () =
             (fun str -> 
                 let arr = str.Split(' ')
                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
-        |> DiGraph.ofSeq
+        |> Directed.LilMatrix.ofSeq
 
     let degreeAverage = 13.8750
     let degreeMax = 20
@@ -86,7 +86,7 @@ let ``Monkey DiGraph has correct measures`` () =
     Assert.Equal(10,(Measures.OutDegree.maximum monkeyGraph)) 
 
 [<Fact>]
-let `` Simple FGraph has correct In and Out Degree Measures`` () =
+let `` Simple FContextMap has correct In and Out Degree Measures`` () =
     // InDegree //
 
     let elementsInGraph = 
@@ -99,7 +99,7 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
                 4,4,0,0,1
             }
 
-    let inGraph = FGraph.ofSeq elementsInGraph
+    let inGraph = Directed.FContextMap.ofSeq elementsInGraph
     
     let averageDegreeIn = 1.
     let maxIn = 1.
@@ -124,7 +124,7 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
             t,t1,s,s1,w
         )
 
-    let outGraph = FGraph.ofSeq elementsOutGraph
+    let outGraph = Directed.FContextMap.ofSeq elementsOutGraph
     
     let distOutDegree = Measures.OutDegree.sequence inGraph |>Set.ofSeq
 
@@ -137,7 +137,7 @@ let `` Simple FGraph has correct In and Out Degree Measures`` () =
 
 
 [<Fact>]
-let `` Simple DiGraph has correct In and Out Degree Measures`` () =
+let `` Simple LilMatrix has correct In and Out Degree Measures`` () =
     // InDegree //
 
     let elementsInGraph = 
@@ -150,7 +150,7 @@ let `` Simple DiGraph has correct In and Out Degree Measures`` () =
                 4,4,0,0,1
             }
 
-    let graph = DiGraph.ofSeq elementsInGraph
+    let graph = Directed.LilMatrix.ofSeq elementsInGraph
     
     let averageDegreeIn = 1.
     let maxIn = 1.

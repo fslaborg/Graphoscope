@@ -3,7 +3,7 @@
 open System
 open Xunit
 open Graphoscope
-open Graphoscope.DiGraph
+open Graphoscope.Graphs
 open System.IO
 open FSharpAux
 
@@ -19,9 +19,9 @@ let ``Monkey graph import has correct measures`` () =
             (fun str -> 
                 let arr = str.Split(' ')
                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
-        |> FGraph.ofSeq
+        |> Directed.FContextMap.ofSeq
     
-    Assert.Equal(0.,(Measures.Loop.loopCountFGraph monkeyGraph)) 
+    Assert.Equal(0.,(Measures.Loop.loopCountFContextMap monkeyGraph)) 
     
 [<Fact>]
 let ``Fully looped graph has correct measures`` () =
@@ -31,6 +31,6 @@ let ``Fully looped graph has correct measures`` () =
 
     let counts: obj = nodes.Length
 
-    let g = FGraph.empty|>FGraph.addNodes (nodes|>List.map(fun x -> x,x))|>FGraph.addEdges edges
+    let g = Directed.FContextMap.empty|>Directed.FContextMap.addNodes (nodes|>List.map(fun x -> x,x))|>Directed.FContextMap.addEdges edges
  
-    Assert.Equal(counts,(Measures.Loop.loopCountFGraph g)) 
+    Assert.Equal(counts,(Measures.Loop.loopCountFContextMap g)) 

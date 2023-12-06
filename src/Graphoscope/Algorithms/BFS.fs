@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 
@@ -15,7 +16,7 @@ type BFS() =
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
     /// <returns>Sequence of node key and node data</returns>
-    static member ofFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member ofFContextMap (starting : 'NodeKey) (graph : Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         let visited = HashSet<'NodeKey>()
         let queue = Queue<'NodeKey>()
 
@@ -84,9 +85,9 @@ type BFS() =
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
     /// <returns>Sequence of node key and node data</returns>
-    static member Compute (starting : 'NodeKey, graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member Compute (starting : 'NodeKey, graph : Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) = 
         // in this overloads type conversion is OK
-        BFS.ofFGraph starting graph
+        BFS.ofFContextMap starting graph
 
     /// <summary> 
     /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
@@ -105,6 +106,6 @@ type BFS() =
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
     /// <returns>Sequence of node key and node data</returns>    
-    static member Compute (starting : 'NodeKey, graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member Compute (starting : 'NodeKey, graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         // in this overloads type conversion is OK
         System.NotImplementedException() |> raise

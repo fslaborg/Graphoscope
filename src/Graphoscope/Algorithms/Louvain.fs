@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 open FSharpAux
 
@@ -24,14 +25,14 @@ module private Helpers =
         weights
 
     module UndirectedGraph =
-        let getAllNeighborWeights (graph: UndirectedGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) =
+        let getAllNeighborWeights (graph: Undirected.UndirectedGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) =
             fun nIx ->
                 let weights: Dictionary<int, float> = Dictionary()
                 updateNeighborWeights nIx getWeight weights node2Community  graph.Edges
                 weights
             |> Array.init graph.NodeKeys.Count
 
-        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
+        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
             let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
             let node2Community = Array.init graph.NodeKeys.Count id
 
@@ -117,10 +118,10 @@ module private Helpers =
 
             node2Community, innerPartition, partition, improvement
 
-        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) : UndirectedGraph<int,_,float> =
+        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>) : Undirected.UndirectedGraph<int,_,float> =
             let communities = node2Community |> Array.distinct
 
-            let g = UndirectedGraph.createFromNodes (Array.zip communities communities)
+            let g = Undirected.UndirectedGraph.createFromNodes (Array.zip communities communities)
             let edges = 
                 graph.Edges
                 |> Seq.mapi(fun i x -> x|>Seq.map(fun (dest,w) -> i, dest, w))
@@ -133,10 +134,10 @@ module private Helpers =
                 )
                 |> Array.ofSeq
             g
-            |>UndirectedGraph.addEdges edges
+            |>Undirected.UndirectedGraph.addEdges edges
 
-    module DiGraph =
-        let getAllNeighborWeights (graph: DiGraph<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) =
+    module LilMatrix =
+        let getAllNeighborWeights (graph: Directed.LilMatrix<_, _, 'EdgeData>) (getWeight: 'EdgeData -> float) (node2Community: int []) =
             fun nIx ->
                 let weights: Dictionary<int, float> = Dictionary()
                 let updateWeights =
@@ -150,7 +151,7 @@ module private Helpers =
 
 
         // https://hal.science/hal-01231784
-        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: DiGraph<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
+        let oneLevel (getWeight: 'EdgeData -> float) (m: float) (resolution: float) (prevPartition: int Set array option) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>) (rng: unit -> float)=
             let nodeIdxs = Array.init graph.NodeKeys.Count id |> Array.sortBy (fun _ -> rng())
             let node2Community = Array.init graph.NodeKeys.Count id
 
@@ -240,10 +241,10 @@ module private Helpers =
 
             node2Community, innerPartition, partition, improvement
 
-        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : DiGraph<int,_,float> =
+        let genSuperNodeGraph (getWeight: 'EdgeData -> float) (node2Community: int []) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>) : Directed.LilMatrix<int,_,float> =
             let communities = node2Community |> Array.distinct
 
-            let g = DiGraph.createFromNodes (Array.zip communities communities)
+            let g = Directed.LilMatrix.createFromNodes (Array.zip communities communities)
             let edges = 
                 graph.InEdges
                 |> Seq.mapi(fun i x -> x|>Seq.map(fun (dest,w) -> i, dest, w))
@@ -256,7 +257,7 @@ module private Helpers =
                 )
                 |> Array.ofSeq
             g
-            |>DiGraph.addEdges edges
+            |>Directed.LilMatrix.addEdges edges
 
 
 ///Louvain method for community detection
@@ -675,20 +676,20 @@ type Louvain() =
         louvainMethod graph weightF randomized modularityIncreaseThreshold resolution
 
     /// <summary> 
-    /// Takes a FGraph and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
+    /// Takes a FContextMap and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
     /// </summary>
     /// <param name="modularityIncreaseThreshold">Threshold of modularity-difference that has to be exceeded in order to be recognized as a modularity-increase. The value has to be between 0. and 1. to get a meaningful result. The smaller the value, the longer the calculation takes.</param> 
-    /// <param name="graph">FGraph, that is used as the template for the modularity optimization.</param> 
-    /// <returns>A new FGraph whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
+    /// <param name="graph">FContextMap, that is used as the template for the modularity optimization.</param> 
+    /// <returns>A new FContextMap whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
     static member louvain (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>) =
         Louvain.louvainResolution false weightF modularityIncreaseThreshold 1. graph 
 
     /// <summary> 
-    /// Takes a FGraph and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
+    /// Takes a FContextMap and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
     /// </summary>
     /// <param name="modularityIncreaseThreshold">Threshold of modularity-difference that has to be exceeded in order to be recognized as a modularity-increase. The value has to be between 0. and 1. to get a meaningful result. The smaller the value, the longer the calculation takes.</param> 
-    /// <param name="graph">FGraph, that is used as the template for the modularity optimization.</param> 
-    /// <returns>A new FGraph whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
+    /// <param name="graph">FContextMap, that is used as the template for the modularity optimization.</param> 
+    /// <returns>A new FContextMap whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
     static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>)=
         Louvain.louvainResolution true weightF modularityIncreaseThreshold 1. graph 
 
@@ -710,16 +711,16 @@ type Louvain() =
     /// Optional; default = 0.0000001
     /// </param>
     /// <param name="graph">The graph to analyse</param> 
-    static member louvainPartitionsUndirected (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) =
-        let m = graph |> UndirectedGraph.Edge.sumBy getWeight 
+    static member louvainPartitionsUndirected (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>) =
+        let m = graph |> Undirected.UndirectedGraph.Edge.sumBy getWeight 
 
-        let rec loop (g: UndirectedGraph<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
+        let rec loop (g: Undirected.UndirectedGraph<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
             let partition = partitions |> Array.last
             let node2Community, innerPartition, newPartition, improvement = Helpers.UndirectedGraph.oneLevel id m resolution (Some partition) g rng
 
             let newModularity = Measures.Modularity.ofUndirectedGraph id resolution innerPartition g
             if improvement && newModularity - modularity > threshold then
-                let newGraph: UndirectedGraph<int,_,float> = Helpers.UndirectedGraph.genSuperNodeGraph id node2Community g
+                let newGraph: Undirected.UndirectedGraph<int,_,float> = Helpers.UndirectedGraph.genSuperNodeGraph id node2Community g
                 loop newGraph (Array.append partitions [|newPartition|]) newModularity
             else
                 partitions
@@ -753,16 +754,16 @@ type Louvain() =
     /// Optional; default = 0.0000001
     /// </param>
     /// <param name="graph">The graph to analyse</param> 
-    static member louvainPartitionsDiGraph (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
-        let m = graph |> DiGraph.Edge.sumBy getWeight
+    static member louvainPartitionsLilMatrix (getWeight: 'EdgeData -> float) (rng: unit -> float) (resolution: float) (threshold: float) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>) =
+        let m = graph |> Directed.LilMatrix.Edge.sumBy getWeight
 
-        let rec loop (g: DiGraph<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
+        let rec loop (g: Directed.LilMatrix<int, _, float>) (partitions: int Set [] []) (modularity: float ) =
             let partition = partitions |> Array.last
             let node2Community, innerPartition, newPartition, improvement =
-                Helpers.DiGraph.oneLevel id m resolution (Some partition) g rng
-            let newModularity = Measures.Modularity.ofDiGraph id resolution innerPartition g
+                Helpers.LilMatrix.oneLevel id m resolution (Some partition) g rng
+            let newModularity = Measures.Modularity.ofLilMatrix id resolution innerPartition g
             if improvement && newModularity - modularity > threshold then
-                let newGraph: DiGraph<int,_,float> = Helpers.DiGraph.genSuperNodeGraph id node2Community g
+                let newGraph: Directed.LilMatrix<int,_,float> = Helpers.LilMatrix.genSuperNodeGraph id node2Community g
                 loop newGraph (Array.append partitions [|newPartition|]) newModularity 
             else
                 partitions
@@ -772,9 +773,9 @@ type Louvain() =
                 )
         
         // Initial
-        let node2Community, innerPartition, partition, _ = Helpers.DiGraph.oneLevel getWeight m resolution None graph rng
-        let initialMod = Measures.Modularity.ofDiGraph getWeight resolution innerPartition graph
-        let newGraph = Helpers.DiGraph.genSuperNodeGraph getWeight node2Community graph
+        let node2Community, innerPartition, partition, _ = Helpers.LilMatrix.oneLevel getWeight m resolution None graph rng
+        let initialMod = Measures.Modularity.ofLilMatrix getWeight resolution innerPartition graph
+        let newGraph = Helpers.LilMatrix.genSuperNodeGraph getWeight node2Community graph
 
         loop newGraph [|partition|] initialMod
         
@@ -796,12 +797,12 @@ type Louvain() =
     /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
     /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
     /// </param>
-    static member louvainPartitions (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+    static member louvainPartitions (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
         let resolution = defaultArg resolution 1.
         let getWeight = defaultArg getWeight (fun _ -> 1.)
-        Louvain.louvainPartitionsDiGraph getWeight rng resolution threshold graph
+        Louvain.louvainPartitionsLilMatrix getWeight rng resolution threshold graph
 
     /// <summary> 
     /// Returns all partitions found at each level of Louvain method.
@@ -821,7 +822,7 @@ type Louvain() =
     /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
     /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
     /// </param>
-    static member louvainPartitions (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+    static member louvainPartitions (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
         let resolution = defaultArg resolution 1.
@@ -846,7 +847,7 @@ type Louvain() =
     /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
     /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
     /// </param>
-    static member louvainCommunities (graph: DiGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+    static member louvainCommunities (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
         let resolution = defaultArg resolution 1.
@@ -873,7 +874,7 @@ type Louvain() =
     /// The random number generator to be used in the initial ordering of the nodes in the <paramref name="graph"/>.
     /// Optional; defaults to creating a System.Random object and calling `.NextDouble()` method on it.
     /// </param>
-    static member louvainCommunities (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
+    static member louvainCommunities (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>, ?getWeight: 'EdgeData -> float, ?resolution, ?threshold: float, ?rng :unit -> float) =
         let rng = defaultArg rng (System.Random()).NextDouble
         let threshold = defaultArg threshold 1e-7
         let resolution = defaultArg resolution 1.

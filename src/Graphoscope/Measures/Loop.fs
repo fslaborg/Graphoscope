@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 type Loop() =
@@ -10,7 +11,7 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of loop count</returns>
-    static member loopCountFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member loopCountFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         [|
             for values in graph do
                 values.Key,
@@ -40,7 +41,7 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of loop count</returns>
-    static member loopCountOfDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member loopCountOfLilMatrix (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.InEdges
         |> ResizeArray.mapi(fun i x ->
             match x |> ResizeArray.tryFind(fun (t,_) -> t = i) with
@@ -54,8 +55,8 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the mean degree</returns>
-    static member loopCount (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Loop.loopCountFGraph graph
+    static member loopCount (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        Loop.loopCountFContextMap graph
 
     /// <summary> 
     /// Get the amount of self loops. 
@@ -70,5 +71,5 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the mean degree</returns>
-    static member loopCount (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        Loop.loopCountOfDiGraph graph
+    static member loopCount (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+        Loop.loopCountOfLilMatrix graph

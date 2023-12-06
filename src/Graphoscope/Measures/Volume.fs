@@ -1,5 +1,6 @@
 namespace Graphoscope.Measures
 open Graphoscope
+open Graphoscope.Graphs
 
 type Volume() =
 
@@ -8,24 +9,24 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        UndirectedGraph.countEdges graph
+    static member volumeOfUndirected (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Undirected.UndirectedGraph.countEdges graph
 
     /// <summary> 
     /// Gets the total number of edges of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfDiGraph (graph: DiGraph<'NodeKey, _,'EdgeData>) =
-        DiGraph.countEdges graph
+    static member volumeOfLilMatrix (graph: Directed.LilMatrix<'NodeKey, _,'EdgeData>) =
+        Directed.LilMatrix.countEdges graph
 
     /// <summary> 
     /// Gets the total number of edges of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        FGraph.countEdges graph 
+    static member volumeOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        Directed.FContextMap.countEdges graph 
 
     /// <summary> 
     /// Gets the total number of edges of the graph
@@ -40,15 +41,15 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Volume.volumeOfFGraph graph
+    static member compute (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        Volume.volumeOfFContextMap graph
     
     /// <summary> 
     /// Gets the total number of edges of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph :UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member compute (graph :Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Volume.volumeOfUndirected graph
     
     /// <summary> 
@@ -64,6 +65,6 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph :DiGraph<'NodeKey, 'NodeData,'EdgeData>) = 
-        Volume.volumeOfDiGraph graph
+    static member compute (graph :Directed.LilMatrix<'NodeKey, 'NodeData,'EdgeData>) = 
+        Volume.volumeOfLilMatrix graph
     

@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 type InDegree() =
@@ -18,9 +19,9 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member sequenceOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfFContextMap(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph
-        |> FGraph.mapContexts FContext.inwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.inwardDegree
         |> Seq.map (fun (_,d) -> float d)
         |> Seq.sortDescending
 
@@ -37,7 +38,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
-    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member sequenceOfLilMatrix(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.toArray
@@ -49,8 +50,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.sequenceOfFGraph graph
+    static member sequence(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.sequenceOfFContextMap graph
 
     /// <summary> 
     /// Returns the in-degree sequence of the graph
@@ -65,8 +66,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of in-degree values in descending order</returns>
-    static member sequence(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        InDegree.sequenceOfDiGraph graph
+    static member sequence(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+        InDegree.sequenceOfLilMatrix graph
 
 
 
@@ -82,9 +83,9 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member averageofFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member averageofFContextMap(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph
-        |> FGraph.mapContexts FContext.inwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.inwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
 
     /// <summary> 
@@ -102,7 +103,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member averageofLilMatrix(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> Seq.averageBy(fun x -> float x.Count)
    
@@ -112,8 +113,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member average(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        InDegree.averageofDiGraph graph
+    static member average(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        InDegree.averageofLilMatrix graph
 
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -121,8 +122,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member average (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
-        InDegree.averageofFGraph graph
+    static member average (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) =
+        InDegree.averageofFContextMap graph
 
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -146,9 +147,9 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member maximumOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
-        |> FGraph.mapContexts FContext.inwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.inwardDegree
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
     /// <summary> 
@@ -164,7 +165,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member maximumOfLilMatrix (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -175,8 +176,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.maximumOfFGraph graph
+    static member maximum (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.maximumOfFContextMap graph
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -191,8 +192,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        InDegree.maximumOfDiGraph graph
+    static member maximum (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        InDegree.maximumOfLilMatrix graph
     
     
     
@@ -207,9 +208,9 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member minimumOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
-        |> FGraph.mapContexts FContext.inwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.inwardDegree
         |> Seq.minBy (fun (_,d) -> float d) 
         |> snd 
 
@@ -226,7 +227,7 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member minimumOfLilMatrix (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.InEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -236,8 +237,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.minimumOfFGraph graph
+    static member minimum (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.minimumOfFContextMap graph
 
     /// <summary> 
     /// Get the min In-degree of the graph. 
@@ -252,5 +253,5 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        InDegree.minimumOfDiGraph graph
+    static member minimum (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        InDegree.minimumOfLilMatrix graph

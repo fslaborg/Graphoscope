@@ -1,13 +1,14 @@
 namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 type Modularity() =
-    static member private isValidPartitionDiGraph (partition: 'NodeKey Set []) (graph: DiGraph<'NodeKey, _, 'EdgeData>) =
+    static member private isValidPartitionLilMatrix (partition: 'NodeKey Set []) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>) =
         Set graph.NodeKeys = Set.unionMany partition
 
-    static member private isValidPartitionUndirected (partition: 'NodeKey Set []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) =
+    static member private isValidPartitionUndirected (partition: 'NodeKey Set []) (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>) =
         Set graph.NodeKeys = Set.unionMany partition
 
     /// <summary> 
@@ -20,9 +21,9 @@ type Modularity() =
     /// <param name="partition">A sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/></param>
     /// <param name="graph">The graph to analyse</param> 
     /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
-    static member ofUndirectedGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>)=
+    static member ofUndirectedGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: Undirected.UndirectedGraph<'NodeKey, _, 'EdgeData>)=
         if Modularity.isValidPartitionUndirected partition graph |> not then
-            failwith "`partition` is not a valid partition of DiGraph."
+            failwith "`partition` is not a valid partition of Directed.LilMatrix."
         let degrees = graph.Edges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
         let degSum = (0.,degrees)||>ResizeArray.fold(fun acc c -> acc + c)
         let m = degSum / 2.
@@ -58,9 +59,9 @@ type Modularity() =
     /// <param name="partition">A sequence of Set of nodes that collectively exhaust all the nodes in the<paramref name="graph"/></param>
     /// <param name="graph">The graph to analyse</param> 
     /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
-    static member ofDiGraph (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: DiGraph<'NodeKey, _, 'EdgeData>)=
-        if Modularity.isValidPartitionDiGraph partition graph |> not then
-            failwith "`partition` is not a valid partition of DiGraph."
+    static member ofLilMatrix (getWeight: 'EdgeData -> float) (resolution: float) (partition: 'NodeKey Set []) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>)=
+        if Modularity.isValidPartitionLilMatrix partition graph |> not then
+            failwith "`partition` is not a valid partition of Directed.LilMatrix."
 
         let inDegrees = graph.InEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
         let outDegrees = graph.OutEdges |> ResizeArray.map(fun x -> (0.,x)||>ResizeArray.fold(fun acc (_, ed) -> acc + getWeight ed))
@@ -99,7 +100,7 @@ type Modularity() =
     /// larger communities. Greater than 1 favors smaller communities.
     /// Optional; default = 1.0</param>
     /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
-    static member compute (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>, partition: 'NodeKey Set [], ?getWeight: 'EdgeData -> float, ?resolution: float) =
+    static member compute (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>, partition: 'NodeKey Set [], ?getWeight: 'EdgeData -> float, ?resolution: float) =
         let getWeight = defaultArg getWeight (fun _ -> 1.)
         let resolution = defaultArg resolution 1.
         Modularity.ofUndirectedGraph getWeight resolution partition graph
@@ -117,7 +118,7 @@ type Modularity() =
     /// larger communities. Greater than 1 favors smaller communities.
     /// Optional; default = 1.0</param>
     /// <exception>Throws if <paramref name="partition"/> isn't a valid partition of <paramref name="graph"/></exception>
-    static member compute (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>, partition: 'NodeKey Set [], ?getWeight: 'EdgeData -> float, ?resolution: float) =
+    static member compute (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>, partition: 'NodeKey Set [], ?getWeight: 'EdgeData -> float, ?resolution: float) =
         let getWeight = defaultArg getWeight (fun _ -> 1.)
         let resolution = defaultArg resolution 1.
-        Modularity.ofDiGraph getWeight resolution partition graph
+        Modularity.ofLilMatrix getWeight resolution partition graph

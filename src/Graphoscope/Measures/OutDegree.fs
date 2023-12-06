@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 type OutDegree() =
@@ -17,9 +18,9 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member sequenceOfFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfFContextMap(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph
-        |> FGraph.mapContexts FContext.outwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.outwardDegree
         |> Seq.map (fun (_,d) -> float d)
         |> Seq.sortDescending
 
@@ -35,7 +36,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of out-degree values in descending order</returns>
-    static member sequenceOfDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member sequenceOfLilMatrix(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.toArray
@@ -47,8 +48,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member sequence(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.sequenceOfFGraph graph
+    static member sequence(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.sequenceOfFContextMap graph
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph
@@ -63,8 +64,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An array of out-degree values in descending order</returns>
-    static member sequence(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        OutDegree.sequenceOfDiGraph graph
+    static member sequence(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+        OutDegree.sequenceOfLilMatrix graph
 
 
 
@@ -80,9 +81,9 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member averageofFGraph(graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member averageofFContextMap(graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph
-        |> FGraph.mapContexts FContext.outwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.outwardDegree
         |> Seq.averageBy (fun (_,d) -> float d) 
 
     /// <summary> 
@@ -100,7 +101,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member averageofDiGraph(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member averageofLilMatrix(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> Seq.averageBy(fun x -> float x.Count)
    
@@ -110,8 +111,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member average(graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        OutDegree.averageofDiGraph graph
+    static member average(graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        OutDegree.averageofLilMatrix graph
 
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -119,8 +120,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member average (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) =
-        OutDegree.averageofFGraph graph
+    static member average (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) =
+        OutDegree.averageofFContextMap graph
 
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -142,9 +143,9 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member maximumOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
-        |> FGraph.mapContexts FContext.outwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.outwardDegree
         |> Seq.maxBy (fun (_,d) -> float d) 
         |> snd 
 
@@ -161,7 +162,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member maximumOfLilMatrix (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
         graph.OutEdges
         |> ResizeArray.map(fun x -> x.Count)
         |> ResizeArray.max
@@ -171,8 +172,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.maximumOfFGraph graph
+    static member maximum (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.maximumOfFContextMap graph
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -187,8 +188,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        OutDegree.maximumOfDiGraph graph
+    static member maximum (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        OutDegree.maximumOfLilMatrix graph
     
     
     
@@ -203,9 +204,9 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member minimumOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
-        |> FGraph.mapContexts FContext.outwardDegree
+        |> Directed.FContextMap.mapContexts Directed.FContext.outwardDegree
         |> Seq.minBy (fun (_,d) -> float d) 
         |> snd 
 
@@ -222,7 +223,7 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimumOfDiGraph (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member minimumOfLilMatrix (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         graph.OutEdges
         |> ResizeArray.minBy(fun x -> x.Count)
         |> ResizeArray.length
@@ -233,8 +234,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimum (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.minimumOfFGraph graph
+    static member minimum (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.minimumOfFContextMap graph
 
     /// <summary> 
     /// Get the min out-degree of the graph. 
@@ -249,5 +250,5 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimum (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        OutDegree.minimumOfDiGraph graph
+    static member minimum (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        OutDegree.minimumOfLilMatrix graph

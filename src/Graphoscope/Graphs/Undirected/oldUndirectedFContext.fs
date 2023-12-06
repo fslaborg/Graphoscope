@@ -373,7 +373,7 @@ type AdjGraph() =
         |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
     /// <summary> 
-    /// Converts the FGraph to an array2d 
+    /// Converts the FContextMap to an array2d 
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An array2d</returns>
@@ -390,7 +390,7 @@ type AdjGraph() =
             )
 
     /// <summary> 
-    /// Returns the FGraph edges as a sequence of edges 
+    /// Returns the FContextMap edges as a sequence of edges 
     /// </summary>
     static member toEdgeSeq (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         seq {

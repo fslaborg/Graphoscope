@@ -1,6 +1,7 @@
 namespace Graphoscope.RandomModels
 
 open Graphoscope
+open Graphoscope.Graphs
 
 type RegularRingLattice() =
 
@@ -9,17 +10,17 @@ type RegularRingLattice() =
     /// </summary>
     /// <param name="n">Specifies the number of nodes</param>
     /// <param name="k">Specifies the degree of the nodes</param>
-    /// <returns>An UndirectedGraph</returns>
+    /// <returns>An Undirected.UndirectedGraph</returns>
 
     static member initUndirectedGraph (n: int) (k: int) =
         // Following standard practice,
         // odd values of k will be rounded down to the previous even integer.
-        let g:  UndirectedGraph<int, _, float> =
-            UndirectedGraph.empty
-            |> UndirectedGraph.addNodes (Array.init n (fun i -> i, i))
+        let g:  Undirected.UndirectedGraph<int, _, float> =
+            Undirected.UndirectedGraph.empty
+            |> Undirected.UndirectedGraph.addNodes (Array.init n (fun i -> i, i))
 
         // Connect each node to its half-k succeeding neighbors
         for i in 0 .. n-1 do
             for j in i+1 .. i+(k/2) do
-                UndirectedGraph.addEdge (i, j%n, 1.) g|>ignore
+                Undirected.UndirectedGraph.addEdge (i, j%n, 1.) g|>ignore
         g

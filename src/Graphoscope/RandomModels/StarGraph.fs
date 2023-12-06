@@ -2,6 +2,7 @@ namespace Graphoscope.RandomModels
 
 
 open Graphoscope
+open Graphoscope.Graphs
 
 type StarGraph() =
 
@@ -44,10 +45,10 @@ type StarGraph() =
     /// <param name="nodeIDFunction">Function to create a NodeKey of an integer</param>
     /// <param name="nodeDataFunction">Function to create NodeData of NodeKeys</param>
     /// <param name="edgeDataFunction">Function to create EdgeData of NodeKeys</param>
-    /// <returns>A StarFGraph</returns>
-    static member initStarFGraph  (n: int) (nodeIDFunction:int -> 'NodeKey) (nodeDataFunction:'NodeKey -> 'NodeData) (edgeDataFunction:'NodeKey ->'NodeKey ->'EdgeData) :FGraph<'NodeKey,'NodeData,'EdgeData> =
+    /// <returns>A StarFContextMap</returns>
+    static member initStarFContextMap  (n: int) (nodeIDFunction:int -> 'NodeKey) (nodeDataFunction:'NodeKey -> 'NodeData) (edgeDataFunction:'NodeKey ->'NodeKey ->'EdgeData) :Directed.FContextMap<'NodeKey,'NodeData,'EdgeData> =
         let graphSeq = StarGraph.initStarGraphSeq n nodeIDFunction nodeDataFunction edgeDataFunction 
-        FGraph.ofSeq graphSeq
+        Directed.FContextMap.ofSeq graphSeq
     
     /// <summary> 
     /// Returns a StarGraph
@@ -56,9 +57,9 @@ type StarGraph() =
     /// <param name="nodeIDFunction">Function to create a NodeKey of an integer</param>
     /// <param name="nodeDataFunction">Function to create NodeData of NodeKeys</param>
     /// <param name="edgeDataFunction">Function to create EdgeData of NodeKeys</param>
-    /// <returns>A StarDiGraph</returns>
-    static member initStarDiGraph  (n: int) (nodeIDFunction:int -> 'NodeKey) (nodeDataFunction:'NodeKey -> 'NodeData) (edgeDataFunction:'NodeKey ->'NodeKey ->'EdgeData) :DiGraph<'NodeKey,'NodeData,'EdgeData> =
+    /// <returns>A StarDirected.LilMatrix</returns>
+    static member initStarLilMatrix  (n: int) (nodeIDFunction:int -> 'NodeKey) (nodeDataFunction:'NodeKey -> 'NodeData) (edgeDataFunction:'NodeKey ->'NodeKey ->'EdgeData) :Directed.LilMatrix<'NodeKey,'NodeData,'EdgeData> =
         let graphSeq = StarGraph.initStarGraphSeq n nodeIDFunction nodeDataFunction edgeDataFunction 
-        DiGraph.ofSeq graphSeq
+        Directed.LilMatrix.ofSeq graphSeq
     
 

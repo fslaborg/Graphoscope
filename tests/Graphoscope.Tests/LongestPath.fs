@@ -3,6 +3,7 @@
 open System
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 open System.IO
 
 open Xunit
@@ -22,9 +23,9 @@ let ``smallCyclicGraphReturnsExceptedResults``() =
             "d","d",2.
         }    
         |> Seq.map(fun (s, t, w) -> (s, s, t, t, w))
-        |> FGraph.ofSeq
+        |> Directed.FContextMap.ofSeq
 
-    let ex = new System.Exception("The given FGraph is not a Directed Acyclic Graph!")
+    let ex = new System.Exception("The given FContextMap is not a Directed Acyclic Graph!")
 
     // Assert
     Assert.Throws<Exception>(fun () -> Measures.LongestPath.compute("a", cyclicGraphExample) |> ignore)
@@ -43,7 +44,7 @@ let smallAcyclicGraphReturnsExceptedResults () =
 
         }    
         |>Seq.map(fun (s,t,w) -> (s,s,t,t,w))
-        |>FGraph.ofSeq
+        |>Directed.FContextMap.ofSeq
 
     Assert.Equal((["A"; "D"; "C"], 18.2),Measures.LongestPath.computeByEdgeData("A",acyclicGraphExample))
     Assert.Equal((["A"; "B"; "C"], 2.),Measures.LongestPath.compute("A",acyclicGraphExample))

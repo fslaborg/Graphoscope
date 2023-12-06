@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 module private BF =
@@ -26,7 +27,7 @@ type BellmanFord() =
 
 
 
-    static member ofFGraph (starting: 'NodeKey) (graph :  FGraph<'NodeKey, 'NodeData, float>) =
+    static member ofFContextMap (starting: 'NodeKey) (graph :  Directed.FContextMap<'NodeKey, 'NodeData, float>) =
         let nodesCount = graph.Count
         let distances = new Dictionary<'NodeKey, float>()
 
@@ -52,7 +53,7 @@ type BellmanFord() =
         distances
  
 
-    static member hasNegativeCycles (graph : FGraph<'NodeKey, 'NodeData, float>) (distances:Dictionary<'NodeKey, float>) =
+    static member hasNegativeCycles (graph : Directed.FContextMap<'NodeKey, 'NodeData, float>) (distances:Dictionary<'NodeKey, float>) =
     
         // // Step 3: check for negative-weight cycles. The
         // // above step guarantees shortest distances if graph

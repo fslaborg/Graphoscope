@@ -3,7 +3,7 @@
 open System
 open Xunit
 open Graphoscope
-open Graphoscope.DiGraph
+open Graphoscope.Graphs
 open System.IO
 open FSharpAux
 
@@ -24,7 +24,7 @@ open FSharpAux
     
 //     //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
 //     Assert.Equal(0.925,(Measures.GraphDensity.ofAdjGraph monkeyGraph)) 
-//     //Assert.Equal(13.8750,(Measures.GraphDensity.ofFGraph monkeyGraph)) 
+//     //Assert.Equal(13.8750,(Measures.GraphDensity.ofFContextMap monkeyGraph)) 
     
 [<Fact>]
 let ``Fully connected graph has correct measures`` () =

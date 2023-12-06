@@ -1,5 +1,6 @@
 namespace Graphoscope.Measures
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 type Radius() =
@@ -9,7 +10,7 @@ type Radius() =
     /// </summary>
     /// <param name="floydWarshall">Result of the FloydWarshall shortest Path calculation of a graph</param> 
     /// <returns>A float of the shortest shortest Paths of a graph</returns>
-    static member ofGraph2D (floydWarshall : float [,]) = 
+    static member oFContextMap2D (floydWarshall : float [,]) = 
         ///Returns the element of the array which is the smallest after projection according to the Operators.min operator
         let minBy projection (arr: _ [,])  =
             let n,m = arr |> Array2D.length1, arr |> Array2D.length2
@@ -35,8 +36,8 @@ type Radius() =
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member ofFGraph (weigthF:'EdgeData->float) (graph:FGraph<'NodeKey,'NodeData,'EdgeData>)  = 
-        Eccentricity.ofFGraph weigthF graph
+    static member ofFContextMap (weigthF:'EdgeData->float) (graph: Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>)  = 
+        Eccentricity.ofFContextMap weigthF graph
         |> Seq.minBy snd
         |> snd
 
@@ -56,15 +57,15 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((graph:FGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Radius.ofFGraph (fun x -> 1.) graph
+    static member compute((graph: Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>)) =
+        Radius.ofFContextMap (fun x -> 1.) graph
 
     /// <summary> 
     /// Get the radius of graph calculated by their minimum Eccentricity
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
+    static member compute((graph: AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
         Radius.ofAdjGraph (fun x -> 1.) graph
 
 
@@ -73,15 +74,15 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeData((graph:FGraph<'NodeKey,'NodeData,float>)) =
-        Radius.ofFGraph id graph
+    static member computeWithEdgeData((graph: Directed.FContextMap<'NodeKey,'NodeData,float>)) =
+        Radius.ofFContextMap id graph
 
     /// <summary> 
     /// Get the radius of graph calculated by their minimum Eccentricity
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeData((graph:AdjGraph<'NodeKey,'NodeData,float>)) =
+    static member computeWithEdgeData((graph: AdjGraph<'NodeKey,'NodeData,float>)) =
         Radius.ofAdjGraph id graph
 
         /// <summary> 
@@ -89,8 +90,8 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeDataBy((weightF:'EdgeData -> float),(graph:FGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Radius.ofFGraph weightF graph
+    static member computeWithEdgeDataBy((weightF:'EdgeData -> float),(graph: Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>)) =
+        Radius.ofFContextMap weightF graph
 
     /// <summary> 
     /// Get the radius of graph calculated by their minimum Eccentricity

@@ -1,6 +1,7 @@
 namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 type BetweennessCentrality() =
@@ -147,14 +148,14 @@ type BetweennessCentrality() =
     
 
 //     /// <summary> 
-//     /// Get all of the shortest paths of a FGraph
+//     /// Get all of the shortest paths of a FContextMap
 //     /// </summary>
 //     /// <param name="shortestPathAlgorithm">Function to calculate the shortest Path via floydWarshall</param> 
 //     /// <param name="nodeIndexer">Function to index nodes based on their 'NodeKey</param>    
 //     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>      
 //     /// <param name="graph">The graph to be analysed</param>     
 //     /// <returns>A Dictionary with the indexed Node as the key and the shortest Paths as Set as value </returns>
-//     static member returnPaths (shortestPathAlgorithm:'NodeKey->('EdgeData -> float) ->FGraph<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,'NodeKey * float>) (nodeIndexer:'NodeKey->int) (getEdgeWeight : 'EdgeData -> float) (graph: FGraph<'NodeKey,'NodeData,'EdgeData>) = 
+//     static member returnPaths (shortestPathAlgorithm:'NodeKey->('EdgeData -> float) ->FContextMap<'NodeKey,'NodeData,'EdgeData> -> Dictionary<'NodeKey,'NodeKey * float>) (nodeIndexer:'NodeKey->int) (getEdgeWeight : 'EdgeData -> float) (graph: FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
 //         //Opens a Dictionary for ease of use
 //         let paths :Dictionary<('NodeKey),Set<ShortestPath>> = Dictionary<('NodeKey),Set<ShortestPath>>()
 
@@ -204,7 +205,7 @@ type BetweennessCentrality() =
 
 
 //     /// <summary> 
-//     /// Get all of the shortest paths of a FGraph
+//     /// Get all of the shortest paths of a FContextMap
 //     /// </summary>
 //     /// <param name="paths">The result of the returnPaths function. A collection of all shortestPaths </param> 
 //     /// <param name="nodeIndexer">Function to index nodes based on their 'NodeKey</param>    

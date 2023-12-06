@@ -1,4 +1,4 @@
-﻿namespace Graphoscope
+﻿namespace Graphoscope.Graphs.Directed
 
 open FSharpAux
 open System.Collections.Generic
@@ -9,7 +9,7 @@ type Adj<'NodeKey, 'EdgeData> = seq<'NodeKey * 'EdgeData>
 type FContext<'NodeKey, 'NodeData, 'EdgeData> when 'NodeKey: comparison =
     Dictionary<'NodeKey,'EdgeData> * 'NodeData * Dictionary<'NodeKey,'EdgeData>
 
-type FGraph<'NodeKey,'NodeData,'EdgeData> when 'NodeKey: comparison =
+type FContextMap<'NodeKey,'NodeData,'EdgeData> when 'NodeKey: comparison =
     Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>
 
 // (* Transition functions *)
@@ -80,13 +80,13 @@ module FContext =
         let d2Cloned = new Dictionary<'NodeKey,'EdgeData>(d2)
         (d1Cloned, data, d2Cloned)
 
-type FGraph() = 
+type FContextMap() = 
 
     /// <summary> 
     /// Creates a new graph with the given Data
     /// </summary>
-    /// <returns>FGraph</returns>
-    static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    /// <returns>FContextMap</returns>
+    static member create<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison>() : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         Dictionary<_,_>()
 
     /// <summary> 
@@ -96,16 +96,16 @@ type FGraph() =
     /// 
     /// [see here for further info](https://github.com/fslaborg/Graphoscope/issues/52#issuecomment-1741746696)
     /// </summary>
-    /// <returns>FGraph</returns>
-    static member clone (graph:FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    /// <returns>FContextMap</returns>
+    static member clone (graph:FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph.ToDictionary( (fun f -> f.Key), 
                             (fun f -> FContext.clone f.Value))
     
     /// <summary> 
     /// Adds a labeled, directed edge to the graph.
     /// </summary>
-    /// <returns>FGraph with new element</returns>
-    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+    /// <returns>FContextMap with new element</returns>
+    static member addElement (nk1 : 'NodeKey) (nd1 : 'NodeData) (nk2 : 'NodeKey) (nd2 : 'NodeData) (ed : 'EdgeData) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk1,&contextNk1) with
         | true  ->
@@ -166,7 +166,7 @@ type FGraph() =
 
 
     ///Adds a labeled node to the graph.
-    static member  addNode (nk:'NodeKey) (nd : 'NodeData)  (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member  addNode (nk:'NodeKey) (nd : 'NodeData)  (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk,&context) with
         | true  -> context <- (Dictionary<_,_>(),nd,Dictionary<_,_>())
@@ -174,31 +174,31 @@ type FGraph() =
         g
 
     ///Adds labeled nodes to the graph.
-    static member addNodes (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        Seq.iter (fun (nk,nd) -> (FGraph.addNode nk nd g)|>ignore) nodeSeq |>ignore
+    static member addNodes (nodeSeq:seq<(('NodeKey)*('NodeData))>) (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
+        Seq.iter (fun (nk,nd) -> (FContextMap.addNode nk nd g)|>ignore) nodeSeq |>ignore
         g
 
     ///Evaluates the number of nodes in the graph.
-    static member countNodes (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : int = 
+    static member countNodes (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : int = 
         g.Count
  
     ///Returns true, if the node v is contained in the graph. Otherwise, it returns false.
-    static member containsNode vk (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : bool =
+    static member containsNode vk (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : bool =
         Dictionary.containsKey vk g
 
     ///Lookup a labeled vertex in the graph. Raising KeyNotFoundException if no binding exists in the graph.
-    static member findNode (n: 'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'NodeData) = 
+    static member findNode (n: 'NodeKey) (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * 'NodeData) = 
         Dictionary.item n g
         |> fun (_, nd, _) -> n, nd
 
     ///Set the NodeData of a given NodeKey to the given NodeData
-    static member setNodeData (n: 'NodeKey) (nd: 'NodeData) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+    static member setNodeData (n: 'NodeKey) (nd: 'NodeData) (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> = 
         let p,_,s = g.Item n
         g.Item n <- (p,nd,s)
         g
 
     ///Returns all the nodes as a seq of 'NodeKey * 'NodeData Tuple
-    static member getNodes (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey* 'NodeData> = 
+    static member getNodes (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : seq<'NodeKey* 'NodeData> = 
         g
         |> Seq.map(fun kvp ->
             let (p,nd,s) = kvp.Value
@@ -208,13 +208,13 @@ type FGraph() =
 
 
     ///Maps contexts of the graph.
-    static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
+    static member mapContexts (mapping : FContext<'NodeKey, 'NodeData, 'EdgeData> -> 'T) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : seq<'NodeKey * 'T>= 
         g
         |> Seq.map (fun kv -> kv.Key,mapping kv.Value )
 
     /////Remove the Node and all edges connected to it
-    static member removeNode (nk:'NodeKey) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        match FGraph.containsNode nk g with
+    static member removeNode (nk:'NodeKey) (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> = 
+        match FContextMap.containsNode nk g with
         |true   -> 
             let p,_,s = g.Item nk
             for k1 in p do
@@ -226,9 +226,9 @@ type FGraph() =
         |_ -> g
 
      /// <summary> 
-     /// Returns the FGraph content as a sequence of edges 
+     /// Returns the FContextMap content as a sequence of edges 
      /// </summary>
-    static member toSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member toSeq (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) = 
         seq {
              for skv in graph do
                 let (_, source, s) = skv.Value
@@ -241,16 +241,16 @@ type FGraph() =
     /// Creates an Adjacency graph of a sequence of edges
     /// </summary>
     static member ofSeq (edgelist : seq<'NodeKey * 'NodeData * 'NodeKey * 'NodeData * 'EdgeData>) 
-        : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
-        let graph = FGraph.create()
+        : FContextMap<'NodeKey, 'NodeData, 'EdgeData> = 
+        let graph = FContextMap.create()
         edgelist
-        |> Seq.iter (fun (sk,s,tk,t,ed) -> FGraph.addElement sk s tk t ed graph |> ignore)
+        |> Seq.iter (fun (sk,s,tk,t,ed) -> FContextMap.addElement sk s tk t ed graph |> ignore)
         graph
 
     /// <summary>
-    /// Creates an FGraph consisting of the Nodes of a given FGraph but with its directed Edges reversed.
+    /// Creates an FContextMap consisting of the Nodes of a given FContextMap but with its directed Edges reversed.
     /// </summary>
-    static member reverseEdges (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member reverseEdges (graph : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) = 
         let newGraph = Dictionary<'NodeKey, FContext<'NodeKey, 'NodeData, 'EdgeData>>()
         (graph.Keys, graph.Values)
         ||> Seq.iter2 (
@@ -267,12 +267,12 @@ type FGraph() =
         newGraph
 
     /// <summary> 
-    /// Converts the FGraph to an array2d 
+    /// Converts the FContextMap to an array2d 
     /// </summary>
     /// <param name="graph">The graph to be converted</param> 
     /// <returns>An array2d</returns>
     static member toArray2D (nodeIndexer : 'NodeKey -> int)  =
-        (fun (g : FGraph<'NodeKey,'NodeData,'EdgeData>) ->
+        (fun (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) ->
             //let nodeIndex =
             //    // TODO: better without sorting 
             //    g
@@ -290,7 +290,7 @@ type FGraph() =
             )
 
     ///Evaluates the number of edges in the graph.
-    static member countEdges (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : int =
+    static member countEdges (g: FContextMap<'NodeKey,'NodeData,'EdgeData>) : int =
         g 
         |> Seq.sumBy (fun kv -> 
             let (_,_,s) = kv.Value
@@ -298,7 +298,7 @@ type FGraph() =
             )
 
     ///Returns true, if the edge from vertex v1 to vertex v2 is contained in the graph. Otherwise, it returns false.
-    static member containsEdge v1 v2 (g: FGraph<'NodeKey,'NodeData,'EdgeData>) : bool =
+    static member containsEdge v1 v2 (g: FContextMap<'NodeKey,'NodeData,'EdgeData>) : bool =
         let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(v1,&context) with
         | true  -> 
@@ -308,13 +308,13 @@ type FGraph() =
             
     
     ///Lookup a labeled edge in the graph. Raising KeyNotFoundException if no binding exists in the graph.
-    static member findEdge (v1:'NodeKey) (v2:'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
+    static member findEdge (v1:'NodeKey) (v2:'NodeKey) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : 'NodeKey * 'NodeKey * 'EdgeData =
             Dictionary.item v1 g
             |> fun (_, _, s) -> Dictionary.item v2 s
             |> fun e -> (v1,v2,e)
     
     ///Lookup a labeled edge in the graph, returning a Some value if a binding exists and None if not.
-    static member tryFindEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) option =
+    static member tryFindEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : ('NodeKey * 'NodeKey * 'EdgeData) option =
         let mutable context = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk1,&context) with
         | false -> None
@@ -329,8 +329,8 @@ type FGraph() =
     //Add and remove
 
     ///Adds a labeled, directed edge to the graph.
-    static member tryAddEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> option =
-        if (FGraph.containsNode nk1 g |> not) || (FGraph.containsNode nk2 g |> not) || FGraph.containsEdge nk1 nk2 g then
+    static member tryAddEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> option =
+        if (FContextMap.containsNode nk1 g |> not) || (FContextMap.containsNode nk2 g |> not) || FContextMap.containsEdge nk1 nk2 g then
             None
         else 
             let (p1, nd1, s1) = Dictionary.item nk1 g
@@ -340,7 +340,7 @@ type FGraph() =
             g |> Some
 
     ///Adds a labeled, directed edge to the graph.
-    static member addEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+    static member addEdge (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk1,&contextNk1) with
         | false -> () //failwithf "Source Node %O does not exist" nk1 
@@ -369,13 +369,13 @@ type FGraph() =
         g
 
     ///Add labeled, directed edges to the graph.
-    static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-        Seq.iter (fun (nk1,nk2,ed) -> FGraph.addEdge nk1 nk2 ed g|>ignore) edgeSeq|>ignore
+    static member addEdges (edgeSeq:seq<('NodeKey)*('NodeKey)*('EdgeData)>) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
+        Seq.iter (fun (nk1,nk2,ed) -> FContextMap.addEdge nk1 nk2 ed g|>ignore) edgeSeq|>ignore
         g
 
     ///Remove a directed edge
-    static member removeEdge (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-        match FGraph.containsEdge nkSource nkTarget g with
+    static member removeEdge (nkSource : 'NodeKey) (nkTarget : 'NodeKey) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
+        match FContextMap.containsEdge nkSource nkTarget g with
         | true    -> 
             g.Item nkSource|> fun (p,nd,s) -> s.Remove nkTarget |>ignore
             g.Item nkTarget|> fun (p,nd,s) -> p.Remove nkSource |>ignore
@@ -384,19 +384,19 @@ type FGraph() =
 
 
     ///Removes all edges according to the given removeF
-    static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FGraph<'NodeKey,'NodeData,'EdgeData> -> FGraph<'NodeKey,'NodeData,'EdgeData>) (g : FGraph<'NodeKey,'NodeData,'EdgeData>) : FGraph<'NodeKey,'NodeData,'EdgeData> =
+    static member removeMany (edgeSeq:seq<('NodeKey)*('NodeKey)>) (removeF: 'NodeKey->'NodeKey->FContextMap<'NodeKey,'NodeData,'EdgeData> -> FContextMap<'NodeKey,'NodeData,'EdgeData>) (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
         Seq.iter(fun (nk1,nk2) -> (removeF nk1 nk2 g )|>ignore) edgeSeq|>ignore
         g
 
     /// Applies the given function on each egdge of the graph
-    static member iterEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member iterEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         for skv in graph do
             let (_, _, s) = skv.Value
             for tkv in s do  
                 action skv.Key tkv.Key tkv.Value
 
     /// Maps the given function on each egdge of the graph
-    static member mapEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member mapEdges (action : 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         graph
         |>Seq.map(fun skv ->
             skv.Value
@@ -408,7 +408,7 @@ type FGraph() =
         |> Seq.concat
 
     /// Applies the given function on every edge of the graph, which also receives an ascending integer index.
-    static member iteriEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member iteriEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> unit) (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         let mutable index = -1
         for skv in graph do
             let (_, _, s) = skv.Value
@@ -417,7 +417,7 @@ type FGraph() =
                 action index skv.Key tkv.Key tkv.Value
 
     /// Maps the given function on each egdge of the graph
-    static member mapiEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member mapiEdges (action : int -> 'NodeKey -> 'NodeKey -> 'EdgeData -> 'U) (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         let mutable index = -1
         graph
         |>Seq.map(fun skv ->
@@ -431,7 +431,7 @@ type FGraph() =
         |> Seq.concat
 
     ///Set the EdgeData of a given Edge between nk1 and nk2 to the given EdgeData
-    static member setEdgeData (nk1: 'NodeKey) (nk2: 'NodeKey)(ed: 'EdgeData) (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+    static member setEdgeData (nk1: 'NodeKey) (nk2: 'NodeKey)(ed: 'EdgeData) (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> = 
         let mutable contextNk1 = (null,Unchecked.defaultof<'NodeData>,null)
         match g.TryGetValue(nk1,&contextNk1) with
         | false -> failwithf "Source Node %O does not exist" nk1 
@@ -464,9 +464,9 @@ type FGraph() =
         g
 
     /// <summary> 
-    /// Returns the FGraph edges as a sequence of edges 
+    /// Returns the FContextMap edges as a sequence of edges 
     /// </summary>
-    static member toEdgeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member toEdgeSeq (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) = 
         seq {
              for skv in graph do
                 let (_, source, s) = skv.Value
@@ -477,28 +477,28 @@ type FGraph() =
     /// <summary> 
     /// Creates a new graph with the given node Data
     /// </summary>
-    /// <returns>FGraph</returns>
-    static member createFromNodes (nodes:seq<(('NodeKey)*('NodeData))>) :FGraph<'NodeKey,'NodeData,'EdgeData> =
-        FGraph.create()
-        |> FGraph.addNodes nodes
+    /// <returns>FContextMap</returns>
+    static member createFromNodes (nodes:seq<(('NodeKey)*('NodeData))>) :FContextMap<'NodeKey,'NodeData,'EdgeData> =
+        FContextMap.create()
+        |> FContextMap.addNodes nodes
 
-    // static member createOfEdgeSeq (edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>) :FGraph<'NodeKey,'NodeKey,'EdgeData> =
+    // static member createOfEdgeSeq (edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>) :FContextMap<'NodeKey,'NodeKey,'EdgeData> =
     //     let nodes: seq<'NodeKey * 'NodeKey> = 
     //         edges
     //         |> Seq.map(fun (s,t,w) -> [s,s;t,t])
     //         |> Seq.concat
     //         |> Seq.distinct
-    //     FGraph.create()
-    //     |> FGraph.addNodes nodes
-    //     |> FGraph.addEdges edges
+    //     FContextMap.create()
+    //     |> FContextMap.addNodes nodes
+    //     |> FContextMap.addEdges edges
 
     /// <summary> 
     /// Creates a new graph with the given Data
     /// </summary>
-    /// <returns>FGraph</returns>
-    static member create ((nodes:seq<(('NodeKey)*('NodeData))>),(edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>)) :FGraph<'NodeKey,'NodeData,'EdgeData> =
-        FGraph.createFromNodes nodes
-        |> FGraph.addEdges edges
+    /// <returns>FContextMap</returns>
+    static member create ((nodes:seq<(('NodeKey)*('NodeData))>),(edges:seq<('NodeKey)*('NodeKey)*('EdgeData)>)) :FContextMap<'NodeKey,'NodeData,'EdgeData> =
+        FContextMap.createFromNodes nodes
+        |> FContextMap.addEdges edges
         
         // ///Maps edgeData of the graph.
         // static member map 
@@ -508,7 +508,7 @@ type FGraph() =
         // static member remove 
     
     ///Returns if the given graph features loops
-    static member hasLoops (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member hasLoops (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         graph
         |> Seq.countIf (fun (kv: KeyValuePair<'NodeKey,FContext<'NodeKey,'NodeData,'EdgeData>>) -> 
             let p,d,s = kv.Value
@@ -517,7 +517,7 @@ type FGraph() =
         |> fun x -> x<>0
 
     ///Returns if the given graph does not feature loops
-    static member isSimple (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member isSimple (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         graph
         |> Seq.countIf (fun (kv: KeyValuePair<'NodeKey,FContext<'NodeKey,'NodeData,'EdgeData>>) -> 
             let p,d,s = kv.Value
@@ -525,22 +525,22 @@ type FGraph() =
         )
         |> fun x -> x=0
 
-    static member getNodeLabel (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) :'NodeData =
+    static member getNodeLabel (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) :'NodeData =
         graph.Item nk
         |> fun (p,d,s) -> d
     
   
   //TODO
-    static member getSubgraphOfNodeSeq (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nkSeq:seq<'NodeKey>) =
+    static member getSubgraphOfNodeSeq (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nkSeq:seq<'NodeKey>) =
         let nkSet = Set.ofSeq nkSeq
         graph
-        |> FGraph.toSeq
+        |> FContextMap.toSeq
         |> Seq.filter(fun (s,sd,t,td,w) ->
             nkSet.Contains s && nkSet.Contains t)
-        |> FGraph.ofSeq
+        |> FContextMap.ofSeq
 
-    static member filterGraphByNodeKey (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+    static member filterGraphByNodeKey (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             if nodeFilter (kvp.Key) then
@@ -559,7 +559,7 @@ type FGraph() =
         )
         newGraph
 
-    static member filterGraphByNodeKeyInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member filterGraphByNodeKeyInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nodeFilter:'NodeKey ->  bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
             if nodeFilter (kvp.Key) |> not then
@@ -571,8 +571,8 @@ type FGraph() =
         )
         graph
 
-    static member filterGraphByEdge (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+    static member filterGraphByEdge (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
 
         graph
         |> Seq.iter(fun (kvp) -> 
@@ -590,7 +590,7 @@ type FGraph() =
 
         newGraph
 
-    static member filterGraphByEdgeInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member filterGraphByEdgeInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (edgeFilter:'NodeKey -> 'NodeKey -> bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp) -> 
             let (p,d,s) = kvp.Value        
@@ -600,8 +600,8 @@ type FGraph() =
 
         graph
     
-    static member filterGraphByContext (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> -> bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+    static member filterGraphByContext (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> -> bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             if contextFilter (kvp.Value) then
@@ -620,7 +620,7 @@ type FGraph() =
         )
         newGraph
 
-    static member filterGraphByContextInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  bool) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member filterGraphByContextInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  bool) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
             if contextFilter (kvp.Value) |> not then
@@ -632,8 +632,8 @@ type FGraph() =
         )
         graph
 
-    static member mapNodeData (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData_) : FGraph<'NodeKey, 'NodeData_, 'EdgeData> =
-        let newGraph :FGraph<'NodeKey, 'NodeData_, 'EdgeData> = Dictionary<_,_>() 
+    static member mapNodeData (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData_) : FContextMap<'NodeKey, 'NodeData_, 'EdgeData> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData_, 'EdgeData> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             
@@ -646,7 +646,7 @@ type FGraph() =
         )
         newGraph
 
-    static member mapNodeDataInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member mapNodeDataInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeData -> 'NodeData) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
             let p,d,s = kvp.Value
@@ -655,8 +655,8 @@ type FGraph() =
             )
         graph
 
-    static member mapNodeKey (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey_) : FGraph<'NodeKey_, 'NodeData, 'EdgeData> =
-        let newGraph :FGraph<'NodeKey_, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
+    static member mapNodeKey (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey_) : FContextMap<'NodeKey_, 'NodeData, 'EdgeData> =
+        let newGraph :FContextMap<'NodeKey_, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             let newKey = mapping kvp.Key
@@ -684,7 +684,7 @@ type FGraph() =
         )
         newGraph
 
-    static member mapNodeKeyInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member mapNodeKeyInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp:KeyValuePair<'NodeKey,FContext<'NodeKey, 'NodeData, 'EdgeData>>) -> 
             let newKey = mapping kvp.Key
@@ -713,8 +713,8 @@ type FGraph() =
         )
         graph
 
-    static member mapEdgeData (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData_) : FGraph<'NodeKey, 'NodeData, 'EdgeData_> =
-        let newGraph :FGraph<'NodeKey, 'NodeData, 'EdgeData_> = Dictionary<_,_>() 
+    static member mapEdgeData (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData_) : FContextMap<'NodeKey, 'NodeData, 'EdgeData_> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData, 'EdgeData_> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             let (p,d,s) = kvp.Value
@@ -742,7 +742,7 @@ type FGraph() =
 
         newGraph
 
-    static member mapEdgeDataInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>)  (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member mapEdgeDataInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>)  (mapping:'NodeKey -> 'NodeKey -> 'EdgeData -> 'EdgeData) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun kvp ->
             let (p,d,s) = kvp.Value
@@ -761,8 +761,8 @@ type FGraph() =
         )
         graph
 
-    static member mapContext (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData_, 'EdgeData_>) : FGraph<'NodeKey, 'NodeData_, 'EdgeData_> =
-        let newGraph :FGraph<'NodeKey, 'NodeData_, 'EdgeData_> = Dictionary<_,_>() 
+    static member mapContext (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData_, 'EdgeData_>) : FContextMap<'NodeKey, 'NodeData_, 'EdgeData_> =
+        let newGraph :FContextMap<'NodeKey, 'NodeData_, 'EdgeData_> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
             let (p,d,s) = kvp.Value
@@ -773,7 +773,7 @@ type FGraph() =
 
         newGraph
 
-    static member mapContextInplace (graph: FGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData, 'EdgeData>) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member mapContextInplace (graph: FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:FContext<'NodeKey, 'NodeData, 'EdgeData> ->  FContext<'NodeKey, 'NodeData, 'EdgeData>) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun kvp ->
             let (p,d,s) = kvp.Value
@@ -783,26 +783,26 @@ type FGraph() =
         graph
 
 
-module FGraph =
+module FContextMap =
 
     /// <summary> 
     /// Returns a new, empty graph
     /// </summary>
-    /// <returns>Empty FGraph</returns>
-    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FGraph<'NodeKey, 'NodeData, 'EdgeData> = 
+    /// <returns>Empty FContextMap</returns>
+    let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey: comparison> : FContextMap<'NodeKey, 'NodeData, 'EdgeData> = 
         Dictionary<_,_>()
     
     type Node() =
         
-        static member addNode (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) (nd : 'NodeData) : FGraph<'NodeKey, 'NodeData, 'EdgeData> =
-            FGraph.addNode nk nd g
+        static member addNode (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey) (nd : 'NodeData) : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =
+            FContextMap.addNode nk nd g
         
-        static member removeNode (g : FGraph<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey)  : FGraph<'NodeKey, 'NodeData, 'EdgeData> =     
-            FGraph.removeNode nk g
+        static member removeNode (g : FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nk:'NodeKey)  : FContextMap<'NodeKey, 'NodeData, 'EdgeData> =     
+            FContextMap.removeNode nk g
     
     type Edge() =
-        static member addEdge (g : FGraph<'NodeKey,'NodeData,'EdgeData>) (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            FGraph.addEdge nk1 nk2 ed g
+        static member addEdge (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) (nk1 : 'NodeKey) (nk2 : 'NodeKey) (ed : 'EdgeData) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
+            FContextMap.addEdge nk1 nk2 ed g
 
-        static member removeEdge (g : FGraph<'NodeKey,'NodeData,'EdgeData>) (nkSource : 'NodeKey) (nkTarget : 'NodeKey) : FGraph<'NodeKey,'NodeData,'EdgeData> =
-            FGraph.removeEdge nkSource nkTarget g
+        static member removeEdge (g : FContextMap<'NodeKey,'NodeData,'EdgeData>) (nkSource : 'NodeKey) (nkTarget : 'NodeKey) : FContextMap<'NodeKey,'NodeData,'EdgeData> =
+            FContextMap.removeEdge nkSource nkTarget g

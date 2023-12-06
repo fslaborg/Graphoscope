@@ -2,6 +2,7 @@ module Modularity
 
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 [<Fact>]
@@ -19,7 +20,7 @@ let ``UndirectedGraph modularity works correctly `` () =
             ("f", "e", 1.0)
         |]
 
-    let g = UndirectedGraph.createFromEdges e
+    let g = Undirected.UndirectedGraph.createFromEdges e
     let partition = [|set ["a"; "b"; "c"]; set ["d"; "e"; "f"; "g"]|]
     
     let actual =  Measures.Modularity.ofUndirectedGraph id 1. partition g
@@ -28,11 +29,11 @@ let ``UndirectedGraph modularity works correctly `` () =
     Assert.Equal(expected, actual, 15)
 
 [<Fact>]
-let ``DiGraph modularity works correctly `` () =
-    let g = DiGraph.createFromEdges [|(2,1,1.); (2,3,1.); (3,4,1.)|]
+let ``LilMatrix modularity works correctly `` () =
+    let g = Directed.LilMatrix.createFromEdges [|(2,1,1.); (2,3,1.); (3,4,1.)|]
     let partition = [|set [1; 2]; set [3; 4]|]
 
-    let actual = Measures.Modularity.ofDiGraph id 1. partition g
+    let actual = Measures.Modularity.ofLilMatrix id 1. partition g
     let expected = 2. / 9.
 
     Assert.Equal(expected, actual)

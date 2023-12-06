@@ -2,6 +2,7 @@
 
 open FSharpAux
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 /// <summary> 
@@ -11,7 +12,7 @@ type Dijkstra() =
     
     
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member ofFContextMap (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         //let priorityQueue = SortedSet<'NodeKey * float>(Comparer<'NodeKey * float>.Create(fun (_, d1) (_, d2) -> compare d1 d2))
         let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
@@ -81,7 +82,7 @@ type Dijkstra() =
         distance
 
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofUndirectedFGraphIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member ofUndirectedFContextMapIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         let distance = Dictionary<'NodeKey,('NodeKey*float)>()
         let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
         let infinity = System.Double.MaxValue
@@ -116,14 +117,14 @@ type Dijkstra() =
         distance
 
     /// Computes the shortest path
-    static member internal getAdjacencyArrayForUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+    static member internal getAdjacencyArrayForUndirected (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
         let dist =
             Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
         graph.Edges[nodeIx]
         |> ResizeArray.iter(fun (target, w) -> dist[target] <- getEdgeWeight w)
         dist
 
-    static member internal getAdjacencyArrayForDirected (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
+    static member internal getAdjacencyArrayForDirected (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) (getEdgeWeight : 'EdgeData -> float) (nodeIx: int) =
         let dist =
             Array.init (graph.NodeKeys.Count) (fun x -> if x = nodeIx then 0. else infinity)
         graph.OutEdges[nodeIx]
@@ -137,7 +138,7 @@ type Dijkstra() =
     /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
-    static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * float) [] =
+    static member ofUndirected (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : ('NodeKey * float) [] =
         let que = SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let sourceIx = graph.IdMap[source]
         let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -166,7 +167,7 @@ type Dijkstra() =
     /// <param name="source"> Calculate the shortest paths from this node.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of target node and distance.</returns>
-    static member ofDiGraph (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>) : ('NodeKey * float) [] =
+    static member ofLilMatrix (source: 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>) : ('NodeKey * float) [] =
         let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
         let sourceIx = graph.IdMap[source]
         let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -196,7 +197,7 @@ type Dijkstra() =
     /// The ordered array of nodes and 2D Array of distances where each
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
-    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>): 'NodeKey [] * float [][] =        
+    static member ofUndirectedAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>): 'NodeKey [] * float [][] =        
         let dijkstra (sourceIx: int) =
             let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -228,7 +229,7 @@ type Dijkstra() =
     /// The ordered array of nodes and 2D Array of distances where each
     /// row and column index corresponds to a node's index in the nodes array.
     /// </returns>
-    static member ofDiGraphAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: DiGraph<'NodeKey, _, 'EdgeData>): 'NodeKey [] * float [][] =
+    static member ofLilMatrixAllPairs (getEdgeWeight : 'EdgeData -> float) (graph: Directed.LilMatrix<'NodeKey, _, 'EdgeData>): 'NodeKey [] * float [][] =
         let dijkstra (sourceIx: int) =
             let que= SortedSet<int * float>(Comparer<int * float>.Create(fun (n1, d1) (n2, d2) -> compare (d1,n1) (d2,n2)))
             let dist = Array.init (graph.NodeKeys.Count) (fun ix -> if ix = sourceIx then 0. else  infinity)
@@ -259,8 +260,8 @@ type Dijkstra() =
     /// <param name="destination">The finishing node of the path</param> 
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the distance</returns>
-    static member ofDiGraphBetween (getEdgeWeight : 'EdgeData -> float) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (origin :'NodeKey)  (destination :'NodeKey)  =
-        Dijkstra.ofDiGraph origin getEdgeWeight graph
+    static member ofLilMatrixBetween (getEdgeWeight : 'EdgeData -> float) (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) (origin :'NodeKey)  (destination :'NodeKey)  =
+        Dijkstra.ofLilMatrix origin getEdgeWeight graph
         |> Array.tryFind(fun (d,_) -> d = destination)
         |> fun o -> 
             match o with 
@@ -268,12 +269,12 @@ type Dijkstra() =
             | None -> None
     
 
-    static member compute (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofFGraph starting (fun x -> 1.) graph 
-    static member computeWithEdgeData (starting : 'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
-        Dijkstra.ofFGraph starting id graph 
-    static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofFGraph starting getEdgeWeight graph 
+    static member compute (starting : 'NodeKey, graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
+        Dijkstra.ofFContextMap starting (fun x -> 1.) graph 
+    static member computeWithEdgeData (starting : 'NodeKey, graph :  Directed.FContextMap<'NodeKey, 'NodeData, float>) =
+        Dijkstra.ofFContextMap starting id graph 
+    static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
+        Dijkstra.ofFContextMap starting getEdgeWeight graph 
 
     static member compute (starting : 'NodeKey, graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofAdjGraph starting (fun x -> 1.) graph 
@@ -282,14 +283,14 @@ type Dijkstra() =
     static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofAdjGraph starting getEdgeWeight graph 
 
-    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  DiGraph<'NodeKey, _, 'EdgeData>) =
-        Dijkstra.ofDiGraph starting getEdgeWeight graph 
+    static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  Directed.LilMatrix<'NodeKey, _, 'EdgeData>) =
+        Dijkstra.ofLilMatrix starting getEdgeWeight graph 
 
-    static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  FGraph<'NodeKey, 'NodeData, float>) =
-        //TODO: Implement Dijkstra.ofFGraphBetween
+    static member computeBetween (origin : 'NodeKey, destination :'NodeKey, graph :  Directed.FContextMap<'NodeKey, 'NodeData, float>) =
+        //TODO: Implement Dijkstra.ofFContextMapBetween
         System.NotImplementedException() |> raise
 
-    static member computeBetween (origin : 'NodeKey, destination :'NodeKey,  graph :  DiGraph<'NodeKey, 'NodeData, float>) =
-        //TODO: Implement Dijkstra.ofDiGraphBetween
+    static member computeBetween (origin : 'NodeKey, destination :'NodeKey,  graph :  Directed.LilMatrix<'NodeKey, 'NodeData, float>) =
+        //TODO: Implement Dijkstra.ofLilMatrixBetween
         System.NotImplementedException() |> raise
 

@@ -1,31 +1,32 @@
 namespace Graphoscope.Measures
 open Graphoscope
+open Graphoscope.Graphs
 
 type ClusteringCoefficient() =
     ///Evaluates the clustering coefficient of the vertex.
-    static member clusteringCoefficientOfFGraphVertex (context:FContext<'NodeKey, 'NodeData, 'EdgeData>) (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
+    static member clusteringCoefficientOfFContextMapVertex (context:Directed.FContext<'NodeKey, 'NodeData, 'EdgeData>) (g: Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : float=
         context
         |> fun c ->     
-            if FContext.degree c < 2 then 0.
+            if Directed.FContext.degree c < 2 then 0.
             else        
                 let add1IfInSeq acc x set = 
                     if Seq.contains x set then acc + 1
                     else acc
-                let neighbours = FContext.neighbours c|>Seq.map fst
+                let neighbours = Directed.FContext.neighbours c|>Seq.map fst
                 let neighbourEdges = 
                     Seq.fold (fun edgeAmount v' -> 
                         (g.Item v'
                         |> fun x  ->
-                            (FContext.predecessors x|>Seq.map fst
+                            (Directed.FContext.predecessors x|>Seq.map fst
                             |> Seq.fold (fun acc (x) -> add1IfInSeq acc x neighbours) 0))
                         + edgeAmount
                     ) 0 neighbours
                 let degree = Seq.length neighbours
                 ((float neighbourEdges) / (float (degree * (degree - 1)))) / 2.
     
-    static member clusteringCoefficientOfFGraph (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
+    static member clusteringCoefficientOfFContextMap (g: Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) : float=
         g
-        |> FGraph.mapContexts (fun c -> ClusteringCoefficient.clusteringCoefficientOfFGraphVertex c g)
+        |> Directed.FContextMap.mapContexts (fun c -> ClusteringCoefficient.clusteringCoefficientOfFContextMapVertex c g)
         |> Seq.sumBy snd
 
     static member clusteringCoefficientOfAdjGraphNode (n:'NodeKey) (g: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=  
@@ -53,21 +54,21 @@ type ClusteringCoefficient() =
         g.Keys
         |> Seq.map (fun c -> ClusteringCoefficient.clusteringCoefficientOfAdjGraphNode c g)
         |> Seq.sum
-    static member clusteringCoefficientOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
+    static member clusteringCoefficientOfLilMatrix (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
-    static member clusteringCoefficientOfUndirectedGraph (g: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
+    static member clusteringCoefficientOfUndirectedGraph (g: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) : float=
         System.NotImplementedException() |> raise
     
-    static member compute (g: FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        ClusteringCoefficient.clusteringCoefficientOfFGraph g
+    static member compute (g: Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
+        ClusteringCoefficient.clusteringCoefficientOfFContextMap g
         
     static member compute (g: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfAdjGraph g
     
-    static member compute (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        ClusteringCoefficient.clusteringCoefficientOfDiGraph g
+    static member compute (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        ClusteringCoefficient.clusteringCoefficientOfLilMatrix g
     
-    static member compute (g: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member compute (g: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         ClusteringCoefficient.clusteringCoefficientOfUndirectedGraph g
     

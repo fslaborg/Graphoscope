@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 /// <summary> 
@@ -9,7 +10,7 @@ open System.Collections.Generic
 type InformationEntropy() =
     
     /// <summary> 
-    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given FContextMap <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>
@@ -18,10 +19,10 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member ofFGraph (labelF:'NodeData -> 'Information) (graph:FGraph<'NodeKey,'NodeData,'EdgeData>) (n:'NodeKey) =
+    static member ofFContextMap (labelF:'NodeData -> 'Information) (graph: Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) (n:'NodeKey) =
         let r = 
             graph.Item n
-            |> FContext.neighbours 
+            |> Directed.FContext.neighbours 
             |> Seq.choose(fun (nk,ed) -> 
                 if nk=n then None
                 else
@@ -82,7 +83,7 @@ type InformationEntropy() =
 
     //TODO
     /// <summary> 
-    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given FContextMap <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>
@@ -91,11 +92,11 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member ofDiGraph (labelF:'NodeData -> 'Information) (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) (n:'NodeKey) =   
+    static member ofLilMatrix (labelF:'NodeData -> 'Information) (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) (n:'NodeKey) =   
         System.NotImplementedException() |> raise
 
     /// <summary> 
-    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given FContextMap <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>
@@ -104,12 +105,12 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member compute ((labelF:'NodeData -> 'Information),(graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>),(n:'NodeKey)) =
-        InformationEntropy.ofDiGraph labelF graph n
+    static member compute ((labelF:'NodeData -> 'Information),(graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>),(n:'NodeKey)) =
+        InformationEntropy.ofLilMatrix labelF graph n
 
     
     /// <summary> 
-    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given FContextMap <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>
@@ -118,11 +119,11 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member compute ((labelF:'NodeData -> 'Information),(graph:FGraph<'NodeKey,'NodeData,'EdgeData>),(n:'NodeKey)) =
-        InformationEntropy.ofFGraph labelF graph n
+    static member compute ((labelF:'NodeData -> 'Information),(graph: Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>),(n:'NodeKey)) =
+        InformationEntropy.ofFContextMap labelF graph n
 
     /// <summary> 
-    /// Computes the information entropy of the given FGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given FContextMap <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>

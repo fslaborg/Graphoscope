@@ -1,5 +1,6 @@
 namespace Graphoscope.Measures
 open Graphoscope
+open Graphoscope.Graphs
 
 
 type Size() =
@@ -8,24 +9,24 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfUndirected (graph: UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        UndirectedGraph.countNodes graph
+    static member sizeOfUndirected (graph: Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        Undirected.UndirectedGraph.countNodes graph
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        DiGraph.countNodes graph
+    static member sizeOfLilMatrix (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+        Directed.LilMatrix.countNodes graph
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfFGraph (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        FGraph.countNodes graph
+    static member sizeOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        Directed.FContextMap.countNodes graph
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
@@ -40,15 +41,15 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph : FGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Size.sizeOfFGraph graph
+    static member compute (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
+        Size.sizeOfFContextMap graph
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member compute (graph : Undirected.UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
         Size.sizeOfUndirected graph
     
     /// <summary> 
@@ -64,5 +65,5 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph :DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        Size.sizeOfDiGraph graph
+    static member compute (graph :Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+        Size.sizeOfLilMatrix graph

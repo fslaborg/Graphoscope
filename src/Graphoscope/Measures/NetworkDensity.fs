@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Measures
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 /// <summary> 
@@ -16,9 +17,9 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member ofFGraph (graph :  FGraph<'NodeKey, 'NodeData, float>) =
+    static member ofFContextMap (graph :  Directed.FContextMap<'NodeKey, 'NodeData, float>) =
         let nodesCount  = graph.Count|>float
-        let edgeCount   = FGraph.countEdges graph |>float
+        let edgeCount   = Directed.FContextMap.countEdges graph |>float
         let potentialConnections = ((nodesCount) * (nodesCount-1.))
         let density = edgeCount / potentialConnections
         density
@@ -47,7 +48,7 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member ofDiGraph (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member ofLilMatrix (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         System.NotImplementedException() |> raise  
 
     /// <summary> 
@@ -58,8 +59,8 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member compute (graph :  FGraph<'NodeKey, 'NodeData, float>) =
-        GraphDensity.ofFGraph graph
+    static member compute (graph :  Directed.FContextMap<'NodeKey, 'NodeData, float>) =
+        GraphDensity.ofFContextMap graph
 
     /// <summary> 
     /// Computes the graph density of the given graph <paramref name="graph"/>.
@@ -80,6 +81,6 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member compute (graph: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-        GraphDensity.ofDiGraph graph
+    static member compute (graph: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+        GraphDensity.ofLilMatrix graph
     

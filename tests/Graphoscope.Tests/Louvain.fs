@@ -2,6 +2,7 @@ module Louvain
 
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 [<Fact>]
@@ -18,7 +19,7 @@ let ``Louvain UndirectedGraph works correctly on `KarateClub` `` () =
           let cols = x.Split " "
           int cols[0], int cols[1], 1.0
         )
-        |> UndirectedGraph.createFromEdges
+        |> Undirected.UndirectedGraph.createFromEdges
 
     let actual = Algorithms.Louvain.louvainPartitions (karateGraph,  rng = rng.NextDouble)
     let expected =
@@ -47,7 +48,7 @@ let ``Louvain UndirectedGraph works corectly with `string` node`` () =
             ("f", "e", 1.0)
         |]
 
-    let t3 = UndirectedGraph.createFromEdges t3Edges
+    let t3 = Undirected.UndirectedGraph.createFromEdges t3Edges
 
     let actual = Algorithms.Louvain.louvainCommunities (t3, rng = rng.NextDouble)
     let expected = [|set ["a"; "b"; "c"]; set ["d"; "e"; "f"; "g"]|]
@@ -56,7 +57,7 @@ let ``Louvain UndirectedGraph works corectly with `string` node`` () =
 
 
 [<Fact>]
-let ``Louvain DiGraph works corectly`` () =
+let ``Louvain LilMatrix works corectly`` () =
     let rng = System.Random(123)
 
     let t1Edges = [|
@@ -74,8 +75,8 @@ let ``Louvain DiGraph works corectly`` () =
     |]
 
     let t1 =
-        DiGraph.createFromNodes (Array.init 11 (fun i -> i,i))
-        |> DiGraph.addEdges t1Edges
+        Directed.LilMatrix.createFromNodes (Array.init 11 (fun i -> i,i))
+        |> Directed.LilMatrix.addEdges t1Edges
     let actualT1 = Algorithms.Louvain.louvainCommunities(t1, id, rng = rng.NextDouble)
 
     let expectedT1 = [|set [0; 1; 2]; set [3; 4]; set [5]; set [6]; set [7; 8]; set [9; 10]|]
@@ -100,8 +101,8 @@ let ``Louvain DiGraph works corectly`` () =
     |]
 
     let t2 =
-        DiGraph.createFromNodes (Array.init 11 (fun i -> i+1, i+1))
-        |> DiGraph.addEdges t2Edges
+        Directed.LilMatrix.createFromNodes (Array.init 11 (fun i -> i+1, i+1))
+        |> Directed.LilMatrix.addEdges t2Edges
     let actualT2 = Algorithms.Louvain.louvainCommunities(t2, id, rng = rng.NextDouble)
 
     let expectedT2 = [|set [1; 6; 7; 8]; set [2; 3; 4; 5]; set [9; 10; 11]|]

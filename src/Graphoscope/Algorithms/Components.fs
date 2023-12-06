@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 type Components() =
@@ -41,15 +42,15 @@ type Components() =
         )
     
 
-    /// DiGraph
+    /// LilMatrix
 
     /// <summary> 
     /// Returns true if all nodes in the graph are weakly connected into one component.
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>Returns true or false</returns>
-    static member isWeakComponentOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =  
-        if  (DFS.ofDiGraphUndirected (g.NodeKeys |> Seq.head) g
+    static member isWeakComponentOfLilMatrix (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =  
+        if  (DFS.ofLilMatrixUndirected (g.NodeKeys |> Seq.head) g
             |> Seq.length) = g.NodeKeys .Count then true
                 else false
 
@@ -59,9 +60,9 @@ type Components() =
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns set of sets of nodes making up each component.</returns>
-    static member getWeakComponentsOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
+    static member getWeakComponentsOfLilMatrix (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
         g.NodeKeys
-        |> Seq.map(fun k -> DFS.ofDiGraphUndirected  k g |> Set.ofSeq)
+        |> Seq.map(fun k -> DFS.ofLilMatrixUndirected  k g |> Set.ofSeq)
         |> Set.ofSeq
 
     /// <summary> 
@@ -69,9 +70,9 @@ type Components() =
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns an int indicating numner of nodes</returns>
-    static member getLargestWeakComponentSizeOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
+    static member getLargestWeakComponentSizeOfLilMatrix (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>)= 
         g
-        |> Components.getWeakComponentsOfDiGraph
+        |> Components.getWeakComponentsOfLilMatrix
         |> Set.map(fun s -> s.Count)
         |> Set.toSeq
         |> Seq.max
@@ -81,16 +82,16 @@ type Components() =
     /// </summary>
     /// <param name="graph">The graph to analyse</param> 
     /// <returns>returns a new graph</returns>
-    static member getLargestWeakComponentOfDiGraph (g: DiGraph<'NodeKey, 'NodeData, 'EdgeData>)= 
+    static member getLargestWeakComponentOfLilMatrix (g: Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>)= 
         g
-        |> Components.getWeakComponentsOfDiGraph
+        |> Components.getWeakComponentsOfLilMatrix
         |> Seq.sortByDescending(fun c -> c |> Set.count)
         |> Seq.head
         |> fun c -> 
-            DiGraph.empty
-            |> DiGraph.addNodes (c |> Set.toArray)
-            |> DiGraph.addEdges (
-                    DiGraph.getAllEdges g 
+            Directed.LilMatrix.empty
+            |> Directed.LilMatrix.addNodes (c |> Set.toArray)
+            |> Directed.LilMatrix.addEdges (
+                    Directed.LilMatrix.getAllEdges g 
                     |> Array.filter(fun (f,t,_) -> 
                         (c |> Set.map fst).Contains f && (c |> Set.map fst).Contains t)
                         )

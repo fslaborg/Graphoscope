@@ -3,6 +3,7 @@
 open System
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 open System.IO
 open FSharpAux
 
@@ -33,24 +34,24 @@ let expected =
     |]
 
 [<Fact>]
-let ``All Pairs Floyd Warshall for DiGraph works correctly`` () =
+let ``All Pairs Floyd Warshall for LilMatrix works correctly`` () =
 
     let actual = 
-        DiGraph.createFromNodes (Array.init 10 (fun i -> i, i))
-        |> DiGraph.addEdges edges
-        |> DiGraph.toAdjacencyMatrix id
+        Directed.LilMatrix.createFromNodes (Array.init 10 (fun i -> i, i))
+        |> Directed.LilMatrix.addEdges edges
+        |> Directed.LilMatrix.toAdjacencyMatrix id
         |> Algorithms.FloydWarshall.fromJaggedArray 
 
     Assert.Equal<float[][]>(expected, actual)
 
 [<Fact>]
-let ``All Pairs Floyd Warshall for FGraph works correctly`` () =
+let ``All Pairs Floyd Warshall for FContextMap works correctly`` () =
 
     let actual = 
         edges
         |> Seq.map (fun (s, t, w) -> s,s,t,t,w)
-        |> FGraph.ofSeq
-        |> FGraph.toArray2D (id)
+        |> Directed.FContextMap.ofSeq
+        |> Directed.FContextMap.toArray2D (id)
         |> Algorithms.FloydWarshall.fromArray2D 
     printfn "%A" actual
 

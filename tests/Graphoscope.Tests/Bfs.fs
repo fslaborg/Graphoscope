@@ -2,22 +2,23 @@
 
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 
 
 
 [<Fact>]
-let ``BFS simple example on FGraph works correctly`` () =
+let ``BFS simple example on Directed.FContextMap works correctly`` () =
 
     let actual =
-        FGraph.empty
-        |> FGraph.addElement 0 'A' 1 'B' 0.1
-        |> FGraph.addElement 0 'A' 2 'C' 0.1
-        |> FGraph.addElement 1 'B' 2 'C' 0.1
-        |> FGraph.addElement 2 'C' 0 'A' 0.1
-        |> FGraph.addElement 2 'C' 3 'D' 0.1
-        |> FGraph.addElement 3 'D' 3 'D' 0.1
-        |> Algorithms.BFS.ofFGraph 2
+        Directed.FContextMap.empty
+        |> Directed.FContextMap.addElement 0 'A' 1 'B' 0.1
+        |> Directed.FContextMap.addElement 0 'A' 2 'C' 0.1
+        |> Directed.FContextMap.addElement 1 'B' 2 'C' 0.1
+        |> Directed.FContextMap.addElement 2 'C' 0 'A' 0.1
+        |> Directed.FContextMap.addElement 2 'C' 3 'D' 0.1
+        |> Directed.FContextMap.addElement 3 'D' 3 'D' 0.1
+        |> Algorithms.BFS.ofFContextMap 2
     
 
 

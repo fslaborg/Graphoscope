@@ -1,6 +1,7 @@
 ﻿namespace Graphoscope.Algorithms
 
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 
@@ -11,10 +12,10 @@ open System.Collections.Generic
     /// </summary>
     type DFS() =
 
-        static member private searchDiGraph 
+        static member private searchLilMatrix 
             (starting : 'NodeKey) 
-            (edgeFinder: 'NodeKey -> DiGraph<'NodeKey,'NodeData,'EdgeData> -> ('NodeKey * 'EdgeData) array)
-            (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+            (edgeFinder: 'NodeKey -> Directed.LilMatrix<'NodeKey,'NodeData,'EdgeData> -> ('NodeKey * 'EdgeData) array)
+            (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
 
             let visited = HashSet<'NodeKey>()
             let stack = Stack<'NodeKey>()
@@ -26,7 +27,7 @@ open System.Collections.Generic
                 while stack.Count > 0 do
                     let nodeKey = stack.Pop()      
                     let sucessors = edgeFinder nodeKey graph   
-                    let nodeData = DiGraph.Node.getNodeData nodeKey graph  
+                    let nodeData = Directed.LilMatrix.Node.getNodeData nodeKey graph  
                     
                     yield (nodeKey, nodeData)
 
@@ -42,7 +43,7 @@ open System.Collections.Generic
         /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
         /// <param name="graph">The graph to traverse.</param> 
         /// <returns>Sequence of node key and node data</returns>
-        static member ofFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        static member ofFContextMap (starting : 'NodeKey) (graph : Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
             let visited = HashSet<'NodeKey>()
             let stack = Stack<'NodeKey>()
 
@@ -66,22 +67,22 @@ open System.Collections.Generic
         /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
         /// <param name="graph">The graph to traverse.</param> 
         /// <returns>Sequence of node key and node data</returns>
-        static member ofDiGraph (starting : 'NodeKey) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-            DFS.searchDiGraph starting (DiGraph.getOutEdges) graph 
+        static member ofLilMatrix (starting : 'NodeKey) (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
+            DFS.searchLilMatrix starting (Directed.LilMatrix.getOutEdges) graph 
         
-        /// Same as ofDiGraph except it traverses nodes along in and out edges. 
+        /// Same as ofLilMatrix except it traverses nodes along in and out edges. 
         /// This is useful for finding components and other operations where the direction of the edge shouldnt matter.
         /// </summary>
         /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
         /// <param name="graph">The graph to traverse.</param> 
         /// <returns>Sequence of node key and node data</returns>
-        static member ofDiGraphUndirected (starting : 'NodeKey) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        static member ofLilMatrixUndirected (starting : 'NodeKey) (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) =
 
-            let undirectedEdgeFinder (starting : 'NodeKey) (graph : DiGraph<'NodeKey, 'NodeData, 'EdgeData>) = 
-                DiGraph.getOutEdges starting graph
-                |> Array.append(DiGraph.getInEdges starting graph)
+            let undirectedEdgeFinder (starting : 'NodeKey) (graph : Directed.LilMatrix<'NodeKey, 'NodeData, 'EdgeData>) = 
+                Directed.LilMatrix.getOutEdges starting graph
+                |> Array.append(Directed.LilMatrix.getInEdges starting graph)
          
-            DFS.searchDiGraph starting undirectedEdgeFinder graph 
+            DFS.searchLilMatrix starting undirectedEdgeFinder graph 
         
     
 

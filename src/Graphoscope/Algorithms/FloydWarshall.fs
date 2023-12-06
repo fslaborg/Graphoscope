@@ -2,6 +2,7 @@
 
 open FSharpAux
 open Graphoscope
+open Graphoscope.Graphs
 open System.Collections.Generic
 
 /// <summary> 

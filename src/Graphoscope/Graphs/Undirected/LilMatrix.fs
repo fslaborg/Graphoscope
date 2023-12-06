@@ -1,5 +1,7 @@
-﻿namespace Graphoscope
+﻿namespace Graphoscope.Graphs.Undirected
 
+open Graphoscope
+open Graphoscope.Graphs
 open FSharpAux
 open System.Collections.Generic
 
@@ -171,7 +173,7 @@ type UndirectedGraph() =
                     }
         }
 
-    /// Returns all possible edges in a digraph, excluding self-loops.
+    /// Returns all possible edges in a LilMatrix, excluding self-loops.
     static member internal getNonLoopingPossibleEdges (graph: UndirectedGraph<'NodeKey, _, 'EdgeData>) =
         UndirectedGraph.getAllPossibleEdges graph
         |> Seq.filter(fun (n1, n2) -> n1 <> n2)
@@ -317,7 +319,7 @@ module UndirectedGraph =
     /// <summary> 
     /// Creates an empty undirected Graph
     /// </summary>
-    /// <returns>Empty DiGraph</returns>
+    /// <returns>Empty Directed.LilMatrix</returns>
     let empty<'NodeKey, 'NodeData, 'EdgeData when 'NodeKey : comparison>
         : UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData> =
         UndirectedGraph<'NodeKey, 'NodeData, 'EdgeData>()

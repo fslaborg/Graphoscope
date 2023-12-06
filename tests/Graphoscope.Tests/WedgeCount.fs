@@ -2,6 +2,7 @@ module WedgeCount
 
 open Xunit
 open Graphoscope
+open Graphoscope.Graphs
 
 [<Fact>]
 let ``Wedge Count algorithm test graph without cycles`` () =
@@ -16,15 +17,15 @@ let ``Wedge Count algorithm test graph without cycles`` () =
     // 2, 5 and 5, 7
     let dummyEdgeData = 0.1
     let actual =
-            FGraph.empty
-            |> FGraph.addElement 1 "Node 1" 2 "Node 2" dummyEdgeData
-            |> FGraph.addElement 1 "Node 1" 3 "Node 3" dummyEdgeData
-            |> FGraph.addElement 1 "Node 1" 8 "Node 8" dummyEdgeData
-            |> FGraph.addElement 2 "Node 2" 4 "Node 4" dummyEdgeData
-            |> FGraph.addElement 2 "Node 2" 5 "Node 5" dummyEdgeData
-            |> FGraph.addElement 3 "Node 3" 6 "Node 6" dummyEdgeData
-            |> FGraph.addElement 5 "Node 5" 7 "Node 7" dummyEdgeData
-            |> Algorithms.WedgeCount.ofGraph
+            Directed.FContextMap.empty
+            |> Directed.FContextMap.addElement 1 "Node 1" 2 "Node 2" dummyEdgeData
+            |> Directed.FContextMap.addElement 1 "Node 1" 3 "Node 3" dummyEdgeData
+            |> Directed.FContextMap.addElement 1 "Node 1" 8 "Node 8" dummyEdgeData
+            |> Directed.FContextMap.addElement 2 "Node 2" 4 "Node 4" dummyEdgeData
+            |> Directed.FContextMap.addElement 2 "Node 2" 5 "Node 5" dummyEdgeData
+            |> Directed.FContextMap.addElement 3 "Node 3" 6 "Node 6" dummyEdgeData
+            |> Directed.FContextMap.addElement 5 "Node 5" 7 "Node 7" dummyEdgeData
+            |> Algorithms.WedgeCount.oFContextMap
     let expected = 8
     Assert.Equal(expected, actual)
 
@@ -35,11 +36,11 @@ let ``Wedge Count algorithm test triangle cycle`` ()=
     // 1, 2 and 1, 3
     // 2, 3 and 1, 3
     let actual =
-        FGraph.empty
-        |> FGraph.addElement 1 "Node 1" 2 "Node 2" 0.1
-        |> FGraph.addElement 2 "Node 2" 3 "Node 3" 0.1
-        |> FGraph.addElement 3 "Node 3" 1 "Node 1" 0.1
-        |> Algorithms.WedgeCount.ofGraph
+        Directed.FContextMap.empty
+        |> Directed.FContextMap.addElement 1 "Node 1" 2 "Node 2" 0.1
+        |> Directed.FContextMap.addElement 2 "Node 2" 3 "Node 3" 0.1
+        |> Directed.FContextMap.addElement 3 "Node 3" 1 "Node 1" 0.1
+        |> Algorithms.WedgeCount.oFContextMap
 
     let expected = 3
     Assert.Equal(expected, actual)
