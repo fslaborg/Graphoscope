@@ -5,6 +5,69 @@ open System.Collections.Generic
 
 type LongestPath() =
     
+    /// <summary>
+    /// Determines whether a cycle can be formed in the given FGraph starting from the specified node, 
+    /// using an algorithm based on priority queues and breadth-first traversal.
+    /// </summary>
+    /// <param name="starting">The node from which to check for the existence of a cycle.</param>
+    /// <param name="graph">The FGraph in which to search for the cycle.</param>
+    /// <returns>True if a cycle is found, otherwise false.</returns>
+    static member hasCycleFromNodeInFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let visited = HashSet<'NodeKey>()
+        //let stack = Stack<'NodeKey>()
+        let priorityQueue: Queue<('NodeKey)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
+
+        //stack.Push(starting)
+        priorityQueue.Enqueue(starting)
+        visited.Add(starting) |> ignore
+
+
+        let rec outerLoop counter =
+            if priorityQueue.Count>0 then
+            //if stack.Count > 0 then 
+                let nodeKey = priorityQueue.Dequeue() //et nodeKey = (stack.Pop())
+                let (_, nd, s) = graph.[nodeKey]
+
+                printfn $"{nodeKey}"
+                let rec innerLoops counter =
+                    if counter=s.Count then
+                        outerLoop (counter+1)
+                    else
+                        let node = s.Keys|>Seq.item counter
+                        if node=starting then 
+                            true  
+                        elif not(visited.Contains(node)) then
+                            //stack.Push(node)
+                            priorityQueue.Enqueue(node)
+                            visited.Add(node) |> ignore
+                            innerLoops (counter+1)
+                        else
+                            innerLoops (counter+1)
+                innerLoops 0
+            else
+                false
+        outerLoop 0
+
+    /// <summary>
+    /// Determines whether a cycle exists in the given FGraph.
+    /// </summary>
+    /// <param name="graph">The FGraph to check for the presence of a cycle</param>
+    /// <returns>True if a cycle is found, otherwise false.</returns>
+    static member hasCycleInFGraph (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+
+        let nodes = graph|>Seq.map(fun kvp -> kvp.Key)
+
+        let rec isCyclic (counter:int) = 
+            if counter = (nodes|>Seq.length) then
+                false
+            else
+                let node  = nodes |>Seq.item counter
+                if LongestPath.hasCycleFromNodeInFGraph node graph then
+                    true
+                else
+                    isCyclic (counter+1)
+        isCyclic 0
+
     /// <summary> 
     /// Computes longest paths from <paramref name="starting"/> for <paramref name="graph"/> using an inverse Dijkstra's algorithm.
     /// </summary>
@@ -13,7 +76,7 @@ type LongestPath() =
     /// <param name="graph"> The FGraph for which to compute the longest path. Has to be an Directed Acyclic Graph.</param>
     /// <remarks>If there isn't a path between two edges, the distance is set to `infinity`.</remarks>
     /// <returns>Tuples of an ordered list containing the path and the distance of the longest path.</returns>
-    static member getLongestPathOfFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member getLongestPathOfFGraphUnchecked (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
 
         //Inverse Version of Djikstra, transforming the edgeWeights into negatives
         let getLongestPathDictOfFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
@@ -76,57 +139,20 @@ type LongestPath() =
 
         reconstructPath [mostDistantNode] , (longestPath|>fun x -> x*(-1.))
 
+    /// <summary> 
+    /// Computes longest paths from <paramref name="starting"/> for <paramref name="graph"/> using an inverse Dijkstra's algorithm.
+    /// </summary>
+    /// <param name="starting"> Calculate the longest paths from this node.</param>    
+    /// <param name="getEdgeWeight"> Function to convert the EdgeData to a float.</param>    
+    /// <param name="graph"> The FGraph for which to compute the longest path. Has to be an Directed Acyclic Graph.</param>
+    /// <remarks>Uses hasCycleInFGraph to check for cyclic character. If the given FGraph is not a Directed Acyclic Graph this will fail.</remarks>
+    /// <returns>Tuples of an ordered list containing the path and the distance of the longest path.</returns>
+    static member getLongestPathOfFGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  FGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+        if LongestPath.hasCycleInFGraph graph then 
+            failwith "The given FGraph is not a Directed Acyclic Graph!"
+        else
+            LongestPath.getLongestPathOfFGraphUnchecked starting getEdgeWeight graph
 
-    static member checkForCycleToNodeofFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        let visited = HashSet<'NodeKey>()
-        //let stack = Stack<'NodeKey>()
-        let priorityQueue: Queue<('NodeKey)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
-
-        //stack.Push(starting)
-        priorityQueue.Enqueue(starting)
-        visited.Add(starting) |> ignore
-
-
-        let rec outerLoop counter =
-            if priorityQueue.Count>0 then
-            //if stack.Count > 0 then 
-                let nodeKey = priorityQueue.Dequeue() //et nodeKey = (stack.Pop())
-                let (_, nd, s) = graph.[nodeKey]
-
-                printfn $"{nodeKey}"
-                let rec innerLoops counter =
-                    if counter=s.Count then
-                        outerLoop (counter+1)
-                    else
-                        let node = s.Keys|>Seq.item counter
-                        if node=starting then 
-                            true  
-                        elif not(visited.Contains(node)) then
-                            //stack.Push(node)
-                            priorityQueue.Enqueue(node)
-                            visited.Add(node) |> ignore
-                            innerLoops (counter+1)
-                        else
-                            innerLoops (counter+1)
-                innerLoops 0
-            else
-                false
-        outerLoop 0
-
-    static member checkForCycleInFGraph (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-
-        let nodes = graph|>Seq.map(fun kvp -> kvp.Key)
-
-        let rec isCyclic (counter:int) = 
-            if counter = (nodes|>Seq.length) then
-                false
-            else
-                let node  = nodes |>Seq.item counter
-                if LongestPath.checkForCycleToNodeofFGraph node graph then
-                    true
-                else
-                    isCyclic (counter+1)
-        isCyclic 0
 
     /// <summary> 
     /// Computes longest paths from <paramref name="starting"/> for <paramref name="graph"/> using an inverse Dijkstra's algorithm.
