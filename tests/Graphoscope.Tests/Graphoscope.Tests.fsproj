@@ -19,6 +19,7 @@
     <Compile Include="GraphGenerators.fs" />
     <Compile Include="WedgeCount.fs" />
     <Compile Include="Components.fs" />
+    <Compile Include="LongestPath.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>

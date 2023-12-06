@@ -108,8 +108,8 @@ It quantifies how far a node is from the farthest other node in the network in t
 In other words, it represents the maximum distance between a node and any other node in the graph.
 *)
 
-let eccentricity (node:'NodeKey) =
-    Measures.Eccentricity.computeOfNodeWithEdgeData centralityGraph node
+let eccentricity (node:int) =
+    Measures.Eccentricity.computeOfNodeWithEdgeData(centralityGraph,node)
 
 renderCyGraph (fun x -> CyParam.label ($"Node: {x};Eccentricity: {eccentricity x}"))
 (*** include-it-raw ***)

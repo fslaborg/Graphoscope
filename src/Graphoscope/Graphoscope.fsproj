@@ -44,6 +44,7 @@
     <Compile Include="Measures/Eccentricity.fs" />
     <Compile Include="Measures\Radius.fs" />
     <Compile Include="Measures\Diameter.fs" />
+    <Compile Include="Measures/LongestPath.fs" />
     <Compile Include="RandomModels/Gilbert.fs" />
     <Compile Include="RandomModels\BollobasRiordan.fs" />
     <Compile Include="RandomModels\ErdosRenyi.fs" />

@@ -110,7 +110,7 @@ let karateOutput = sprintf "Successfully imported the undirected karate graph! I
 (**
 A conversion into an Adjacency Matrix is also very easily achievable. It can be executed as follows. 
 *)
-let monkeyAdjacencyMatrix = DiGraph.toMatrix monkeyGraph
+let monkeyAdjacencyMatrix = DiGraph.toAdjacencyMatrix id monkeyGraph
 (***include-value: monkeyAdjacencyMatrix***)
 
 (**
