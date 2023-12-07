@@ -545,7 +545,7 @@ type AdjGraph() =
 
         graph
     
-    static member filterGraphByContext (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter: 'context -> bool) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member filterGraphByContext (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextFilter: 'NodeData * Dictionary<'NodeKey,'EdgeData> -> bool) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         let newGraph :AdjGraph<'NodeKey, 'NodeData, 'EdgeData> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
@@ -561,7 +561,7 @@ type AdjGraph() =
         )
         newGraph
 
-    static member filterGraphByContextInplace (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)(contextFilter: 'context -> bool) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member filterGraphByContextInplace (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)(contextFilter: 'NodeData * Dictionary<'NodeKey,'EdgeData> -> bool) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun (kvp) -> 
             if contextFilter (kvp.Value) |> not then
@@ -667,7 +667,7 @@ type AdjGraph() =
         )
         graph
 
-    static member mapContext (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:'context ->  'context_) : AdjGraph<'NodeKey, 'NodeData_, 'EdgeData_> =
+    static member mapContext (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:'NodeData * Dictionary<'NodeKey,'EdgeData> ->  'NodeData_ * Dictionary<'NodeKey,'EdgeData_>) : AdjGraph<'NodeKey, 'NodeData_, 'EdgeData_> =
         let newGraph :AdjGraph<'NodeKey, 'NodeData_, 'EdgeData_> = Dictionary<_,_>() 
         graph
         |> Seq.iter(fun kvp ->
@@ -679,7 +679,7 @@ type AdjGraph() =
 
         newGraph
 
-    static member mapContextInplace (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)(contextMapping:'context ->  'context) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
+    static member mapContextInplace (graph: AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (contextMapping:'NodeData * Dictionary<'NodeKey,'EdgeData> ->  'NodeData * Dictionary<'NodeKey,'EdgeData>) : AdjGraph<'NodeKey, 'NodeData, 'EdgeData> =
         graph
         |> Seq.iter(fun kvp ->
             let (d,n) = kvp.Value
