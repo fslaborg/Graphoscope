@@ -54,11 +54,6 @@
     <Compile Include="RandomModels\RegularRingLattice.fs" />
     <Compile Include="RandomModels\WattsStrogatz.fs" />
     <Compile Include="RandomModels/StarGraph.fs" />
-    <Compile Include="Graphs\Directed\FContextMap.fs" />
-    <Compile Include="Graphs\Undirected\FContextMap.fs" />
-    <Compile Include="Graphs\Undirected\oldUndirectedFContext.fs" />
-    <Compile Include="Graphs\Directed\LilMatrix.fs" />
-    <Compile Include="Graphs\Undirected\LilMatrix.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="FSharpAux.Core" Version="2.0.0" />
@@ -69,9 +64,5 @@
       <GeneratePathProperty>
       </GeneratePathProperty>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Graphs\Directed\" />
-    <Folder Include="Graphs\Undirected\" />
   </ItemGroup>
 </Project>
