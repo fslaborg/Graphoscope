@@ -46,7 +46,7 @@ type InformationEntropy() =
         )  
 
     /// <summary> 
-    /// Computes the information entropy of the given AdjGraph <paramref name="graph"/>.
+    /// Computes the information entropy of the given UndirectedFContext <paramref name="graph"/>.
     /// </summary>
     /// <param name="labelF">The function to get the desired information for the entropy of the nodedata.</param>
     /// <param name="graph">The graph for which to compute the information entropy.</param>
@@ -55,16 +55,16 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member ofAdjGraph (labelF:'NodeData -> 'Information) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) (n:'NodeKey) =
+    static member OfUndirectedFContextMap (labelF:'NodeData -> 'Information) (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) (n:'NodeKey) =
         let r = 
-            AdjGraph.getNeighbours  n graph
+            Undirected.FContext.neighbours graph.[n] 
             |> Seq.choose(fun (nk,ed) -> 
                 if nk=n then None
                 else
                     Some (
                         nk,
                         graph.Item nk
-                        |>fun (d,p) -> d
+                        |>fun (p,d,s) -> d
                         |>labelF 
                     )
             )
@@ -132,5 +132,5 @@ type InformationEntropy() =
     /// <returns>
     /// The information entropy of the given node .
     /// </returns> 
-    static member compute ((labelF:'NodeData -> 'Information),(graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>),(n:'NodeKey)) =
-        InformationEntropy.ofAdjGraph labelF graph n
+    static member computeUndirected ((labelF:'NodeData -> 'Information),(graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>),(n:'NodeKey)) =
+        InformationEntropy.OfUndirectedFContextMap labelF graph n

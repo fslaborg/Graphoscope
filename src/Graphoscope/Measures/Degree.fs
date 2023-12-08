@@ -30,10 +30,10 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member sequenceOfAdjGraph(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member sequenceOfUndirectedFContextMap(graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
         graph.Keys
         |> Seq.map(fun k -> 
-            AdjGraph.getDegree graph k
+            Undirected.FContext.degree graph.[k]
             |> float
         )
         |> Seq.sortDescending
@@ -86,8 +86,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of degree values</returns>
-    static member sequence(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        Degree.sequenceOfAdjGraph graph
+    static member sequenceUndirected(graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) =
+        Degree.sequenceOfUndirectedFContextMap graph
 
 
 
@@ -112,10 +112,10 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member averageofAdjGraph(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member averageOfUndirectedFContextMap(graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
         graph.Keys
         |> Seq.map(fun k -> 
-            AdjGraph.getDegree graph k
+            Undirected.FContext.degree graph.[k]
             |> float
         )
         |> Seq.average
@@ -163,8 +163,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean degree</returns>
-    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        Degree.averageofAdjGraph graph
+    static member averageUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) =
+        Degree.averageOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the mean degree of the graph. 
@@ -185,7 +185,7 @@ type Degree() =
     /// Get the max degree of the graph. 
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
-    /// <returns>An int of the max degree</returns>
+    /// <returns> An int of the max degree</returns>
     static member maximumOfFContextMap (graph : Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) = 
         graph 
         |> Directed.FContextMap.mapContexts Directed.FContext.degree
@@ -206,10 +206,10 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max degree</returns>
-    static member maximumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member maximumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
         graph.Keys
         |> Seq.map(fun k -> 
-            AdjGraph.getDegree graph k
+            Undirected.FContext.degree graph.[k]
             |> float
         )
         |> Seq.max
@@ -245,8 +245,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max degree</returns>
-    static member maximum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.maximumOfAdjGraph graph
+    static member maximumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.maximumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the max degree of the graph. 
@@ -290,10 +290,10 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min degree</returns>
-    static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member minimumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
         graph.Keys
         |> Seq.map(fun k -> 
-            AdjGraph.getDegree graph k
+            Undirected.FContext.degree graph.[k]
             |> float
         )
         |> Seq.min
@@ -330,8 +330,8 @@ type Degree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min degree</returns>
-    static member minimum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.minimumOfAdjGraph graph
+    static member minimumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.minimumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the min degree of the graph. 

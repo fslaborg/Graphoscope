@@ -14,7 +14,7 @@ let rnd = new System.Random()
 // [<MemoryDiagnoser>]
 // type Graphs () =
 //     let mutable edgesArr : (int*int*float) [] = [||]
-//     let mutable adjGraph     = AdjGraph.empty<int,int,float>
+//     let mutable UndirectedFContext     = Undirected.FContextMap.empty<int,int,float>
 //     let mutable LilMatrix      = Directed.LilMatrix.empty<int,float>
 //     // let mutable diNodeGraph  = Directed.LilMatrix.empty<DiNode<int>,float>
 //     let mutable FContextMap       = FContextMap.empty<int,int,float>
@@ -36,12 +36,12 @@ let rnd = new System.Random()
 //                 yield (node1,node2,float i)
 //             |]
 //         edgesArr <- edges
-//         //prepare AdjGraph
-//         let gAdj= AdjGraph.create<int,int,float>()
+//         //prepare UndirectedFContext
+//         let gAdj= Undirected.FContextMap.create<int,int,float>()
 //         for i=0 to this.NumberEdges-1 do
 //             let (node1,node2,data) = edgesArr.[i]
-//             AdjGraph.addElement node1 node1 node2 node2 data gAdj |> ignore
-//         adjGraph <- gAdj
+//             Undirected.FContextMap.addElement node1 node1 node2 node2 data gAdj |> ignore
+//         UndirectedFContext <- gAdj
 //         //prepare LilMatrix
 //         let gDi = Directed.LilMatrix.empty<int,float>
 //         for i=0 to this.NumberNodes-1 do
@@ -69,15 +69,15 @@ let rnd = new System.Random()
 
 
 //     [<Benchmark>]
-//     member this.AdjGraph () = 
-//         let g = AdjGraph.create<int,int,float>()
+//     member this.UndirectedFContext () = 
+//         let g = Undirected.FContextMap.create<int,int,float>()
 //         // Add nodes
 //         for i=0 to this.NumberNodes-1 do
-//             AdjGraph.Node.add i i g |> ignore
+//             Undirected.FContextMap.Node.add i i g |> ignore
 //         // Add edges
 //         for i=0 to this.NumberEdges-1 do
 //             let (node1,node2,data) = edgesArr.[i]
-//             AdjGraph.Edge.add node1 node2 data g |> ignore
+//             Undirected.FContextMap.Edge.add node1 node2 data g |> ignore
     
 //     [<Benchmark>]
 //     member this.LilMatrix () =
@@ -127,7 +127,7 @@ let rnd = new System.Random()
 //     //    [|
 //     //    for i=0 to this.NumberEdges-1 do
 //     //        let (node1,node2,_) = edgesArr.[i]
-//     //        let _,_,d = AdjGraph.Edge.find node1 node2 adjGraph            
+//     //        let _,_,d = Undirected.FContextMap.Edge.find node1 node2 UndirectedFContext            
 //     //        yield d
 //     //    |] 
 
@@ -173,7 +173,7 @@ let rnd = new System.Random()
 
 // //|        Method | NumberNodes | NumberEdges |         Mean |      Error |       StdDev |       Median |      Gen0 |     Gen1 |     Gen2 |   Allocated |
 // //|-------------- |------------ |------------ |-------------:|-----------:|-------------:|-------------:|----------:|---------:|---------:|------------:|
-// //|      AdjGraph |         100 |         500 |     36.52 us |   0.727 us |     0.995 us |     36.42 us |   17.5171 |        - |        - |    71.64 KB |
+// //|      UndirectedFContext |         100 |         500 |     36.52 us |   0.727 us |     0.995 us |     36.42 us |   17.5171 |        - |        - |    71.64 KB |
 // //|       AdjComp |         100 |         500 |     38.04 us |   0.638 us |     0.655 us |     38.31 us |   14.8926 |   0.2441 |        - |    60.89 KB |
 // //|       LilMatrix |         100 |         500 |     15.80 us |   0.217 us |     0.193 us |     15.84 us |    9.9792 |   0.0305 |        - |    40.76 KB |
 // //|   DiNodeGraph |         100 |         500 |     30.55 us |   0.592 us |     0.582 us |     30.44 us |   17.0898 |        - |        - |    70.01 KB |
@@ -183,7 +183,7 @@ let rnd = new System.Random()
 // //|     Access_Di |         100 |         500 |     21.88 us |   0.429 us |     0.573 us |     21.96 us |    9.6741 |        - |        - |    39.54 KB |
 // //| Access_DiNode |         100 |         500 |     39.21 us |   0.753 us |     1.433 us |     38.79 us |   16.3574 |        - |        - |    66.88 KB |
 // //| Access_FContextMap |         100 |         500 |     15.16 us |   0.302 us |     0.790 us |     15.01 us |    6.8054 |        - |        - |    27.82 KB |
-// //|      AdjGraph |         100 |       50000 |  3,013.35 us |  46.135 us |    43.155 us |  3,008.92 us |  500.0000 | 246.0938 |        - |  2561.04 KB |
+// //|      UndirectedFContext |         100 |       50000 |  3,013.35 us |  46.135 us |    43.155 us |  3,008.92 us |  500.0000 | 246.0938 |        - |  2561.04 KB |
 // //|       AdjComp |         100 |       50000 |  3,162.62 us |  61.554 us |    82.172 us |  3,141.63 us |  195.3125 |  70.3125 |        - |  1002.56 KB |
 // //|       LilMatrix |         100 |       50000 |  1,826.41 us |  29.391 us |    26.054 us |  1,829.23 us |  445.3125 | 222.6563 |        - |  2720.63 KB |
 // //|   DiNodeGraph |         100 |       50000 |  5,599.60 us | 110.431 us |   118.160 us |  5,650.62 us |  914.0625 | 453.1250 |        - |  5070.45 KB |
@@ -193,7 +193,7 @@ let rnd = new System.Random()
 // //|     Access_Di |         100 |       50000 | 11,669.94 us | 186.577 us |   222.107 us | 11,598.24 us |  859.3750 | 187.5000 | 171.8750 |  4149.85 KB |
 // //| Access_DiNode |         100 |       50000 | 13,634.85 us | 262.426 us |   570.493 us | 13,488.59 us | 1531.2500 | 234.3750 | 171.8750 |  6884.08 KB |
 // //| Access_FContextMap |         100 |       50000 |  4,651.53 us | 213.642 us |   629.927 us |  4,907.75 us |  578.1250 | 210.9375 | 164.0625 |  2977.67 KB |
-// //|      AdjGraph |       10000 |         500 |  3,732.55 us | 124.537 us |   349.216 us |  3,781.20 us |  386.7188 | 324.2188 | 164.0625 |  2093.79 KB |
+// //|      UndirectedFContext |       10000 |         500 |  3,732.55 us | 124.537 us |   349.216 us |  3,781.20 us |  386.7188 | 324.2188 | 164.0625 |  2093.79 KB |
 // //|       AdjComp |       10000 |         500 |    903.90 us |  19.537 us |    57.605 us |    906.83 us |  164.0625 | 106.4453 |  74.2188 |    807.8 KB |
 // //|       LilMatrix |       10000 |         500 |  2,695.42 us |  88.026 us |   259.546 us |  2,682.65 us |  253.9063 | 222.6563 | 113.2813 |  1396.86 KB |
 // //|   DiNodeGraph |       10000 |         500 |  4,177.83 us | 190.091 us |   560.488 us |  4,236.07 us |  367.1875 | 347.6563 | 191.4063 |  2045.24 KB |
@@ -203,7 +203,7 @@ let rnd = new System.Random()
 // //|     Access_Di |       10000 |         500 |     19.38 us |   0.344 us |     0.305 us |     19.42 us |    9.6741 |        - |        - |    39.54 KB |
 // //| Access_DiNode |       10000 |         500 |     35.03 us |   0.841 us |     2.412 us |     34.03 us |   16.3574 |        - |        - |    66.88 KB |
 // //| Access_FContextMap |       10000 |         500 |     15.11 us |   0.252 us |     0.236 us |     15.14 us |    6.8054 |        - |        - |    27.82 KB |
-// //|      AdjGraph |       10000 |       50000 | 21,790.54 us | 455.362 us | 1,342.645 us | 21,721.45 us | 1250.0000 | 531.2500 | 156.2500 |  7369.87 KB |
+// //|      UndirectedFContext |       10000 |       50000 | 21,790.54 us | 455.362 us | 1,342.645 us | 21,721.45 us | 1250.0000 | 531.2500 | 156.2500 |  7369.87 KB |
 // //|       AdjComp |       10000 |       50000 | 14,915.89 us | 293.346 us |   605.811 us | 14,903.43 us |  906.2500 | 421.8750 | 125.0000 |   6134.5 KB |
 // //|       LilMatrix |       10000 |       50000 | 11,529.53 us | 230.098 us |   660.194 us | 11,545.51 us |  656.2500 | 328.1250 |  93.7500 |  4040.71 KB |
 // //|   DiNodeGraph |       10000 |       50000 | 23,243.74 us | 454.927 us | 1,026.847 us | 22,997.41 us | 1125.0000 | 468.7500 | 156.2500 |  7015.79 KB |
@@ -224,7 +224,7 @@ let rnd = new System.Random()
 
 // //// * Hints *
 // //Outliers
-// //  Graphs.AdjGraph: Default      -> 1 outlier  was  removed (39.24 us)
+// //  Graphs.UndirectedFContext: Default      -> 1 outlier  was  removed (39.24 us)
 // //  Graphs.AdjComp: Default       -> 2 outliers were removed (40.00 us, 41.82 us)
 // //  Graphs.LilMatrix: Default       -> 1 outlier  was  removed (16.39 us)
 // //  Graphs.FContextMap: Default        -> 3 outliers were removed (44.57 us..47.00 us)
@@ -232,7 +232,7 @@ let rnd = new System.Random()
 // //  Graphs.Access_Comp: Default   -> 5 outliers were removed (24.32 us..41.47 us)
 // //  Graphs.Access_DiNode: Default -> 1 outlier  was  removed (43.12 us)
 // //  Graphs.Access_FContextMap: Default -> 2 outliers were removed (19.29 us, 23.24 us)
-// //  Graphs.AdjGraph: Default      -> 2 outliers were detected (2.92 ms, 2.94 ms)
+// //  Graphs.UndirectedFContext: Default      -> 2 outliers were detected (2.92 ms, 2.94 ms)
 // //  Graphs.AdjComp: Default       -> 1 outlier  was  removed (3.98 ms)
 // //  Graphs.LilMatrix: Default       -> 1 outlier  was  removed, 2 outliers were detected (1.77 ms, 1.91 ms)
 // //  Graphs.FContextMap: Default        -> 1 outlier  was  removed (3.50 ms)
@@ -240,7 +240,7 @@ let rnd = new System.Random()
 // //  Graphs.Access_Di: Default     -> 3 outliers were removed (12.48 ms..12.75 ms)
 // //  Graphs.Access_DiNode: Default -> 4 outliers were removed (15.24 ms..16.11 ms)
 // //  Graphs.Access_FContextMap: Default -> 4 outliers were detected (2.59 ms..3.07 ms)
-// //  Graphs.AdjGraph: Default      -> 9 outliers were removed, 12 outliers were detected (2.60 ms..2.83 ms, 4.65 ms..5.07 ms)
+// //  Graphs.UndirectedFContext: Default      -> 9 outliers were removed, 12 outliers were detected (2.60 ms..2.83 ms, 4.65 ms..5.07 ms)
 // //  Graphs.AdjComp: Default       -> 1 outlier  was  detected (712.87 us)
 // //  Graphs.LilMatrix: Default       -> 2 outliers were detected (1.79 ms, 2.01 ms)
 // //  Graphs.FContextMap: Default        -> 1 outlier  was  detected (4.17 ms)

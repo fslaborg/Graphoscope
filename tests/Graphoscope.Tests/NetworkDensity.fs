@@ -20,10 +20,10 @@ open FSharpAux
 //             (fun str -> 
 //                 let arr = str.Split(' ')
 //                 int arr.[0], arr.[0], int arr.[1], arr.[1], float arr.[2])
-//         |> AdjGraph.ofSeq
+//         |> Undirected.FContextMap.ofSeq
     
 //     //Assert.Equal(111.0, (Measures.getVolume monkeyGraph))
-//     Assert.Equal(0.925,(Measures.GraphDensity.ofAdjGraph monkeyGraph)) 
+//     Assert.Equal(0.925,(Measures.GraphDensity.OfUndirectedFContextMap monkeyGraph)) 
 //     //Assert.Equal(13.8750,(Measures.GraphDensity.ofFContextMap monkeyGraph)) 
     
 [<Fact>]
@@ -36,8 +36,8 @@ let ``Fully connected graph has correct measures`` () =
         ]
 
     let g = 
-        AdjGraph.empty
-        |>AdjGraph.addNodes (nodes|>List.map(fun x -> x,x))
-        |>AdjGraph.addEdges edges
+        Undirected.FContextMapU.empty
+        |>Undirected.FContextMapU.addNodes (nodes|>List.map(fun x -> x,x))
+        |>Undirected.FContextMapU.addEdges edges
  
-    Assert.Equal(1.,(Measures.GraphDensity.ofAdjGraph g)) 
+    Assert.Equal(1.,(Measures.GraphDensity.OfUndirectedFContextMap g)) 

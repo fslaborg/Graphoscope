@@ -47,8 +47,8 @@ type Radius() =
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member ofAdjGraph (weigthF:'EdgeData->float) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)  = 
-        Eccentricity.ofAdjGraph weigthF graph
+    static member OfUndirectedFContextMap (weigthF:'EdgeData->float) (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)  = 
+        Eccentricity.OfUndirectedFContextMap weigthF graph
         |> Seq.minBy snd
         |> snd
 
@@ -65,8 +65,8 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((graph: AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Radius.ofAdjGraph (fun x -> 1.) graph
+    static member computeUndirected((graph: Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)) =
+        Radius.OfUndirectedFContextMap (fun x -> 1.) graph
 
 
     /// <summary> 
@@ -82,8 +82,8 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeData((graph: AdjGraph<'NodeKey,'NodeData,float>)) =
-        Radius.ofAdjGraph id graph
+    static member computeUndirectedWithEdgeData((graph: Undirected.FContextMapU<'NodeKey,'NodeData,float>)) =
+        Radius.OfUndirectedFContextMap id graph
 
         /// <summary> 
     /// Get the radius of graph calculated by their minimum Eccentricity
@@ -98,6 +98,6 @@ type Radius() =
     /// </summary>
     /// <param name="graph">The graph to calculate the radius for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>computeWithEdgeDataBy
-    static member computeWithEdgeDataBy((weightF:'EdgeData -> float),(graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Radius.ofAdjGraph weightF graph
+    static member computeUndirectedWithEdgeDataBy((weightF:'EdgeData -> float),(graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)) =
+        Radius.OfUndirectedFContextMap weightF graph
     

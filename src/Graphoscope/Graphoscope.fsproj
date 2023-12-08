@@ -20,7 +20,6 @@
     <Compile Include="Graphs/Directed/LilMatrix.fs" />
     <Compile Include="Graphs/Undirected/FContextMap.fs" />
     <Compile Include="Graphs/Undirected/LilMatrix.fs" />
-    <Compile Include="Graphs/Undirected/oldUndirectedFContext.fs" />
     <Compile Include="Measures/Modularity.fs" />
     <Compile Include="Algorithms\BellmanFord.fs" />
     <Compile Include="Algorithms\DFS.fs" />

@@ -35,30 +35,30 @@ type Eccentricity() =
         )
       
     /// <summary> 
-    /// Get the Eccentricity of a node in an AdjGraph
+    /// Get the Eccentricity of a node in an UndirectedFContext
     /// </summary>
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
     /// <returns>A float of the Eccentricity of the node</returns>
-    static member ofAdjGraphNode (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+    static member OfUndirectedFContextMapNode (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
         //Get the collection of the shortest Paths by the given Dijkstra function and find the longest shortest path
-        let dic = Algorithms.Dijkstra.ofAdjGraph nodeKey getEdgeWeightF graph
+        let dic = Algorithms.Dijkstra.OfUndirectedFContextMap nodeKey getEdgeWeightF graph
         let eccentricity = Seq.max(dic.Values)
         eccentricity
 
     /// <summary> 
-    /// Get the Eccentricity of all nodes in an AdjGraph
+    /// Get the Eccentricity of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
     /// <returns>A float of the Eccentricity of the node</returns>
-    static member ofAdjGraph (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =    
+    static member OfUndirectedFContextMap (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =    
         graph.Keys
         |> Seq.map(fun k ->
             k,
-            Eccentricity.ofAdjGraphNode getEdgeWeightF graph k
+            Eccentricity.OfUndirectedFContextMapNode getEdgeWeightF graph k
         )
 
     /// <summary> 
@@ -97,14 +97,14 @@ type Eccentricity() =
         Eccentricity.ofFContextMap getEdgeWeightF graph
 
 
-    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Eccentricity.ofAdjGraph (fun x -> 1.) graph
+    static member computeUndirected (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =
+        Eccentricity.OfUndirectedFContextMap (fun x -> 1.) graph
 
-    static member computeWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =
-        Eccentricity.ofAdjGraph id graph
+    static member computeUndirectedWithEdgeData (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =
+        Eccentricity.OfUndirectedFContextMap id graph
 
-    static member computeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)) =
-        Eccentricity.ofAdjGraph getEdgeWeightF graph
+    static member computeUndirectedWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>)) =
+        Eccentricity.OfUndirectedFContextMap getEdgeWeightF graph
     
 
     static member computeOfNode ((graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
@@ -116,11 +116,11 @@ type Eccentricity() =
     static member computeOfNodeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
         Eccentricity.ofFContextMapNode getEdgeWeightF graph nodeKey
 
-    static member computeOfNode ((graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
-        Eccentricity.ofAdjGraphNode (fun x -> 1.) graph nodeKey
+    static member computeOfNodeUndirected ((graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.OfUndirectedFContextMapNode (fun x -> 1.) graph nodeKey
 
-    static member computeOfNodeWithEdgeData ((graph :  AdjGraph<'NodeKey, 'NodeData, float>),(nodeKey:'NodeKey)) =
-        Eccentricity.ofAdjGraphNode id graph nodeKey
+    static member computeOfNodeWithEdgeDataUndirected ((graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>),(nodeKey:'NodeKey)) =
+        Eccentricity.OfUndirectedFContextMapNode id graph nodeKey
 
-    static member computeOfNodeWithEdgeDataBy ((getEdgeWeightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
-        Eccentricity.ofAdjGraphNode getEdgeWeightF graph nodeKey
+    static member computeOfNodeWithEdgeDataByUndirected ((getEdgeWeightF:'EdgeData -> float),(graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>),(nodeKey:'NodeKey)) =
+        Eccentricity.OfUndirectedFContextMapNode getEdgeWeightF graph nodeKey

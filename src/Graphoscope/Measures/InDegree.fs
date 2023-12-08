@@ -30,8 +30,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member sequenceOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.sequenceOfAdjGraph graph
+    static member sequenceOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.sequenceOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Returns the in-degree sequence of the graph
@@ -58,8 +58,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of in-degree values</returns>
-    static member sequence(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.sequenceOfAdjGraph graph
+    static member sequenceUndirected(graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.sequenceOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Returns the in-degree sequence of the graph
@@ -94,8 +94,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member averageofAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.averageofAdjGraph graph  
+    static member averageOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.averageOfUndirectedFContextMap graph  
 
     /// <summary> 
     /// Get the mean In-degree of the graph. 
@@ -131,8 +131,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean In-degree</returns>
-    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        InDegree.averageofAdjGraph graph
+    static member averageUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) =
+        InDegree.averageOfUndirectedFContextMap graph
 
 
 
@@ -157,8 +157,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.maximumOfAdjGraph graph
+    static member maximumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.maximumOfUndirectedFContextMap graph
     
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -184,8 +184,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max In-degree</returns>
-    static member maximum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.maximumOfAdjGraph graph
+    static member maximumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.maximumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the max In-degree of the graph. 
@@ -219,8 +219,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.minimumOfAdjGraph graph
+    static member minimumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.minimumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the min In-degree of the graph. 
@@ -245,8 +245,8 @@ type InDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min In-degree</returns>
-    static member minimum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        InDegree.minimumOfAdjGraph graph
+    static member minimumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        InDegree.minimumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the min In-degree of the graph. 

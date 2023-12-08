@@ -33,8 +33,8 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member sizeOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        AdjGraph.countNodes graph
+    static member sizeOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Undirected.FContextMapU.countNodes graph
 
     /// <summary> 
     /// Gets the total number of nodes of the graph
@@ -57,8 +57,8 @@ type Size() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total nodes</returns>
-    static member compute (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Size.sizeOfAdjGraph graph
+    static member computeUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Size.sizeOfUndirectedFContextMap graph
       
     /// <summary> 
     /// Gets the total number of nodes of the graph

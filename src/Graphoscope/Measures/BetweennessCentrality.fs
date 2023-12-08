@@ -7,7 +7,7 @@ open System.Collections.Generic
 type BetweennessCentrality() =
 
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofAdjGraph (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member OfUndirectedFContextMap (getEdgeWeight : 'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData> ) =
         let getDjikstra  (checkedNodes:Set<'NodeKey>) (starting : 'NodeKey)  =
             
             let distance = Dictionary<'NodeKey,('NodeKey*float)>()
@@ -28,7 +28,7 @@ type BetweennessCentrality() =
                 let (currentNode, currentDistance) = priorityQueue.Dequeue()
                 //priorityQueue.Remove(priorityQueue.Min) |> ignore
             
-                let neighbours = AdjGraph.getNeighbours currentNode graph
+                let neighbours = Undirected.FContext.neighbours graph.[currentNode]
 
                 for node,rawDistance in neighbours do
                     let weightedDistance = rawDistance |> getEdgeWeight
@@ -137,14 +137,14 @@ type BetweennessCentrality() =
 
 
 
-    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
-        BetweennessCentrality.ofAdjGraph (fun x -> 1.) graph
+    static member compute (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData> ) =
+        BetweennessCentrality.OfUndirectedFContextMap (fun x -> 1.) graph
     
-    static member computeWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float> ) =
-        BetweennessCentrality.ofAdjGraph id graph
+    static member computeWithEdgeData (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float> ) =
+        BetweennessCentrality.OfUndirectedFContextMap id graph
     
-    static member computeWithEdgeDataBy ((getEdgeWeight : 'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> )) =
-        BetweennessCentrality.ofAdjGraph getEdgeWeight graph
+    static member computeWithEdgeDataBy ((getEdgeWeight : 'EdgeData -> float),(graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData> )) =
+        BetweennessCentrality.OfUndirectedFContextMap getEdgeWeight graph
     
 
 //     /// <summary> 

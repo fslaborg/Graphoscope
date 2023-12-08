@@ -6,26 +6,26 @@ open System.Collections.Generic
 
 type Components() =
 
-    static member getComponentOfAdjGraphNode (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) (nodeID:'NodeKey) :AdjGraph<'NodeKey,'NodeData,'EdgeData> =
+    static member getComponentOfUndirectedFContextMapNode (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) (nodeID:'NodeKey) :Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData> =
         let nodesInComponent = 
-            Algorithms.BFS.ofAdjGraph nodeID graph
+            Algorithms.BFS.OfUndirectedFContextMap nodeID graph
             |> Seq.map(fst)
             |> Set.ofSeq
         graph
-        |> AdjGraph.toSeq
+        |> Undirected.FContextMapU.toSeq
         |> Seq.filter(fun (nk1,nd1,nk2,nd2,w) -> 
             Set.contains nk1 nodesInComponent && Set.contains nk2 nodesInComponent
         )
-        |> AdjGraph.ofSeq
+        |> Undirected.FContextMapU.ofSeq
 
-    static member getGraphComponentsOfAdjGraph (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) :seq<AdjGraph<'NodeKey,'NodeData,'EdgeData>>=
+    static member getGraphComponentsOfUndirectedFContextMap (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) :seq<Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>>=
         let rec getSubgraph toVisitSet (bfElementSet:Set<Set<'NodeKey>>) =
             if Set.count toVisitSet = 0 then
                 bfElementSet
             else
                 let node = Set.minElement toVisitSet
                 let bfElements =
-                    Algorithms.BFS.ofAdjGraph node graph
+                    Algorithms.BFS.OfUndirectedFContextMap node graph
                     |> Seq.map(fst)
                     |> Set.ofSeq
                 let reducedToVisit = Set.difference toVisitSet bfElements
@@ -34,11 +34,11 @@ type Components() =
         bfNodes
         |> Seq.map(fun x -> 
             graph
-            |> AdjGraph.toSeq
+            |> Undirected.FContextMapU.toSeq
             |> Seq.filter(fun (nk1,nd1,nk2,nd2,w) -> 
                 Set.contains nk1 x && Set.contains nk2 x
             )
-            |> AdjGraph.ofSeq 
+            |> Undirected.FContextMapU.ofSeq 
         )
     
 
@@ -97,5 +97,5 @@ type Components() =
                         )
 
 
-    static member compute (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>) :seq<AdjGraph<'NodeKey,'NodeData,'EdgeData>>=
-        Components.getGraphComponentsOfAdjGraph graph
+    static member compute (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) :seq<Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>>=
+        Components.getGraphComponentsOfUndirectedFContextMap graph

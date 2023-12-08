@@ -31,7 +31,7 @@ type ClosenessCentrality() =
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
     /// <returns>A float of the ClosenessCentrality of the given node</returns>
     static member ofFContextMapNodeNormalised  (getEdgeWeightF:'EdgeData -> float) (graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
-        let nodeCount = Measures.Size.compute graph |> float
+        let nodeCount = Measures.Size.sizeOfUndirectedFContextMap graph |> float
         let dic = Algorithms.Dijkstra.ofFContextMap nodeKey getEdgeWeightF graph
         let shortestPathSum = 
             seq {
@@ -42,14 +42,14 @@ type ClosenessCentrality() =
         (nodeCount-1.) / shortestPathSum
 
     /// <summary> 
-    /// Get the ClosenessCentrality of a node in an AdjGraph
+    /// Get the ClosenessCentrality of a node in an UndirectedFContext
     /// </summary>
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
     /// <returns>A float of the ClosenessCentrality of the given node</returns>
-    static member ofAdjGraphNode (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
-        let dic = Algorithms.Dijkstra.ofAdjGraph nodeKey getEdgeWeightF graph
+    static member OfUndirectedFContextMapNode (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+        let dic = Algorithms.Dijkstra.OfUndirectedFContextMap nodeKey getEdgeWeightF graph
         let shortestPathSum = 
             seq {
                     for nv in dic do
@@ -59,15 +59,15 @@ type ClosenessCentrality() =
         1. / shortestPathSum
 
     /// <summary> 
-    /// Get the normalised ClosenessCentrality of a node in an AdjGraph
+    /// Get the normalised ClosenessCentrality of a node in an UndirectedFContext
     /// </summary>
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <param name="nodeKey">The NodeKey to get the Eccentricity of</param> 
     /// <returns>A float of the ClosenessCentrality of the given node</returns>
-    static member ofAdjGraphNodeNormalised  (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
-        let nodeCount = Measures.Size.compute graph |> float
-        let dic = Algorithms.Dijkstra.ofAdjGraph nodeKey getEdgeWeightF graph
+    static member OfUndirectedFContextMapNodeNormalised  (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) (nodeKey:'NodeKey) =    
+        let nodeCount = Measures.Size.sizeOfUndirectedFContextMap graph |> float
+        let dic = Algorithms.Dijkstra.OfUndirectedFContextMap nodeKey getEdgeWeightF graph
         let shortestPathSum = 
             seq {
                     for nv in dic do
@@ -110,10 +110,10 @@ type ClosenessCentrality() =
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member ofAdjGraph (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =    
+    static member OfUndirectedFContextMap (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =    
         let dict = new Dictionary<'NodeKey,float>()
         for i in graph.Keys do
-            let closeness = ClosenessCentrality.ofAdjGraphNode getEdgeWeightF graph i
+            let closeness = ClosenessCentrality.OfUndirectedFContextMapNode getEdgeWeightF graph i
             dict.Add(i,closeness)
         dict
 
@@ -124,10 +124,10 @@ type ClosenessCentrality() =
     /// <param name="getEdgeWeightF">Function to get the edgeweight out of the 'EdgeData</param>     
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member ofAdjGraphNormalised  (getEdgeWeightF:'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =    
+    static member OfUndirectedFContextMapNormalised  (getEdgeWeightF:'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =    
         let dict = new Dictionary<'NodeKey,float>()
         for i in graph.Keys do
-            let closeness = ClosenessCentrality.ofAdjGraphNodeNormalised getEdgeWeightF graph i
+            let closeness = ClosenessCentrality.OfUndirectedFContextMapNodeNormalised getEdgeWeightF graph i
             dict.Add(i,closeness)
         dict
 
@@ -140,12 +140,12 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMapNormalised (fun x -> 1.) graph
 
     /// <summary> 
-    /// Get the normalised ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the normalised ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member computeNormalised (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =  
-        ClosenessCentrality.ofAdjGraphNormalised (fun x -> 1.) graph
+    static member computeNormalisedUndirected (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =  
+        ClosenessCentrality.OfUndirectedFContextMapNormalised (fun x -> 1.) graph
 
     /// <summary> 
     /// Get the normalised ClosenessCentrality of all nodes in a FContextMap
@@ -156,12 +156,12 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMapNormalised id graph
 
     /// <summary> 
-    /// Get the normalised ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the normalised ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member computeNormalisedWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =  
-        ClosenessCentrality.ofAdjGraphNormalised id graph
+    static member computeNormalisedUndirectedWithEdgeData (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =  
+        ClosenessCentrality.OfUndirectedFContextMapNormalised id graph
 
     /// <summary> 
     /// Get the normalised ClosenessCentrality of all nodes in a FContextMap
@@ -173,13 +173,13 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMapNormalised weightF graph
 
     /// <summary> 
-    /// Get the normalised ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the normalised ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member computeNormalisedWithEdgeDataBy ((weightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)) =  
-        ClosenessCentrality.ofAdjGraphNormalised weightF graph
+    static member computeNormalisedUndirectedWithEdgeDataBy ((weightF:'EdgeData -> float),(graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>)) =  
+        ClosenessCentrality.OfUndirectedFContextMapNormalised weightF graph
 
 
 
@@ -192,12 +192,12 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMap (fun x -> 1.) graph
 
     /// <summary> 
-    /// Get the ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =  
-        ClosenessCentrality.ofAdjGraph (fun x -> 1.) graph
+    static member computeUndirected (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =  
+        ClosenessCentrality.OfUndirectedFContextMap (fun x -> 1.) graph
 
     /// <summary> 
     /// Get the ClosenessCentrality of all nodes in a FContextMap
@@ -208,12 +208,12 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMap id graph
 
     /// <summary> 
-    /// Get the ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member computeWithEdgeData (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =  
-        ClosenessCentrality.ofAdjGraph id graph
+    static member computeUndirectedWithEdgeData (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =  
+        ClosenessCentrality.OfUndirectedFContextMap id graph
 
     /// <summary> 
     /// Get the ClosenessCentrality of all nodes in a FContextMap
@@ -225,10 +225,10 @@ type ClosenessCentrality() =
         ClosenessCentrality.ofFContextMap weightF graph
 
     /// <summary> 
-    /// Get the ClosenessCentrality of all nodes in an AdjGraph
+    /// Get the ClosenessCentrality of all nodes in an UndirectedFContext
     /// </summary>
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to be analysed</param>     
     /// <returns>A float of the ClosenessCentrality of all nodes in the given graph</returns>
-    static member computeWithEdgeDataBy ((weightF:'EdgeData -> float),(graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>)) =  
-        ClosenessCentrality.ofAdjGraph weightF graph
+    static member computeWithEdgeDataBy ((weightF:'EdgeData -> float),(graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>)) =  
+        ClosenessCentrality.OfUndirectedFContextMap weightF graph

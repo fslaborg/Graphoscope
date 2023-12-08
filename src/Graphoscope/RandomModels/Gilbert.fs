@@ -13,18 +13,18 @@ type Gilbert() =
     
     
     /// <summary> 
-    /// Inits a directed AdjGraph according to the gilbert random plane networks
+    /// Inits a directed UndirectedFContext according to the gilbert random plane networks
     /// </summary>
-    static member initDirectedAdjGraph (numberOfNodes: int) (probability: float) =
+    static member initDirectedUndirectedFContext (numberOfNodes: int) (probability: float) =
          if probability > 1. || probability < 0. then failwithf "The stated probability %F is outside the expected range of 0. to 1." probability
 
          let rnd = new System.Random()
-         let g   = AdjGraph.empty
+         let g   = Undirected.FContextMapU.empty
 
          for i=0 to (numberOfNodes-1) do          
              for ii=0 to (numberOfNodes-1) do
                  if rnd.NextDouble() < probability then
-                     g |> AdjGraph.addElement i i ii ii probability  |> ignore
+                     g |> Undirected.FContextMapU.addElement i i ii ii probability  |> ignore
          g
 
     /// <summary> 

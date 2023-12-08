@@ -265,15 +265,15 @@ module private Helpers =
 type Louvain() =                   
 
     /// <summary> 
-    /// Takes a AdjGraph and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
+    /// Takes a UndirectedFContext and returns a new graph whose NodeData has been transformed into tupels, where the second part is the community according to modularity-optimization by the Louvain Algorithm (Blondel, Vincent D; Guillaume, Jean-Loup; Lambiotte, Renaud; Lefebvre, Etienne (9 October 2008). "Fast unfolding of communities in large networks". Journal of Statistical Mechanics: Theory and Experiment. 2008 ).
     /// </summary>
     /// <param name="randomized">Boolean, if true randomizes the order in which the vertices are checked. Else the calculations are ordered by the index of the vertices.</param> 
     /// <param name="weightF">Function to get an edgeweight out of the EdgeData</param> 
     /// <param name="modularityIncreaseThreshold">Threshold of modularity-difference that has to be exceeded in order to be recognized as a modularity-increase. The value has to be between 0. and 1. to get a meaningful result. The smaller the value, the longer the calculation takes.</param> 
     /// <param name="resolution">The higher the resolution, the smaller the number of communities. The value has to be 1. or higher. Based on : "R. Lambiotte, J.-C. Delvenne, M. Barahona Laplacian Dynamics and Multiscale Modular Structure in Networks 2009", 	arXiv:0812.1770 [physics.soc-ph].</param> 
-    /// <param name="graph">AdjGraph, that is used as the template for the modularity optimization.</param> 
-    /// <returns>A new AdjGraph whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
-    static member louvainResolution (randomized: bool) (weightF:'Edge -> float) (modularityIncreaseThreshold: float) (resolution: float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>) =
+    /// <param name="graph">UndirectedFContext, that is used as the template for the modularity optimization.</param> 
+    /// <returns>A new UndirectedFContext whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
+    static member louvainResolution (randomized: bool) (weightF:'Edge -> float) (modularityIncreaseThreshold: float) (resolution: float) (graph:Undirected.FContextMapU<'Node,'Label,'Edge>) : (Undirected.FContextMapU<'Node,'Label*int,'Edge>) =
 
                 //Return the value to the key k if it is bound, else fail.        
         //Return the value to the key k if it is bound, else fail.        
@@ -331,7 +331,7 @@ type Louvain() =
                 | None      -> 0.
 
 
-        let louvainMethod (g:AdjGraph<'Node,'Label,'Edge>) (weightF:'Edge -> float) (randomized:bool) (modularityIncreaseThreshold: float) (resolution: float) : (AdjGraph<'Node,'Label*int,'Edge>) =
+        let louvainMethod (g:Undirected.FContextMapU<'Node,'Label,'Edge>) (weightF:'Edge -> float) (randomized:bool) (modularityIncreaseThreshold: float) (resolution: float) : (Undirected.FContextMapU<'Node,'Label*int,'Edge>) =
 
             let nodeToCommunity =
                 g.Keys
@@ -340,18 +340,18 @@ type Louvain() =
 
             let graphSeq:seq<'Node*'Label*'Node*'Label*'Edge>=
                 g
-                |> AdjGraph.toSeq
+                |> Undirected.FContextMapU.toSeq
 
-            let copiedGraph :AdjGraph<'Node,'Label*int,'Edge> =
+            let copiedGraph :Undirected.FContextMapU<'Node,'Label*int,'Edge> =
                 graphSeq
                 |>Seq.map(fun (nk1,nd1,nk2,nd2,e) ->
                     nk1,(nd1,(nodeToCommunity.Item nk1)),
                     nk2,(nd2,(nodeToCommunity.Item nk2)),
                     e
                 )
-                |>AdjGraph.ofSeq
+                |>Undirected.FContextMapU.ofSeq
 
-            let copiedGraph2:AdjGraph<int,int*int,float> =
+            let copiedGraph2:Undirected.FContextMapU<int,int*int,float> =
                 graphSeq
                 |>Seq.map(fun (nk1,nd1,nk2,nd2,e) ->
                     let nk1I = nodeToCommunity.Item nk1
@@ -361,9 +361,9 @@ type Louvain() =
                     nk2I,(nk2I,(nk2I)),
                     weightF e
                 )
-                |>AdjGraph.ofSeq
+                |>Undirected.FContextMapU.ofSeq
 
-            let louvainCycleInPlace (graph:AdjGraph<int,int*int,float>) (randomized:bool) (modularityIncreaseThreshold: float) (numberOfLoops:int) (previousModularity:float) :(int*AdjGraph<int,int*int,float>*float) =
+            let louvainCycleInPlace (graph:Undirected.FContextMapU<int,int*int,float>) (randomized:bool) (modularityIncreaseThreshold: float) (numberOfLoops:int) (previousModularity:float) :(int*Undirected.FContextMapU<int,int*int,float>*float) =
                     
                 //Array of all vertices in the graph
                 let verti =
@@ -377,7 +377,7 @@ type Louvain() =
                 //Array of all neighbouring vertices, returned as (vertex,edgeweight) array. The index of the element is the same as the vertex in verti.
                 let neighbours =
                     verti
-                    |> Array.map(fun x -> AdjGraph.getNeighbours x graph|>Seq.distinct|>Array.ofSeq)
+                    |> Array.map(fun x -> Undirected.FContext.neighbours graph.[x] |>Seq.distinct|>Array.ofSeq)
 
                             
                 //weighted Degree of the vertex. The index of the element is the same as the vertex in verti.
@@ -400,9 +400,9 @@ type Louvain() =
                 //A Dictionary, where the key is the community and the value is a tupel of the weighted degree of the community and the sum of all internal edges.
                 let communitySumtotalSumintern =
                     let output = System.Collections.Generic.Dictionary<int,float*float>() 
-                    for i=0 to (AdjGraph.countNodes graph)-1 do
+                    for i=0 to (Undirected.FContextMapU.countNodes graph)-1 do
                         let vertex = verti.[i]
-                        let originalLabel,label = graph.Item vertex|>fun (l,_) -> l
+                        let originalLabel,label = graph.Item vertex|>fun (p,l,_) -> l
                         let communityWeightTotalStart =  ki.[i]
                         let selfLoopsStart = selfLoops.[i] 
                         output.Add(label,(communityWeightTotalStart,selfLoopsStart))
@@ -438,7 +438,7 @@ type Louvain() =
                 let rec louvainOneLevel (counter:int) (nbOfMoves:int) =
                     
                     //Do until
-                    if counter = AdjGraph.countNodes graph then 
+                    if counter = Undirected.FContextMapU.countNodes graph then 
 
                         nbOfMoves > 0
 
@@ -453,13 +453,13 @@ type Louvain() =
                         let selfloopNode                         = selfLoops.[counter]
                         
                         //Community of the node before potential improvement.
-                        let (fixedCommunity,originalCommunity),_   = (graph.Item node)
+                        let _,(fixedCommunity,originalCommunity),_   = (graph.Item node)
 
                         //Weighted degree of the community,the sum of all internal edges.
                         let (originalCommunityTotalSum,originalCommunitySumIntern)       = getValue originalCommunity communitySumtotalSumintern
                                 
                         //Remove node from its original community.                   
-                        AdjGraph.setNodeData node (fixedCommunity,-1) graph |> ignore
+                        Undirected.FContextMapU.setNodeData node (fixedCommunity,-1) graph |> ignore
 
                         //All neighbors of the node with their edgeWeight.         
                         let neighbors           = 
@@ -471,7 +471,7 @@ type Louvain() =
                         //This if condition prevents problems If the node is isolated and has 0 edges. 
                         if neighbors = Array.empty then  
                             
-                            AdjGraph.setNodeData node (fixedCommunity, originalCommunity) graph|> ignore
+                            Undirected.FContextMapU.setNodeData node (fixedCommunity, originalCommunity) graph|> ignore
                             louvainOneLevel (counter+1) (nbOfMoves)
 
 
@@ -481,7 +481,7 @@ type Louvain() =
                             let connectedCommunities     = 
                                                     
                                 neighbors
-                                |> Array.map (fun (vertex,weight) -> (((graph.Item vertex)|>fun ((l1,l2),_) -> l2),weight)) 
+                                |> Array.map (fun (vertex,weight) -> (((graph.Item vertex)|>fun (_,(l1,l2),_) -> l2),weight)) 
                             
                             //All communities the node is connected to with their edgeweight, removing duplicates. 
                             let connectedCommunitiesCondensed =
@@ -524,7 +524,7 @@ type Louvain() =
                             if modularityGain < 0.  then 
 
                                 //Resetting the community to its original state.                       
-                                AdjGraph.setNodeData node (fixedCommunity,originalCommunity) graph|> ignore
+                                Undirected.FContextMapU.setNodeData node (fixedCommunity,originalCommunity) graph|> ignore
                                 communitySumtotalSumintern.Item originalCommunity <- (originalCommunityTotalSum,originalCommunitySumIntern)
                         
                                 louvainOneLevel (counter+1) (nbOfMoves)
@@ -537,7 +537,7 @@ type Louvain() =
                                 let sumInternBestCommunity              =      (communityNewIn+((2.*(connectionToBestCommunity)+(selfloopNode))))
                                 let communityWeightTotalBestCommunity   =      (communityNewSum+ki)
                             
-                                AdjGraph.setNodeData node (fixedCommunity,bestCommunity) graph|> ignore
+                                Undirected.FContextMapU.setNodeData node (fixedCommunity,bestCommunity) graph|> ignore
                                 communitySumtotalSumintern.Item bestCommunity <- (communityWeightTotalBestCommunity,sumInternBestCommunity)
 
                                 (if bestCommunity <> originalCommunity then (nbOfMoves+1) else nbOfMoves)
@@ -547,11 +547,11 @@ type Louvain() =
                 //The exit conditions are
                 // 1) No improvement was preformed 
                 // 2) The increase in modularityQuality by preforming the louvainOneLevel results in a score lower than the increaseMin.
-                let rec loop nbOfMoves currentQuality improvement :(int*AdjGraph<int,int*int,float>*float)=
+                let rec loop nbOfMoves currentQuality improvement :(int*Undirected.FContextMapU<int,int*int,float>*float)=
 
                     let qualityNew = modularityQuality resolution
 
-                    let build (shouldIBuild:bool) :int*AdjGraph<int,int*int,float>*float=
+                    let build (shouldIBuild:bool) :int*Undirected.FContextMapU<int,int*int,float>*float=
 
                         if not shouldIBuild then
                             failwith "ERROR"
@@ -559,7 +559,7 @@ type Louvain() =
                         
                         //Returns a Map oldCommunity -> updatedCommunity; Returns a dictionary where the key is the vertex and the value is the new community
                             let (vertexToLabelMap,vertexNewLabel) :((Map<int,int>)*(Dictionary<int,int>))=
-                                let labelC = graph.Values|> Seq.map (fun ((l1,l2),_) -> l1,l2)
+                                let labelC = graph.Values|> Seq.map (fun (_,(l1,l2),_) -> l1,l2)
                                 let labelMap =                           
                                     labelC
                                     |> Seq.map snd
@@ -577,17 +577,17 @@ type Louvain() =
                                 let vertexDict = System.Collections.Generic.Dictionary<int,int>()
 
                                 for i in verti do
-                                    vertexDict.Add (i,(labelMap.[(graph.Item i|>fun ((l1,l2),_) -> l2)]))
+                                    vertexDict.Add (i,(labelMap.[(graph.Item i|>fun (_,(l1,l2),_) -> l2)]))
 
                                 labelMap2,vertexDict                         
 
                             //Updates the second set of labels in the outputgraph
                             for i in copiedGraph.Keys do
 
-                                let (originalLabel,currentLabel) = copiedGraph.Item i|> fun (s,_) ->s
+                                let (originalLabel,currentLabel) = copiedGraph.Item i|> fun (_,s,_) ->s
         
                                 let updateLabel     = vertexToLabelMap.[currentLabel]
-                                AdjGraph.setNodeData i (originalLabel,updateLabel) copiedGraph
+                                Undirected.FContextMapU.setNodeData i (originalLabel,updateLabel) copiedGraph
                                 |> ignore
 
                             //Return the edgeList for the next iteration of the louvain algorithm.
@@ -596,7 +596,7 @@ type Louvain() =
                                 let getLabel vertex =
                                     getValue vertex vertexNewLabel
                                 
-                                AdjGraph.toSeq graph
+                                Undirected.FContextMapU.toSeq graph
                                 |> Seq.map (fun (s,s1,t,t1,w) -> ((getLabel s),(getLabel t),w))
                                 |> Seq.groupBy(fun (s,t,w) ->
                                     if s<t then 
@@ -613,7 +613,7 @@ type Louvain() =
                                 
 
                             nbOfMoves,                                    
-                            AdjGraph.ofSeq elementSeq,
+                            Undirected.FContextMapU.ofSeq elementSeq,
                             qualityNew
                     
                     //Start of the cycle
@@ -655,7 +655,7 @@ type Louvain() =
                 loop 0 (modularityQuality resolution) false
 
             //The louvainLoop combines the two phases of the louvain Algorithm. As long as improvments can be performed, the louvainApplication is executed.
-            let rec louvainInPlace_ nbOfLoops (newG:AdjGraph<int,int*int,float>) (modularityIncreaseThreshold: float) (modulartiy:float) =
+            let rec louvainInPlace_ nbOfLoops (newG:Undirected.FContextMapU<int,int*int,float>) (modularityIncreaseThreshold: float) (modulartiy:float) =
             
                 let (nbOfMoves,newGraph,newModularity) = 
                 
@@ -681,7 +681,7 @@ type Louvain() =
     /// <param name="modularityIncreaseThreshold">Threshold of modularity-difference that has to be exceeded in order to be recognized as a modularity-increase. The value has to be between 0. and 1. to get a meaningful result. The smaller the value, the longer the calculation takes.</param> 
     /// <param name="graph">FContextMap, that is used as the template for the modularity optimization.</param> 
     /// <returns>A new FContextMap whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
-    static member louvain (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>) =
+    static member louvain (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:Undirected.FContextMapU<'Node,'Label,'Edge>) : (Undirected.FContextMapU<'Node,'Label*int,'Edge>) =
         Louvain.louvainResolution false weightF modularityIncreaseThreshold 1. graph 
 
     /// <summary> 
@@ -690,7 +690,7 @@ type Louvain() =
     /// <param name="modularityIncreaseThreshold">Threshold of modularity-difference that has to be exceeded in order to be recognized as a modularity-increase. The value has to be between 0. and 1. to get a meaningful result. The smaller the value, the longer the calculation takes.</param> 
     /// <param name="graph">FContextMap, that is used as the template for the modularity optimization.</param> 
     /// <returns>A new FContextMap whose NodeData has been transformed into tupels, where the second part is the community accorging to modularity-optimization.</returns>
-    static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:AdjGraph<'Node,'Label,'Edge>) : (AdjGraph<'Node,'Label*int,'Edge>)=
+    static member louvainRandom (modularityIncreaseThreshold: float) (weightF:'Edge -> float) (graph:Undirected.FContextMapU<'Node,'Label,'Edge>) : (Undirected.FContextMapU<'Node,'Label*int,'Edge>)=
         Louvain.louvainResolution true weightF modularityIncreaseThreshold 1. graph 
 
     /// <summary> 

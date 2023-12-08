@@ -48,7 +48,7 @@ type Dijkstra() =
         distance
 
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofAdjGraph (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData> ) =
+    static member OfUndirectedFContextMap (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData> ) =
         let distance = Dictionary<'NodeKey, float>()
         let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
         let infinity = System.Double.MaxValue
@@ -67,7 +67,7 @@ type Dijkstra() =
             let ((currentNode), currentDistance) = priorityQueue.Dequeue()
             //priorityQueue.Remove(priorityQueue.Min) |> ignore
         
-            let neighbours = AdjGraph.getNeighbours currentNode graph
+            let neighbours = Undirected.FContext.neighbours graph.[currentNode]
 
             for node,rawDistance in neighbours do
                 let weightedDistance = rawDistance |> getEdgeWeight
@@ -82,7 +82,7 @@ type Dijkstra() =
         distance
 
     // Function to perform Dijkstra's shortest path algorithm
-    static member ofUndirectedFContextMapIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+    static member OfUndirectedFContextMapMapIncludingPath (starting : 'NodeKey) (getEdgeWeight : 'EdgeData -> float) (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =
         let distance = Dictionary<'NodeKey,('NodeKey*float)>()
         let priorityQueue: Queue<('NodeKey * float)> = System.Collections.Generic.Queue()//Priority_Queue.SimplePriorityQueue<('NodeKey*float),float>()
         let infinity = System.Double.MaxValue
@@ -101,7 +101,7 @@ type Dijkstra() =
             let (currentNode, currentDistance) = priorityQueue.Dequeue()
             //priorityQueue.Remove(priorityQueue.Min) |> ignore
         
-            let neighbours = AdjGraph.getNeighbours currentNode graph
+            let neighbours = Undirected.FContext.neighbours graph.[currentNode]
 
             for node,rawDistance in neighbours do
                 let weightedDistance = rawDistance |> getEdgeWeight
@@ -276,12 +276,12 @@ type Dijkstra() =
     static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  Directed.FContextMap<'NodeKey, 'NodeData, 'EdgeData>) =
         Dijkstra.ofFContextMap starting getEdgeWeight graph 
 
-    static member compute (starting : 'NodeKey, graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofAdjGraph starting (fun x -> 1.) graph 
-    static member computeWithEdgeData (starting : 'NodeKey, graph :  AdjGraph<'NodeKey, 'NodeData, float>) =
-        Dijkstra.ofAdjGraph starting id graph 
-    static member computeWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  AdjGraph<'NodeKey, 'NodeData, 'EdgeData>) =
-        Dijkstra.ofAdjGraph starting getEdgeWeight graph 
+    static member computeUndirected (starting : 'NodeKey, graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =
+        Dijkstra.OfUndirectedFContextMap starting (fun x -> 1.) graph 
+    static member computeUndirectedWithEdgeData (starting : 'NodeKey, graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =
+        Dijkstra.OfUndirectedFContextMap starting id graph 
+    static member computeUndirectedWithEdgeDataBy (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, 'EdgeData>) =
+        Dijkstra.OfUndirectedFContextMap starting getEdgeWeight graph 
 
     static member compute (starting : 'NodeKey, getEdgeWeight: ('EdgeData -> float), graph :  Directed.LilMatrix<'NodeKey, _, 'EdgeData>) =
         Dijkstra.ofLilMatrix starting getEdgeWeight graph 

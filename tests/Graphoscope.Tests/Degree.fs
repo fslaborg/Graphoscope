@@ -13,7 +13,7 @@ let ``Monkey FContextMap has correct measures`` () =
     //measures taken from http://konect.cc/networks/moreno_rhesus/
     let file = Path.Combine(Environment.CurrentDirectory, "ReferenceGraphs/out.moreno_rhesus_rhesus.txt")
      
-    let monkeyGraph = 
+    let monkeyGraph: Directed.FContextMap<int,string,float> = 
         File.ReadLines file
         |> Seq.skip 2 
         |> Seq.map 
@@ -46,7 +46,7 @@ let ``Monkey FContextMap has correct measures`` () =
         }
         |>Set.ofSeq
 
-    let monkeyDist = Measures.Degree.sequence monkeyGraph|>Set.ofSeq
+    let monkeyDist = Measures.Degree.sequence (monkeyGraph:Directed.FContextMap<'NodeKey,'NodeData,'EdgeData>) |>Set.ofSeq
 
     Assert.Equal(degreeAverage,(Measures.Degree.average monkeyGraph)) 
     Assert.Equal(degreeMax,(Measures.Degree.maximum monkeyGraph)) 

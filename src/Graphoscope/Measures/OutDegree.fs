@@ -28,8 +28,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member sequenceOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.sequenceOfAdjGraph graph
+    static member sequenceOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.sequenceOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph
@@ -56,8 +56,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float seq of out-degree values</returns>
-    static member sequence(graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.sequenceOfAdjGraph graph
+    static member sequenceUndirected(graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.sequenceOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Returns the out-degree sequence of the graph
@@ -92,8 +92,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member averageofAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.averageofAdjGraph graph
+    static member averageOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.averageOfUndirectedFContextMap graph
       
     /// <summary> 
     /// Get the mean out-degree of the graph. 
@@ -129,8 +129,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the mean out-degree</returns>
-    static member average (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) =
-        OutDegree.averageofAdjGraph graph
+    static member averageUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) =
+        OutDegree.averageOfUndirectedFContextMap graph
 
 
     // Get Max Degree
@@ -154,8 +154,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.maximumOfAdjGraph graph
+    static member maximumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.maximumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -180,8 +180,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member maximum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.maximumOfAdjGraph graph
+    static member maximumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.maximumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the max out-degree of the graph. 
@@ -215,8 +215,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the max out-degree</returns>
-    static member minimumOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Degree.minimumOfAdjGraph graph
+    static member minimumOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Degree.minimumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the min out-degree of the graph. 
@@ -242,8 +242,8 @@ type OutDegree() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the min out-degree</returns>
-    static member minimum (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        OutDegree.minimumOfAdjGraph graph
+    static member minimumUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        OutDegree.minimumOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Get the min out-degree of the graph. 

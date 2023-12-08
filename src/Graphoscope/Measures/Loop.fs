@@ -26,11 +26,11 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of loop count</returns>
-    static member loopCountAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
+    static member loopCountUndirectedFContext (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
         [|
             for values in graph do
                 values.Key,
-                values.Value|>fun (n,s) -> s
+                values.Value|>fun (p,n,s) -> s
         |]
         |> Array.sumBy(fun (nk,v) -> 
             v.Keys|>Seq.countIf (fun x -> x=nk)
@@ -63,8 +63,8 @@ type Loop() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>An int of the mean degree</returns>
-    static member loopCount (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Loop.loopCountAdjGraph graph
+    static member loopCountUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Loop.loopCountUndirectedFContext graph
         
     /// <summary> 
     /// Get the amount of self loops. 

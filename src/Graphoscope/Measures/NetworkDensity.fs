@@ -32,9 +32,9 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member ofAdjGraph (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =
+    static member OfUndirectedFContextMap (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =
         let nodesCount  = graph.Count|>float
-        let edgeCount   = AdjGraph.countEdges graph |> float |> fun x -> x*2.
+        let edgeCount   = Undirected.FContextMapU.countEdges graph |> float |> fun x -> x*2.
         let potentialConnections = ((nodesCount) * (nodesCount-1.))
         let density = (edgeCount) / potentialConnections
         density
@@ -70,8 +70,8 @@ type GraphDensity() =
     /// <returns>
     /// The graph density.
     /// </returns> 
-    static member compute (graph :  AdjGraph<'NodeKey, 'NodeData, float>) =
-        GraphDensity.ofAdjGraph graph
+    static member computeUndirected (graph :  Undirected.FContextMapU<'NodeKey, 'NodeData, float>) =
+        GraphDensity.OfUndirectedFContextMap graph
         
     /// <summary> 
     /// Computes the graph density of the given graph <paramref name="graph"/>.

@@ -31,8 +31,8 @@ type Diameter() =
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member ofAdjGraph (weigthF:'EdgeData->float) (graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)  = 
-        Eccentricity.ofAdjGraph weigthF graph
+    static member OfUndirectedFContextMap (weigthF:'EdgeData->float) (graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)  = 
+        Eccentricity.OfUndirectedFContextMap weigthF graph
         |> Seq.maxBy snd
         |> snd
 
@@ -49,8 +49,8 @@ type Diameter() =
     /// </summary>
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member compute((graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Diameter.ofAdjGraph (fun x -> 1.) graph
+    static member computeUndirected((graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)) =
+        Diameter.OfUndirectedFContextMap (fun x -> 1.) graph
 
     /// <summary> 
     /// Get the diameter of graph calculated by their minimum Eccentricity
@@ -65,8 +65,8 @@ type Diameter() =
     /// </summary>
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeData((graph:AdjGraph<'NodeKey,'NodeData,float>)) =
-        Diameter.ofAdjGraph id graph
+    static member computeUndirectedWithEdgeData((graph:Undirected.FContextMapU<'NodeKey,'NodeData,float>)) =
+        Diameter.OfUndirectedFContextMap id graph
 
 
     /// <summary> 
@@ -84,5 +84,5 @@ type Diameter() =
     /// <param name="weigthF">Function to get a float edgeweight of the EdgeData</param> 
     /// <param name="graph">The graph to calculate the diameter for</param> 
     /// <returns>A float of the longest shortest Path of a graph</returns>
-    static member computeWithEdgeDataBy((weigthF:'EdgeData->float),(graph:AdjGraph<'NodeKey,'NodeData,'EdgeData>)) =
-        Diameter.ofAdjGraph weigthF graph
+    static member computeUndirectedWithEdgeDataBy((weigthF:'EdgeData->float),(graph:Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>)) =
+        Diameter.OfUndirectedFContextMap weigthF graph

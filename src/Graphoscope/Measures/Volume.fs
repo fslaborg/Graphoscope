@@ -33,8 +33,8 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member volumeOfAdjGraph (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        AdjGraph.countEdges graph / 2
+    static member volumeOfUndirectedFContextMap (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Undirected.FContextMapU.countEdges graph / 2
        
     /// <summary> 
     /// Gets the total number of edges of the graph
@@ -57,8 +57,8 @@ type Volume() =
     /// </summary>
     /// <param name="graph">The graph to be analysed</param> 
     /// <returns>A float of the total edges</returns>
-    static member compute (graph : AdjGraph<'NodeKey,'NodeData,'EdgeData>) = 
-        Volume.volumeOfAdjGraph graph
+    static member computeUndirected (graph : Undirected.FContextMapU<'NodeKey,'NodeData,'EdgeData>) = 
+        Volume.volumeOfUndirectedFContextMap graph
 
     /// <summary> 
     /// Gets the total number of edges of the graph
