@@ -320,7 +320,7 @@ type FGraph() =
         | false -> None
         | true  -> 
             let (_, _, s) = context
-            match s.TryGetValue(nk1) with
+            match s.TryGetValue(nk2) with
             | false,_  -> None
             | true, e  ->                     
                 Some (nk1,nk2,e)

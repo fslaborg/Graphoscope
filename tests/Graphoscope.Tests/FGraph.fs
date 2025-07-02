@@ -69,3 +69,16 @@ let ``Can reverse a given FGraph's Edges`` () =
     Assert.Equal<int list * int * int list>(manRevGraphVals, revGraphVals)
     Assert.Equal(5.0, (FGraph.countEdges revGraph))
     Assert.Equal(4.0, (FGraph.countNodes revGraph))
+
+[<Fact>]
+let ``tryFindEdge returns result correctly`` () =
+
+    let g = FGraph.empty<int,string,string>
+
+    FGraph.addNode 1 "nd1" g |> ignore
+    FGraph.addNode 2 "nd2" g |> ignore
+    FGraph.addEdge 1 2 "1-2" g |> ignore
+
+    Assert.True(FGraph.tryFindEdge 1 2 g |> Option.isSome)
+    Assert.True(FGraph.tryFindEdge 1 2 g = (Some (1,2,"1-2")))
+    Assert.True(FGraph.tryFindEdge 2 1 g |> Option.isNone)
