@@ -26,3 +26,9 @@ let ``BFS simple example on FGraph works correctly`` () =
     let expected = [(2,'C');(0,'A');(3,'D');(1,'B')]
 
     Assert.Equal<seq<int*char>>(expected, actual)
+
+
+[<Fact>]
+let ``BFS.ofFGraphBy returns correct result`` () =
+
+    ()
