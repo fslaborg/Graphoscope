@@ -84,7 +84,7 @@ open System.Collections.Generic
 
                     for kv in s do
                         let _, ndSuccessor, _ = graph[kv.Key]
-                        if not(visited.Contains(kv.Key)) && predicate nodeKey ndSuccessor s[nodeKey] then
+                        if not (visited.Contains(kv.Key)) && predicate nodeKey ndSuccessor s[nodeKey] then
                             stack.Push(kv.Key)
                             visited.Add(kv.Key) |> ignore
             }
@@ -111,7 +111,7 @@ open System.Collections.Generic
 
                     if currDepth < depth then
                         for kv in s do
-                            if not(visited.Contains(kv.Key)) then
+                            if not (visited.Contains(kv.Key)) then
                                 stack.Push(kv.Key, currDepth + 1)
                                 visited.Add(kv.Key) |> ignore
             }
@@ -131,7 +131,8 @@ open System.Collections.Generic
 
                     if currDepth < depth then
                         for kv in s do
-                            if not(visited.Contains(kv.Key)) && predicate nodeKey nd s[nodeKey] then
+                            let _, ndSuccessor, _ = graph[kv.Key]
+                            if not( visited.Contains(kv.Key)) && predicate kv.Key nd s[kv.Key] then
                                 stack.Push(kv.Key, currDepth + 1)
                                 visited.Add(kv.Key) |> ignore
             }
