@@ -31,6 +31,7 @@ type BFS() =
                 for kv in s do
                     if not(visited.Contains(kv.Key)) then
                         queue.Enqueue(kv.Key)
+                        visited.Add(kv.Key) |> ignore
         }
 
 
