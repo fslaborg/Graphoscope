@@ -86,7 +86,7 @@ type DFS() =
 
                 for kv in s do
                     let _, ndSuccessor, _ = graph[kv.Key]
-                    if not (visited.Contains(kv.Key)) && predicate nodeKey ndSuccessor s[nodeKey] then
+                    if not (visited.Contains(kv.Key)) && predicate kv.Key ndSuccessor s[kv.Key] then
                         stack.Push(kv.Key)
                         visited.Add(kv.Key) |> ignore
         }
