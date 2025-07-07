@@ -51,7 +51,7 @@ let ``DFS.ofFGraphWithDepth returns correct result`` () =
 let ``DFS.ofFGraphWithDepthBy returns correct result`` () =
 
     let actual1 = DFS.ofFGraphWithDepthBy 1 3 (fun _ _ _ -> true) fGraph1 |> Seq.toList
-    let actual2 = DFS.ofFGraphWithDepthBy 1 System.Int32.MaxValue (fun _ _ _ -> true) fGraph1 |> Seq.toList
+    let actual2 = DFS.ofFGraphWithDepthBy 1 System.Int32.MaxValue (fun nk _ _ -> nk <> 4) fGraph1 |> Seq.toList
     let expected1 = [(1, ""); (7, ""); (2, ""); (3, ""); (4, "")]
     let expected2 = [(1, ""); (7, ""); (2, ""); (3, "")]
 
