@@ -151,6 +151,7 @@ type DFS() =
         }
 
 
+    /// <summary>
     /// Traverses nodes reachable from given node in a Depth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the DFS traversal.</param> 
