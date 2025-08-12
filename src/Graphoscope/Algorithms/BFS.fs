@@ -1,20 +1,21 @@
 ﻿namespace Graphoscope.Algorithms
 
+
 open Graphoscope
 open System.Collections.Generic
 
 
 /// <summary> 
-/// Breadth-First Traversal (or Search)
+/// Breadth-First Traversal (or Search).
 /// </summary>
 type BFS() =
-    
+
     /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
-    /// <returns>Sequence of node key and node data</returns>
+    /// <returns>Sequence of node key and node data.</returns>
     static member ofFGraph (starting : 'NodeKey) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
         let visited = HashSet<'NodeKey>()
         let queue = Queue<'NodeKey>()
@@ -23,17 +24,101 @@ type BFS() =
         visited.Add(starting) |> ignore
         seq {
             while queue.Count > 0 do
-                let nodeKey = queue.Dequeue()            
+                let nodeKey = queue.Dequeue()
                 let (_,nd,s) = graph.[nodeKey]
                 yield (nodeKey, nd)
+
                 for kv in s do
                     if not(visited.Contains(kv.Key)) then
                         queue.Enqueue(kv.Key)
                         visited.Add(kv.Key) |> ignore
-        }  
+        }
+
 
     /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search) while using a predicate function.
+    /// </summary>
+    /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
+    /// <param name="predicate">A function applied to the NodeKeys, NodeData, and EdgeData of a traversed node. Nodes are only collected if the function returns true.</param>
+    /// <param name="graph">The graph to traverse.</param> 
+    /// <returns>Sequence of node key and node data traversed where predicate returned true.</returns>
+    /// <remarks>This function does not collect all traversable nodes via BFS and filters them but instead stops the traversal for a given node as soon as predicate returns false and continues with the next node not yet visited. This means that you may lose subgraphs with nodes that would return true when applied to predicate.</remarks>
+    static member ofFGraphBy (starting : 'NodeKey) (predicate : 'NodeKey -> 'NodeData -> 'EdgeData -> bool) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let visited = HashSet<'NodeKey>()
+        let queue = Queue<'NodeKey>()
+
+        queue.Enqueue(starting)
+        visited.Add(starting) |> ignore
+        seq {
+            while queue.Count > 0 do
+                let nodeKey = queue.Dequeue()
+                let (_,nd,s) = graph.[nodeKey]
+                yield (nodeKey, nd)
+                for kv in s do
+                    let _, ndSucc, _ = graph[kv.Key]
+                    if not(visited.Contains(kv.Key)) && predicate kv.Key ndSucc s[kv.Key] then
+                        queue.Enqueue(kv.Key)
+                        visited.Add(kv.Key) |> ignore
+        }
+
+
+    /// <summary> 
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search) with a limited number of follow-up nodes being visited.
+    /// </summary>
+    /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
+    /// <param name="depth">The number of follow-up nodes being visited.</param>
+    /// <param name="graph">The graph to traverse.</param> 
+    /// <returns>Sequence of node key and node data.</returns>
+    static member ofFGraphWithDepth (starting : 'NodeKey) depth (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let visited = HashSet<'NodeKey>()
+        let queue = Queue<'NodeKey * int>()
+
+        queue.Enqueue(starting, 0)
+        visited.Add(starting) |> ignore
+        seq {
+            while queue.Count > 0 do
+                let nodeKey, currDepth = queue.Dequeue()
+                let (_,nd,s) = graph.[nodeKey]
+                yield (nodeKey, nd)
+
+                if currDepth < depth then
+                    for kv in s do
+                        if not(visited.Contains(kv.Key)) then
+                            queue.Enqueue(kv.Key, currDepth + 1)
+        }
+
+
+    /// <summary> 
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search) with a limited number of follow-up nodes being visited while using a predicate function.
+    /// </summary>
+    /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
+    /// <param name="depth">The number of follow-up nodes being visited.</param>
+    /// <param name="predicate">A function applied to the NodeKeys, NodeData, and EdgeData of a traversed node. Nodes are only collected if the function returns true.</param>
+    /// <param name="graph">The graph to traverse.</param> 
+    /// <returns>Sequence of node key and node data traversed where predicate returned true.</returns>
+    /// <remarks>This function does not collect all traversable nodes via BFS and filters them but instead stops the traversal for a given node as soon as predicate returns false and continues with the next node not yet visited. This means that you may lose subgraphs with nodes that would return true when applied to predicate.</remarks>
+    static member ofFGraphWithDepthBy (starting : 'NodeKey) depth (predicate : 'NodeKey -> 'NodeData -> 'EdgeData -> bool) (graph : FGraph<'NodeKey, 'NodeData, 'EdgeData>) =
+        let visited = HashSet<'NodeKey>()
+        let queue = Queue<'NodeKey * int>()
+
+        queue.Enqueue(starting, 0)
+        visited.Add(starting) |> ignore
+        seq {
+            while queue.Count > 0 do
+                let nodeKey, currDepth = queue.Dequeue()
+                let (_,nd,s) = graph.[nodeKey]
+                yield (nodeKey, nd)
+
+                if currDepth < depth then
+                    for kv in s do
+                        let _, ndSucc, _ = graph[kv.Key]
+                        if not(visited.Contains(kv.Key)) && predicate kv.Key ndSucc s[kv.Key] then
+                            queue.Enqueue(kv.Key, currDepth + 1)
+        }
+
+
+    /// <summary> 
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
@@ -46,17 +131,18 @@ type BFS() =
         visited.Add(starting) |> ignore
         seq {
             while queue.Count > 0 do
-                let nodeKey = queue.Dequeue()            
+                let nodeKey = queue.Dequeue()
                 let (nd,s) = graph.[nodeKey]
                 yield (nodeKey, nd)
                 for kv in s do
                     if not(visited.Contains(kv.Key)) then
                         queue.Enqueue(kv.Key)
-                        visited.Add(kv.Key) |> ignore               
-        }  
+                        visited.Add(kv.Key) |> ignore
+        }
+
 
     ///// <summary> 
-    ///// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    ///// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     ///// </summary>
     ///// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     ///// <param name="graph">The graph to traverse.</param> 
@@ -76,10 +162,11 @@ type BFS() =
     //                if not(visited.Contains(kv.Key)) then
     //                    queue.Enqueue(kv.Key)
     //                    visited.Add(kv.Key) |> ignore
-    //    }    
+    //    }
+
 
     /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
@@ -88,8 +175,9 @@ type BFS() =
         // in this overloads type conversion is OK
         BFS.ofFGraph starting graph
 
+
     /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
@@ -100,7 +188,7 @@ type BFS() =
 
 
     /// <summary> 
-    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search)
+    /// Traverses nodes reachable from given node in a Breadth-First Traversal (or Search).
     /// </summary>
     /// <param name="starting">Nodekey for starting the BFS traversal.</param> 
     /// <param name="graph">The graph to traverse.</param> 
