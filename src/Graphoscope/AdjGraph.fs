@@ -284,6 +284,10 @@ type AdjGraph() =
             let source,adjComponent = graph.[sourceKey]
             Dictionary.addOrUpdateInPlace targetKey data adjComponent |> ignore
             Dictionary.addOrUpdateInPlace sourceKey (source,adjComponent) graph |> ignore
+            
+            let target,targetAdjComponent = graph.[targetKey]
+            Dictionary.addOrUpdateInPlace sourceKey data targetAdjComponent |> ignore
+            Dictionary.addOrUpdateInPlace targetKey (target,targetAdjComponent) graph |> ignore
         | false -> 
             failwithf "The source node %O of the edge does not exist in this graph." sourceKey
         
